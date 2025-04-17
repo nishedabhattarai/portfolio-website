@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motor Premium Calculator</title>
+    <link rel="stylesheet" href="css\cssCalculator.css">
+</head>
+<body>
+    <button class="about-btn" onclick="showAbout()">About</button>
+    
+    <div id="aboutOverlay" class="overlay">
+        <div class="about-content">
+            <span class="close-btn" onclick="hideAbout()">&times;</span>
+            <h2>Premium Calculator</h2> 
+            <h2>Version 1.0</h2>
+            <p>Developed by Nisheda Bhattarai</p>
+            <p>Email: nisheda@walla.com</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1>Motor Premium Calculator</h1>
+        
+        <div class="calculator-grid">
+            <div class="form-container">
+                <form id="premiumForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="vehicleType">Vehicle Type</label>
+                            <select id="vehicleType" onchange="toggleVehicleFields()">
+                                <option value="motorcycle" data-link="motorcycle.html">Motorcycle</option>
+                                <option value="private" data-link="private.html">Private</option>
+                                <option value="electric" data-link="electric.html">Electric Vehicle (PV)</option>
+                                <option value="passenger" data-link="passenger.html">Passenger</option>
+                                <option value="goods" data-link="goodsloading.html">Goods Loading</option>
+                                <option value="tanker" data-link="tanker.html">Tanker</option>
+                                <option value="tractor" data-link="tractor.html">Tractor</option>
+                                <option value="tempo" data-link="tempo.html">Tricycle/Tempo/E-Rikshaw</option>
+                                <option value="construction" data-link="construction.html">Construction</option>
+                                <option value="taxi" data-link="taxi.html">Taxi</option>
+                                <option value="agriculture" data-link="agriculture.html">Agriculture/Forestry</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Vehicle Category</label>
+                            <div class="radio-group">
+                                <label><input type="radio" name="govType" value="nonGovernment" checked> Non Government</label>
+                                <label><input type="radio" name="govType" value="government"> Government</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="vehicleValue">Vehicle Value</label>
+                            <input type="number" id="vehicleValue" placeholder="Enter value" min="0" oninput="toggleFieldsBasedOnValue()">
+                            <div class="error-message" id="vehicleValueError"></div>
+                        </div>
+                        <div class="form-group" id="ccGroup">
+                            <label for="cubicCapacity">Cubic Capacity (cc)</label>
+                            <input type="number" id="cubicCapacity" placeholder="Enter cc" min="0">
+                            <div class="error-message" id="cubicCapacityError">Cubic capacity is required</div>
+                        </div>
+                        <div class="form-group" id="electricTypeGroup" style="display: none;">
+                            <label for="electricType">Electric Type</label>
+                            <select id="electricType" onchange="toggleElectricFields()">
+                                <option value="no">No</option>
+                                <option value="yes">Yes</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="hpWattGroup" style="display: none;">
+                            <label for="hpWattValue">HP/Watt Value</label>
+                            <input type="number" id="hpWattValue" placeholder="Enter HP/watt" min="0">
+                            <div class="error-message" id="hpWattValueError">HP/Watt value is required</div>
+                        </div>
+                        <div class="form-group" id="seatCapacityGroup">
+                            <label for="seatCapacity">Seat Capacity</label>
+                            <input type="number" id="seatCapacity" placeholder="Enter Seat Capacity" min="1">
+                            <div class="error-message" id="seatCapacityError">Seat capacity is required</div>
+                        </div>
+                        <div class="form-group" id="helperGroup" style="display: none;">
+                            <label for="helper">Helper (Max 3)</label>
+                            <input type="number" id="helper" placeholder="Enter helpers" min="0" max="3">
+                        </div>
+                        <div class="form-group" id="tonCapacityGroup" style="display: none;">
+                            <label for="tonCapacity">Ton Capacity</label>
+                            <input type="number" id="tonCapacity" placeholder="Enter ton Capacity" min="0">
+                            <div class="error-message" id="tonCapacityError">Ton capacity is required</div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group" id="trailerGroup" style="display: none;">
+                            <label for="hasTrailer">Trailer</label>
+                            <select id="hasTrailer" onchange="toggleTrailerValue()">
+                                <option value="no">No</option>
+                                <option value="yes">Yes</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="trailerValueGroup" style="display: none;">
+                            <label for="trailerValue">Trailer Value</label>
+                            <input type="number" id="trailerValue" placeholder="Enter value" min="0">
+                        </div>
+                    </div>
+
+                    <div class="form-row" id="optionalFieldsGroup">
+                        <div class="form-group" id="voluntaryExcessGroup">
+                            <label for="voluntaryExcess">Voluntary Excess</label>
+                            <select id="voluntaryExcess">
+                                <option value="0">0 (0%)</option>
+                                <option value="500">500 (10%)</option>
+                                <option value="1000">1000 (15%)</option>
+                                <option value="2000">2000 (20%)</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="noClaimDiscountGroup">
+                            <label for="noClaimDiscount">No Claim Discount</label>
+                            <select id="noClaimDiscount">
+                                <option value="0">0 (0%)</option>
+                                <option value="1">1 (15%)</option>
+                                <option value="2">2 (25%)</option>
+                                <option value="3">3 (35%)</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="manufacturingYearGroup">
+                            <label for="manufacturingYear">Manufacturing Year</label>
+                            <input type="number" id="manufacturingYear" placeholder="YYYY" min="1900">
+                            <div class="error-message" id="manufacturingYearError"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-row" id="calculationTypeGroup">
+                        <div class="form-group">
+                            <label for="calculationType">Calculation Type</label>
+                            <select id="calculationType">
+                                <option value="annual">Annual</option>
+                                <option value="shortPeriod">Short Period</option>
+                                <option value="proRate">Pro Rate</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="durationField" style="display: none;">
+                            <label id="durationLabel">Duration</label>
+                            <select id="shortPeriod" style="display: none;">
+                                <option value="1week">1 Week</option>
+                                <option value="1month">1 Month</option>
+                                <option value="2months">2 Months</option>
+                                <option value="3months">3 Months</option>
+                                <option value="4months">4 Months</option>
+                                <option value="5months">5 Months</option>
+                                <option value="6months">6 Months</option>
+                                <option value="7months">7 Months</option>
+                                <option value="8months">8 Months or Above</option>
+                            </select>
+                            <input type="number" id="proRateDays" placeholder="Number of days" min="1" max="365" style="display: none;">
+                            <div class="error-message" id="durationError"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="additionalOptionsGroup">
+                        <label>Additional Options</label>
+                        <label class="checkbox-label" id="directDiscountOption">
+                            <input type="checkbox" id="directDiscount"> Direct Discount (2.5%)
+                        </label>
+                        <label class="checkbox-label" id="rsmdstOption">
+                            <input type="checkbox" id="rsmdst"> RSMDST
+                        </label>
+                        <label class="checkbox-label" id="disabledFriendlyOption" style="display: none;">
+                            <input type="checkbox" id="disabledFriendly"> Disabled Friendly (25% discount)
+                        </label>
+                        <label class="checkbox-label" id="towingChargeOption" style="display: none;">
+                            <input type="checkbox" id="towingCharge"> Towing Charge
+                        </label>
+                        <label class="checkbox-label" id="ownGoodsOption" style="display: none;">
+                            <input type="checkbox" id="ownGoods"> Own Goods Carrying
+                        </label>
+                    </div>
+
+                    <button type="button" id="calculateBtn">Calculate Premium</button>
+                </form>
+            </div>
+
+            <div class="results-container">
+                <h2>Premium Calculation Results</h2>
+                <div class="results-placeholder">
+                    <p>Fill the form and click "Calculate Premium" to see results</p>
+                </div>
+                <div class="results-details" style="display: none;">
+                    <div class="result-item" id="normalPremiumItem" style="display: none;">
+                        <span>Normal Premium:</span>
+                        <span id="normalPremium">NPR 0.00</span>
+                    </div>
+                    <div class="result-item" id="additionalPremiumItem" style="display: none;">
+                        <span>Additional Premium:</span>
+                        <span id="additionalPremium">NPR 0.00</span>
+                    </div>
+                    <div class="result-item" id="tariffDiscountItem" style="display: none;">
+                        <span>Tariff Discount:</span>
+                        <span id="tariffDiscount">NPR 0.00</span>
+                    </div>
+                    <div class="result-item" id="trailerChargeItem" style="display: none;">
+                        <span>Trailer Charge:</span>
+                        <span id="trailerCharge">NPR 0.00</span>
+                    </div>
+                    <div class="result-item" id="oldVehicleChargeItem" style="display: none;">
+                        <span>Old Vehicle Charge:</span>
+                        <span id="oldVehicleCharge">NPR 0.00</span>
+                    </div>
+                    <div class="result-item" id="voluntaryExcessAmountItem" style="display: none;">
+                        <span>Voluntary Excess Amount:</span>
+                        <span id="voluntaryExcessAmount">NPR 0.00</span>
+                    </div>
+                    <div class="result-item" id="noClaimDiscountAmountItem" style="display: none;">
+                        <span>No Claim Discount Amount:</span>
+                        <span id="noClaimDiscountAmount">NPR 0.00</span>
+                    </div>
+                    <div class="result-item discount-item" id="electricDiscountItem" style="display: none;">
+                        <span>Electric Type Discount (25%):</span>
+                        <span id="electricDiscountAmount">NPR 0.00</span>
+                    </div>
+                    <div class="result-item discount-item" id="disabledDiscountItem" style="display: none;">
+                        <span>Disabled Friendly Discount (25%):</span>
+                        <span id="disabledDiscountAmount">NPR 0.00</span>
+                    </div>
+                    <div class="result-item" id="ownGoodsAmountItem" style="display: none;">
+                        <span>Own Goods Carrying:</span>
+                        <span id="ownGoodsAmount">NPR 0.00</span>
+                    </div>
+                    <div class="result-item" id="directDiscountAmountItem" style="display: none;">
+                        <span>Direct Discount Amount:</span>
+                        <span id="directDiscountAmount">NPR 0.00</span>
+                    </div>
+                    <div class="result-item" id="towingChargeAmountItem" style="display: none;">
+                        <span>Towing Charge:</span>
+                        <span id="towingChargeAmount">NPR 0.00</span>
+                    </div>
+                    <div class="result-item" id="basicPremiumItem" style="display: none;">
+                        <span>Basic Premium:</span>
+                        <span id="basicPremium">NPR 0.00</span>
+                    </div>
+                    <div class="result-item">
+                        <span>Third Party:</span>
+                        <span id="thirdParty">NPR 0.00</span>
+                    </div>
+                    <div class="result-item" id="noClaimDiscountTPItem" style="display: none;">
+                        <span>No Claim Discount (TP):</span>
+                        <span id="noClaimDiscountTP">NPR 0.00</span>
+                    </div>
+                    <div class="result-item discount-item" id="disabledDiscountTPItem" style="display: none;">
+                        <span>Disabled Friendly Discount (TP 25%):</span>
+                        <span id="disabledDiscountTPAmount">NPR 0.00</span>
+                    </div>
+                    <div class="result-item" id="driverPremiumItem" style="display: none;">
+                        <span>Driver Premium:</span>
+                        <span id="driverPremium">NPR 0.00</span>
+                    </div>
+                    <div class="result-item" id="helperPremiumItem" style="display: none;">
+                        <span>Helper Premium:</span>
+                        <span id="helperPremium">NPR 0.00</span>
+                    </div>
+                    <div class="result-item" id="passengerPremiumItem" style="display: none;">
+                        <span>Passenger Premium:</span>
+                        <span id="passengerPremium">NPR 0.00</span>
+                    </div>
+                    <div class="result-item" id="rsmdstAmountItem" style="display: none;">
+                        <span>RSMDST:</span>
+                        <span id="rsmdstAmount">NPR 0.00</span>
+                    </div>
+                    <div class="result-item">
+                        <span>VAT (13%):</span>
+                        <span id="vatAmount">NPR 0.00</span>
+                    </div>
+                    <div class="result-item">
+                        <span>Stamp Charge:</span>
+                        <span id="stampCharge">NPR 0.00</span>
+                    </div>
+                    <div class="result-item total">
+                        <span>Total Premium:</span>
+                        <span id="totalPremium">NPR 0.00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js\jsCalculator.js"></script>
+</body>
+</html>
