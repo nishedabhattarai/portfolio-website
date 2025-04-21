@@ -278,6 +278,35 @@
                         <span>Total Premium:</span>
                         <span id="totalPremium">NPR 0.00</span>
                     </div>
+                <button id="printBtn" class="print-btn">Print</button>
+                </div>
+
+                <!-- Print Preview Modal -->
+                <div id="printModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal">&times;</span>
+                        <h3>Enter Details for Print</h3>
+                        <div class="form-group">
+                            <label for="insuredName">Insured's Name:</label>
+                            <input type="text" id="insuredName" placeholder="Enter full name">
+                        </div>
+                        <div class="form-group">
+                            <label for="vehicleDetails">Vehicle Details:</label>
+                            <input type="text" id="vehicleDetails" placeholder="Vehicle Number">
+                        </div>
+                        <button id="confirmPrint" class="confirm-print-btn">Generate Print Preview</button>
+                    </div>
+                </div>
+
+                <!-- Print Template (hidden until needed) -->
+                <div id="printTemplate" class="print-template">
+                    <div class="print-header">
+                        <h2>Premium Calculation Details</h2>
+                        <p><strong>Insured Name:</strong> <span id="printInsuredName"></span></p>
+                        <p><strong>Vehicle Details:</strong> <span id="printVehicleDetails"></span></p>
+                        <p><strong>Date:</strong> <span id="printDate"></span></p>
+                    </div>
+                    <div id="printResultsContent"></div>
                 </div>
             </div>
         </div>

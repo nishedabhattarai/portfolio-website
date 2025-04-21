@@ -28,11 +28,13 @@
                 calculationTypeGroup.style.display = 'flex';
                 directDiscountOption.style.display = isGovernment ? 'none' : 'flex';
                 towingChargeOption.style.display = vehicleType === 'motorcycle' ? 'none' : 'flex';
+		disabledFriendlyOption.style.display = vehicleType === 'motorcycle' ? 'flex' : 'none';
                 ownGoodsOption.style.display = (isGovernment || vehicleType === 'motorcycle' || vehicleType === 'private' || vehicleType === 'electric' || vehicleType === 'taxi') ? 'none' : 'flex';
             } else {
                 optionalFieldsGroup.style.display = 'none';
                 calculationTypeGroup.style.display = 'none';
                 directDiscountOption.style.display = 'none';
+		disabledFriendlyOption.style.display = 'none';
                 towingChargeOption.style.display = 'none';
                 ownGoodsOption.style.display = 'none';
             }
@@ -123,7 +125,7 @@
             } 
             else if (vehicleType === 'motorcycle') {
                 electricTypeGroup.style.display = 'block';
-                disabledFriendlyOption.style.display = 'flex';
+                disabledFriendlyOption.style.display = parseFloat(document.getElementById('vehicleValue').value) > 0 ? 'flex' : 'none';
             }
             else if (vehicleType === 'tempo') {
                 electricTypeGroup.style.display = 'block';
@@ -242,17 +244,64 @@
             const vehicleValueError = document.getElementById('vehicleValueError');
             const durationError = document.getElementById('durationError');
             const helperInput = document.getElementById('helper');
+            const printBtn = document.getElementById('printBtn');
+            const printModal = document.getElementById('printModal');
+            const closeModal = document.querySelector('.close-modal');
+            const confirmPrintBtn = document.getElementById('confirmPrint');
+
+            // Open print modal
+            printBtn.addEventListener('click', function() {
+                printModal.style.display = 'block';
+            });
+    
+            // Close modal when clicking X
+            closeModal.addEventListener('click', function() {
+                printModal.style.display = 'none';
+            });
+    
+            // Close modal when clicking outside
+            window.addEventListener('click', function(event) {
+                if (event.target === printModal) {
+                    printModal.style.display = 'none';
+                }
+            });
+    
+            // Generate print preview
+            confirmPrintBtn.addEventListener('click', function() {
+                const insuredName = document.getElementById('insuredName').value;
+                const vehicleDetails = document.getElementById('vehicleDetails').value;
+                
+                // Prepare print template
+                document.getElementById('printInsuredName').textContent = insuredName;
+                document.getElementById('printVehicleDetails').textContent = vehicleDetails;
+                document.getElementById('printDate').textContent = new Date().toLocaleDateString();
+        
+                // Clone the results to the print template
+                const resultsContent = document.querySelector('.results-details').cloneNode(true);
+                document.getElementById('printResultsContent').innerHTML = '';
+                document.getElementById('printResultsContent').appendChild(resultsContent);
+        
+                // Show print dialog
+                printModal.style.display = 'none';
+                document.getElementById('printTemplate').style.display = 'block';
+                window.print();
+                document.getElementById('printTemplate').style.display = 'none';
+        
+                // Clear inputs
+                document.getElementById('insuredName').value = '';
+                document.getElementById('vehicleDetails').value = '';
+            });
 
             // Set current year as max for manufacturing year
             const currentYear = new Date().getFullYear();
             manufacturingYearInput.max = currentYear;
 
-	    // Add govType change listener
-	    document.querySelectorAll('input[name="govType"]').forEach(radio => {
-		radio.addEventListener('change', function() {
-		    toggleFieldsBasedOnValue();
-		});
-	    })
+	        // Add govType change listener
+	        document.querySelectorAll('input[name="govType"]').forEach(radio => {
+		    radio.addEventListener('change', function() {
+		        toggleFieldsBasedOnValue();
+		    });
+	        })
 
             // Limit helper input to max 3
             helperInput.addEventListener('input', function() {
@@ -342,10 +391,10 @@
                 }
             });
 
-	        // Set default checkboxes
-		document.getElementById('directDiscount').checked = true;
-        	document.getElementById('rsmdst').checked = true;
-        	document.getElementById('towingCharge').checked = true;
+	        // Set default checkboxes based on vehicle value
+		    document.getElementById('directDiscount').checked = true;
+        	    document.getElementById('rsmdst').checked = true;
+        	    document.getElementById('towingCharge').checked = true;
 
 	        // Add Enter key functionality for the form
        		document.getElementById('premiumForm').addEventListener('keypress', function(e) {
