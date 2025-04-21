@@ -10,7 +10,6 @@ body {
     color: #333;
     line-height: 1.00;
     padding: 20px;
-    font-family: Arial, sans-serif;
     margin: 0;
 }
 
@@ -303,7 +302,7 @@ button:hover {
         padding: 20px;
     }
     .no-print {
-        display: none !important;
+        display: none;
     }
 }
 
