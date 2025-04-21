@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Motor Premium Calculator</title>
     <link rel="stylesheet" href="css/cssCalculator.css">
-    <link rel="icon" href="favicon.png" type="image/x-icon">
+    <link rel="icon" href="favicon.png" type="image/x-icon" alt="Premium Calculator Icon">
+    <script src="js/jsCalculator.js"></script>
+    <link rel="preload" href="js/jsCalculator.js" as="script">
+    <link rel="stylesheet" href="print.css" media="print">
 </head>
 <body>
     <button class="about-btn" onclick="showAbout()">About</button>
@@ -70,7 +73,8 @@
                                 <option value="yes">Yes</option>
                             </select>
                         </div>
-                        <div class="form-group" id="hpWattGroup" style="display: none;">
+                        <div class="form-group" id="hpWattGroup" .hidden { display: none;
+			}
                             <label for="hpWattValue">HP/Watt Value</label>
                             <input type="number" id="hpWattValue" placeholder="Enter HP/watt" min="0">
                             <div class="error-message" id="hpWattValueError">HP/Watt value is required</div>
@@ -312,7 +316,5 @@
             </div>
         </div>
     </div>
-
-    <script src="js/jsCalculator.js"></script>
 </body>
 </html>
