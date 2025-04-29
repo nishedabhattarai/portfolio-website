@@ -1,3 +1,11 @@
+// Format all amounts as NPR with 2 decimal places
+const format = (amount) => new Intl.NumberFormat('en-NP', {
+    style: 'currency',
+    currency: 'NPR',
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+}).format(amount);
+
         function showAbout() {
             document.getElementById('aboutOverlay').style.display = 'flex';
         }
@@ -17,24 +25,32 @@
             const vehicleValue = parseFloat(document.getElementById('vehicleValue').value) || 0;
             const optionalFieldsGroup = document.getElementById('optionalFieldsGroup');
             const calculationTypeGroup = document.getElementById('calculationTypeGroup');
+            const disabledFriendlyOption = document.getElementById('disabledFriendlyOption');
+            const autoplusGroup = document.getElementById('autoplusGroup');
+            const autoplusTypeGroup = document.getElementById('autoplusTypeGroup');
             const directDiscountOption = document.getElementById('directDiscountOption');
             const towingChargeOption = document.getElementById('towingChargeOption');
             const ownGoodsOption = document.getElementById('ownGoodsOption');
             const vehicleType = document.getElementById('vehicleType').value;
     	    const isGovernment = document.querySelector('input[name="govType"]:checked').value === 'government';
-            
+            const isAutoplus = document.getElementById('autoplusOption')?.value === 'withAp';    
+        
             if (vehicleValue > 0) {
                 optionalFieldsGroup.style.display = 'flex';
                 calculationTypeGroup.style.display = 'flex';
+                autoplusGroup.style.display = (vehicleType === 'motorcycle' || vehicleType === 'private' || vehicleType === 'electric') ? 'flex' : 'none';
+                autoplusTypeGroup.style.display = isAutoplus ? 'flex' : 'none';
                 directDiscountOption.style.display = isGovernment ? 'none' : 'flex';
                 towingChargeOption.style.display = vehicleType === 'motorcycle' ? 'none' : 'flex';
-		disabledFriendlyOption.style.display = vehicleType === 'motorcycle' ? 'flex' : 'none';
+        		disabledFriendlyOption.style.display = vehicleType === 'motorcycle' ? 'flex' : 'none';
                 ownGoodsOption.style.display = (isGovernment || vehicleType === 'motorcycle' || vehicleType === 'private' || vehicleType === 'electric' || vehicleType === 'taxi') ? 'none' : 'flex';
             } else {
                 optionalFieldsGroup.style.display = 'none';
                 calculationTypeGroup.style.display = 'none';
+                autoplusGroup.style.display = 'none';
+                autoplusTypeGroup.style.display = 'none';
                 directDiscountOption.style.display = 'none';
-		disabledFriendlyOption.style.display = 'none';
+		        disabledFriendlyOption.style.display = 'none';
                 towingChargeOption.style.display = 'none';
                 ownGoodsOption.style.display = 'none';
             }
@@ -77,8 +93,8 @@
             // Set required fields based on vehicle type
     	    document.getElementById('cubicCapacity').required = false;
     	    document.getElementById('hpWattValue').required = false;
-
-	    // Handle seat capacity requirements
+        
+            // Handle seat capacity requirements
 	    if (vehicleType === 'motorcycle' || vehicleType === 'tractor') {
             	seatCapacityGroup.style.display = 'none';
             	document.getElementById('seatCapacity').required = false;
@@ -156,6 +172,24 @@
             }
         }
 
+        function toggleAutoplusFields() {
+            const autoplusOption = document.getElementById('autoplusOption').value;
+            const companyField = document.getElementById('companyField');
+            const autoplusTypeGroup = document.getElementById('autoplusTypeGroup');
+            const vehicleType = document.getElementById('vehicleType').value;
+                
+            // Only show Autoplus options for motorcycle, private, and electric vehicles
+            const showAutoplus = (vehicleType === 'motorcycle' || vehicleType === 'private' || vehicleType === 'electric');
+            
+            if (autoplusOption === 'withAp' && showAutoplus) {
+                companyField.style.display = 'block';
+                autoplusTypeGroup.style.display = 'block';
+            } else {
+                companyField.style.display = 'none';
+                autoplusTypeGroup.style.display = 'none';
+                }
+            }	    
+
         function toggleElectricFields() {
             const isElectricType = document.getElementById('electricType').value === 'yes';
             const ccGroup = document.getElementById('ccGroup');
@@ -224,9 +258,14 @@
             // Get form elements
             const calculationType = document.getElementById('calculationType');
             const durationField = document.getElementById('durationField');
+            const companyField = document.getElementById('companyField');
             const shortPeriodSelect = document.getElementById('shortPeriod');
+            const withApSelect = document.getElementById('withApSelect');
+            const withoutApSelect = document.getElementById('withoutAp');
+            const autoplusOption = document.getElementById('autoplusOption');
             const proRateDaysInput = document.getElementById('proRateDays');
             const durationLabel = document.getElementById('durationLabel');
+            const companyLabel = document.getElementById('companyLabel');
             const calculateBtn = document.getElementById('calculateBtn');
             const resultsPlaceholder = document.querySelector('.results-placeholder');
             const resultsDetails = document.querySelector('.results-details');
@@ -243,6 +282,7 @@
             const vehicleValueInput = document.getElementById('vehicleValue');
             const vehicleValueError = document.getElementById('vehicleValueError');
             const durationError = document.getElementById('durationError');
+            const autoplusError = document.getElementById('autoplusError');
             const helperInput = document.getElementById('helper');
             const printBtn = document.getElementById('printBtn');
             const printModal = document.getElementById('printModal');
@@ -327,6 +367,22 @@
                 }
             });
 
+            // Show/hide Autoplus fields based on calculation type
+            autoplusOption.addEventListener('change', function() {
+                if (this.value === 'withAp') {
+                    companyField.style.display = 'block';
+                    withApSelect.style.display = 'block';
+                    autoplusTypeGroup.style.display = 'block';
+                    withoutApSelect.style.display = 'none';
+                    companyLabel.textContent = 'Shikhar Insurance Co. Ltd.';
+                } else {
+                    companyField.style.display = 'none';
+                    autoplusTypeGroup.style.display = 'none';
+                }
+                autoplusTypeGroup.style.display = this.value === 'withAp' ? 'block' : 'none';
+                autoplusError.style.display = this.value === 'withAp' ? 'block' : 'none';
+            });
+
             // Validate cubic capacity or HP/Watt value on input
             cubicCapacityInput.addEventListener('input', function() {
                 if (!this.value && document.getElementById('vehicleType').value !== 'electric') {
@@ -348,6 +404,9 @@
                 }
             });
 
+            document.getElementById('autoplusOption').addEventListener('change', toggleAutoplusFields);
+            document.getElementById('vehicleType').addEventListener('change', toggleAutoplusFields);
+            
 	    // Event Litener for seat capacity validation	
 	    seatCapacityInput.addEventListener('input', function() {
 	    const vehicleType = document.getElementById('vehicleType').value;
@@ -393,8 +452,8 @@
 
 	        // Set default checkboxes based on vehicle value
 		    document.getElementById('directDiscount').checked = true;
-        	    document.getElementById('rsmdst').checked = true;
-        	    document.getElementById('towingCharge').checked = true;
+        	document.getElementById('rsmdst').checked = true;
+        	document.getElementById('towingCharge').checked = true;
 
 	        // Add Enter key functionality for the form
        		document.getElementById('premiumForm').addEventListener('keypress', function(e) {
@@ -412,7 +471,6 @@
                 const vehicleType = document.getElementById('vehicleType').value;
                 const isElectricType = document.getElementById('electricType')?.value === 'yes';
                 const seatCapacity = parseFloat(document.getElementById('seatCapacity').value) || 0;
-                const tonCapacity = parseFloat(document.getElementById('tonCapacity').value) || 0;
                 
                 if (vehicleType !== 'motorcycle' && vehicleType !== 'tractor' && seatCapacity <= 0) {
                     seatCapacityError.textContent = 'Seat capacity is required';
@@ -485,7 +543,12 @@
                 calculatePremium();
             });
 
-            function calculatePremium() {
+            function calculatePremium() {                
+                
+                let depreciationPremium = 0;
+                let newVehiclePremium = 0;
+                let rentalPremium = 0;
+                
                 // Get all form values
                 const vehicleType = document.getElementById('vehicleType').value;
                 const voluntaryExcess = parseInt(document.getElementById('voluntaryExcess').value);
@@ -591,6 +654,7 @@
                             tariffDiscount = 6000;
                         }
                     }
+                    
                 } else if (vehicleType === 'electric') {
                     // Electric vehicle premium calculation
                     if (vehicleValue > 0) {
@@ -840,7 +904,7 @@
                     if (noClaimDiscount === 1) noClaimDiscountRate = 0.20;
                     else if (noClaimDiscount === 2) noClaimDiscountRate = 0.30;
                     else if (noClaimDiscount === 3) noClaimDiscountRate = 0.40;
-                    else if (noClaimDiscountgit === 4) noClaimDiscountRate = 0.45;
+                    else if (noClaimDiscount === 4) noClaimDiscountRate = 0.45;
                     else if (noClaimDiscount === 5) noClaimDiscountRate = 0.50;
                 } else if (vehicleType === 'motorcycle') {
                     // Motorcycle NCD rates
@@ -866,7 +930,7 @@
                                 
                 // Step 7: Direct Discount Amount
                 let directDiscountAmount = 0;
-                if (!isGovernment && vehicleValue > 0 && hasDirectDiscount) {
+                if (!isGovernment && hasDirectDiscount && vehicleValue > 0) {
                     directDiscountAmount = (normalPremium + additionalPremium + oldVehicleCharge + trailerCharge - tariffDiscount - voluntaryExcessAmount - noClaimDiscountAmount - ownGoodsAmount) * 0.025;
                 }
 
@@ -1080,8 +1144,11 @@
                 }
                 
                 // Step 13: No Claim Discount (TP)
-                const noClaimDiscountTP = thirdParty * noClaimDiscountRate;
-                
+                let noClaimDiscountTP = 0;
+                if (vehicleValue > 0) {
+                noClaimDiscountTP = thirdParty * noClaimDiscountRate;
+                }
+
                 // Step 14: Disabled Friendly Discount (TP 25%)
                 let disabledDiscountTPAmount = 0;
                 if (isDisabledFriendly) {
@@ -1146,6 +1213,111 @@
                 // Step 20: Total Premium
                 const totalPremium = basicPremium + thirdPartyPremium + rsmdstAmount + driverPremium + helperPremium + passengerPremium + vatAmount + stampCharge;
                 
+                // Step 21: Calculate autoplus premium based on options
+
+                const isAutoplus = document.getElementById('autoplusOption').value === 'withAp';
+
+                if (isAutoplus && (vehicleType === 'motorcycle' || vehicleType === 'private' || vehicleType === 'electric')) {
+                    const isDepreciation = document.getElementById('depreciationWaiver').checked;
+                    const isNewVehicle = document.getElementById('newVehicleReplacement').checked;
+                    const isRental = document.getElementById('dailyRental').checked;
+                    const company = document.getElementById('withAp').value;
+                
+                    //  Base rates
+                    if (isDepreciation && vehicleType === 'motorcycle' && vehicleValue > 0) {
+                            if (vehicleAge === 0) {
+                                depreciationPremium = vehicleValue * 0.0020;
+                            } else if (vehicleAge === 1) {
+                                depreciationPremium = vehicleValue * 0.0025;
+                            } else if (vehicleAge === 2) {
+                                depreciationPremium = vehicleValue * 0.0030;
+                            } else if (vehicleAge === 3) {
+                                depreciationPremium = vehicleValue * 0.0040;
+                            } else if (vehicleAge === 4) {
+                                depreciationPremium = vehicleValue * 0.0050;
+                            } else if (vehicleAge >= 5 && vehicleAge <= 10) {
+                                depreciationPremium = vehicleValue * 0.0060;
+                            }
+                        }
+                        if (isNewVehicle && vehicleType === 'motorcycle' && vehicleValue > 0) {
+                            if (vehicleAge === 0) {
+                                newVehiclePremium = vehicleValue * 0.0020;
+                            } else if (vehicleAge === 1) {
+                                newVehiclePremium = vehicleValue * 0.0025;
+                            } else if (vehicleAge === 2) {
+                                newVehiclePremium = vehicleValue * 0.0030;
+                            } else if (vehicleAge === 3) {
+                                newVehiclePremium = vehicleValue * 0.0040;
+                            } else if (vehicleAge === 4) {
+                                newVehiclePremium = vehicleValue * 0.0050;
+                            } else if (vehicleAge >= 5 && vehicleAge <= 10) {
+                                newVehiclePremium = vehicleValue * 0.0060;
+                            }
+                        }
+                        if (isRental && vehicleType === 'motorcycle' && vehicleValue > 0) {
+                            if (vehicleAge >= 0 && vehicleAge <= 10) {
+                                rentalPremium = vehicleValue * 0.0020;
+                            }
+                        }
+                        if (isDepreciation && vehicleValue > 0 && (vehicleType === 'private' || vehicleType === 'electric')) {
+                            if (vehicleAge === 0) {
+                                depreciationPremium = vehicleValue * 0.0010;
+                            } else if (vehicleAge === 1) {
+                                depreciationPremium = vehicleValue * 0.0013;
+                            } else if (vehicleAge === 2) {
+                                depreciationPremium = vehicleValue * 0.0018;
+                            } else if (vehicleAge === 3) {
+                                depreciationPremium = vehicleValue * 0.0024;
+                            } else if (vehicleAge === 4) {
+                                depreciationPremium = vehicleValue * 0.0038;
+                            } else if (vehicleAge >= 5 && vehicleAge <= 10) {
+                                depreciationPremium = vehicleValue * 0.0051;
+                            }
+                        }
+                        if (isNewVehicle && (vehicleType === 'private' || vehicleType === 'electric')) {
+                            if (vehicleAge === 0) {
+                                newVehiclePremium = vehicleValue * 0.0010;
+                            } else if (vehicleAge === 1) {
+                                newVehiclePremium = vehicleValue * 0.0013;
+                            } else if (vehicleAge === 2) {
+                                newVehiclePremium = vehicleValue * 0.0018;
+                            } else if (vehicleAge === 3) {
+                                newVehiclePremium = vehicleValue * 0.0024;
+                            } else if (vehicleAge === 4) {
+                                newVehiclePremium = vehicleValue * 0.0038;
+                            } else if (vehicleAge >= 5 && vehicleAge <= 10) {
+                                newVehiclePremium = vehicleValue * 0.0051;
+                            }
+                        }
+                        if (isRental && (vehicleType === 'private' || vehicleType === 'electric')) {
+                            if (vehicleAge >= 0 && vehicleAge <= 10) {
+                                rentalPremium = vehicleValue * 0.0020;
+                            }
+                        }
+                    }
+
+                // Step 22: VAT
+                const apVatAmount = (depreciationPremium + newVehiclePremium + rentalPremium) * 0.13;
+                
+                // Step 23: Stamp Charge
+                let apStampCharge = 0;
+                
+                if (isAutoplus && vehicleValue > 100000) {
+                    apStampCharge = 20.00;
+                } else if (isAutoplus && vehicleValue > 0 && vehicleValue <= 100000) {
+                    apStampCharge = 10.00;
+                }
+
+                // Step 24: Total Autoplus Premium
+                const totalApPremium = depreciationPremium + newVehiclePremium + rentalPremium + apVatAmount + apStampCharge;
+
+                // Step 25: Total Premium with Autoplus
+                let totalPremiumWithAutoplus = 0;
+                
+                if (isAutoplus && vehicleValue > 0 && (vehicleType === 'motorcycle' || vehicleType === 'private' || vehicleType === 'electric')) {
+                totalPremiumWithAutoplus = totalPremium + totalApPremium;
+                }
+    
                 // Display results
                 displayResults({
                     normalPremium,
@@ -1172,25 +1344,73 @@
                     vatAmount,
                     stampCharge,
                     totalPremium,
+                    totalApPremium,
+                    totalPremiumWithAutoplus,
              	    hasVehicleValue: vehicleValue > 0
                 });
             }
 
             function displayResults(results) {
                 // Hide placeholder and show results
+                const resultsPlaceholder = document.querySelector('.results-placeholder');
+                const resultsDetails = document.querySelector('.results-details');
+            
                 resultsPlaceholder.style.display = 'none';
                 resultsDetails.style.display = 'grid';
                 
-                const vehicleType = document.getElementById('vehicleType').value;
-                const seatCapacity = parseFloat(document.getElementById('seatCapacity').value) || 0;
-    
+                // Update all result values
+                document.getElementById('normalPremium').textContent = format(results.normalPremium);
+                document.getElementById('additionalPremium').textContent = format(results.additionalPremium);
+                document.getElementById('tariffDiscount').textContent = format(results.tariffDiscount);
+                document.getElementById('trailerCharge').textContent = format(results.trailerCharge);
+                document.getElementById('oldVehicleCharge').textContent = format(results.oldVehicleCharge);
+                document.getElementById('voluntaryExcessAmount').textContent = format(results.voluntaryExcessAmount);
+                document.getElementById('noClaimDiscountAmount').textContent = format(results.noClaimDiscountAmount);
+                document.getElementById('electricDiscountAmount').textContent = format(results.electricDiscountAmount);
+                document.getElementById('disabledDiscountAmount').textContent = format(results.disabledDiscountAmount);
+                document.getElementById('towingChargeAmount').textContent = format(results.towingChargeAmount);
+                document.getElementById('basicPremium').textContent = format(results.basicPremium);
+                document.getElementById('thirdParty').textContent = format(results.thirdParty);
+                document.getElementById('noClaimDiscountTP').textContent = format(results.noClaimDiscountTP);
+                document.getElementById('disabledDiscountTPAmount').textContent = format(results.disabledDiscountTPAmount);
+                document.getElementById('driverPremium').textContent = format(results.driverPremium);
+                document.getElementById('helperPremium').textContent = format(results.helperPremium);
+                document.getElementById('passengerPremium').textContent = format(results.passengerPremium);
+                document.getElementById('rsmdstAmount').textContent = format(results.rsmdstAmount);
+                document.getElementById('vatAmount').textContent = format(results.vatAmount);
+                document.getElementById('stampCharge').textContent = format(results.stampCharge);
+                document.getElementById('totalPremium').textContent = format(results.totalPremium);
+                document.getElementById('totalApPremium').textContent = format(results.totalApPremium);
+                document.getElementById('totalPremiumWithAutoplus').textContent = format(results.totalPremiumWithAutoplus);
+
+                // Show/hide sections based on values
+                document.getElementById('normalPremiumItem').style.display = results.normalPremium > 0 ? 'flex' : 'none';
+                document.getElementById('additionalPremiumItem').style.display = results.additionalPremium > 0 ? 'flex' : 'none';
+                document.getElementById('tariffDiscountItem').style.display = results.tariffDiscount > 0 ? 'flex' : 'none';
+                document.getElementById('trailerChargeItem').style.display = results.trailerCharge > 0 ? 'flex' : 'none';
+                document.getElementById('oldVehicleChargeItem').style.display = results.oldVehicleCharge > 0 ? 'flex' : 'none';
+                document.getElementById('voluntaryExcessAmountItem').style.display = results.voluntaryExcessAmount > 0 ? 'flex' : 'none';
+                document.getElementById('noClaimDiscountAmountItem').style.display = results.noClaimDiscountAmount > 0 ? 'flex' : 'none';
+                document.getElementById('ownGoodsAmountItem').style.display = results.ownGoodsAmount > 0 ? 'flex' : 'none';
+                document.getElementById('directDiscountAmountItem').style.display = results.directDiscountAmount > 0 ? 'flex' : 'none';
+                document.getElementById('electricDiscountItem').style.display = results.electricDiscountAmount > 0 ? 'flex' : 'none';
+                document.getElementById('disabledDiscountItem').style.display = results.disabledDiscountAmount > 0 ? 'flex' : 'none';
+                document.getElementById('towingChargeAmountItem').style.display = results.towingChargeAmount > 0 ? 'flex' : 'none';
+                document.getElementById('basicPremiumItem').style.display = results.basicPremium > 0 ? 'flex' : 'none';
+                document.getElementById('noClaimDiscountTPItem').style.display = results.noClaimDiscountTP > 0 ? 'flex' : 'none';
+                document.getElementById('disabledDiscountTPItem').style.display = results.disabledDiscountTPAmount > 0 ? 'flex' : 'none';
+                document.getElementById('driverPremiumItem').style.display = results.driverPremium > 0 ? 'flex' : 'none';
+                document.getElementById('helperPremiumItem').style.display = results.helperPremium > 0 ? 'flex' : 'none';
+                document.getElementById('passengerPremiumItem').style.display = results.passengerPremium > 0 ? 'flex' : 'none';
+                document.getElementById('rsmdstAmountItem').style.display = results.rsmdstAmount > 0 ? 'flex' : 'none';
+                document.getElementById('totalApPremiumItem').style.display = results.totalApPremium > 0 ? 'flex' : 'none';
+
                 // Hide results if seat capacity is invalid
                 if (vehicleType !== 'motorcycle' && vehicleType !== 'tractor' && seatCapacity <= 0) {
                     document.querySelector('.results-details').style.display = 'none';
                     document.querySelector('.results-placeholder').style.display = 'block';
                 return;
                 }
-
 
                 // Show/hide normal premium
                 const normalPremiumItem = document.getElementById('normalPremiumItem');
@@ -1339,25 +1559,26 @@
                     rsmdstAmountItem.style.display = 'none';
                 }
 
-                // Format all amounts as NPR with 2 decimal places
-                for (const key in results) {
-                    if (results.hasOwnProperty(key) && key !== 'hasVehicleValue') {
-                        const formattedValue = new Intl.NumberFormat('en-NP', {
-                            style: 'currency',
-                            currency: 'NPR',
-                            minimumFractionDigits: 2,
-                            maximumFractionDigits: 2
-                        }).format(results[key]);
-                        
-                        const element = document.getElementById(key);
-                        if (element) {
-                            element.textContent = formattedValue;
-                        }
-                    }
+                // Show/hide autoplus premium amount
+                const totalApPremiumItem = document.getElementById('totalApPremiumItem');
+                if (results.totalApPremium > 0) {
+                    totalApPremiumItem.style.display = 'flex';
+                } else {
+                    totalApPremiumItem.style.display = 'none';
                 }
+
+                // Show/hide autoplus premium amount
+                const totalPremiumWithAutoplusItem = document.getElementById('totalPremiumWithAutoplusItem');
+                if (results.totalPremiumWithAutoplus > 0) {
+                    totalPremiumWithAutoplusItem.style.display = 'flex';
+                } else {
+                    totalPremiumWithAutoplusItem.style.display = 'none';
+                }
+
             }
 
             // Initialize the form
             toggleVehicleFields();
+            toggleAutoplusFields();
             toggleFieldsBasedOnValue();
         });

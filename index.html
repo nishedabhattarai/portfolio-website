@@ -4,11 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Motor Premium Calculator</title>
-    <link rel="stylesheet" href="css/cssCalculator.css">
-    <link rel="icon" href="favicon.png" type="image/x-icon" alt="Premium Calculator Icon">
-    <script src="js/jsCalculator.js"></script>
-    <link rel="preload" href="js/jsCalculator.js" as="script">
-    <link rel="stylesheet" href="print.css" media="print">
+    <link rel="stylesheet" href="css\cssCalculator.css">
 </head>
 <body>
     <button class="about-btn" onclick="showAbout()">About</button>
@@ -73,8 +69,7 @@
                                 <option value="yes">Yes</option>
                             </select>
                         </div>
-                        <div class="form-group" id="hpWattGroup" .hidden { display: none;
-			}
+                        <div class="form-group" id="hpWattGroup" style="display: none;">
                             <label for="hpWattValue">HP/Watt Value</label>
                             <input type="number" id="hpWattValue" placeholder="Enter HP/watt" min="0">
                             <div class="error-message" id="hpWattValueError">HP/Watt value is required</div>
@@ -181,6 +176,39 @@
                         </label>
                     </div>
 
+                    <div class="form-row" id="autoplusGroup" style="display: none;">
+                        <div class="form-group">
+                        <label for="autoplusOption">Autoplus Insurance</label>
+                        <select id="autoplusOption" onchange="toggleAutoplusFields()">
+                            <option value="withoutAp">No</option>
+                            <option value="withAp">Yes</option>
+                        </select>
+                        </div>
+                        <div class="form-group" id="companyField" style="display: none;">
+                            <label for="companyLabel">Insurance Company</label>
+                            <select id="withAp">
+                                <option value="shikhar">Shikhar Insurance Co. Ltd.</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row" id="autoplusTypeGroup" style="display: none;">
+                        <div class="form-group">
+                            <label>Autoplus Options</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label" id="depreciationWaiverOption">
+                                    <input type="checkbox" id="depreciationWaiver" checked> Depreciation Waiver
+                                </label>
+                                <label class="checkbox-label" id="newVehicleReplacementOption"> 
+                                    <input type="checkbox" id="newVehicleReplacement"> New Vehicle Replacement
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="dailyRental"> Daily Rental / Transportation Cost
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
                     <button type="button" id="calculateBtn">Calculate Premium</button>
                 </form>
             </div>
@@ -283,9 +311,18 @@
                         <span>Total Premium:</span>
                         <span id="totalPremium">NPR 0.00</span>
                     </div>
-                <button id="printBtn" class="print-btn">Print</button>
-                </div>
+                    <div class="result-item" id="totalApPremiumItem" style="display: none;">
+                        <span>Total Autoplus Premium:</span>
+                        <span id="totalApPremium">NPR 0.00</span>
+                    </div>
+                    <div class="result-item total" id="totalPremiumWithAutoplusItem" style="display: none;">
+                        <span>Total Premium with Autoplus:</span>
+                        <span id="totalPremiumWithAutoplus">NPR 0.00</span>
+                    </div>
 
+                    <button id="printBtn" class="print-btn">Print</button>
+                </div>
+            </div>
                 <!-- Print Preview Modal -->
                 <div id="printModal" class="modal">
                     <div class="modal-content">
@@ -316,5 +353,7 @@
             </div>
         </div>
     </div>
+
+    <script src="js\jsCalculator.js"></script>
 </body>
 </html>
