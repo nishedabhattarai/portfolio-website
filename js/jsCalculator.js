@@ -834,12 +834,13 @@
                 
                 // Step 5: No Claim Discount Amount
                 let noClaimDiscountRate = 0;
+                if (vehicleValue > 0) {
                 if (vehicleType === 'private' || vehicleType === 'electric') {
                     // Private vehicle NCD rates
                     if (noClaimDiscount === 1) noClaimDiscountRate = 0.20;
                     else if (noClaimDiscount === 2) noClaimDiscountRate = 0.30;
                     else if (noClaimDiscount === 3) noClaimDiscountRate = 0.40;
-                    else if (noClaimDiscount === 4) noClaimDiscountRate = 0.45;
+                    else if (noClaimDiscountgit === 4) noClaimDiscountRate = 0.45;
                     else if (noClaimDiscount === 5) noClaimDiscountRate = 0.50;
                 } else if (vehicleType === 'motorcycle') {
                     // Motorcycle NCD rates
@@ -851,7 +852,7 @@
                     if (noClaimDiscount === 1) noClaimDiscountRate = 0.15;
                     else if (noClaimDiscount === 2) noClaimDiscountRate = 0.25;
                     else if (noClaimDiscount === 3) noClaimDiscountRate = 0.30;
-                }
+                }}
                 
                 const noClaimDiscountAmount = (normalPremium + additionalPremium + oldVehicleCharge + trailerCharge - tariffDiscount - voluntaryExcessAmount) * noClaimDiscountRate;
 
