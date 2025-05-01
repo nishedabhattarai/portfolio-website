@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Motor Premium Calculator</title>
     <link rel="stylesheet" href="css\cssCalculator.css">
+    <link rel="icon" type="image/x-icon" href="favicon.png">
 </head>
 <body>
     <button class="about-btn" onclick="showAbout()">About</button>
@@ -13,8 +14,7 @@
         <div class="about-content">
             <span class="close-btn" onclick="hideAbout()">&times;</span>
             <h2>Premium Calculator</h2> 
-            <h2>Version 1.1</h2>
-            <h2>Autoplus Including</h2>
+            <h2>Version 1.12</h2>
             <p>Developed by Nisheda Bhattarai</p>
             <p>Email: nisheda@walla.com</p>
         </div>
@@ -28,7 +28,7 @@
                 <form id="premiumForm">
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="vehicleType">Vehicle Type</label>
+                            <label for="vehicleType"></label>
                             <select id="vehicleType" onchange="toggleVehicleFields()">
                                 <option value="motorcycle" data-link="motorcycle.html">Motorcycle</option>
                                 <option value="private" data-link="private.html">Private</option>
@@ -55,11 +55,11 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label for="vehicleValue">Vehicle Value</label>
-                            <input type="number" id="vehicleValue" placeholder="Enter value" min="0" oninput="toggleFieldsBasedOnValue()">
+                            <input type="number" id="vehicleValue" placeholder="Enter value" min="25000" oninput="toggleFieldsBasedOnValue()">
                             <div class="error-message" id="vehicleValueError"></div>
                         </div>
                         <div class="form-group" id="ccGroup">
-                            <label for="cubicCapacity">Cubic Capacity (cc)</label>
+                            <label for="cubicCapacity">Cubic Capacity (cc)<span class="required">*</span></label>
                             <input type="number" id="cubicCapacity" placeholder="Enter cc" min="0">
                             <div class="error-message" id="cubicCapacityError">Cubic capacity is required</div>
                         </div>
@@ -71,12 +71,12 @@
                             </select>
                         </div>
                         <div class="form-group" id="hpWattGroup" style="display: none;">
-                            <label for="hpWattValue">HP/Watt Value</label>
+                            <label for="hpWattValue">HP/Watt Value<span class="required">*</span></label>
                             <input type="number" id="hpWattValue" placeholder="Enter HP/watt" min="0">
                             <div class="error-message" id="hpWattValueError">HP/Watt value is required</div>
                         </div>
                         <div class="form-group" id="seatCapacityGroup">
-                            <label for="seatCapacity">Seat Capacity</label>
+                            <label for="seatCapacity">Seat Capacity<span class="required">*</span></label>
                             <input type="number" id="seatCapacity" placeholder="Enter Seat Capacity" min="1">
                             <div class="error-message" id="seatCapacityError">Seat capacity is required</div>
                         </div>
@@ -85,7 +85,7 @@
                             <input type="number" id="helper" placeholder="Enter helpers" min="0" max="3">
                         </div>
                         <div class="form-group" id="tonCapacityGroup" style="display: none;">
-                            <label for="tonCapacity">Ton Capacity</label>
+                            <label for="tonCapacity">Ton Capacity<span class="required">*</span></label>
                             <input type="number" id="tonCapacity" placeholder="Enter ton Capacity" min="0">
                             <div class="error-message" id="tonCapacityError">Ton capacity is required</div>
                         </div>
@@ -125,13 +125,33 @@
                             </select>
                         </div>
                         <div class="form-group" id="manufacturingYearGroup">
-                            <label for="manufacturingYear">Manufacturing Year</label>
-                            <input type="number" id="manufacturingYear" placeholder="YYYY" min="1900">
+                            <label for="manufacturingYear">Manufacturing Year<span class="required">*</span></label>
+                            <input type="number" id="manufacturingYear" placeholder="YYYY" min="1900" max="9999">
                             <div class="error-message" id="manufacturingYearError"></div>
                         </div>
                     </div>
+                        
+                    <div class="form-row" id="additionalOptionsGroup">
+                        <div class ="form-group">
+                        <label>Additional Options</label>
+                        <label class="checkbox-label" id="directDiscountOption">
+                            <input type="checkbox" id="directDiscount"> Direct Discount (2.5%)
+                        </label>
+                        <label class="checkbox-label" id="rsmdstOption">
+                            <input type="checkbox" id="rsmdst"> RSMDST
+                        </label>
+                        <label class="checkbox-label" id="disabledFriendlyOption" style="display: none;">
+                            <input type="checkbox" id="disabledFriendly"> Disabled Friendly (25% discount)
+                        </label>
+                        <label class="checkbox-label" id="towingChargeOption" style="display: none;">
+                            <input type="checkbox" id="towingCharge"> Towing Charge
+                        </label>
+                        <label class="checkbox-label" id="ownGoodsOption" style="display: none;">
+                            <input type="checkbox" id="ownGoods"> Own Goods Carrying
+                        </label>
+                    </div>
 
-                    <div class="form-row" id="calculationTypeGroup">
+                    <div class="form-group" id="calculationTypeGroup">
                         <div class="form-group">
                             <label for="calculationType">Calculation Type</label>
                             <select id="calculationType">
@@ -157,24 +177,6 @@
                             <div class="error-message" id="durationError"></div>
                         </div>
                     </div>
-
-                    <div class="form-group" id="additionalOptionsGroup">
-                        <label>Additional Options</label>
-                        <label class="checkbox-label" id="directDiscountOption">
-                            <input type="checkbox" id="directDiscount"> Direct Discount (2.5%)
-                        </label>
-                        <label class="checkbox-label" id="rsmdstOption">
-                            <input type="checkbox" id="rsmdst"> RSMDST
-                        </label>
-                        <label class="checkbox-label" id="disabledFriendlyOption" style="display: none;">
-                            <input type="checkbox" id="disabledFriendly"> Disabled Friendly (25% discount)
-                        </label>
-                        <label class="checkbox-label" id="towingChargeOption" style="display: none;">
-                            <input type="checkbox" id="towingCharge"> Towing Charge
-                        </label>
-                        <label class="checkbox-label" id="ownGoodsOption" style="display: none;">
-                            <input type="checkbox" id="ownGoods"> Own Goods Carrying
-                        </label>
                     </div>
 
                     <div class="form-row" id="autoplusGroup" style="display: none;">
@@ -191,11 +193,9 @@
                                 <option value="shikhar">Shikhar Insurance Co. Ltd.</option>
                             </select>
                         </div>
-                    </div>
                     
-                    <div class="form-row" id="autoplusTypeGroup" style="display: none;">
-                        <div class="form-group">
-                            <label>Autoplus Options</label>
+                        <div class="form-group" id="autoplusTypeGroup" style="display: none;">
+                            <label for="autoplusOption">Autoplus Options</label>
                             <div class="checkbox-group">
                                 <label class="checkbox-label" id="depreciationWaiverOption">
                                     <input type="checkbox" id="depreciationWaiver" checked> Depreciation Waiver
@@ -210,7 +210,10 @@
                         </div>
                     </div>
 
-                    <button type="button" id="calculateBtn">Calculate Premium</button>
+                    <div class="form-row">
+                        <button type="button" id="calculateBtn">Calculate Premium</button>
+                        <button type="button" id="clearBtn" class="clear-btn">Clear</button>
+                    </div>
                 </form>
             </div>
 

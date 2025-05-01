@@ -1,3 +1,22 @@
+.required {
+    color: red;
+    margin-left: 4px;
+}
+
+.clear-btn {
+    background-color: #e74c3c;
+    margin-left: 10px;
+}
+
+.clear-btn:hover {
+    background-color: #c0392b;
+}
+
+.form-row .form-group {
+    flex: 1;
+    min-height: 60px;
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -116,6 +135,7 @@ label {
 }
 
 input[type="number"],
+input[type="text"],
 select {
     width: 100%;
     padding: 6px;
@@ -127,6 +147,7 @@ select {
 }
 
 input[type="number"]:focus,
+input[type="text"]:focus,
 select:focus {
     border-color: #3498db;
     outline: none;
@@ -164,13 +185,20 @@ button {
     cursor: pointer;
     font-size: 14px;
     font-weight: 600;
-    width: 100%;
     transition: background-color 0.3s;
     margin-top: 5px;
 }
 
 button:hover {
     background-color: #2980b9;
+}
+
+.clear-btn {
+    background-color: #e74c3c;
+}
+
+.clear-btn:hover {
+    background-color: #c0392b;
 }
 
 .error-message {
