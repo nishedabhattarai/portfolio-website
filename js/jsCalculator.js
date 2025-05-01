@@ -34,7 +34,7 @@ function toggleFieldsBasedOnValue() {
     const ownGoodsOption = document.getElementById('ownGoodsOption');
     const vehicleType = document.getElementById('vehicleType').value;
     const isGovernment = document.querySelector('input[name="govType"]:checked').value === 'government';
-    const isAutoplus = document.getElementById('autoplusOption')?.value === 'withAp';    
+    const isAutoplus = document.getElementById('autoplusOption')?.value === 'withAp';
 
     if (vehicleValue > 25000) {
         optionalFieldsGroup.style.display = 'flex';
@@ -1020,8 +1020,12 @@ document.addEventListener('DOMContentLoaded', function() {
                         
         // Step 7: Direct Discount Amount
         let directDiscountAmount = 0;
+        
         if (!isGovernment && hasDirectDiscount && vehicleValue > 0) {
-            directDiscountAmount = (normalPremium + additionalPremium + oldVehicleCharge + trailerCharge - tariffDiscount - voluntaryExcessAmount - noClaimDiscountAmount - ownGoodsAmount) * 0.025;
+            const directDiscountRate = (normalPremium + additionalPremium + oldVehicleCharge + trailerCharge) - tariffDiscount - voluntaryExcessAmount - noClaimDiscountAmount - ownGoodsAmount;
+    
+            directDiscountAmount = Math.max(directDiscountRate, 0) * 0.025;
+            directDiscountAmount = Math.min(directDiscountAmount, directDiscountRate * 0.5); // Cap at 1000
         }
 
         // Calculate discount base for electric type and disabled friendly discounts
@@ -1392,7 +1396,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Step 23: Stamp Charge
         let apStampCharge = 0;
         
-        if (isAutoplus && vehicleValue > 100000 && vehicleAge < 10) {
+        if (vehicleAge < 10 && vehicleValue > 100000 && isAutoplus) {
             apStampCharge = 20.00;
         } else if (isAutoplus && vehicleValue > 0 && vehicleValue <= 100000 && vehicleAge < 10) {
             apStampCharge = 10.00;
@@ -1455,6 +1459,8 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('trailerCharge').textContent = format(results.trailerCharge);
         document.getElementById('oldVehicleCharge').textContent = format(results.oldVehicleCharge);
         document.getElementById('voluntaryExcessAmount').textContent = format(results.voluntaryExcessAmount);
+        document.getElementById('ownGoodsAmount').textContent = format(results.ownGoodsAmount);
+        document.getElementById('directDiscountAmount').textContent = format(results.directDiscountAmount);
         document.getElementById('noClaimDiscountAmount').textContent = format(results.noClaimDiscountAmount);
         document.getElementById('electricDiscountAmount').textContent = format(results.electricDiscountAmount);
         document.getElementById('disabledDiscountAmount').textContent = format(results.disabledDiscountAmount);
