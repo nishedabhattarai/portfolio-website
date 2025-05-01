@@ -36,7 +36,7 @@ function toggleFieldsBasedOnValue() {
     const isGovernment = document.querySelector('input[name="govType"]:checked').value === 'government';
     const isAutoplus = document.getElementById('autoplusOption')?.value === 'withAp';
 
-    if (vehicleValue > 25000) {
+    if (vehicleValue > 24999) {
         optionalFieldsGroup.style.display = 'flex';
         calculationTypeGroup.style.display = 'flex';
         autoplusGroup.style.display = (vehicleType === 'motorcycle' || vehicleType === 'private' || vehicleType === 'electric') ? 'flex' : 'none';
@@ -283,13 +283,13 @@ function validateManufacturingYear(yearInput) {
 function clearForm() {
     // Get all input elements
     const inputs = document.querySelectorAll('input[type="number"], input[type="text"]');
-    const selects = document.querySelectorAll('select');
-    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    const year = document.querySelectorAll('input[type="manufacturingYear"], input[type="number"]');
+    //const selects = document.querySelectorAll('select');
+    //const checkboxes = document.querySelectorAll('input[type="checkbox"]');
     
     // Clear all inputs except vehicleType, govType, and electricType
     inputs.forEach(input => {
-        if (input.id !== 'manufacturingYear' && 
-            input.id !== 'vehicleType' && 
+        if (input.id !== 'vehicleType' && 
             !input.name.includes('govType') && 
             input.id !== 'electricType') {
             input.value = '';
@@ -1395,12 +1395,21 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Step 23: Stamp Charge
         let apStampCharge = 0;
+
+        // Only apply stamp charge if at least one Autoplus option is checked
+        const isDepreciation = document.getElementById('depreciationWaiver').checked;
+        const isNewVehicle = document.getElementById('newVehicleReplacement').checked;
+        const isRental = document.getElementById('dailyRental').checked;
         
-        if (vehicleAge < 10 && vehicleValue > 100000 && isAutoplus) {
+        if (isAutoplus && (isDepreciation || isNewVehicle || isRental)) {
+            if (vehicleAge < 10 && vehicleValue > 100000) {
             apStampCharge = 20.00;
-        } else if (isAutoplus && vehicleValue > 0 && vehicleValue <= 100000 && vehicleAge < 10) {
+        } else if (vehicleAge < 10 && vehicleValue <= 100000) {
             apStampCharge = 10.00;
         }
+    } else {
+        apStampCharge = 0.00; // No stamp charge if no Autoplus options are selected
+    }
 
         // Step 24: Total Autoplus Premium
         const totalApPremium = depreciationPremium + newVehiclePremium + rentalPremium + apVatAmount + apStampCharge;
