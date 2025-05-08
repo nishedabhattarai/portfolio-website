@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cash Denomination</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 10px;
+            line-height: 1.0;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .container {
+            display: flex;
+            gap: 10px;
+        }
+        .column {
+            flex: 2;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .section {
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eee;
+        }
+        .section h3 {
+            margin: 5px 0;
+            color: #333;
+            font-size: 14px;
+        }
+        .input-group {
+            margin-bottom: 6px;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 3px;
+            font-weight: bold;
+            font-size: 12px;
+        }
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 6px;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            margin-top: 8px;
+            font-size: 12px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .denomination-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 8px;
+            font-size: 12px;
+        }
+        .denomination-table th, .denomination-table td {
+            border: 1px solid #ddd;
+            padding: 5px;
+            text-align: left;
+        }
+        .denomination-table th {
+            background-color: #f2f2f2;
+        }
+        .payment-method {
+            margin-top: 10px;
+        }
+        .payment-entry {
+            border: 1px solid #ddd;
+            padding: 8px;
+            margin-bottom: 8px;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+        .summary-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 8px;
+            font-size: 12px;
+        }
+        .summary-table th, .summary-table td {
+            border: 1px solid #ddd;
+            padding: 5px;
+            text-align: left;
+        }
+        .summary-table th {
+            background-color: #f2f2f2;
+        }
+        .totals {
+            margin-top: 10px;
+            padding: 8px;
+            background-color: #f9f9f9;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+        .action-btn {
+            background-color: #f44336;
+            padding: 4px 8px;
+            margin-left: 4px;
+            font-size: 11px;
+        }
+        .action-btn.edit {
+            background-color: #2196F3;
+        }
+        .print-only {
+            display: none;
+        }
+        .date-cell {
+            width: auto;
+            white-space: nowrap;
+            padding-right: 10px;
+            font-size: 14px;
+        }
+        .date-input {
+            width: auto;
+        }
+        @media print {
+            body * {
+                visibility: hidden;
+                margin: 0;
+                padding: 0;
+            }
+            .print-section, .print-section * {
+                visibility: visible;
+            }
+            .print-section {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                font-size: 12px;
+                line-height: 1.1;
+            }
+            .print-section h2, .print-section h3 {
+                margin: 5px 0;
+            }
+            .print-section table {
+                margin: 5px 0;
+                font-size: 11px;
+            }
+            .print-section table th, 
+            .print-section table td {
+                padding: 3px;
+            }
+            .no-print {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Cash Denomination</h1>
+        <div class="input-group">
+            <table>
+                <tr>
+                    <td class="date-cell"><strong>Date:</strong></td>
+                    <td><input type="date" id="currentDate" name="currentDate" class="date-input"></td>
+                </tr>
+            </table>
+        </div>
+        <button class="no-print" onclick="window.print()">Print Report</button>
+    </div>
+
+    <div class="container">
+        <!-- Left Column -->
+        <div class="column">
+            <div class="section">
+                <h3>Bill/Voucher Entry</h3>
+                <div class="input-group">
+                    <label for="voucherNumber">Voucher Number:</label>
+                    <input type="text" id="voucherNumber" name="voucherNumber" required>
+                </div>
+                <div class="input-group">
+                    <label for="description">Description:</label>
+                    <input type="text" id="description" name="description">
+                </div>
+                <div class="input-group">
+                    <label for="amount">Amount:</label>
+                    <input type="number" id="amount" name="amount" min="0" step="0.01">
+                </div>
+                <button id="saveVoucherBtn" class="no-print">Save Voucher</button>
+            </div>
+
+            <div class="section">
+                <h3>Payment Entry</h3>
+                <div class="payment-method">
+                    <label><input type="checkbox" id="cashCheckbox" name="paymentMethod" value="cash"> Cash</label>
+                    <label><input type="checkbox" id="chequeCheckbox" name="paymentMethod" value="cheque"> Cheque</label>
+                    <label><input type="checkbox" id="onlineCheckbox" name="paymentMethod" value="online"> Online</label>
+                    <label><input type="checkbox" id="creditCheckbox" name="paymentMethod" value="credit"> Credit</label>
+                </div>
+
+                <!-- Cash Payment -->
+                <div id="cashPayment" class="payment-entry" style="display: none;">
+                    <h4>Cash Payment</h4>
+                    <button id="addPaymentDetails" class="no-print">Add Payment Details</button>
+                    <div id="cashDenomination" style="display: none; margin-top: 8px;">
+                        <table class="denomination-table">
+                            <tr>
+                                <th>Denomination</th>
+                                <th>Count</th>
+                                <th>Total</th>
+                            </tr>
+                            <tr>
+                                <td>1000</td>
+                                <td><input type="number" id="count1000" min="0" class="denomination-count"></td>
+                                <td id="total1000">0</td>
+                            </tr>
+                            <tr>
+                                <td>500</td>
+                                <td><input type="number" id="count500" min="0" class="denomination-count"></td>
+                                <td id="total500">0</td>
+                            </tr>
+                            <tr>
+                                <td>100</td>
+                                <td><input type="number" id="count100" min="0" class="denomination-count"></td>
+                                <td id="total100">0</td>
+                            </tr>
+                            <tr>
+                                <td>50</td>
+                                <td><input type="number" id="count50" min="0" class="denomination-count"></td>
+                                <td id="total50">0</td>
+                            </tr>
+                            <tr>
+                                <td>20</td>
+                                <td><input type="number" id="count20" min="0" class="denomination-count"></td>
+                                <td id="total20">0</td>
+                            </tr>
+                            <tr>
+                                <td>10</td>
+                                <td><input type="number" id="count10" min="0" class="denomination-count"></td>
+                                <td id="total10">0</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td><input type="number" id="count5" min="0" class="denomination-count"></td>
+                                <td id="total5">0</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td><input type="number" id="count2" min="0" class="denomination-count"></td>
+                                <td id="total2">0</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td><input type="number" id="count1" min="0" class="denomination-count"></td>
+                                <td id="total1">0</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><strong>Total Cash</strong></td>
+                                <td id="totalCashAmount">0</td>
+                            </tr>
+                        </table>
+                        <button id="saveCashPayment" class="no-print">Save Payment</button>
+                    </div>
+                </div>
+
+                <!-- Cheque Payment -->
+                <div id="chequePayment" class="payment-entry" style="display: none;">
+                    <h4>Cheque Payment</h4>
+                    <button id="addChequeBtn" class="no-print">Add Cheque Details</button>
+                    <div id="chequeEntries">
+                        <!-- Cheque entries will be added here dynamically -->
+                    </div>
+                    <button id="saveChequePayment" class="no-print" style="display: none;">Save Payment</button>
+                </div>
+
+                <!-- Online Payment -->
+                <div id="onlinePayment" class="payment-entry" style="display: none;">
+                    <h4>Online Payment</h4>
+                    <button id="addOnlineBtn" class="no-print">Add Online Details</button>
+                    <div id="onlineEntries">
+                        <!-- Online entries will be added here dynamically -->
+                    </div>
+                    <button id="saveOnlinePayment" class="no-print" style="display: none;">Save Payment</button>
+                </div>
+
+                <!-- Credit Payment -->
+                <div id="creditPayment" class="payment-entry" style="display: none;">
+                    <h4>Credit Payment</h4>
+                    <button id="addCreditBtn" class="no-print">Add Credit Details</button>
+                    <div id="creditEntries">
+                        <!-- Credit entries will be added here dynamically -->
+                    </div>
+                    <button id="saveCreditPayment" class="no-print" style="display: none;">Save Payment</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column -->
+        <div class="column">
+            <div class="section">
+                <h3>Bill/Voucher Summary</h3>
+                <table class="summary-table" id="voucherSummary">
+                    <thead>
+                        <tr>
+                            <th>Voucher No.</th>
+                            <th>Description</th>
+                            <th>Amount</th>
+                            <th class="no-print">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Vouchers will be added here dynamically -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="section">
+                <h3>Payment Received Details</h3>
+                <table class="summary-table" id="paymentReceivedDetails">
+                    <thead>
+                        <tr>
+                            <th rowspan="2">Transaction No.</th>
+                            <th colspan="4">Payment Method</th>
+                            <th rowspan="2" class="no-print">Action</th>
+                        </tr>
+                        <tr>
+                            <th>Cash</th>
+                            <th>Cheque</th>
+                            <th>Online</th>
+                            <th>Credit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Payment received details will be added here dynamically -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="section">
+                <h3>Cash Denomination Summary (Total)</h3>
+                <div id="cashDenominationSummary">
+                    <!-- Total cash denomination will be shown here -->
+                </div>
+            </div>
+
+            <div class="totals">
+                <h3>Payment Method Totals</h3>
+                <div id="paymentMethodTotals">
+                    <p>Cash: NPR <span id="totalCashSummary">0.00</span></p>
+                    <p>Cheque: NPR <span id="totalChequeSummary">0.00</span></p>
+                    <p>Online: NPR <span id="totalOnlineSummary">0.00</span></p>
+                    <p>Credit: NPR <span id="totalCreditSummary">0.00</span></p>
+                </div>
+                <p><strong>Total Vouchers Amount:</strong> NPR <span id="totalVouchersAmount">0.00</span></p>
+                <p><strong>Total Payment Amount:</strong> NPR <span id="totalPaymentAmount">0.00</span></p>
+                <p><strong>Difference Amount:</strong> NPR <span id="differenceAmount">0.00</span></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Print Preview Section -->
+    <div id="printSection" class="print-only print-section" style="display: none;">
+        <h2>Cash Denomination</h2>
+        <p><strong>Date:</strong> <span id="printDate"></span></p>
+        
+        <h3>Bill/Voucher Summary</h3>
+        <table class="summary-table" id="printVoucherSummary">
+            <thead>
+                <tr>
+                    <th>Voucher No.</th>
+                    <th>Description</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Vouchers will be added here for printing -->
+            </tbody>
+        </table>
+        
+        <h3>Payment Received Details</h3>
+        <table class="summary-table" id="printPaymentReceivedDetails">
+            <thead>
+                <tr>
+                    <th rowspan="2">Transaction No.</th>
+                    <th colspan="4">Payment Method</th>
+                </tr>
+                <tr>
+                    <th>Cash</th>
+                    <th>Cheque</th>
+                    <th>Online</th>
+                    <th>Credit</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Payment details will be added here for printing -->
+            </tbody>
+        </table>
+        
+        <h3>Cash Denomination Summary (Total)</h3>
+        <div id="printCashDenominationSummary">
+            <!-- Total cash denomination will be shown here for printing -->
+        </div>
+        
+        <div class="totals">
+            <h3>Payment Details</h3>
+            <p>Cash: NPR <span id="printTotalCashSummary">0.00</span></p>
+            <p>Cheque: NPR <span id="printTotalChequeSummary">0.00</span></p>
+            <p>Online: NPR <span id="printTotalOnlineSummary">0.00</span></p>
+            <p>Credit: NPR <span id="printTotalCreditSummary">0.00</span></p>
+            <p><strong>Total Vouchers Amount:</strong> NPR <span id="printTotalVouchersAmount">0.00</span></p>
+            <p><strong>Total Payment Amount:</strong> NPR <span id="printTotalPaymentAmount">0.00</span></p>
+            <p><strong>Difference Amount:</strong> NPR <span id="printDifferenceAmount">0.00</span></p>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let transactions = [];
+        let cashDenominations = [];
+        let currentTransactionId = 1;
+        let vouchers = [];
+        let editingVoucher = null;
+        let editingTransaction = null;
+	const STORAGE_KEY = 'cashDenominationData';
+
+        // Set current date
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date();
+            const dateString = today.toISOString().split('T')[0];
+            document.getElementById('currentDate').value = dateString;
+            document.getElementById('printDate').textContent = formatDateForPrint(today);
+
+            // Payment method checkboxes
+            const paymentCheckboxes = document.querySelectorAll('input[name="paymentMethod"]');
+            paymentCheckboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    const paymentDiv = document.getElementById(`${this.value}Payment`);
+                    paymentDiv.style.display = this.checked ? 'block' : 'none';
+                });
+            });
+
+            // Cash denomination calculation
+            const denominationInputs = document.querySelectorAll('.denomination-count');
+            denominationInputs.forEach(input => {
+                input.addEventListener('input', calculateDenomination);
+            });
+
+            // Add Payment Details button
+            document.getElementById('addPaymentDetails').addEventListener('click', function() {
+                const cashDenomination = document.getElementById('cashDenomination');
+                cashDenomination.style.display = cashDenomination.style.display === 'none' ? 'block' : 'none';
+                document.getElementById('saveCashPayment').style.display = 'block';
+            });
+
+            // Save Voucher button
+            document.getElementById('saveVoucherBtn').addEventListener('click', saveVoucher);
+
+            // Save Cash Payment button
+            document.getElementById('saveCashPayment').addEventListener('click', saveCashPayment);
+
+            // Add Cheque button
+            document.getElementById('addChequeBtn').addEventListener('click', addChequeEntry);
+            document.getElementById('saveChequePayment').addEventListener('click', saveChequePayment);
+
+            // Add Online button
+            document.getElementById('addOnlineBtn').addEventListener('click', addOnlineEntry);
+            document.getElementById('saveOnlinePayment').addEventListener('click', saveOnlinePayment);
+
+            // Add Credit button
+            document.getElementById('addCreditBtn').addEventListener('click', addCreditEntry);
+            document.getElementById('saveCreditPayment').addEventListener('click', saveCreditPayment);
+
+            // Print button
+            document.querySelector('button[onclick="window.print()"]').addEventListener('click', preparePrintData);
+        });
+
+        function formatDateForPrint(date) {
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            const day = date.getDate();
+            const month = months[date.getMonth()];
+            const year = date.getFullYear();
+            return `${day}-${month}-${year}`;
+        }
+
+        function padNumber(num) {
+            return num.toString().padStart(3, '0');
+        }
+
+        function calculateDenomination() {
+            const denominations = [1000, 500, 100, 50, 20, 10, 5, 2, 1];
+            let totalCash = 0;
+
+            denominations.forEach(denomination => {
+                const count = parseInt(document.getElementById(`count${denomination}`).value) || 0;
+                const total = count * denomination;
+                document.getElementById(`total${denomination}`).textContent = total;
+                totalCash += total;
+            });
+
+            document.getElementById('totalCashAmount').textContent = totalCash;
+        }
+
+        function preparePrintData() {
+            // Update print date
+            const today = new Date();
+            document.getElementById('printDate').textContent = formatDateForPrint(today);
+            
+            // Update print voucher summary
+            const printVoucherTbody = document.querySelector('#printVoucherSummary tbody');
+            printVoucherTbody.innerHTML = '';
+            vouchers.forEach(voucher => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${voucher.voucherNumber}</td>
+                    <td>${voucher.description}</td>
+                    <td>${voucher.amount.toFixed(2)}</td>
+                `;
+                printVoucherTbody.appendChild(row);
+            });
+            
+            // Update print payment received details
+            const printPaymentTbody = document.querySelector('#printPaymentReceivedDetails tbody');
+            printPaymentTbody.innerHTML = '';
+            
+            // Group transactions by ID
+            const transactionGroups = {};
+            transactions.forEach(transaction => {
+                if (!transactionGroups[transaction.id]) {
+                    transactionGroups[transaction.id] = {
+                        cash: 0,
+                        cheque: 0,
+                        online: 0,
+                        credit: 0
+                    };
+                }
+
+                switch (transaction.type) {
+                    case 'cash':
+                        transactionGroups[transaction.id].cash = transaction.amount;
+                        break;
+                    case 'cheque':
+                        transactionGroups[transaction.id].cheque = transaction.amount;
+                        break;
+                    case 'online':
+                        transactionGroups[transaction.id].online = transaction.amount;
+                        break;
+                    case 'credit':
+                        transactionGroups[transaction.id].credit = transaction.amount;
+                        break;
+                }
+            });
+
+            // Add rows for printing
+            Object.keys(transactionGroups).forEach(id => {
+                const group = transactionGroups[id];
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>[${id.split('-')[1]}]</td>
+                    <td>${group.cash ? group.cash.toFixed(2) : '-'}</td>
+                    <td>${group.cheque ? group.cheque.toFixed(2) : '-'}</td>
+                    <td>${group.online ? group.online.toFixed(2) : '-'}</td>
+                    <td>${group.credit ? group.credit.toFixed(2) : '-'}</td>
+                `;
+                printPaymentTbody.appendChild(row);
+            });
+            
+            // Update print cash denomination summary
+            const printCashSummaryDiv = document.getElementById('printCashDenominationSummary');
+            
+            // Calculate totals for each denomination
+            const denominationTotals = {};
+            cashDenominations.forEach(d => {
+                if (!denominationTotals[d.denomination]) {
+                    denominationTotals[d.denomination] = { count: 0, total: 0 };
+                }
+                denominationTotals[d.denomination].count += d.count;
+                denominationTotals[d.denomination].total += d.total;
+            });
+
+            // Sort denominations from highest to lowest
+            const sortedDenominations = Object.keys(denominationTotals).sort((a, b) => b - a);
+
+            // Display totals
+            let html = '<table class="denomination-table"><tr><th>Denomination</th><th>Count</th><th>Total</th></tr>';
+            sortedDenominations.forEach(denomination => {
+                const detail = denominationTotals[denomination];
+                html += `<tr><td>${denomination}</td><td>${detail.count}</td><td>${detail.total.toFixed(2)}</td></tr>`;
+            });
+            html += '</table>';
+
+            printCashSummaryDiv.innerHTML = html;
+            
+            // Update print totals
+            const totalVouchers = vouchers.reduce((sum, voucher) => sum + voucher.amount, 0);
+            const totalCash = transactions.filter(t => t.type === 'cash').reduce((sum, t) => sum + t.amount, 0);
+            const totalCheque = transactions.filter(t => t.type === 'cheque').reduce((sum, t) => sum + t.amount, 0);
+            const totalOnline = transactions.filter(t => t.type === 'online').reduce((sum, t) => sum + t.amount, 0);
+            const totalCredit = transactions.filter(t => t.type === 'credit').reduce((sum, t) => sum + t.amount, 0);
+            const totalPayment = totalCash + totalCheque + totalOnline + totalCredit;
+            const difference = totalPayment - totalVouchers;
+            
+            document.getElementById('printTotalVouchersAmount').textContent = totalVouchers.toFixed(2);
+            document.getElementById('printTotalCashSummary').textContent = totalCash.toFixed(2);
+            document.getElementById('printTotalChequeSummary').textContent = totalCheque.toFixed(2);
+            document.getElementById('printTotalOnlineSummary').textContent = totalOnline.toFixed(2);
+            document.getElementById('printTotalCreditSummary').textContent = totalCredit.toFixed(2);
+            document.getElementById('printTotalPaymentAmount').textContent = totalPayment.toFixed(2);
+            document.getElementById('printDifferenceAmount').textContent = difference.toFixed(2);
+            
+            // Show print section
+            document.getElementById('printSection').style.display = 'block';
+        }
+
+        function saveVoucher() {
+            const voucherNumber = document.getElementById('voucherNumber').value;
+            const description = document.getElementById('description').value;
+            const amount = parseFloat(document.getElementById('amount').value);
+
+            if (!voucherNumber || isNaN(amount)) {
+                alert('Please enter valid voucher number and amount');
+                return;
+            }
+
+            if (editingVoucher) {
+                // Update existing voucher
+                const voucherIndex = vouchers.findIndex(v => v.voucherNumber === editingVoucher);
+                if (voucherIndex !== -1) {
+                    vouchers[voucherIndex] = {
+                        voucherNumber: voucherNumber,
+                        description: description,
+                        amount: amount
+                    };
+                    
+                    // Update table row
+                    const rows = document.querySelectorAll('#voucherSummary tbody tr');
+                    rows.forEach(row => {
+                        if (row.cells[0].textContent === editingVoucher) {
+                            row.cells[0].textContent = voucherNumber;
+                            row.cells[1].textContent = description;
+                            row.cells[2].textContent = amount.toFixed(2);
+                        }
+                    });
+                }
+                
+                // Reset editing state
+                editingVoucher = null;
+                document.getElementById('saveVoucherBtn').textContent = 'Save Voucher';
+            } else {
+                // Check for duplicate voucher number
+                if (vouchers.some(v => v.voucherNumber === voucherNumber)) {
+                    alert('Voucher number already exists');
+                    return;
+                }
+
+                // Add new voucher
+                const voucher = {
+                    voucherNumber: voucherNumber,
+                    description: description,
+                    amount: amount
+                };
+                vouchers.push(voucher);
+
+                // Add to voucher summary table
+                const tbody = document.querySelector('#voucherSummary tbody');
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${voucherNumber}</td>
+                    <td>${description}</td>
+                    <td>${amount.toFixed(2)}</td>
+                    <td class="no-print">
+                        <button class="action-btn edit" onclick="editVoucher('${voucherNumber}')">Edit</button>
+                        <button class="action-btn" onclick="deleteVoucher('${voucherNumber}')">Delete</button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            }
+
+            // Clear inputs
+            clearVoucherInputs();
+
+            // Update totals
+            updateTotals();
+        }
+
+        function clearVoucherInputs() {
+            document.getElementById('voucherNumber').value = '';
+            document.getElementById('description').value = '';
+            document.getElementById('amount').value = '';
+        }
+
+        function editVoucher(voucherNumber) {
+            const voucher = vouchers.find(v => v.voucherNumber === voucherNumber);
+            if (!voucher) return;
+
+            document.getElementById('voucherNumber').value = voucher.voucherNumber;
+            document.getElementById('description').value = voucher.description;
+            document.getElementById('amount').value = voucher.amount;
+            
+            // Set editing state
+            editingVoucher = voucherNumber;
+            document.getElementById('saveVoucherBtn').textContent = 'Update Voucher';
+        }
+
+        function deleteVoucher(voucherNumber) {
+            if (confirm('Are you sure you want to delete this voucher?')) {
+                // Remove from array
+                vouchers = vouchers.filter(v => v.voucherNumber !== voucherNumber);
+                
+                // Remove from table
+                const rows = document.querySelectorAll('#voucherSummary tbody tr');
+                rows.forEach(row => {
+                    if (row.cells[0].textContent === voucherNumber) {
+                        row.remove();
+                    }
+                });
+                
+                // Update totals
+                updateTotals();
+            }
+        }
+
+        function saveCashPayment() {
+            const denominations = [1000, 500, 100, 50, 20, 10, 5, 2, 1];
+            let cashDetails = [];
+            let totalCash = 0;
+
+            denominations.forEach(denomination => {
+                const count = parseInt(document.getElementById(`count${denomination}`).value) || 0;
+                if (count > 0) {
+                    const total = count * denomination;
+                    cashDetails.push({
+                        denomination: denomination,
+                        count: count,
+                        total: total
+                    });
+                    totalCash += total;
+                }
+            });
+
+            if (cashDetails.length === 0) {
+                alert('Please enter at least one denomination');
+                return;
+            }
+
+            if (editingTransaction) {
+                // Update existing transaction
+                const transactionIndex = transactions.findIndex(t => t.id === editingTransaction);
+                if (transactionIndex !== -1) {
+                    // Remove old cash denominations
+                    cashDenominations = cashDenominations.filter(d => 
+                        !transactions[transactionIndex].details.some(detail => 
+                            detail.denomination === d.denomination && 
+                            detail.count === d.count && 
+                            detail.total === d.total
+                        )
+                    );
+                    
+                    // Update transaction
+                    transactions[transactionIndex] = {
+                        id: editingTransaction,
+                        type: 'cash',
+                        amount: totalCash,
+                        details: cashDetails
+                    };
+                    
+                    // Add new cash denominations
+                    cashDenominations = cashDenominations.concat(cashDetails);
+                }
+                
+                // Reset editing state
+                editingTransaction = null;
+                document.getElementById('saveCashPayment').textContent = 'Save Payment';
+            } else {
+                // Save new transaction
+                const transaction = {
+                    id: `TXN-${padNumber(currentTransactionId)}`,
+                    type: 'cash',
+                    amount: totalCash,
+                    details: cashDetails
+                };
+                transactions.push(transaction);
+                currentTransactionId++;
+
+                // Add to cash denominations
+                cashDenominations = cashDenominations.concat(cashDetails);
+            }
+
+            // Update payment received details
+            updatePaymentReceivedDetails();
+
+            // Update cash denomination summary
+            updateCashDenominationSummary();
+
+            // Clear inputs and hide payment form
+            clearPaymentInputs('cash');
+
+            // Update totals
+            updateTotals();
+        }
+
+        function updateCashDenominationSummary() {
+            const summaryDiv = document.getElementById('cashDenominationSummary');
+            
+            // Calculate totals for each denomination
+            const denominationTotals = {};
+            cashDenominations.forEach(d => {
+                if (!denominationTotals[d.denomination]) {
+                    denominationTotals[d.denomination] = { count: 0, total: 0 };
+                }
+                denominationTotals[d.denomination].count += d.count;
+                denominationTotals[d.denomination].total += d.total;
+            });
+
+            // Sort denominations from highest to lowest
+            const sortedDenominations = Object.keys(denominationTotals).sort((a, b) => b - a);
+
+            // Display totals
+            let html = '<table class="denomination-table"><tr><th>Denomination</th><th>Count</th><th>Total</th></tr>';
+            sortedDenominations.forEach(denomination => {
+                const detail = denominationTotals[denomination];
+                html += `<tr><td>${denomination}</td><td>${detail.count}</td><td>${detail.total.toFixed(2)}</td></tr>`;
+            });
+            html += '</table>';
+
+            summaryDiv.innerHTML = html;
+        }
+
+        function addChequeEntry() {
+            const chequeEntries = document.getElementById('chequeEntries');
+            const entryDiv = document.createElement('div');
+            entryDiv.className = 'payment-entry';
+            entryDiv.innerHTML = `
+                <div class="input-group">
+                    <label>Cheque Number:</label>
+                    <input type="text" class="cheque-number" required>
+                </div>
+                <div class="input-group">
+                    <label>Bank:</label>
+                    <input type="text" class="cheque-bank" required>
+                </div>
+                <div class="input-group">
+                    <label>Amount:</label>
+                    <input type="number" class="cheque-amount" min="0" step="0.01" required>
+                </div>
+                <button class="action-btn no-print" onclick="this.parentElement.remove()">Delete</button>
+            `;
+            chequeEntries.appendChild(entryDiv);
+            document.getElementById('saveChequePayment').style.display = 'block';
+        }
+
+        function saveChequePayment() {
+            const entries = document.querySelectorAll('#chequeEntries .payment-entry');
+            if (entries.length === 0) {
+                alert('Please add at least one cheque entry');
+                return;
+            }
+
+            if (editingTransaction) {
+                // Remove old cheque transactions
+                transactions = transactions.filter(t => t.id !== editingTransaction);
+                
+                // Add new transactions
+                entries.forEach(entry => {
+                    const chequeNumber = entry.querySelector('.cheque-number').value;
+                    const bank = entry.querySelector('.cheque-bank').value;
+                    const amount = parseFloat(entry.querySelector('.cheque-amount').value);
+
+                    if (chequeNumber && bank && !isNaN(amount)) {
+                        transactions.push({
+                            id: editingTransaction,
+                            type: 'cheque',
+                            chequeNumber: chequeNumber,
+                            bank: bank,
+                            amount: amount
+                        });
+                    }
+                });
+                
+                // Reset editing state
+                editingTransaction = null;
+                document.getElementById('saveChequePayment').textContent = 'Save Payment';
+            } else {
+                // Add new transactions
+                entries.forEach(entry => {
+                    const chequeNumber = entry.querySelector('.cheque-number').value;
+                    const bank = entry.querySelector('.cheque-bank').value;
+                    const amount = parseFloat(entry.querySelector('.cheque-amount').value);
+
+                    if (chequeNumber && bank && !isNaN(amount)) {
+                        const transaction = {
+                            id: `TXN-${padNumber(currentTransactionId)}`,
+                            type: 'cheque',
+                            chequeNumber: chequeNumber,
+                            bank: bank,
+                            amount: amount
+                        };
+                        transactions.push(transaction);
+                        currentTransactionId++;
+                    }
+                });
+            }
+
+            // Update payment received details
+            updatePaymentReceivedDetails();
+
+            // Clear inputs and hide payment form
+            clearPaymentInputs('cheque');
+
+            // Update totals
+            updateTotals();
+        }
+
+        function addOnlineEntry() {
+            const onlineEntries = document.getElementById('onlineEntries');
+            const entryDiv = document.createElement('div');
+            entryDiv.className = 'payment-entry';
+            entryDiv.innerHTML = `
+                <div class="input-group">
+                    <label>Reference Number:</label>
+                    <input type="text" class="online-reference" required>
+                </div>
+                <div class="input-group">
+                    <label>Payment Gateway:</label>
+                    <input type="text" class="online-gateway" required>
+                </div>
+                <div class="input-group">
+                    <label>Amount:</label>
+                    <input type="number" class="online-amount" min="0" step="0.01" required>
+                </div>
+                <button class="action-btn no-print" onclick="this.parentElement.remove()">Delete</button>
+            `;
+            onlineEntries.appendChild(entryDiv);
+            document.getElementById('saveOnlinePayment').style.display = 'block';
+        }
+
+        function saveOnlinePayment() {
+            const entries = document.querySelectorAll('#onlineEntries .payment-entry');
+            if (entries.length === 0) {
+                alert('Please add at least one online entry');
+                return;
+            }
+
+            if (editingTransaction) {
+                // Remove old online transactions
+                transactions = transactions.filter(t => t.id !== editingTransaction);
+                
+                // Add new transactions
+                entries.forEach(entry => {
+                    const reference = entry.querySelector('.online-reference').value;
+                    const gateway = entry.querySelector('.online-gateway').value;
+                    const amount = parseFloat(entry.querySelector('.online-amount').value);
+
+                    if (reference && gateway && !isNaN(amount)) {
+                        transactions.push({
+                            id: editingTransaction,
+                            type: 'online',
+                            reference: reference,
+                            gateway: gateway,
+                            amount: amount
+                        });
+                    }
+                });
+                
+                // Reset editing state
+                editingTransaction = null;
+                document.getElementById('saveOnlinePayment').textContent = 'Save Payment';
+            } else {
+                // Add new transactions
+                entries.forEach(entry => {
+                    const reference = entry.querySelector('.online-reference').value;
+                    const gateway = entry.querySelector('.online-gateway').value;
+                    const amount = parseFloat(entry.querySelector('.online-amount').value);
+
+                    if (reference && gateway && !isNaN(amount)) {
+                        const transaction = {
+                            id: `TXN-${padNumber(currentTransactionId)}`,
+                            type: 'online',
+                            reference: reference,
+                            gateway: gateway,
+                            amount: amount
+                        };
+                        transactions.push(transaction);
+                        currentTransactionId++;
+                    }
+                });
+            }
+
+            // Update payment received details
+            updatePaymentReceivedDetails();
+
+            // Clear inputs and hide payment form
+            clearPaymentInputs('online');
+
+            // Update totals
+            updateTotals();
+        }
+
+        function addCreditEntry() {
+            const creditEntries = document.getElementById('creditEntries');
+            const entryDiv = document.createElement('div');
+            entryDiv.className = 'payment-entry';
+            entryDiv.innerHTML = `
+                <div class="input-group">
+                    <label>Credit Number:</label>
+                    <input type="text" class="credit-number" required>
+                </div>
+                <div class="input-group">
+                    <label>Credited By:</label>
+                    <input type="text" class="credit-by" required>
+                </div>
+                <div class="input-group">
+                    <label>Amount:</label>
+                    <input type="number" class="credit-amount" min="0" step="0.01" required>
+                </div>
+                <button class="action-btn no-print" onclick="this.parentElement.remove()">Delete</button>
+            `;
+            creditEntries.appendChild(entryDiv);
+            document.getElementById('saveCreditPayment').style.display = 'block';
+        }
+
+        function saveCreditPayment() {
+            const entries = document.querySelectorAll('#creditEntries .payment-entry');
+            if (entries.length === 0) {
+                alert('Please add at least one credit entry');
+                return;
+            }
+
+            if (editingTransaction) {
+                // Remove old credit transactions
+                transactions = transactions.filter(t => t.id !== editingTransaction);
+                
+                // Add new transactions
+                entries.forEach(entry => {
+                    const creditNumber = entry.querySelector('.credit-number').value;
+                    const creditedBy = entry.querySelector('.credit-by').value;
+                    const amount = parseFloat(entry.querySelector('.credit-amount').value);
+
+                    if (creditNumber && creditedBy && !isNaN(amount)) {
+                        transactions.push({
+                            id: editingTransaction,
+                            type: 'credit',
+                            creditNumber: creditNumber,
+                            creditedBy: creditedBy,
+                            amount: amount
+                        });
+                    }
+                });
+                
+                // Reset editing state
+                editingTransaction = null;
+                document.getElementById('saveCreditPayment').textContent = 'Save Payment';
+            } else {
+                // Add new transactions
+                entries.forEach(entry => {
+                    const creditNumber = entry.querySelector('.credit-number').value;
+                    const creditedBy = entry.querySelector('.credit-by').value;
+                    const amount = parseFloat(entry.querySelector('.credit-amount').value);
+
+                    if (creditNumber && creditedBy && !isNaN(amount)) {
+                        const transaction = {
+                            id: `TXN-${padNumber(currentTransactionId)}`,
+                            type: 'credit',
+                            creditNumber: creditNumber,
+                            creditedBy: creditedBy,
+                            amount: amount
+                        };
+                        transactions.push(transaction);
+                        currentTransactionId++;
+                    }
+                });
+            }
+
+            // Update payment received details
+            updatePaymentReceivedDetails();
+
+            // Clear inputs and hide payment form
+            clearPaymentInputs('credit');
+
+            // Update totals
+            updateTotals();
+        }
+
+        function clearPaymentInputs(type) {
+            if (type === 'cash') {
+                document.querySelectorAll('.denomination-count').forEach(input => input.value = '');
+                document.getElementById('cashDenomination').style.display = 'none';
+                document.getElementById('saveCashPayment').style.display = 'none';
+                document.getElementById('cashCheckbox').checked = false;
+                document.getElementById('cashPayment').style.display = 'none';
+            } else if (type === 'cheque') {
+                document.getElementById('chequeEntries').innerHTML = '';
+                document.getElementById('saveChequePayment').style.display = 'none';
+                document.getElementById('chequeCheckbox').checked = false;
+                document.getElementById('chequePayment').style.display = 'none';
+            } else if (type === 'online') {
+                document.getElementById('onlineEntries').innerHTML = '';
+                document.getElementById('saveOnlinePayment').style.display = 'none';
+                document.getElementById('onlineCheckbox').checked = false;
+                document.getElementById('onlinePayment').style.display = 'none';
+            } else if (type === 'credit') {
+                document.getElementById('creditEntries').innerHTML = '';
+                document.getElementById('saveCreditPayment').style.display = 'none';
+                document.getElementById('creditCheckbox').checked = false;
+                document.getElementById('creditPayment').style.display = 'none';
+            }
+        }
+
+        function updatePaymentReceivedDetails() {
+            const tbody = document.querySelector('#paymentReceivedDetails tbody');
+            tbody.innerHTML = '';
+
+            // Group transactions by ID
+            const transactionGroups = {};
+            transactions.forEach(transaction => {
+                if (!transactionGroups[transaction.id]) {
+                    transactionGroups[transaction.id] = {
+                        cash: 0,
+                        cheque: 0,
+                        online: 0,
+                        credit: 0
+                    };
+                }
+
+                switch (transaction.type) {
+                    case 'cash':
+                        transactionGroups[transaction.id].cash = transaction.amount;
+                        break;
+                    case 'cheque':
+                        transactionGroups[transaction.id].cheque = transaction.amount;
+                        break;
+                    case 'online':
+                        transactionGroups[transaction.id].online = transaction.amount;
+                        break;
+                    case 'credit':
+                        transactionGroups[transaction.id].credit = transaction.amount;
+                        break;
+                }
+            });
+
+            // Add rows for each transaction
+            Object.keys(transactionGroups).forEach(id => {
+                const group = transactionGroups[id];
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>[${id.split('-')[1]}]</td>
+                    <td>${group.cash ? group.cash.toFixed(2) : '-'}</td>
+                    <td>${group.cheque ? group.cheque.toFixed(2) : '-'}</td>
+                    <td>${group.online ? group.online.toFixed(2) : '-'}</td>
+                    <td>${group.credit ? group.credit.toFixed(2) : '-'}</td>
+                    <td class="no-print">
+                        <button class="action-btn edit" onclick="editTransaction('${id}')">Edit</button>
+                        <button class="action-btn" onclick="deleteTransaction('${id}')">Delete</button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function editTransaction(id) {
+            // Find transaction to edit
+            const transaction = transactions.find(t => t.id === id);
+            if (!transaction) return;
+
+            // Set editing state
+            editingTransaction = id;
+            
+            // Depending on type, populate the appropriate form
+            switch (transaction.type) {
+                case 'cash':
+                    document.getElementById('cashCheckbox').checked = true;
+                    document.getElementById('cashPayment').style.display = 'block';
+                    document.getElementById('saveCashPayment').textContent = 'Update Payment';
+                    
+                    // Populate denomination inputs
+                    transaction.details.forEach(detail => {
+                        document.getElementById(`count${detail.denomination}`).value = detail.count;
+                        document.getElementById(`total${detail.denomination}`).textContent = detail.total;
+                    });
+                    document.getElementById('totalCashAmount').textContent = transaction.amount;
+                    document.getElementById('cashDenomination').style.display = 'block';
+                    break;
+                    
+                case 'cheque':
+                    document.getElementById('chequeCheckbox').checked = true;
+                    document.getElementById('chequePayment').style.display = 'block';
+                    document.getElementById('saveChequePayment').textContent = 'Update Payment';
+                    
+                    // Clear existing entries
+                    document.getElementById('chequeEntries').innerHTML = '';
+                    
+                    // Add entry for this transaction
+                    const entryDiv = document.createElement('div');
+                    entryDiv.className = 'payment-entry';
+                    entryDiv.innerHTML = `
+                        <div class="input-group">
+                            <label>Cheque Number:</label>
+                            <input type="text" class="cheque-number" value="${transaction.chequeNumber}" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Bank:</label>
+                            <input type="text" class="cheque-bank" value="${transaction.bank}" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Amount:</label>
+                            <input type="number" class="cheque-amount" value="${transaction.amount}" min="0" step="0.01" required>
+                        </div>
+                        <button class="action-btn no-print" onclick="this.parentElement.remove()">Delete</button>
+                    `;
+                    document.getElementById('chequeEntries').appendChild(entryDiv);
+                    document.getElementById('saveChequePayment').style.display = 'block';
+                    break;
+                    
+                case 'online':
+                    document.getElementById('onlineCheckbox').checked = true;
+                    document.getElementById('onlinePayment').style.display = 'block';
+                    document.getElementById('saveOnlinePayment').textContent = 'Update Payment';
+                    
+                    // Clear existing entries
+                    document.getElementById('onlineEntries').innerHTML = '';
+                    
+                    // Add entry for this transaction
+                    const onlineEntryDiv = document.createElement('div');
+                    onlineEntryDiv.className = 'payment-entry';
+                    onlineEntryDiv.innerHTML = `
+                        <div class="input-group">
+                            <label>Reference Number:</label>
+                            <input type="text" class="online-reference" value="${transaction.reference}" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Payment Gateway:</label>
+                            <input type="text" class="online-gateway" value="${transaction.gateway}" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Amount:</label>
+                            <input type="number" class="online-amount" value="${transaction.amount}" min="0" step="0.01" required>
+                        </div>
+                        <button class="action-btn no-print" onclick="this.parentElement.remove()">Delete</button>
+                    `;
+                    document.getElementById('onlineEntries').appendChild(onlineEntryDiv);
+                    document.getElementById('saveOnlinePayment').style.display = 'block';
+                    break;
+                    
+                case 'credit':
+                    document.getElementById('creditCheckbox').checked = true;
+                    document.getElementById('creditPayment').style.display = 'block';
+                    document.getElementById('saveCreditPayment').textContent = 'Update Payment';
+                    
+                    // Clear existing entries
+                    document.getElementById('creditEntries').innerHTML = '';
+                    
+                    // Add entry for this transaction
+                    const creditEntryDiv = document.createElement('div');
+                    creditEntryDiv.className = 'payment-entry';
+                    creditEntryDiv.innerHTML = `
+                        <div class="input-group">
+                            <label>Credit Number:</label>
+                            <input type="text" class="credit-number" value="${transaction.creditNumber}" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Credited By:</label>
+                            <input type="text" class="credit-by" value="${transaction.creditedBy}" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Amount:</label>
+                            <input type="number" class="credit-amount" value="${transaction.amount}" min="0" step="0.01" required>
+                        </div>
+                        <button class="action-btn no-print" onclick="this.parentElement.remove()">Delete</button>
+                    `;
+                    document.getElementById('creditEntries').appendChild(creditEntryDiv);
+                    document.getElementById('saveCreditPayment').style.display = 'block';
+                    break;
+            }
+        }
+
+        function deleteTransaction(id) {
+            if (confirm('Are you sure you want to delete this transaction?')) {
+                // Remove from transactions array
+                const deletedTransaction = transactions.find(t => t.id === id);
+                transactions = transactions.filter(t => t.id !== id);
+                
+                // If it was a cash transaction, remove from cashDenominations
+                if (deletedTransaction && deletedTransaction.type === 'cash') {
+                    cashDenominations = cashDenominations.filter(d => 
+                        !deletedTransaction.details.some(detail => 
+                            detail.denomination === d.denomination && 
+                            detail.count === d.count && 
+                            detail.total === d.total
+                        )
+                    );
+                }
+                
+                // Update displays
+                updatePaymentReceivedDetails();
+                updateCashDenominationSummary();
+                updateTotals();
+            }
+        }
+
+        function updateTotals() {
+            // Calculate total vouchers amount
+            let totalVouchers = vouchers.reduce((sum, voucher) => sum + voucher.amount, 0);
+            document.getElementById('totalVouchersAmount').textContent = totalVouchers.toFixed(2);
+            
+            // Calculate payment method totals
+            const totalCash = transactions
+                .filter(t => t.type === 'cash')
+                .reduce((sum, t) => sum + t.amount, 0);
+            
+            const totalCheque = transactions
+                .filter(t => t.type === 'cheque')
+                .reduce((sum, t) => sum + t.amount, 0);
+            
+            const totalOnline = transactions
+                .filter(t => t.type === 'online')
+                .reduce((sum, t) => sum + t.amount, 0);
+            
+            const totalCredit = transactions
+                .filter(t => t.type === 'credit')
+                .reduce((sum, t) => sum + t.amount, 0);
+            
+            document.getElementById('totalCashSummary').textContent = totalCash.toFixed(2);
+            document.getElementById('totalChequeSummary').textContent = totalCheque.toFixed(2);
+            document.getElementById('totalOnlineSummary').textContent = totalOnline.toFixed(2);
+            document.getElementById('totalCreditSummary').textContent = totalCredit.toFixed(2);
+            
+            // Calculate total payment amount
+            const totalPayment = totalCash + totalCheque + totalOnline + totalCredit;
+            document.getElementById('totalPaymentAmount').textContent = totalPayment.toFixed(2);
+            
+            // Calculate difference
+            const difference = totalPayment - totalVouchers;
+            document.getElementById('differenceAmount').textContent = difference.toFixed(2);
+        }
+    </script>
+</body>
+</html>

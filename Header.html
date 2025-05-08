@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motor Premium Calculator</title>
+    <link rel="stylesheet" href="css\cssCalculator.css">
+    <link rel="icon" type="image/x-icon" href="favicon.png">
+</head>
+<body>
+
+    <!-- Top Line with Menu and Custom Settings Icon -->
+<div class="top-line">
+    <div class="menu" onclick="toggleMenu()">☰ Menu</div>
+    <div class="settings-btn" onclick="toggleSettings()">︙</div> <!-- '︙' as Settings Icon -->
+  </div>
+
+  <!-- Dropdown Menu -->
+  <div class="dropdown" id="menuDropdown">
+    <div>
+      <h4>Premium Calculator</h4>
+      <ul>
+        <li><a href="index.html" style="color: white; text-decoration: none;">Motor</li>
+        <li>Property (Coming Soon)</li>
+        <li>Marine (Coming Soon)</li>
+      </ul>
+    </div>
+    <div>
+	<h4>Cash Denomination</h4>
+      <ul>
+	</li><a href="header.html" style="color: white; text-decoration: none;">Cash Denomination</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Knowledge (Coming Soon)</a></h4>
+      <ul>
+        <li>Insurance</li>
+        <li>Share</li>
+        <li>SIP</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Converter (Coming Soon)</h4>
+      <ul>
+        <li>Area converter</li>
+        <li>Price converter</li>
+        <li>Date converter</li>
+      </ul>
+    </div>
+    <div>
+      <button class="about-btn" onclick="showAbout()">About</button>
+    </div>
+  </div>
+
+  <!-- Settings Menu -->
+  <div class="settings-menu" id="settingsMenu">
+    <label>
+      <input type="checkbox" id="darkModeToggle" onclick="toggleDarkMode()"> Dark Mode
+    </label>
+    <label>
+      Font Size:
+      <input type="range" id="fontSizeRange" min="12" max="24" value="16" oninput="changeFontSize()">
+    </label>
+  </div>
+    
+    <div id="aboutOverlay" class="overlay">
+        <div class="about-content">
+            <span class="close-btn" onclick="hideAbout()">&times;</span>
+            <h2>Premium Calculator</h2> 
+            <h2>Version 1.12</h2>
+            <p>This is a premium calculator for motor insurance. It calculates the premium based on various parameters such as vehicle type, value, cubic capacity, and additional options.</p>
+            <h3>"""""""""""""""</h3>
+            <h4>Developed by Nisheda Bhattarai</h4>
+            <p>Email: nisheda@walla.com</p>
+        </div>
+    </div>
+
+    <iframe src="Deno.html" width="100%" height="500px"></iframe>
+
+    <script src="js\jsCalculator.js"></script>
+</body>
+</html>
