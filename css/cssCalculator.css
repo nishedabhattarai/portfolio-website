@@ -1,3 +1,153 @@
+    /* Top line spanning the width of the page */
+    .top-line {
+        background-color: #002B5B; /* Dark blue */
+        height: 50px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 20px;
+        z-index: 1000; /* To make sure it's always on top */
+      }
+  
+      /* Menu button in top line */
+      .menu {
+        cursor: pointer;
+        color: white;
+        font-size: 20px;
+      }
+  
+      /* Custom Settings button with '︙' symbol */
+      .settings-btn {
+        cursor: pointer;
+        background-color: transparent;
+        color: white;
+        padding: 10px;
+        border-radius: 80%;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 22px; /* Adjust size of the dots */
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+  
+      /* Dropdown Menu */
+      .dropdown {
+        display: none;
+        background-color: #002B5B; /* Dark blue */
+        padding: 10px;
+        border: 1px solid #001f40;
+        width: 250px;
+        margin-top: 10px;
+        border-radius: 5px;
+        color: white;
+        position: absolute;
+        top: 50px; /* Position below the menu button */
+        left: 20px; /* Align with the menu button */
+      }
+  
+      .dropdown h4 {
+        margin: 10px 0 5px;
+        color: #ffffff;
+      }
+  
+      .dropdown ul {
+        list-style: none;
+        padding-left: 20px;
+        margin: 0 0 10px 0;
+      }
+  
+      .dropdown ul li {
+        margin: 4px 0;
+        cursor: pointer;
+        color: #d6e4ff;
+      }
+  
+      .dropdown ul li:hover {
+        text-decoration: underline;
+      }
+  
+      /* Settings Menu */
+      .settings-menu {
+        position: absolute;
+        top: 60px;
+        right: 20px;
+        background-color: #ffffff;
+        color: #333;
+        padding: 15px;
+        width: 200px;
+        border-radius: 5px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        display: none;
+      }
+  
+      .settings-menu label {
+        display: block;
+        margin-bottom: 10px;
+      }
+  
+      .settings-menu input {
+        margin-right: 5px;
+      }
+  
+  .settings-btn {
+    cursor: pointer;
+    background-color: transparent;
+    color: white;
+    padding: 10px;
+    border-radius: 80%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s; /* Smooth transition */
+  }
+  
+  /* Add this rule for hover effect */
+  .settings-btn:hover {
+    background-color: #0056b3; /* Change to a lighter or contrasting blue */
+  }
+  
+  .menu {
+    cursor: pointer;
+    color: white;
+    font-size: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+  
+  /* Hover effect for Menu */
+  .menu:hover {
+    background-color: #0056b3; /* Lighter or contrasting blue */
+  }
+  
+      .dark-mode {
+        background-color: #121212;
+        color: #ffffff;
+      }
+  
+      .dark-mode .menu {
+        background-color: #333;
+      }
+  
+      .dark-mode .dropdown {
+        background-color: #333;
+        border: 1px solid #444;
+      }
+  
+      .dark-mode .settings-btn {
+        background-color: #444;
+      }  
+
 .required {
     color: red;
     margin-left: 4px;
@@ -28,7 +178,7 @@ body {
     background-color: #f5f7fa;
     color: #333;
     line-height: 1.00;
-    padding: 20px;
+    padding: 1in 20px;
     margin: 0;
 }
 

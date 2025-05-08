@@ -6,6 +6,36 @@ const format = (amount) => new Intl.NumberFormat('en-NP', {
     maximumFractionDigits: 2
 }).format(amount);
 
+    // Toggle the dropdown menu
+    function toggleMenu() {
+        const dropdown = document.getElementById("menuDropdown");
+        dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+      }
+  
+      // Toggle the settings menu
+      function toggleSettings() {
+        const settingsMenu = document.getElementById("settingsMenu");
+        settingsMenu.style.display = settingsMenu.style.display === "block" ? "none" : "block";
+      }
+  
+      // Toggle Dark Mode
+      function toggleDarkMode() {
+        const body = document.body;
+        const darkModeCheckbox = document.getElementById("darkModeToggle");
+  
+        if (darkModeCheckbox.checked) {
+          body.classList.add("dark-mode");
+        } else {
+          body.classList.remove("dark-mode");
+        }
+      }
+  
+      // Change Font Size
+      function changeFontSize() {
+        const fontSize = document.getElementById("fontSizeRange").value;
+        document.body.style.fontSize = fontSize + "px";
+      }  
+
 function showAbout() {
     document.getElementById('aboutOverlay').style.display = 'flex';
 }
@@ -947,7 +977,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Step 3: Old Vehicle Charge
         let oldVehicleCharge = 0;                
-        if (vehicleType === 'motorcycle' || vehicleType === 'agriculture') {
+        if (vehicleType === 'motorcycle' || vehicleType === 'construction') {
             if (vehicleAge >= 5 && vehicleAge <= 10) {
                 oldVehicleCharge = (normalPremium + additionalPremium + trailerCharge - tariffDiscount) * 0.15;
             } else if (vehicleAge > 10) {
@@ -961,7 +991,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         else if (vehicleType === 'passenger' || vehicleType === 'goods' || 
                  vehicleType === 'tanker' || vehicleType === 'tractor' || 
-                 vehicleType === 'tempo' || vehicleType === 'construction') {
+                 vehicleType === 'tempo' || vehicleType === 'agriulture') {
             if (vehicleAge >= 5 && vehicleAge <= 10) {
                 oldVehicleCharge = (normalPremium + additionalPremium + trailerCharge - tariffDiscount) * 0.10;
             } else if (vehicleAge > 10) {
@@ -1681,6 +1711,58 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
     }
+
+    // Toggle the dropdown menu
+    function toggleMenu() {
+      const dropdown = document.getElementById("menuDropdown");
+      dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+    }
+
+    // Toggle the settings menu
+    function toggleSettings() {
+      const settingsMenu = document.getElementById("settingsMenu");
+      settingsMenu.style.display = settingsMenu.style.display === "block" ? "none" : "block";
+    }
+
+    // Toggle Dark Mode
+    function toggleDarkMode() {
+      const body = document.body;
+      const darkModeCheckbox = document.getElementById("darkModeToggle");
+
+      if (darkModeCheckbox.checked) {
+        body.classList.add("dark-mode");
+      } else {
+        body.classList.remove("dark-mode");
+      }
+    }
+
+    // Change Font Size
+    function changeFontSize() {
+      const fontSize = document.getElementById("fontSizeRange").value;
+      document.body.style.fontSize = fontSize + "px";
+    }
+    function toggleMenu() {
+      const menu = document.getElementById('leftMenu');
+      const content = document.getElementById('mainContent');
+      menu.classList.toggle('hidden');
+      content.classList.toggle('full');
+    }
+
+    function handleResize() {
+      const menu = document.getElementById('leftMenu');
+      const content = document.getElementById('mainContent');
+      if (window.innerWidth <= 800) {
+        menu.classList.add('hidden');
+        content.classList.add('full');
+      } else {
+        menu.classList.remove('hidden');
+        content.classList.remove('full');
+      }
+    }
+
+    window.addEventListener('resize', handleResize);
+    window.addEventListener('load', handleResize);
+
 
     // Initialize the form
     toggleVehicleFields();

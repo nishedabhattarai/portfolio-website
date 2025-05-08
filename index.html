@@ -8,7 +8,60 @@
     <link rel="icon" type="image/x-icon" href="favicon.png">
 </head>
 <body>
-    <button class="about-btn" onclick="showAbout()">About</button>
+
+    <!-- Top Line with Menu and Custom Settings Icon -->
+<div class="top-line">
+    <div class="menu" onclick="toggleMenu()">☰ Menu</div>
+    <div class="settings-btn" onclick="toggleSettings()">︙</div> <!-- '︙' as Settings Icon -->
+  </div>
+
+  <!-- Dropdown Menu -->
+  <div class="dropdown" id="menuDropdown">
+    <div>
+      <h4>Premium Calculator</h4>
+      <ul>
+        <li>Motor</li>
+        <li>Property</li>
+        <li>Marine</li>
+      </ul>
+    </div>
+    <div>
+      <h4><a href="desktop/knowledge.html" style="color: white; text-decoration: none;">Knowledge</a></h4>
+      <ul>
+        <li>Insurance</li>
+        <li>Share</li>
+        <li>SIP</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Converter</h4>
+      <ul>
+        <li>Area converter</li>
+        <li>Price converter</li>
+        <li>Date converter</li>
+      </ul>
+    </div>
+    <div>
+	<h4>Cash Denomination</h4>
+    </div>
+    <div>
+      <h4>Profile</h4>
+    </div>
+    <div>
+      <button class="about-btn" onclick="showAbout()">About</button>
+    </div>
+  </div>
+
+  <!-- Settings Menu -->
+  <div class="settings-menu" id="settingsMenu">
+    <label>
+      <input type="checkbox" id="darkModeToggle" onclick="toggleDarkMode()"> Dark Mode
+    </label>
+    <label>
+      Font Size:
+      <input type="range" id="fontSizeRange" min="12" max="24" value="16" oninput="changeFontSize()">
+    </label>
+  </div>
     
     <div id="aboutOverlay" class="overlay">
         <div class="about-content">
