@@ -4,15 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cash Denomination</title>
+    <link rel="stylesheet" href="css\cssCalculator.css">
+    <link rel="icon" type="image/x-icon" href="favicon.png">
+
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 10px;
+            margin: 5px;
             line-height: 1.0;
         }
+
         .header {
             text-align: center;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
+            line-height: 0.0;
         }
         .container {
             display: flex;
@@ -20,28 +25,31 @@
         }
         .column {
             flex: 2;
-            border: 1px solid #ddd;
-            padding: 10px;
+            border: 2px solid #ddd;
+            padding: 15px;
             border-radius: 4px;
         }
         .section {
-            margin-bottom: 10px;
+            margin-bottom: 5px;
             padding-bottom: 8px;
             border-bottom: 1px solid #eee;
         }
         .section h3 {
-            margin: 5px 0;
+            margin: 3px 0;
             color: #333;
-            font-size: 14px;
+            font-size: 16px;
+            line-height: 1.0;
         }
         .input-group {
-            margin-bottom: 6px;
+            margin-bottom: 4px;
+            line-height: 1.0;
         }
         .input-group label {
             display: block;
             margin-bottom: 3px;
             font-weight: bold;
-            font-size: 12px;
+            font-size: 15px;
+            line-height: 1.0;
         }
         .input-group input, .input-group select {
             width: 100%;
@@ -49,7 +57,7 @@
             box-sizing: border-box;
             border: 1px solid #ddd;
             border-radius: 3px;
-            font-size: 12px;
+            font-size: 14px;
         }
         button {
             background-color: #4CAF50;
@@ -59,7 +67,7 @@
             border-radius: 3px;
             cursor: pointer;
             margin-top: 8px;
-            font-size: 12px;
+            font-size: 14px;
         }
         button:hover {
             background-color: #45a049;
@@ -77,9 +85,11 @@
         }
         .denomination-table th {
             background-color: #f2f2f2;
+            line-height: 1.0;
         }
         .payment-method {
             margin-top: 10px;
+            line-height: 1.2;
         }
         .payment-entry {
             border: 1px solid #ddd;
@@ -92,7 +102,8 @@
             width: 100%;
             border-collapse: collapse;
             margin-top: 8px;
-            font-size: 12px;
+            font-size: 14px;
+            line-height: 1.0;
         }
         .summary-table th, .summary-table td {
             border: 1px solid #ddd;
@@ -104,16 +115,18 @@
         }
         .totals {
             margin-top: 10px;
-            padding: 8px;
-            background-color: #f9f9f9;
-            border-radius: 3px;
-            font-size: 12px;
+            padding: 10px;
+            background-color: #6666;
+            border-radius: 5px;
+            font-size: 14px;
+	    color: #002B5B;
+            line-height: 1.2;
         }
         .action-btn {
             background-color: #f44336;
             padding: 4px 8px;
             margin-left: 4px;
-            font-size: 11px;
+            font-size: 12px;
         }
         .action-btn.edit {
             background-color: #2196F3;
@@ -165,6 +178,73 @@
     </style>
 </head>
 <body>
+
+    <!-- Top Line with Menu and Custom Settings Icon -->
+<div class="top-line">
+    <div class="menu" onclick="toggleMenu()">☰ Menu</div>
+    <div class="settings-btn" onclick="toggleSettings()">︙</div> <!-- '︙' as Settings Icon -->
+  </div>
+
+  <!-- Dropdown Menu -->
+  <div class="dropdown" id="menuDropdown">
+    <div>
+      <h4>Premium Calculator</h4>
+      <ul>
+        <li><a href="index.html" style="color: white; text-decoration: none;">Motor</a></li>
+        <li>Property (Coming Soon)</li>
+        <li>Marine (Coming Soon)</li>
+      </ul>
+    </div>
+    <div>
+	<h4>Cash Denomination</h4>
+      <ul>
+	<li><a href="deno.html" style="color: white; text-decoration: none;">Cash Denomination</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Knowledge (Coming Soon)</h4>
+      <ul>
+        <li>Insurance</li>
+        <li>Share</li>
+        <li>SIP</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Converter (Coming Soon)</h4>
+      <ul>
+        <li>Area converter</li>
+        <li>Price converter</li>
+        <li>Date converter</li>
+      </ul>
+    </div>
+    <div>
+      <button class="about-btn" onclick="showAbout()">About</button>
+    </div>
+  </div>
+
+  <!-- Settings Menu -->
+  <div class="settings-menu" id="settingsMenu">
+    <label>
+      <input type="checkbox" id="darkModeToggle" onclick="toggleDarkMode()"> Dark Mode
+    </label>
+    <label>
+      Font Size:
+      <input type="range" id="fontSizeRange" min="12" max="24" value="16" oninput="changeFontSize()">
+    </label>
+  </div>
+    
+    <div id="aboutOverlay" class="overlay">
+        <div class="about-content">
+            <span class="close-btn" onclick="hideAbout()">&times;</span>
+            <h2>Premium Calculator</h2> 
+            <h2>Version 1.12</h2>
+            <p>This is a premium calculator for motor insurance. It calculates the premium based on various parameters such as vehicle type, value, cubic capacity, and additional options.</p>
+            <h3>"""""""""""""""</h3>
+            <h4>Developed by Nisheda Bhattarai</h4>
+            <p>Email: nisheda@walla.com</p>
+        </div>
+    </div>
+
     <div class="header">
         <h1>Cash Denomination</h1>
         <div class="input-group">
@@ -423,6 +503,52 @@
     </div>
 
     <script>
+    // Toggle the dropdown menu
+    function toggleMenu() {
+        const dropdown = document.getElementById("menuDropdown");
+        dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+      }
+  
+      // Toggle the settings menu
+      function toggleSettings() {
+        const settingsMenu = document.getElementById("settingsMenu");
+        settingsMenu.style.display = settingsMenu.style.display === "block" ? "none" : "block";
+      }
+  
+      // Toggle Dark Mode
+      function toggleDarkMode() {
+        const body = document.body;
+        const darkModeCheckbox = document.getElementById("darkModeToggle");
+  
+        if (darkModeCheckbox.checked) {
+          body.classList.add("dark-mode");
+        } else {
+          body.classList.remove("dark-mode");
+        }
+      }
+  
+      // Change Font Size
+      function changeFontSize() {
+        const fontSize = document.getElementById("fontSizeRange").value;
+        document.body.style.fontSize = fontSize + "px";
+      }  
+
+function showAbout() {
+    document.getElementById('aboutOverlay').style.display = 'flex';
+}
+
+function hideAbout() {
+    document.getElementById('aboutOverlay').style.display = 'none';
+}
+
+// Close overlay when clicking outside the content
+window.onclick = function(event) {
+    const overlay = document.getElementById('aboutOverlay');
+    if (event.target == overlay) {
+        overlay.style.display = 'none';
+    }
+}
+
         // Global variables
         let transactions = [];
         let cashDenominations = [];
