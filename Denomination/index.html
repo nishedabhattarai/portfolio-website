@@ -4,20 +4,170 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cash Denomination</title>
-    <link rel="stylesheet" href="e:\weB\css\cssCalculator.css">
     <link rel="icon" type="image/x-icon" href="e:\weB\favicon.png">
 
     <style>
+
+    /* Top line spanning the width of the page */
+    .top-line {
+        background-color: #002B5B; /* Dark blue */
+        height: 50px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 20px;
+        z-index: 1000; /* To make sure it's always on top */
+      }
+  
+      /* Menu button in top line */
+      .menu {
+        cursor: pointer;
+        color: white;
+        font-size: 20px;
+      }
+  
+      /* Custom Settings button with '︙' symbol */
+      .settings-btn {
+        cursor: pointer;
+        background-color: transparent;
+        color: white;
+        padding: 10px;
+        border-radius: 80%;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 22px; /* Adjust size of the dots */
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+  
+      /* Dropdown Menu */
+      .dropdown {
+        display: none;
+        background-color: #002B5B; /* Dark blue */
+        padding: 10px;
+        border: 1px solid #001f40;
+        width: 250px;
+        margin-top: 10px;
+        border-radius: 5px;
+        color: white;
+        position: absolute;
+        top: 50px; /* Position below the menu button */
+        left: 20px; /* Align with the menu button */
+      }
+  
+      .dropdown h4 {
+        margin: 10px 0 5px;
+        color: #ffffff;
+      }
+  
+      .dropdown ul {
+        list-style: none;
+        padding-left: 20px;
+        margin: 0 0 10px 0;
+      }
+  
+      .dropdown ul li {
+        margin: 4px 0;
+        cursor: pointer;
+        color: #d6e4ff;
+      }
+  
+      .dropdown ul li:hover {
+        text-decoration: underline;
+      }
+  
+      /* Settings Menu */
+      .settings-menu {
+        position: absolute;
+        top: 60px;
+        right: 20px;
+        background-color: #ffffff;
+        color: #333;
+        padding: 15px;
+        width: 200px;
+        border-radius: 5px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        display: none;
+      }
+  
+      .settings-menu label {
+        display: block;
+        margin-bottom: 10px;
+      }
+  
+      .settings-menu input {
+        margin-right: 5px;
+      }
+  
+  .settings-btn {
+    cursor: pointer;
+    background-color: transparent;
+    color: white;
+    padding: 10px;
+    border-radius: 80%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s; /* Smooth transition */
+  }
+  
+  /* Add this rule for hover effect */
+  .settings-btn:hover {
+    background-color: #0056b3; /* Change to a lighter or contrasting blue */
+  }
+  
+  .menu {
+    cursor: pointer;
+    color: white;
+    font-size: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+  
+  /* Hover effect for Menu */
+  .menu:hover {
+    background-color: #0056b3; /* Lighter or contrasting blue */
+  }
+  
+      .dark-mode {
+        background-color: #121212;
+        color: #ffffff;
+      }
+  
+      .dark-mode .menu {
+        background-color: #333;
+      }
+  
+      .dark-mode .dropdown {
+        background-color: #333;
+        border: 1px solid #444;
+      }
+  
+      .dark-mode .settings-btn {
+        background-color: #444;
+      }  
+
         body {
             font-family: Arial, sans-serif;
-            margin: 5px;
+            margin: 10px;
             line-height: 1.0;
         }
 
         .header {
             text-align: center;
-            margin-bottom: 5px;
-            line-height: 0.0;
+	    margin-top: 10px;
+            margin-bottom: 1px;
         }
         .container {
             display: flex;
@@ -42,7 +192,7 @@
         }
         .input-group {
             margin-bottom: 4px;
-            line-height: 1.0;
+            line-height: 0.5;
         }
         .input-group label {
             display: block;
@@ -89,7 +239,7 @@
         }
         .payment-method {
             margin-top: 10px;
-            line-height: 1.2;
+            line-height: 1.0;
         }
         .payment-entry {
             border: 1px solid #ddd;
@@ -103,7 +253,7 @@
             border-collapse: collapse;
             margin-top: 8px;
             font-size: 14px;
-            line-height: 1.0;
+            line-height: 0.5;
         }
         .summary-table th, .summary-table td {
             border: 1px solid #ddd;
@@ -120,7 +270,7 @@
             border-radius: 5px;
             font-size: 14px;
 	    color: #002B5B;
-            line-height: 1.2;
+            line-height: 0.5;
         }
         .action-btn {
             background-color: #f44336;
@@ -139,6 +289,7 @@
             white-space: nowrap;
             padding-right: 10px;
             font-size: 14px;
+            line-height: 1.0;
         }
         .date-input {
             width: auto;
@@ -175,6 +326,56 @@
                 display: none !important;
             }
         }
+.about-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    max-width: 100px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+.about-btn:hover {
+    background-color: #45a049;
+}
+
+/* Overlay styling */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.about-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    max-width: 500px;
+    text-align: center;
+    position: relative;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #555;
+}
+
+.close-btn:hover {
+    color: #000;
+}
+
     </style>
 </head>
 <body>
