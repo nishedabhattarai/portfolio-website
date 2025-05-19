@@ -960,7 +960,7 @@ document.addEventListener('DOMContentLoaded', function() {
             normalPremium = vehicleValue * normalPremiumRate;
         }
         
-        // Apply short period factor to normal premium and tariff discount if vehicle value > 0 and not annual
+        // Apply short period factor to normal premium, tariff discount and additional premium if vehicle value > 0 and not annual
         if (vehicleValue > 0 && calcType !== 'annual') {
             normalPremium *= shortPeriodFactor;
         }
@@ -968,12 +968,21 @@ document.addEventListener('DOMContentLoaded', function() {
         if (vehicleValue > 0 && calcType !== 'annual') {
             tariffDiscount *= shortPeriodFactor;
         }
+
+        if (vehicleValue > 0 && calcType !== 'annual') {
+            additionalPremium *= shortPeriodFactor;
+        }
         
         // Step 2: Trailer Charge
         let trailerCharge = 0;
         if (hasTrailer) {
             trailerCharge = trailerValue * 0.0125 - 200;
         }                
+
+        // Apply short period factor to trailer if vehicle value > 0 and not annual
+        if (vehicleValue > 0 && calcType !== 'annual') {
+            trailerCharge *= shortPeriodFactor;
+        }
 
         // Step 3: Old Vehicle Charge
         let oldVehicleCharge = 0;                
