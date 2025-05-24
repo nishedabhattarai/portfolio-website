@@ -311,47 +311,113 @@ function validateManufacturingYear(yearInput) {
 }
 
 function clearForm() {
-    // Get all input elements
-    const inputs = document.querySelectorAll('input[type="number"], input[type="text"]');
-    const year = document.querySelectorAll('input[type="manufacturingYear"], input[type="number"]');
-    //const selects = document.querySelectorAll('select');
-    //const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    // Reset form fields -3
+    // document.getElementById('premiumForm').reset();
+
+    // Get all input elements -2
+    const currentVehicleType = document.getElementById('vehicleType').value;
+    const currentGovType = document.querySelector('input[name="govType"]:checked').value; 
+
+    // const inputs = document.querySelectorAll('input[type="number"], input[type="text"]'); -1
+    // const year = document.querySelectorAll('input[type="manufacturingYear"], input[type="number"]');
+    // const selects = document.querySelectorAll('select');
+    // const checkboxes = document.querySelectorAll('input[type="checkbox"]');
     
-    // Clear all inputs except vehicleType, govType, and electricType
-    inputs.forEach(input => {
-        if (input.id !== 'vehicleType' && 
-            !input.name.includes('govType') && 
-            input.id !== 'electricType') {
-            input.value = '';
+    // Reset form fields (excluding vehicle type and category)
+    const form = document.getElementById('premiumForm');
+    const formData = new FormData(form);
+    for (let [name, value] of formData) {
+        if (name !== 'vehicleType' && name !== 'govType') {
+            const element = form.elements[name];
+            if (element.type === 'checkbox') {
+                element.checked = (name === 'rsmdst');
+            } else if (element.type === 'number') {
+                element.value = '';
+            } else if (element.tagName === 'SELECT') {
+                if (name !== 'vehicleType') {
+                    element.selectedIndex = 0;
+                }
+            }
         }
-    });
-    
-    // Reset all selects except vehicleType, govType, and electricType
+    }
+
+    // Reset all select element to their first option
+    const selects = document.querySelectorAll('select');
     selects.forEach(select => {
-        if (select.id !== 'vehicleType' && 
-            select.id !== 'govType' && 
-            select.id !== 'electricType') {
-            select.selectedIndex = 0;
+        select.selectedIndex = 0;
+    });
+
+    // Clear all number inputs
+    const numberInputs = document.querySelectorAll('input[type="number"]');
+    numberInputs.forEach(input => {
+        input.value = '';
+    });
+
+    // Clear all inputs except vehicleType, govType, and electricType
+    // inputs.forEach(input => {
+        // if (input.id !== 'vehicleType' && 
+            // !input.name.includes('govType') && 
+            // input.id !== 'electricType') {
+            // input.value = '';
+        // }
+    // });
+    
+    // Uncheck all checkboxes except rsmdst -1
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    checkboxes.forEach(checkbox => {
+        if (checkbox.id !== 'rsmdst') {
+            checkbox.checked = false;
+        } else {
+            checkbox.checked = true;
         }
     });
+
+    // Restore vehicle type and category
+    document.getElementById('vehicleType').value = currentVehicleType;
+    document.querySelector(`input[name="govType"][value="${currentGovType}"]`).checked = true;
     
-    // Uncheck all checkboxes
-    checkboxes.forEach(checkbox => {
-        checkbox.checked = false;
-    });
-    
-    // Reset the manufacturing year input
-    document.getElementById('manufacturingYear').value = '';
-    
-    // Hide all error messages
-    const errorMessages = document.querySelectorAll('.error-message');
-    errorMessages.forEach(error => {
-        error.style.display = 'none';
-    });
-    
-    // Hide results and show placeholder
+    // Hide all optional fields
+    document.getElementById('optionalFieldsGroup').style.display = 'none';
+    document.getElementById('calculationTypeGroup').style.display = 'none';
+    document.getElementById('autoplusGroup').style.display = 'none';
+    document.getElementById('autoplusDetails').style.display = 'none';
+    document.getElementById('trailerValueGroup').style.display = 'none';
+    document.getElementById('hpWattGroup').style.display = 'none';
+    document.getElementById('electricTypeGroup').style.display = 'none';
+    document.getElementById('helperGroup').style.display = 'none';
+    document.getElementById('tonCapacityGroup').style.display = 'none';
+    document.getElementById('durationField').style.display = 'none';
+    document.getElementById('directDiscountOption').style.display = 'none';
+    document.getElementById('disabledFriendlyOption').style.display = 'none';
+    document.getElementById('towingChargeOption').style.display = 'none';
+    document.getElementById('ownGoodsOption').style.display = 'none';
+    document.getElementById('companyField').style.display = 'none';
+
+    // Reset results display
     document.querySelector('.results-details').style.display = 'none';
     document.querySelector('.results-placeholder').style.display = 'block';
+    
+    // Reset all selects except vehicleType, govType, and electricType
+    // selects.forEach(select => {
+        // if (select.id !== 'vehicleType' && 
+            // select.id !== 'govType' && 
+            // select.id !== 'electricType') {
+            // select.selectedIndex = 0;
+        // }
+    // });
+    
+    // Reset the manufacturing year input
+    // document.getElementById('manufacturingYear').value = '';
+    
+    // Hide all error messages
+    // const errorMessages = document.querySelectorAll('.error-message');
+    // errorMessages.forEach(error => {
+        // error.style.display = 'none';
+    // });
+    
+    // Hide results and show placeholder
+    // document.querySelector('.results-details').style.display = 'none';
+    // document.querySelector('.results-placeholder').style.display = 'block';
     
     // Reset form fields visibility
     toggleVehicleFields();
@@ -1440,15 +1506,17 @@ document.addEventListener('DOMContentLoaded', function() {
         const isNewVehicle = document.getElementById('newVehicleReplacement').checked;
         const isRental = document.getElementById('dailyRental').checked;
         
-        if (isAutoplus && (isDepreciation || isNewVehicle || isRental)) {
-            if (vehicleAge < 10 && vehicleValue > 100000) {
-            apStampCharge = 20.00;
-        } else if (vehicleAge < 10 && vehicleValue <= 100000) {
-            apStampCharge = 10.00;
-        }
-    } else {
-        apStampCharge = 0.00; // No stamp charge if no Autoplus options are selected
-    }
+        if (isAutoplus && (isDepreciation || isNewVehicle || isRental) && vehicleValue > 0) {
+            if (vehicleType === "motorcycle" || vehicleType === "private" || vehicleType === "electric") {
+                if (vehicleAge < 10 && vehicleValue > 100000) {
+                    apStampCharge = 20.00;
+                } else if (vehicleAge < 10 && vehicleValue <= 100000) {
+                    apStampCharge = 10.00;
+                } else {
+                    apStampCharge = 0.00; // No stamp charge if no Autoplus options are selected
+                    }
+                }
+            }
 
         // Step 24: Total Autoplus Premium
         const totalApPremium = depreciationPremium + newVehiclePremium + rentalPremium + apVatAmount + apStampCharge;
