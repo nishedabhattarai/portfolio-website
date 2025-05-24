@@ -493,23 +493,60 @@ document.addEventListener('DOMContentLoaded', function() {
     confirmPrintBtn.addEventListener('click', function() {
         const insuredName = document.getElementById('insuredName').value;
         const vehicleDetails = document.getElementById('vehicleDetails').value;
-        
+    
         // Prepare print template
-        document.getElementById('printInsuredName').textContent = insuredName;
-        document.getElementById('printVehicleDetails').textContent = vehicleDetails;
+        document.getElementById('printInsuredName').textContent = insuredName || 'Not specified';
+        document.getElementById('printVehicleDetails').textContent = vehicleDetails || 'Not specified';
         document.getElementById('printDate').textContent = new Date().toLocaleDateString();
-
+    
+        // Add form details to print preview
+        const printDetails = document.createElement('div');
+        printDetails.className = 'print-details';
+    
+        // Vehicle Information
+        const vehicleType = document.getElementById('vehicleType');
+        printDetails.innerHTML += `
+            <h3>Vehicle Information</h3>
+            <p><strong>Vehicle Type:</strong> ${vehicleType.options[vehicleType.selectedIndex].text}</p>
+            <p><strong>Vehicle Category:</strong> ${document.querySelector('input[name="govType"]:checked').value === 'government' ? 'Government' : 'Non Government'}</p>
+            <p><strong>Vehicle Value:</strong> NPR ${document.getElementById('vehicleValue').value || '0'}</p>
+        `;
+    
+        // Add cubic capacity or HP based on vehicle type
+        if (document.getElementById('cubicCapacity').value) {
+            printDetails.innerHTML += `<p><strong>Cubic Capacity:</strong> ${document.getElementById('cubicCapacity').value} cc</p>`;
+        }
+        if (document.getElementById('hpWattValue').value) {
+            printDetails.innerHTML += `<p><strong>HP/Watt Value:</strong> ${document.getElementById('hpWattValue').value}</p>`;
+        }
+    
+        // Add other relevant details
+        if (document.getElementById('seatCapacity').value) {
+            printDetails.innerHTML += `<p><strong>Seat Capacity:</strong> ${document.getElementById('seatCapacity').value}</p>`;
+        }
+        if (document.getElementById('tonCapacity').value) {
+            printDetails.innerHTML += `<p><strong>Ton Capacity:</strong> ${document.getElementById('tonCapacity').value}</p>`;
+        }
+    
+        // Add calculation details
+        printDetails.innerHTML += `
+            <h3>Calculation Details</h3>
+            <p><strong>Calculation Type:</strong> ${document.getElementById('calculationType').options[document.getElementById('calculationType').selectedIndex].text}</p>
+            <p><strong>Voluntary Excess:</strong> ${document.getElementById('voluntaryExcess').options[document.getElementById('voluntaryExcess').selectedIndex].text}</p>
+            <p><strong>No Claim Discount:</strong> ${document.getElementById('noClaimDiscount').options[document.getElementById('noClaimDiscount').selectedIndex].text}</p>
+        `;
+    
         // Clone the results to the print template
-        const resultsContent = document.querySelector('.results-details').cloneNode(true);
         document.getElementById('printResultsContent').innerHTML = '';
-        document.getElementById('printResultsContent').appendChild(resultsContent);
-
+        document.getElementById('printResultsContent').appendChild(printDetails);
+        document.getElementById('printResultsContent').appendChild(document.querySelector('.results-details').cloneNode(true));
+    
         // Show print dialog
         printModal.style.display = 'none';
         document.getElementById('printTemplate').style.display = 'block';
         window.print();
         document.getElementById('printTemplate').style.display = 'none';
-
+    
         // Clear inputs
         document.getElementById('insuredName').value = '';
         document.getElementById('vehicleDetails').value = '';
