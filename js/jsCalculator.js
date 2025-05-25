@@ -499,47 +499,50 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('printVehicleDetails').textContent = vehicleDetails || 'Not specified';
         document.getElementById('printDate').textContent = new Date().toLocaleDateString();
     
-        // Add form details to print preview
-        const printDetails = document.createElement('div');
-        printDetails.className = 'print-details';
-    
-        // Vehicle Information
+        // Vehicle Information Section
         const vehicleType = document.getElementById('vehicleType');
-        printDetails.innerHTML += `
+        const vehicleInfoSection = document.querySelector('.vehicle-info-section');
+        vehicleInfoSection.innerHTML = `
             <h3>Vehicle Information</h3>
-            <p><strong>Vehicle Type:</strong> ${vehicleType.options[vehicleType.selectedIndex].text}</p>
-            <p><strong>Vehicle Category:</strong> ${document.querySelector('input[name="govType"]:checked').value === 'government' ? 'Government' : 'Non Government'}</p>
-            <p><strong>Vehicle Value:</strong> NPR ${document.getElementById('vehicleValue').value || '0'}</p>
+            <p><strong>Type:</strong> ${vehicleType.options[vehicleType.selectedIndex].text}</p>
+            <p><strong>Category:</strong> ${document.querySelector('input[name="govType"]:checked').value === 'government' ? 'Government' : 'Non Government'}</p>
+            <p><strong>Value:</strong> NPR ${document.getElementById('vehicleValue').value || '0'}</p>
+            ${document.getElementById('cubicCapacity').value ? `<p><strong>CC:</strong> ${document.getElementById('cubicCapacity').value} cc</p>` : ''}
+            ${document.getElementById('hpWattValue').value ? `<p><strong>HP/Watt:</strong> ${document.getElementById('hpWattValue').value}</p>` : ''}
+            ${document.getElementById('seatCapacity').value ? `<p><strong>Seats:</strong> ${document.getElementById('seatCapacity').value}</p>` : ''}
+            ${document.getElementById('tonCapacity').value ? `<p><strong>Ton Capacity:</strong> ${document.getElementById('tonCapacity').value}</p>` : ''}
         `;
     
-        // Add cubic capacity or HP based on vehicle type
-        if (document.getElementById('cubicCapacity').value) {
-            printDetails.innerHTML += `<p><strong>Cubic Capacity:</strong> ${document.getElementById('cubicCapacity').value} cc</p>`;
-        }
-        if (document.getElementById('hpWattValue').value) {
-            printDetails.innerHTML += `<p><strong>HP/Watt Value:</strong> ${document.getElementById('hpWattValue').value}</p>`;
-        }
-    
-        // Add other relevant details
-        if (document.getElementById('seatCapacity').value) {
-            printDetails.innerHTML += `<p><strong>Seat Capacity:</strong> ${document.getElementById('seatCapacity').value}</p>`;
-        }
-        if (document.getElementById('tonCapacity').value) {
-            printDetails.innerHTML += `<p><strong>Ton Capacity:</strong> ${document.getElementById('tonCapacity').value}</p>`;
-        }
-    
-        // Add calculation details
-        printDetails.innerHTML += `
-            <h3>Calculation Details</h3>
-            <p><strong>Calculation Type:</strong> ${document.getElementById('calculationType').options[document.getElementById('calculationType').selectedIndex].text}</p>
+        // Calculation Details Section
+        const calculationSection = document.querySelector('.calculation-info-section');
+        calculationSection.innerHTML = `
+            <h3>Calculation Parameters</h3>
+            <p><strong>Type:</strong> ${document.getElementById('calculationType').options[document.getElementById('calculationType').selectedIndex].text}</p>
             <p><strong>Voluntary Excess:</strong> ${document.getElementById('voluntaryExcess').options[document.getElementById('voluntaryExcess').selectedIndex].text}</p>
             <p><strong>No Claim Discount:</strong> ${document.getElementById('noClaimDiscount').options[document.getElementById('noClaimDiscount').selectedIndex].text}</p>
+            <p><strong>Manufacturing Year:</strong> ${document.getElementById('manufacturingYear').value || 'Not specified'}</p>
         `;
     
-        // Clone the results to the print template
-        document.getElementById('printResultsContent').innerHTML = '';
-        document.getElementById('printResultsContent').appendChild(printDetails);
-        document.getElementById('printResultsContent').appendChild(document.querySelector('.results-details').cloneNode(true));
+        // Autoplus Information Section (if applicable)
+        const autoplusSection = document.querySelector('.autoplus-info-section');
+        if (document.getElementById('autoplusOption').value === 'yes') {
+            autoplusSection.innerHTML = `
+                <h3>Autoplus Insurance Details</h3>
+                <p><strong>Insurance Company:</strong> ${document.getElementById('insuranceCompany').options[document.getElementById('insuranceCompany').selectedIndex].text}</p>
+                <p><strong>Options:</strong> 
+                    ${document.getElementById('depreciationWaiver').checked ? 'Depreciation Waiver, ' : ''}
+                    ${document.getElementById('newVehicleReplacement').checked ? 'New Vehicle Replacement, ' : ''}
+                    ${document.getElementById('dailyRental').checked ? 'Daily Rental' : ''}
+                </p>
+            `;
+            autoplusSection.style.display = 'block';
+        } else {
+            autoplusSection.style.display = 'none';
+        }
+    
+        // Premium Calculation Results
+        document.querySelector('.print-results-section').innerHTML = '';
+        document.querySelector('.print-results-section').appendChild(document.querySelector('.results-details').cloneNode(true));
     
         // Show print dialog
         printModal.style.display = 'none';

@@ -486,13 +486,45 @@ button:hover {
     .print-template::after {
         position: absolute;
         bottom: 30%;
-    }    
+    }
+    .print-content-grid {
+        page-break-inside: avoid;
+    }
+    .print-template::after {
+        position: absolute;
+        bottom: 30%;
+    }
 }
 
 .print-header {
     border-bottom: 2px solid #3498db;
     margin-bottom: 20px;
     padding-bottom: 10px;
+}
+
+.print-content-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.vehicle-info-section, .calculation-info-section {
+    padding: 15px;
+    border: 1px solid #eee;
+    border-radius: 5px;
+}
+
+.autoplus-info-section {
+    grid-column: span 2;
+    padding: 15px;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.print-results-section {
+    margin-top: 20px;
 }
 
 .print-template::after {
@@ -504,7 +536,7 @@ button:hover {
     text-align: center;
     font-size: 14px;
     color: rgba(0, 0, 0, 0.2);
-    transform: rotate(0px);
+    transform: rotate(-40deg);
     transform-origin: center;
     z-index: 1000;
     pointer-events: none;

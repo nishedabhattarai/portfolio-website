@@ -381,36 +381,50 @@
                     <button id="printBtn" class="print-btn">Print</button>
                 </div>
             </div>
-                <!-- Print Preview Modal -->
-                <div id="printModal" class="modal">
-                    <div class="modal-content">
-                        <span class="close-modal">&times;</span>
-                        <h3>Enter Details for Print</h3>
-                        <div class="form-group">
-                            <label for="insuredName">Insured's Name:</label>
-                            <input type="text" id="insuredName" placeholder="Enter full name">
-                        </div>
-                        <div class="form-group">
-                            <label for="vehicleDetails">Vehicle Details:</label>
-                            <input type="text" id="vehicleDetails" placeholder="Vehicle Number">
-                        </div>
-                        <button id="confirmPrint" class="confirm-print-btn">Generate Print Preview</button>
+            
+            <!-- Print Preview Modal -->
+            <div id="printModal" class="modal">
+                <div class="modal-content">
+                    <span class="close-modal">&times;</span>
+                    <h3>Enter Details for Print</h3>
+                    <div class="form-group">
+                        <label for="insuredName">Insured's Name:</label>
+                        <input type="text" id="insuredName" placeholder="Enter full name">
                     </div>
-                </div>
-
-                <!-- Print Template (hidden until needed) -->
-                <div id="printTemplate" class="print-template">
-                    <div class="print-header">
-                        <h2><span id="vehicleType"></span> Premium Calculation Details</h2>
-                        <p><strong>Insured Name:</strong> <span id="printInsuredName"></span></p>
-                        <p><strong>Vehicle Details:</strong> <span id="printVehicleDetails"></span></p>
-                        <p><strong>Date:</strong> <span id="printDate"></span></p>
+                    <div class="form-group">
+                        <label for="vehicleDetails">Vehicle Details:</label>
+                        <input type="text" id="vehicleDetails" placeholder="Vehicle Number">
                     </div>
-                    <div id="printResultsContent"></div>
+                    <button id="confirmPrint" class="confirm-print-btn">Generate Print Preview</button>
                 </div>
             </div>
-        </div>
-    </div>
+
+            <div id="printTemplate" class="print-template">
+                <div class="print-header">
+                    <h2>Premium Calculation Details</h2>
+                    <p><strong>Insured Name:</strong> <span id="printInsuredName"></span></p>
+                    <p><strong>Vehicle Details:</strong> <span id="printVehicleDetails"></span></p>
+                    <p><strong>Date:</strong> <span id="printDate"></span></p>
+                </div>
+    
+                <div class="print-content-grid">
+                    <div class="vehicle-info-section">
+                        <!-- Vehicle information will go here -->
+                    </div>
+                    
+                    <div class="calculation-info-section">
+                        <!-- Calculation details will go here -->
+                    </div>
+                    
+                    <div class="autoplus-info-section">
+                        <!-- Autoplus details will go here -->
+                    </div>
+                </div>
+                
+                <div class="print-results-section">
+                    <!-- Premium calculation results will go here -->
+                </div>
+            </div>
 
     <script src="js\jsCalculator.js"></script>
 </body>
