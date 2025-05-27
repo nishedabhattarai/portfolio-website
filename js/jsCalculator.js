@@ -489,71 +489,78 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Generate print preview
-    confirmPrintBtn.addEventListener('click', function() {
-        const insuredName = document.getElementById('insuredName').value;
-        const vehicleDetails = document.getElementById('vehicleDetails').value;
+// Generate print preview
+confirmPrintBtn.addEventListener('click', function() {
+    // Generate random reference number
+    const refNumber = Math.floor(1000 + Math.random() * 9000);
     
-        // Prepare print template
-        document.getElementById('printInsuredName').textContent = insuredName || 'Not specified';
-        document.getElementById('printVehicleDetails').textContent = vehicleDetails || 'Not specified';
-        document.getElementById('printDate').textContent = new Date().toLocaleDateString();
+    // Set basic information
+    document.getElementById('printDate').textContent = new Date().toLocaleDateString();
+    document.getElementById('printRef').textContent = refNumber;
+    document.getElementById('printInsuredName').textContent = document.getElementById('insuredName').value || 'Not specified';
+    document.getElementById('printVehicleDetails').textContent = document.getElementById('vehicleDetails').value || 'Not specified';
     
-        // Vehicle Information Section
-        const vehicleType = document.getElementById('vehicleType');
-        const vehicleInfoSection = document.querySelector('.vehicle-info-section');
-        vehicleInfoSection.innerHTML = `
-            <h3>Vehicle Information</h3>
-            <p><strong>Type:</strong> ${vehicleType.options[vehicleType.selectedIndex].text}</p>
-            <p><strong>Category:</strong> ${document.querySelector('input[name="govType"]:checked').value === 'government' ? 'Government' : 'Non Government'}</p>
-            <p><strong>Value:</strong> NPR ${document.getElementById('vehicleValue').value || '0'}</p>
-            ${document.getElementById('cubicCapacity').value ? `<p><strong>CC:</strong> ${document.getElementById('cubicCapacity').value} cc</p>` : ''}
-            ${document.getElementById('hpWattValue').value ? `<p><strong>HP/Watt:</strong> ${document.getElementById('hpWattValue').value}</p>` : ''}
-            ${document.getElementById('seatCapacity').value ? `<p><strong>Seats:</strong> ${document.getElementById('seatCapacity').value}</p>` : ''}
-            ${document.getElementById('tonCapacity').value ? `<p><strong>Ton Capacity:</strong> ${document.getElementById('tonCapacity').value}</p>` : ''}
+    // Vehicle Details
+    const vehicleType = document.getElementById('vehicleType');
+    document.querySelector('.vehicle-details').innerHTML = `
+        <h3>Vehicle Information</h3>
+        <p><strong>Type:</strong> ${vehicleType.options[vehicleType.selectedIndex].text}</p>
+        <p><strong>Category:</strong> ${document.querySelector('input[name="govType"]:checked').value === 'government' ? 'Government' : 'Non Government'}</p>
+        <p><strong>Value:</strong> NPR ${document.getElementById('vehicleValue').value || '0'}</p>
+        ${document.getElementById('cubicCapacity').value ? `<p><strong>Cubic Capacity:</strong> ${document.getElementById('cubicCapacity').value} cc</p>` : ''}
+        ${document.getElementById('hpWattValue').value ? `<p><strong>HP/Watt:</strong> ${document.getElementById('hpWattValue').value}</p>` : ''}
+        ${document.getElementById('seatCapacity').value ? `<p><strong>Seat Capacity:</strong> ${document.getElementById('seatCapacity').value}</p>` : ''}
+        ${document.getElementById('tonCapacity').value ? `<p><strong>Ton Capacity:</strong> ${document.getElementById('tonCapacity').value}</p>` : ''}
+        ${document.getElementById('manufacturingYear').value ? `<p><strong>Manufacturing Year:</strong> ${document.getElementById('manufacturingYear').value}</p>` : ''}
+    `;
+    
+    // Calculation Parameters
+    document.querySelector('.calculation-details').innerHTML = `
+        <h3>Calculation Parameters</h3>
+        <p><strong>Calculation Type:</strong> ${document.getElementById('calculationType').options[document.getElementById('calculationType').selectedIndex].text}</p>
+        <p><strong>Voluntary Excess:</strong> ${document.getElementById('voluntaryExcess').options[document.getElementById('voluntaryExcess').selectedIndex].text}</p>
+        <p><strong>No Claim Discount:</strong> ${document.getElementById('noClaimDiscount').options[document.getElementById('noClaimDiscount').selectedIndex].text}</p>
+        <p><strong>Direct Discount:</strong> ${document.getElementById('directDiscount').checked ? 'Yes (2.5%)' : 'No'}</p>
+        <p><strong>RSMDST:</strong> ${document.getElementById('rsmdst').checked ? 'Included' : 'Not Included'}</p>
+    `;
+    
+    // Autoplus Details (if applicable)
+    const autoplusSection = document.querySelector('.autoplus-details');
+    if (document.getElementById('autoplusOption').value === 'yes') {
+        autoplusSection.innerHTML = `
+            <h3>Autoplus Coverage</h3>
+            <p><strong>Insurance Company:</strong> ${document.getElementById('insuranceCompany').options[document.getElementById('insuranceCompany').selectedIndex].text}</p>
+            <p><strong>Options Selected:</strong></p>
+            <ul>
+                ${document.getElementById('depreciationWaiver').checked ? '<li>Depreciation Waiver</li>' : ''}
+                ${document.getElementById('newVehicleReplacement').checked ? '<li>New Vehicle Replacement</li>' : ''}
+                ${document.getElementById('dailyRental').checked ? '<li>Daily Rental/Transportation Cost</li>' : ''}
+            </ul>
         `;
+        autoplusSection.style.display = 'block';
+    } else {
+        autoplusSection.style.display = 'none';
+    }
     
-        // Calculation Details Section
-        const calculationSection = document.querySelector('.calculation-info-section');
-        calculationSection.innerHTML = `
-            <h3>Calculation Parameters</h3>
-            <p><strong>Type:</strong> ${document.getElementById('calculationType').options[document.getElementById('calculationType').selectedIndex].text}</p>
-            <p><strong>Voluntary Excess:</strong> ${document.getElementById('voluntaryExcess').options[document.getElementById('voluntaryExcess').selectedIndex].text}</p>
-            <p><strong>No Claim Discount:</strong> ${document.getElementById('noClaimDiscount').options[document.getElementById('noClaimDiscount').selectedIndex].text}</p>
-            <p><strong>Manufacturing Year:</strong> ${document.getElementById('manufacturingYear').value || 'Not specified'}</p>
-        `;
+    // Premium Results
+    const resultsContainer = document.querySelector('.premium-results');
+    resultsContainer.innerHTML = '<h3>Premium Calculation Results</h3>';
+    resultsContainer.appendChild(document.querySelector('.results-details').cloneNode(true));
     
-        // Autoplus Information Section (if applicable)
-        const autoplusSection = document.querySelector('.autoplus-info-section');
-        if (document.getElementById('autoplusOption').value === 'yes') {
-            autoplusSection.innerHTML = `
-                <h3>Autoplus Insurance Details</h3>
-                <p><strong>Insurance Company:</strong> ${document.getElementById('insuranceCompany').options[document.getElementById('insuranceCompany').selectedIndex].text}</p>
-                <p><strong>Options:</strong> 
-                    ${document.getElementById('depreciationWaiver').checked ? 'Depreciation Waiver, ' : ''}
-                    ${document.getElementById('newVehicleReplacement').checked ? 'New Vehicle Replacement, ' : ''}
-                    ${document.getElementById('dailyRental').checked ? 'Daily Rental' : ''}
-                </p>
-            `;
-            autoplusSection.style.display = 'block';
-        } else {
-            autoplusSection.style.display = 'none';
-        }
+    // Hide modal and show print template
+    printModal.style.display = 'none';
+    document.getElementById('printTemplate').style.display = 'block';
     
-        // Premium Calculation Results
-        document.querySelector('.print-results-section').innerHTML = '';
-        document.querySelector('.print-results-section').appendChild(document.querySelector('.results-details').cloneNode(true));
-    
-        // Show print dialog
-        printModal.style.display = 'none';
-        document.getElementById('printTemplate').style.display = 'block';
+    // Trigger print after a small delay to ensure rendering is complete
+    setTimeout(() => {
         window.print();
         document.getElementById('printTemplate').style.display = 'none';
+    }, 100);
     
-        // Clear inputs
-        document.getElementById('insuredName').value = '';
-        document.getElementById('vehicleDetails').value = '';
-    });
+    // Clear inputs
+    document.getElementById('insuredName').value = '';
+    document.getElementById('vehicleDetails').value = '';
+});
 
     // Set current year as max for manufacturing year
     const currentYear = new Date().getFullYear();

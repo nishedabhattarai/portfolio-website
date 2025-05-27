@@ -399,33 +399,51 @@
                 </div>
             </div>
 
-            <div id="printTemplate" class="print-template">
+            <div id="printTemplate" class="print-template" style="display: none;">
                 <div class="print-header">
-                    <h2>Premium Calculation Details</h2>
-                    <p><strong>Insured Name:</strong> <span id="printInsuredName"></span></p>
-                    <p><strong>Vehicle Details:</strong> <span id="printVehicleDetails"></span></p>
-                    <p><strong>Date:</strong> <span id="printDate"></span></p>
-                </div>
-    
-                <div class="print-content-grid">
-                    <div class="vehicle-info-section">
-                        <!-- Vehicle information will go here -->
-                    </div>
-                    
-                    <div class="calculation-info-section">
-                        <!-- Calculation details will go here -->
-                    </div>
-                    
-                    <div class="autoplus-info-section">
-                        <!-- Autoplus details will go here -->
+                    <img src="logo.png" alt="Company Logo" class="print-logo">
+                    <h2>Motor Insurance Premium Calculation</h2>
+                    <div class="header-details">
+                        <p><strong>Date:</strong> <span id="printDate"></span></p>
+                        <p><strong>Ref:</strong> CALC-<span id="printRef"></span></p>
                     </div>
                 </div>
                 
-                <div class="print-results-section">
-                    <!-- Premium calculation results will go here -->
+                <div class="client-details">
+                    <p><strong>Client Name:</strong> <span id="printInsuredName"></span></p>
+                    <p><strong>Vehicle Details:</strong> <span id="printVehicleDetails"></span></p>
                 </div>
+                
+                <div class="details-grid">
+                    <div class="vehicle-details">
+                        <h3>Vehicle Information</h3>
+                        <!-- Vehicle details will be inserted here -->
+                    </div>
+                    
+                    <div class="calculation-details">
+                        <h3>Calculation Parameters</h3>
+                        <!-- Calculation parameters will be inserted here -->
+                    </div>
+                </div>
+                
+                <div class="autoplus-details">
+                    <!-- Autoplus details will be inserted here if applicable -->
+                </div>
+                
+                <div class="premium-results">
+                    <h3>Premium Calculation Results</h3>
+                    <!-- Results will be inserted here -->
+                </div>
+                
+                <div class="print-footer">
+                    <p>This calculation sheet has been generated from nisheda.com.np</p>
+                    <p>Please verify all details as per your requirements. We are not liable for any discrepancies.</p>
+                </div>
+                <!-- Add this hidden div for PDF generation -->
+                <div id="pdfContent" style="display: none;"></div>
             </div>
 
     <script src="js\jsCalculator.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </body>
 </html>
