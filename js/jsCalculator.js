@@ -6,35 +6,35 @@ const format = (amount) => new Intl.NumberFormat('en-NP', {
     maximumFractionDigits: 2
 }).format(amount);
 
-    // Toggle the dropdown menu
-    function toggleMenu() {
-        const dropdown = document.getElementById("menuDropdown");
-        dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
-      }
-  
-      // Toggle the settings menu
-      function toggleSettings() {
-        const settingsMenu = document.getElementById("settingsMenu");
-        settingsMenu.style.display = settingsMenu.style.display === "block" ? "none" : "block";
-      }
-  
-      // Toggle Dark Mode
-      function toggleDarkMode() {
-        const body = document.body;
-        const darkModeCheckbox = document.getElementById("darkModeToggle");
-  
-        if (darkModeCheckbox.checked) {
-          body.classList.add("dark-mode");
-        } else {
-          body.classList.remove("dark-mode");
-        }
-      }
-  
-      // Change Font Size
-      function changeFontSize() {
-        const fontSize = document.getElementById("fontSizeRange").value;
-        document.body.style.fontSize = fontSize + "px";
-      }  
+// Toggle the dropdown menu
+function toggleMenu() {
+    const dropdown = document.getElementById("menuDropdown");
+    dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+}
+
+// Toggle the settings menu
+function toggleSettings() {
+    const settingsMenu = document.getElementById("settingsMenu");
+    settingsMenu.style.display = settingsMenu.style.display === "block" ? "none" : "block";
+}
+
+// Toggle Dark Mode
+function toggleDarkMode() {
+    const body = document.body;
+    const darkModeCheckbox = document.getElementById("darkModeToggle");
+
+    if (darkModeCheckbox.checked) {
+        body.classList.add("dark-mode");
+    } else {
+        body.classList.remove("dark-mode");
+    }
+}
+
+// Change Font Size
+function changeFontSize() {
+    const fontSize = document.getElementById("fontSizeRange").value;
+    document.body.style.fontSize = fontSize + "px";
+}
 
 function showAbout() {
     document.getElementById('aboutOverlay').style.display = 'flex';
@@ -163,20 +163,28 @@ function toggleVehicleFields() {
     
     // Update No Claim Discount options based on vehicle type
     updateNoClaimDiscountOptions(vehicleType);
-    
+
+    if (vehicleType === 'private') {
+        ccGroup.style.display = 'block';
+        towingChargeOption.style.display = parseFloat(document.getElementById('vehicleValue').value) > 0 ? 'flex' : 'none';
+        autoplusGroup.style.display = parseFloat(document.getElementById('vehicleValue').value) > 24999 ? 'flex' : 'none';
+    } 
     if (vehicleType === 'electric') {
         ccGroup.style.display = 'none';
         hpWattGroup.style.display = 'block';
         document.getElementById('hpWattValue').required = true;
         towingChargeOption.style.display = parseFloat(document.getElementById('vehicleValue').value) > 0 ? 'flex' : 'none';
+        autoplusGroup.style.display = parseFloat(document.getElementById('vehicleValue').value) > 24999 ? 'flex' : 'none';
     } 
     else if (vehicleType === 'motorcycle') {
         electricTypeGroup.style.display = 'block';
         disabledFriendlyOption.style.display = parseFloat(document.getElementById('vehicleValue').value) > 0 ? 'flex' : 'none';
+        autoplusGroup.style.display = 'flex';
     }
     else if (vehicleType === 'tempo') {
         electricTypeGroup.style.display = 'block';
         towingChargeOption.style.display = parseFloat(document.getElementById('vehicleValue').value) > 0 ? 'flex' : 'none';
+        autoplusGroup.style.display = 'none';
     }
     else if (vehicleType === 'tractor') {
         ccGroup.style.display = 'none';
@@ -184,12 +192,14 @@ function toggleVehicleFields() {
         document.getElementById('hpWattValue').required = true;
         trailerGroup.style.display = 'block';
         towingChargeOption.style.display = parseFloat(document.getElementById('vehicleValue').value) > 0 ? 'flex' : 'none';
+        autoplusGroup.style.display = 'none';        
     }
     else if (vehicleType === 'passenger') {
         ccGroup.style.display = 'none';
         helperGroup.style.display = 'block';
         towingChargeOption.style.display = parseFloat(document.getElementById('vehicleValue').value) > 0 ? 'flex' : 'none';
         ownGoodsOption.style.display = parseFloat(document.getElementById('vehicleValue').value) > 0 ? 'flex' : 'none';
+        autoplusGroup.style.display = 'none';
     }
     else if (vehicleType === 'tanker' || vehicleType === 'agriculture' || 
              vehicleType === 'goods' || vehicleType === 'construction') {
@@ -197,7 +207,15 @@ function toggleVehicleFields() {
         tonCapacityGroup.style.display = 'block';
         towingChargeOption.style.display = parseFloat(document.getElementById('vehicleValue').value) > 0 ? 'flex' : 'none';
         ownGoodsOption.style.display = parseFloat(document.getElementById('vehicleValue').value) > 0 ? 'flex' : 'none';
+        autoplusGroup.style.display = 'none';
     }
+    else if (vehicleType === 'taxi') {
+        ccGroup.style.display = 'block';
+        helperGroup.style.display = 'none';
+        towingChargeOption.style.display = parseFloat(document.getElementById('vehicleValue').value) > 0 ? 'flex' : 'none';
+        ownGoodsOption.style.display = 'none';
+        autoplusGroup.style.display = 'none';
+    }    
     else {
         towingChargeOption.style.display = parseFloat(document.getElementById('vehicleValue').value) > 0 ? 'flex' : 'none';
     }
@@ -292,7 +310,7 @@ function validateManufacturingYear(yearInput) {
     
     // Check if the input is exactly 4 digits
     if (yearValue.length !== 4 || !/^\d{4}$/.test(yearValue)) {
-        yearError.textContent = 'Please enter a valid 4-digit year (YYYY)';
+        yearError.textContent = 'Please enter a valid year (YYYY)';
         yearError.style.display = 'block';
         return false;
     }
@@ -300,8 +318,8 @@ function validateManufacturingYear(yearInput) {
     const yearNum = parseInt(yearValue);
     
     // Check if the year is within a reasonable range
-    if (yearNum < 1900 || yearNum > currentYear) {
-        yearError.textContent = `Year must be between 1900 and ${currentYear}`;
+    if (yearNum < 1950 || yearNum > currentYear) {
+        yearError.textContent = `Year must be between 1950 and ${currentYear}`;
         yearError.style.display = 'block';
         return false;
     }
@@ -311,20 +329,12 @@ function validateManufacturingYear(yearInput) {
 }
 
 function clearForm() {
-    // Reset form fields -3
-    // document.getElementById('premiumForm').reset();
-
-    // Get all input elements -2
+    // Reset form fields
+    const form = document.getElementById('premiumForm');
     const currentVehicleType = document.getElementById('vehicleType').value;
     const currentGovType = document.querySelector('input[name="govType"]:checked').value; 
 
-    // const inputs = document.querySelectorAll('input[type="number"], input[type="text"]'); -1
-    // const year = document.querySelectorAll('input[type="manufacturingYear"], input[type="number"]');
-    // const selects = document.querySelectorAll('select');
-    // const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-    
-    // Reset form fields (excluding vehicle type and category)
-    const form = document.getElementById('premiumForm');
+    // Reset all inputs except vehicleType and govType
     const formData = new FormData(form);
     for (let [name, value] of formData) {
         if (name !== 'vehicleType' && name !== 'govType') {
@@ -341,7 +351,7 @@ function clearForm() {
         }
     }
 
-    // Reset all select element to their first option
+    // Reset all select elements to their first option
     const selects = document.querySelectorAll('select');
     selects.forEach(select => {
         select.selectedIndex = 0;
@@ -353,16 +363,7 @@ function clearForm() {
         input.value = '';
     });
 
-    // Clear all inputs except vehicleType, govType, and electricType
-    // inputs.forEach(input => {
-        // if (input.id !== 'vehicleType' && 
-            // !input.name.includes('govType') && 
-            // input.id !== 'electricType') {
-            // input.value = '';
-        // }
-    // });
-    
-    // Uncheck all checkboxes except rsmdst -1
+    // Uncheck all checkboxes except rsmdst
     const checkboxes = document.querySelectorAll('input[type="checkbox"]');
     checkboxes.forEach(checkbox => {
         if (checkbox.id !== 'rsmdst') {
@@ -397,34 +398,17 @@ function clearForm() {
     document.querySelector('.results-details').style.display = 'none';
     document.querySelector('.results-placeholder').style.display = 'block';
     
-    // Reset all selects except vehicleType, govType, and electricType
-    // selects.forEach(select => {
-        // if (select.id !== 'vehicleType' && 
-            // select.id !== 'govType' && 
-            // select.id !== 'electricType') {
-            // select.selectedIndex = 0;
-        // }
-    // });
-    
-    // Reset the manufacturing year input
-    // document.getElementById('manufacturingYear').value = '';
-    
-    // Hide all error messages
-    // const errorMessages = document.querySelectorAll('.error-message');
-    // errorMessages.forEach(error => {
-        // error.style.display = 'none';
-    // });
-    
-    // Hide results and show placeholder
-    // document.querySelector('.results-details').style.display = 'none';
-    // document.querySelector('.results-placeholder').style.display = 'block';
-    
     // Reset form fields visibility
     toggleVehicleFields();
     toggleFieldsBasedOnValue();
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+    // Check if html2pdf is available
+    if (typeof html2pdf === 'undefined') {
+        console.warn('html2pdf library not loaded - PDF generation will not work');
+    }
+
     // Get form elements
     const calculationType = document.getElementById('calculationType');
     const durationField = document.getElementById('durationField');
@@ -459,6 +443,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const printModal = document.getElementById('printModal');
     const closeModal = document.querySelector('.close-modal');
     const confirmPrintBtn = document.getElementById('confirmPrint');
+    const pdfContent = document.getElementById('pdfContent');
 
     // Add event listener for manufacturing year validation
     manufacturingYearInput.addEventListener('input', function() {
@@ -489,78 +474,134 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-// Generate print preview
-confirmPrintBtn.addEventListener('click', function() {
-    // Generate random reference number
-    const refNumber = Math.floor(1000 + Math.random() * 9000);
+    // Generate print preview
+    confirmPrintBtn.addEventListener('click', function() {
+        // Generate content for print/PDF
+        generatePrintContent();
+        
+        // Hide the modal
+        printModal.style.display = 'none';
+        
+        // Show print options
+        showPrintOptions();
+    });
+
+    function generatePrintContent() {
+        // Generate reference number
+        const refNumber = Math.floor(1000 + Math.random() * 9000);
     
-    // Set basic information
-    document.getElementById('printDate').textContent = new Date().toLocaleDateString();
-    document.getElementById('printRef').textContent = refNumber;
-    document.getElementById('printInsuredName').textContent = document.getElementById('insuredName').value || 'Not specified';
-    document.getElementById('printVehicleDetails').textContent = document.getElementById('vehicleDetails').value || 'Not specified';
-    
-    // Vehicle Details
-    const vehicleType = document.getElementById('vehicleType');
-    document.querySelector('.vehicle-details').innerHTML = `
-        <h3>Vehicle Information</h3>
-        <p><strong>Type:</strong> ${vehicleType.options[vehicleType.selectedIndex].text}</p>
-        <p><strong>Category:</strong> ${document.querySelector('input[name="govType"]:checked').value === 'government' ? 'Government' : 'Non Government'}</p>
-        <p><strong>Value:</strong> NPR ${document.getElementById('vehicleValue').value || '0'}</p>
-        ${document.getElementById('cubicCapacity').value ? `<p><strong>Cubic Capacity:</strong> ${document.getElementById('cubicCapacity').value} cc</p>` : ''}
-        ${document.getElementById('hpWattValue').value ? `<p><strong>HP/Watt:</strong> ${document.getElementById('hpWattValue').value}</p>` : ''}
-        ${document.getElementById('seatCapacity').value ? `<p><strong>Seat Capacity:</strong> ${document.getElementById('seatCapacity').value}</p>` : ''}
-        ${document.getElementById('tonCapacity').value ? `<p><strong>Ton Capacity:</strong> ${document.getElementById('tonCapacity').value}</p>` : ''}
-        ${document.getElementById('manufacturingYear').value ? `<p><strong>Manufacturing Year:</strong> ${document.getElementById('manufacturingYear').value}</p>` : ''}
-    `;
-    
-    // Calculation Parameters
-    document.querySelector('.calculation-details').innerHTML = `
-        <h3>Calculation Parameters</h3>
-        <p><strong>Calculation Type:</strong> ${document.getElementById('calculationType').options[document.getElementById('calculationType').selectedIndex].text}</p>
-        <p><strong>Voluntary Excess:</strong> ${document.getElementById('voluntaryExcess').options[document.getElementById('voluntaryExcess').selectedIndex].text}</p>
-        <p><strong>No Claim Discount:</strong> ${document.getElementById('noClaimDiscount').options[document.getElementById('noClaimDiscount').selectedIndex].text}</p>
-        <p><strong>Direct Discount:</strong> ${document.getElementById('directDiscount').checked ? 'Yes (2.5%)' : 'No'}</p>
-        <p><strong>RSMDST:</strong> ${document.getElementById('rsmdst').checked ? 'Included' : 'Not Included'}</p>
-    `;
-    
-    // Autoplus Details (if applicable)
-    const autoplusSection = document.querySelector('.autoplus-details');
-    if (document.getElementById('autoplusOption').value === 'yes') {
-        autoplusSection.innerHTML = `
-            <h3>Autoplus Coverage</h3>
-            <p><strong>Insurance Company:</strong> ${document.getElementById('insuranceCompany').options[document.getElementById('insuranceCompany').selectedIndex].text}</p>
-            <p><strong>Options Selected:</strong></p>
-            <ul>
-                ${document.getElementById('depreciationWaiver').checked ? '<li>Depreciation Waiver</li>' : ''}
-                ${document.getElementById('newVehicleReplacement').checked ? '<li>New Vehicle Replacement</li>' : ''}
-                ${document.getElementById('dailyRental').checked ? '<li>Daily Rental/Transportation Cost</li>' : ''}
-            </ul>
+        // Set basic information
+        document.getElementById('printDate').textContent = new Date().toLocaleDateString();
+        document.getElementById('printRef').textContent = refNumber;
+        document.getElementById('printInsuredName').textContent = document.getElementById('insuredName').value || 'Not specified';
+        document.getElementById('printVehicleDetails').textContent = document.getElementById('vehicleDetails').value || 'Not specified';
+        
+        // Vehicle Details
+        const vehicleType = document.getElementById('vehicleType');
+        document.querySelector('.vehicle-details').innerHTML = `
+            <h3>Vehicle Information</h3>
+            <p><strong>Type:</strong> ${vehicleType.options[vehicleType.selectedIndex].text}</p>
+            <p><strong>Category:</strong> ${document.querySelector('input[name="govType"]:checked').value === 'government' ? 'Government' : 'Non Government'}</p>
+            <p><strong>Value:</strong> NPR ${document.getElementById('vehicleValue').value || '0'}</p>
+            ${document.getElementById('cubicCapacity').value ? `<p><strong>Cubic Capacity:</strong> ${document.getElementById('cubicCapacity').value} cc</p>` : ''}
+            ${document.getElementById('hpWattValue').value ? `<p><strong>HP/Watt:</strong> ${document.getElementById('hpWattValue').value}</p>` : ''}
+            ${document.getElementById('seatCapacity').value ? `<p><strong>Seat Capacity:</strong> ${document.getElementById('seatCapacity').value}</p>` : ''}
+            ${document.getElementById('tonCapacity').value ? `<p><strong>Ton Capacity:</strong> ${document.getElementById('tonCapacity').value}</p>` : ''}
+            ${document.getElementById('manufacturingYear').value ? `<p><strong>Manufacturing Year:</strong> ${document.getElementById('manufacturingYear').value}</p>` : ''}
         `;
-        autoplusSection.style.display = 'block';
-    } else {
-        autoplusSection.style.display = 'none';
+        
+        // Calculation Parameters
+        document.querySelector('.calculation-details').innerHTML = `
+            <h3>Calculation Parameters</h3>
+            <p><strong>Calculation Type:</strong> ${document.getElementById('calculationType').options[document.getElementById('calculationType').selectedIndex].text}</p>
+            <p><strong>Voluntary Excess:</strong> ${document.getElementById('voluntaryExcess').options[document.getElementById('voluntaryExcess').selectedIndex].text}</p>
+            <p><strong>No Claim Discount:</strong> ${document.getElementById('noClaimDiscount').options[document.getElementById('noClaimDiscount').selectedIndex].text}</p>
+            <p><strong>Direct Discount:</strong> ${document.getElementById('directDiscount').checked ? 'Yes (2.5%)' : 'No'}</p>
+            <p><strong>RSMDST:</strong> ${document.getElementById('rsmdst').checked ? 'Included' : 'Not Included'}</p>
+        `;
+        
+        // Autoplus Details (if applicable)
+        const autoplusSection = document.querySelector('.autoplus-details');
+        if (document.getElementById('autoplusOption').value === 'yes') {
+            autoplusSection.innerHTML = `
+                <h3>Autoplus Coverage</h3>
+                <p><strong>Insurance Company:</strong> ${document.getElementById('insuranceCompany').options[document.getElementById('insuranceCompany').selectedIndex].text}</p>
+                <p><strong>Options Selected:</strong></p>
+                <ul>
+                    ${document.getElementById('depreciationWaiver').checked ? '<li>Depreciation Waiver</li>' : ''}
+                    ${document.getElementById('newVehicleReplacement').checked ? '<li>New Vehicle Replacement</li>' : ''}
+                    ${document.getElementById('dailyRental').checked ? '<li>Daily Rental/Transportation Cost</li>' : ''}
+                </ul>
+            `;
+            autoplusSection.style.display = 'block';
+        } else {
+            autoplusSection.style.display = 'none';
+        }
+        
+        // Premium Results
+        const resultsContainer = document.querySelector('.premium-results');
+        resultsContainer.innerHTML = '<h3>Premium Calculation Results</h3>';
+        resultsContainer.appendChild(document.querySelector('.results-details').cloneNode(true));
+        
+        // Hide modal and show print template
+        printModal.style.display = 'none';
+        document.getElementById('printTemplate').style.display = 'block';
+        
+        // Generate the HTML for PDF
+        pdfContent.innerHTML = document.getElementById('printTemplate').innerHTML;
     }
+
+    function showPrintOptions() {
+        // Create options container
+        const printOptions = document.createElement('div');
+        printOptions.className = 'print-options';
+        printOptions.innerHTML = `
+            <button id="directPrint" class="print-option-btn">Print Now</button>
+            <button id="downloadPdf" class="print-option-btn">Download PDF</button>
+            <button id="cancelPrint" class="print-option-btn cancel">Cancel</button>
+        `;
+        
+        // Add to body
+        document.body.appendChild(printOptions);
+        
+        // Add event listeners
+        document.getElementById('directPrint').addEventListener('click', function() {
+            document.getElementById('printTemplate').style.display = 'block';
+            setTimeout(() => {
+                window.print();
+                document.getElementById('printTemplate').style.display = 'none';
+                printOptions.remove();
+            }, 100);
+        });
+        
+        document.getElementById('downloadPdf').addEventListener('click', function() {
+            if (typeof html2pdf !== 'undefined') {
+                generatePdf();
+            } else {
+                alert('PDF generation is not available. Please ensure html2pdf library is loaded.');
+            }
+            printOptions.remove();
+        });
+        
+        document.getElementById('cancelPrint').addEventListener('click', function() {
+            printOptions.remove();
+        });
+    }
+
+    function generatePdf() {
+        const element = pdfContent;
+        const opt = {
+            margin: 10,
+            filename: `CalculationDetil_by_Nisheda_${new Date().toISOString().slice(0,10)}.pdf`,
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+            pagebreak: { avoid: '.avoid-break' }
+        };
     
-    // Premium Results
-    const resultsContainer = document.querySelector('.premium-results');
-    resultsContainer.innerHTML = '<h3>Premium Calculation Results</h3>';
-    resultsContainer.appendChild(document.querySelector('.results-details').cloneNode(true));
-    
-    // Hide modal and show print template
-    printModal.style.display = 'none';
-    document.getElementById('printTemplate').style.display = 'block';
-    
-    // Trigger print after a small delay to ensure rendering is complete
-    setTimeout(() => {
-        window.print();
-        document.getElementById('printTemplate').style.display = 'none';
-    }, 100);
-    
-    // Clear inputs
-    document.getElementById('insuredName').value = '';
-    document.getElementById('vehicleDetails').value = '';
-});
+        // Generate PDF
+        html2pdf().set(opt).from(element).save();
+    }
 
     // Set current year as max for manufacturing year
     const currentYear = new Date().getFullYear();
@@ -571,7 +612,7 @@ confirmPrintBtn.addEventListener('click', function() {
         radio.addEventListener('change', function() {
             toggleFieldsBasedOnValue();
         });
-    })
+    });
 
     // Limit helper input to max 3
     helperInput.addEventListener('input', function() {
@@ -612,7 +653,7 @@ confirmPrintBtn.addEventListener('click', function() {
         autoplusTypeGroup.style.display = this.value === 'withAp' ? 'block' : 'none';
         autoplusError.style.display = this.value === 'withAp' ? 'block' : 'none';
     });
-
+    
     // Validate cubic capacity or HP/Watt value on input
     cubicCapacityInput.addEventListener('input', function() {
         if (!this.value && document.getElementById('vehicleType').value !== 'electric') {
@@ -621,7 +662,7 @@ confirmPrintBtn.addEventListener('click', function() {
             cubicCapacityError.style.display = 'none';
         }
     });
-    
+
     hpWattValueInput.addEventListener('input', function() {
         if (!this.value && (document.getElementById('vehicleType').value === 'electric' || 
             (document.getElementById('electricType')?.value === 'yes' && 
@@ -637,25 +678,25 @@ confirmPrintBtn.addEventListener('click', function() {
     document.getElementById('autoplusOption').addEventListener('change', toggleAutoplusFields);
     document.getElementById('vehicleType').addEventListener('change', toggleAutoplusFields);
     
-    // Event Litener for seat capacity validation	
+    // Event Listener for seat capacity validation    
     seatCapacityInput.addEventListener('input', function() {
-    const vehicleType = document.getElementById('vehicleType').value;
+        const vehicleType = document.getElementById('vehicleType').value;
         if (!this.value && vehicleType !== 'motorcycle' && vehicleType !== 'tractor') {
-           seatCapacityError.style.display = 'block';
+            seatCapacityError.style.display = 'block';
         } else {
-           seatCapacityError.style.display = 'none';
+            seatCapacityError.style.display = 'none';
         }
-    });	    
+    });     
  
-    // Event Litener for ton capacity validation	
+    // Event Listener for ton capacity validation    
     tonCapacityInput.addEventListener('input', function() {
-    const vehicleType = document.getElementById('vehicleType').value;
+        const vehicleType = document.getElementById('vehicleType').value;
         if (!this.value && vehicleType !== 'motorcycle' && vehicleType !== 'private' && vehicleType !== 'electric' && vehicleType !== 'passenger' && vehicleType !== 'tractor' && vehicleType !== 'tempo' && vehicleType !== 'taxi') {
-           tonCapacityError.style.display = 'block';
+            tonCapacityError.style.display = 'block';
         } else {
-           tonCapacityError.style.display = 'none';
+            tonCapacityError.style.display = 'none';
         }
-    });	    
+    });    
 
     // Validate manufacturing year if vehicle value > 0
     vehicleValueInput.addEventListener('input', function() {
@@ -706,9 +747,9 @@ confirmPrintBtn.addEventListener('click', function() {
             seatCapacityError.textContent = 'Seat capacity is required';
             seatCapacityError.style.display = 'block';
             return; // Stop calculation if validation fails
-            }
+        }
     
-    // Validate seat capacity for required vehicle types
+        // Validate seat capacity for required vehicle types
         if (vehicleType !== 'motorcycle' && vehicleType !== 'tractor' && !seatCapacityInput.value) {
             seatCapacityError.style.display = 'block';
             isValid = false;
@@ -716,8 +757,9 @@ confirmPrintBtn.addEventListener('click', function() {
             seatCapacityError.style.display = 'none';
         }
 
-	// Validate ton capacity for required vehicle types
-        if (vehicleType === 'goods' || vehicleType === 'tanker' || vehicleType === 'construction' || vehicleType === 'agriculture') {                if (!tonCapacityInput.value) {
+        // Validate ton capacity for required vehicle types
+        if (vehicleType === 'goods' || vehicleType === 'tanker' || vehicleType === 'construction' || vehicleType === 'agriculture') {                
+            if (!tonCapacityInput.value) {
                 tonCapacityError.style.display = 'block';
                 isValid = false;
             } else {
@@ -1873,20 +1915,19 @@ confirmPrintBtn.addEventListener('click', function() {
     }
 
     function handleResize() {
-      const menu = document.getElementById('leftMenu');
-      const content = document.getElementById('mainContent');
-      if (window.innerWidth <= 800) {
-        menu.classList.add('hidden');
-        content.classList.add('full');
-      } else {
-        menu.classList.remove('hidden');
-        content.classList.remove('full');
-      }
+        const menu = document.getElementById('leftMenu');
+        const content = document.getElementById('mainContent');
+        if (window.innerWidth <= 800) {
+            menu.classList.add('hidden');
+            content.classList.add('full');
+        } else {
+            menu.classList.remove('hidden');
+            content.classList.remove('full');
+        }
     }
 
     window.addEventListener('resize', handleResize);
     window.addEventListener('load', handleResize);
-
 
     // Initialize the form
     toggleVehicleFields();
