@@ -404,7 +404,7 @@ button:hover {
     font-style: italic;
 }
 
-.print-btn {
+.printbtn {
     background-color: #4CAF50;
     color: white;
     padding: 10px 20px;
@@ -419,8 +419,32 @@ button:hover {
     margin-right: auto;
 }
 
-.print-btn:hover {
+.printBtn:hover {
     background-color: #45a049;
+}
+
+#downloadPdfBtn {
+    background-color: #2980b9;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 20px;
+    margin-top: 16px;
+    width: auto;
+    display: inline-block;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#downloadPdfBtn:hover {
+    background-color: #45a049;
+}
+
+.print-buttons-container {
+    text-align: center;
+    margin-top: 20px;
 }
 
 .print-options {
@@ -435,19 +459,6 @@ button:hover {
     z-index: 1000;
     display: flex;
     gap: 10px;
-}
-
-.print-option-btn {
-    padding: 8px 15px;
-    border: none;
-    border-radius: 4px;
-    background: #3498db;
-    color: white;
-    cursor: pointer;
-}
-
-.print-option-btn.cancel {
-    background: #e74c3c;
 }
 
 /* Modal Styles */
@@ -572,19 +583,11 @@ button:hover {
         margin: 0;
         font-size: 10pt;
     }
-    .print-btn, .no-print {
+    .printbtn, .downloadPdfBtn, .no-print {
         display: none !important;
     }
-    /* Force single page */
-    .print-template {
-        page-break-inside: avoid;
-        break-inside: avoid;
-    }
-    .premium-results {
-        page-break-before: avoid;
-        break-before: avoid;
-    }
 }
+
 /* Hide print template by default */
 #printTemplate {
     display: none;

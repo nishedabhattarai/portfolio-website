@@ -377,32 +377,49 @@
                         <span>Total Premium with Autoplus:</span>
                         <span id="totalPremiumWithAutoplus">NPR 0.00</span>
                     </div>
-
-                    <button id="printBtn" class="print-btn">Print</button>
+                    <div class="form-row">
+                    <button id="printBtn" class="printbtn">Print</button>
+                    <button id="downloadPdfBtn" class="downloadPdfBtn">Download PDF</button>
                 </div>
             </div>
             
-            <!-- Print Preview Modal -->
             <div id="printModal" class="modal">
                 <div class="modal-content">
                     <span class="close-modal">&times;</span>
-                    <h3>Enter Details for Print</h3>
+                    <h3>Print Preview Details</h3>
                     <div class="form-group">
-                        <label for="insuredName">Insured's Name:</label>
-                        <input type="text" id="insuredName" placeholder="Enter full name">
+                        <label for="insuredName">Insured Name</label>
+                        <input type="text" id="insuredName" placeholder="Enter insured name">
                     </div>
                     <div class="form-group">
-                        <label for="vehicleDetails">Vehicle Details:</label>
-                        <input type="text" id="vehicleDetails" placeholder="Vehicle Number">
+                        <label for="vehicleDetails">Vehicle Details</label>
+                        <input type="text" id="vehicleDetails" placeholder="Enter vehicle details">
                     </div>
-                    <button id="confirmPrint" class="confirm-print-btn">Generate Print Preview</button>
+                    <button id="confirmPrint">Generate Print Preview</button>
+                </div>
+            </div>
+
+            <!-- Download Modal -->
+            <div id="downloadModal" class="modal">
+                <div class="modal-content">
+                    <span class="close-modal">&times;</span>
+                    <h3>Download PDF Details</h3>
+                    <div class="form-group">
+                        <label for="insuredName">Insured Name</label>
+                        <input type="text" id="insuredName" placeholder="Enter insured name">
+                    </div>
+                    <div class="form-group">
+                        <label for="vehicleDetails">Vehicle Details</label>
+                        <input type="text" id="vehicleDetails" placeholder="Enter vehicle details">
+                    </div>
+                    <button id="confirmDownload">Download PDF</button>
                 </div>
             </div>
 
             <div id="printTemplate" class="print-template" style="display: none;">
                 <div class="print-header">
                     <img src="logo.png" alt="Company Logo" class="print-logo">
-                    <h2>Motor Insurance Premium Calculation</h2>
+                    <h2>Motor Premium Calculation</h2>
                     <div class="header-details">
                         <p><strong>Date:</strong> <span id="printDate"></span></p>
                         <p><strong>Ref:</strong> CALC-<span id="printRef"></span></p>
