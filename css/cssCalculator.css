@@ -411,8 +411,8 @@ button:hover {
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 20px;
-    margin-top: 16px;
+    font-size: 14px;
+    margin-top: 10px;
     width:auto;
     display: block;
     margin-left: auto;
@@ -430,8 +430,8 @@ button:hover {
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 20px;
-    margin-top: 16px;
+    font-size: 14px;
+    margin-top: 10px;
     width: auto;
     display: inline-block;
     margin-left: 10px;
@@ -439,7 +439,7 @@ button:hover {
 }
 
 #downloadPdfBtn:hover {
-    background-color: #45a049;
+    background-color: #e74c3c;
 }
 
 .print-buttons-container {

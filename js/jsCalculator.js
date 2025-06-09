@@ -464,7 +464,7 @@ function generatePrintContent(insuredName, vehicleDetails) {
     document.getElementById('pdfContent').innerHTML = document.getElementById('printTemplate').innerHTML;
 }
 
-function generatePdfContent(insuredName, vehicleDetails) {
+function generatePdfContent(insuredNamePdf, vehicleDetailsPdf) {
     // Generate reference number
     const refNumber = Math.floor(1000 + Math.random() * 9000);
     
@@ -486,8 +486,8 @@ function generatePdfContent(insuredName, vehicleDetails) {
         </div>
         
         <div class="client-details">
-            <p><strong>Client Name:</strong> ${insuredName || 'Not specified'}</p>
-            <p><strong>Vehicle Details:</strong> ${vehicleDetails || 'Not specified'}</p>
+            <p><strong>Client Name:</strong> ${insuredNamePdf || 'Not specified'}</p>
+            <p><strong>Vehicle Details:</strong> ${vehicleDetailsPdf || 'Not specified'}</p>
         </div>
     `;
     
@@ -661,11 +661,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Generate PDF
     confirmDownloadBtn.addEventListener('click', function() {
         // Get values from modal inputs
-        const insuredName = document.getElementById('insuredName').value;
-        const vehicleDetails = document.getElementById('vehicleDetails').value;
+        const insuredNamePdf = document.getElementById('insuredNamePdf').value;
+        const vehicleDetailsPdf = document.getElementById('vehicleDetailsPdf').value;
 
         // Generate the PDF content
-        const element = generatePdfContent(insuredName, vehicleDetails);
+        const element = generatePdfContent(insuredNamePdf, vehicleDetailsPdf);
         
         // PDF options
         const opt = {
