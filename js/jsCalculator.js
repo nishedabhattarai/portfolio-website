@@ -478,7 +478,7 @@ function generatePdfContent(insuredNamePdf, vehicleDetailsPdf) {
     pdfContainer.innerHTML = `
         <div class="print-header">
             <img src="logo.png" alt="Company Logo" class="print-logo">
-            <h2>Motor Premium Calculation</h2>
+            <h2>Premium Calculation Sheet</h2>
             <div class="header-details">
                 <p><strong>Date:</strong> ${new Date().toLocaleDateString()}</p>
                 <p><strong>Ref:</strong> CALC-${refNumber}</p>
