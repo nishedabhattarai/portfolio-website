@@ -681,23 +681,42 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // PDF options
         const opt = {
-            margin: 10,
+            margin: (5, 5, 5, 5), // Smaller margins
             filename: `nisheda_${new Date().toISOString().slice(0,10)}.pdf`,
+            image: { type: 'jpeg', quality: 0.98 }, // Higher quality
             html2canvas: { 
-                scale: 2,
+                scale: 1,
                 logging: true,
-                useCORS: true
+                useCORS: true,
+                windowHeight: document.getElementById('printTemplate').scrollHeight,
+                scrollY: 0 // Start from top
             },
             jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-            pagebreak: { mode: 'avoid-all' }
+            pagebreak: { avoid: '.avoid-break' }
         };
         
-        // Generate and save the PDF
+        /* Generate and save the PDF
         html2pdf().set(opt).from(element).save();
         
         // Hide the modal
-        downloadModal.style.display = 'none';
+        downloadModal.style.display = 'none';*/
+
+    // Temporary style adjustments for pdf
+    const originalStyles = { padding: element.style.padding, fontSize: element.style.fontSize };
+
+    // Optimize styles for PDF
+    element.style.padding = '5px';
+    element.style.fontSize = '10pt';
+    
+    // Generate PDF
+    html2pdf().set(opt).from(element).save().then(() => {
+        // Restore original styles
+        element.style.padding = originalStyles.padding;
+        element.style.fontSize = originalStyles.fontSize;
     });
+    
+    document.getElementById('printTemplate').style.display = 'none';
+});
 
     // Set current year as max for manufacturing year
     const currentYear = new Date().getFullYear();
@@ -1815,7 +1834,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('disabledDiscountTPItem').style.display = (showThirdParty && results.disabledDiscountTPAmount > 0) ? 'flex' : 'none';
 
         // Third party premium always show 
-        document.getElementById('thirdPartyPremiumItem').style.display = 'flex';
+        document.getElementById('thirdPartyPremiumItem').style.display = results.thirdPartyPremium > 0 ? 'flex' : 'none';
 
         // Hide results if seat capacity is invalid
         if (vehicleType !== 'motorcycle' && vehicleType !== 'tractor' && seatCapacity <= 0) {

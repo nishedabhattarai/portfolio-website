@@ -567,6 +567,26 @@ button:hover {
     color: #666;
 }
 
+/* Add this to your CSS */
+#basicPremiumItem,
+#thirdPartyPremiumItem {
+    font-weight: bold;
+    border-top: 1px solid #3498db;
+    border-bottom: 1px solid #3498db;
+    padding-top: 8px;
+}
+
+#totalPremiumItem {
+    font-weight: bold;
+    font-size: 18px;
+    border-top: 2px solid #3498db;
+    padding-top: 10px;
+}
+
+#totalApPremiumItem {
+    font-weight: bold;
+}
+
 @media print {
     body * {
         visibility: hidden;
@@ -575,17 +595,37 @@ button:hover {
         visibility: visible;
     }
     .print-template {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        padding: 0;
-        margin: 0;
-        font-size: 10pt;
+        padding: 2px 0 !important;
+        min-height: 12px !important;
     }
+
     .printbtn, .downloadPdfBtn, .no-print {
         display: none !important;
     }
+        .result-item {
+        padding: 2px 0 !important;
+        min-height: 12px !important;
+    }
+    
+    .details-grid {
+        grid-template-columns: 1fr !important;
+        gap: 5px !important;
+    }
+    
+    h2, h3 {
+        margin: 5px 0 !important;
+    }
+}
+
+/* Ensure print template uses compact styling */
+.print-template {
+    font-size: 12px;
+    line-height: 1.2;
+}
+
+.print-template .result-item {
+    min-height: 15px;
+    padding: 3px 0;
 }
 
 /* Hide print template by default */
