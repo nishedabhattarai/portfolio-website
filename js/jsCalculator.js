@@ -102,6 +102,11 @@ function toggleVehicleFields() {
     const ownGoodsOption = document.getElementById('ownGoodsOption');
     const govTypeGroup = document.getElementById('govTypeGroup');
 
+    // Reset electric type to 'No' when vehicle type changes
+    if (document.getElementById('electricType')) {
+        document.getElementById('electricType').value = 'no';
+    }
+
     // Link to the selected vehicle type page
     const selectedOption = document.querySelector(`#vehicleType option[value="${vehicleType}"]`);
     if (selectedOption && selectedOption.dataset.link) {
@@ -179,11 +184,12 @@ function toggleVehicleFields() {
     else if (vehicleType === 'motorcycle') {
         electricTypeGroup.style.display = 'block';
         disabledFriendlyOption.style.display = parseFloat(document.getElementById('vehicleValue').value) > 0 ? 'flex' : 'none';
-        autoplusGroup.style.display = 'flex';
+        autoplusGroup.style.display = parseFloat(document.getElementById('vehicleValue').value) > 24999 ? 'flex' : 'none';
     }
     else if (vehicleType === 'tempo') {
         electricTypeGroup.style.display = 'block';
         towingChargeOption.style.display = parseFloat(document.getElementById('vehicleValue').value) > 0 ? 'flex' : 'none';
+        disabledFriendlyOption.style.display = 'none';
         autoplusGroup.style.display = 'none';
     }
     else if (vehicleType === 'tractor') {
@@ -345,6 +351,12 @@ function clearForm() {
                 }
             }
         }
+    }
+
+    // Uncheck disabled friendly when not motorcycle
+    const vehicleType = document.getElementById('vehicleType').value;
+    if (vehicleType !== 'motorcycle') {
+        document.getElementById('disabledFriendly').checked = false;
     }
 
     // Reset all select element to their first option
@@ -911,7 +923,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const vehicleType = document.getElementById('vehicleType').value;
         const voluntaryExcess = parseInt(document.getElementById('voluntaryExcess').value);
         const noClaimDiscount = parseInt(document.getElementById('noClaimDiscount').value);
-        const vehicleValue = parseFloat(document.getElementById('vehicleValue').value) || 0;
+        const vehicleValue = parseFloat(document.getElementById('vehicleValue').value.replace(/,/g, '')) || 0;
         const cubicCapacity = parseFloat(document.getElementById('cubicCapacity').value) || 0;
         const hpWattValue = parseFloat(document.getElementById('hpWattValue').value) || 0;
         const isElectricType = document.getElementById('electricType')?.value === 'yes';
@@ -1308,7 +1320,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Calculate discount base for electric type and disabled friendly discounts
         const discountBase = normalPremium + additionalPremium + oldVehicleCharge + trailerCharge - tariffDiscount - voluntaryExcessAmount - ownGoodsAmount - noClaimDiscountAmount - directDiscountAmount;
         
-        // Step 8: Electric Type Discount (25%)
+        // Step 8: Disabled Friendly Discount (25%)
         let electricDiscountAmount = 0;
         if ((vehicleType === 'motorcycle') && isElectricType && vehicleValue > 0 && !isDisabledFriendly) {
             electricDiscountAmount = discountBase * 0.25;
@@ -1316,7 +1328,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Step 9: Disabled Friendly Discount (25%)
         let disabledDiscountAmount = 0;
-        if (isDisabledFriendly) {
+        if (isDisabledFriendly && vehicleType === 'motorcycle') {
             disabledDiscountAmount = discountBase * 0.25;
         }
         
@@ -1381,10 +1393,15 @@ document.addEventListener('DOMContentLoaded', function() {
         } else if (isGovernment && vehicleType === 'motorcycle') {
             thirdParty = cubicCapacity <= 150 ? 1250 : 1500;
 
-        } else if (vehicleType === 'motorcycle') {
+        } else if (vehicleType === 'motorcycle' && !isElectricType) {
             if (cubicCapacity < 150) thirdParty = 1500;
             else if (cubicCapacity <= 250) thirdParty = 1700;
             else thirdParty = 1900;
+
+        } else if (vehicleType === 'motorcycle' && isElectricType) {
+            if (hpWattValue < 801) thirdParty = 1500;
+            else if (hpWattValue <= 1200) thirdParty = 1700;
+            else thirdParty = 1900;            
 
         } else if (vehicleType === 'taxi') {
             if (cubicCapacity < 1000) thirdParty = 3500;
@@ -1522,7 +1539,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Step 14: Disabled Friendly Discount (TP 25%)
         let disabledDiscountTPAmount = 0;
-        if (isDisabledFriendly) {
+        if (isDisabledFriendly && vehicleType === 'motorcycle' && vehicleValue > 0) {
             disabledDiscountTPAmount = (thirdParty - noClaimDiscountTP) * 0.25;
         }
         
@@ -1728,7 +1745,7 @@ document.addEventListener('DOMContentLoaded', function() {
             totalPremium,
             totalApPremium,
             totalPremiumWithAutoplus,
-             hasVehicleValue: vehicleValue > 0
+            hasVehicleValue: vehicleValue > 0
         });
     }
 
@@ -1757,6 +1774,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('thirdParty').textContent = format(results.thirdParty);
         document.getElementById('noClaimDiscountTP').textContent = format(results.noClaimDiscountTP);
         document.getElementById('disabledDiscountTPAmount').textContent = format(results.disabledDiscountTPAmount);
+        document.getElementById('thirdPartyPremium').textContent = format(results.thirdPartyPremium);
         document.getElementById('driverPremium').textContent = format(results.driverPremium);
         document.getElementById('helperPremium').textContent = format(results.helperPremium);
         document.getElementById('passengerPremium').textContent = format(results.passengerPremium);
@@ -1781,12 +1799,19 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('disabledDiscountItem').style.display = results.disabledDiscountAmount > 0 ? 'flex' : 'none';
         document.getElementById('towingChargeAmountItem').style.display = results.towingChargeAmount > 0 ? 'flex' : 'none';
         document.getElementById('basicPremiumItem').style.display = results.basicPremium > 0 ? 'flex' : 'none';
-        document.getElementById('noClaimDiscountTPItem').style.display = results.noClaimDiscountTP > 0 ? 'flex' : 'none';
-        document.getElementById('disabledDiscountTPItem').style.display = results.disabledDiscountTPAmount > 0 ? 'flex' : 'none';
+        document.getElementById('rsmdstAmountItem').style.display = results.rsmdstAmount > 0 ? 'flex' : 'none';
+
+        // Hide third party related items if vehicle value is 0 or empty
+        const showThirdParty = results.hasVehicleValue;
+        document.getElementById('thirdParty').parentElement.style.display = showThirdParty ? 'flex' : 'none';
+        document.getElementById('thirdPartyItem').style.display = showThirdParty ? 'flex' : 'none';
+        document.getElementById('noClaimDiscountTPItem').style.display = (showThirdParty && results.noClaimDiscountTP > 0) ? 'flex' : 'none';
+        document.getElementById('disabledDiscountTPItem').style.display = (showThirdParty && results.disabledDiscountTPAmount > 0) ? 'flex' : 'none';
+
+        document.getElementById('thirdPartyPremiumItem').style.display = results.thirdPartyPremium > 0 ? 'flex' : 'none';
         document.getElementById('driverPremiumItem').style.display = results.driverPremium > 0 ? 'flex' : 'none';
         document.getElementById('helperPremiumItem').style.display = results.helperPremium > 0 ? 'flex' : 'none';
         document.getElementById('passengerPremiumItem').style.display = results.passengerPremium > 0 ? 'flex' : 'none';
-        document.getElementById('rsmdstAmountItem').style.display = results.rsmdstAmount > 0 ? 'flex' : 'none';
         document.getElementById('totalApPremiumItem').style.display = results.totalApPremium > 0 ? 'flex' : 'none';
 
         // Hide results if seat capacity is invalid
@@ -1868,13 +1893,13 @@ document.addEventListener('DOMContentLoaded', function() {
             directDiscountAmountItem.style.display = 'none';
         }
 
-        // Show/hide no claim discount (TP) amount
+        /* Show/hide no claim discount (TP) amount
         const noClaimDiscountTPItem = document.getElementById('noClaimDiscountTPItem');
         if (results.noClaimDiscountTP > 0) {
             noClaimDiscountTPItem.style.display = 'flex';
         } else {
             noClaimDiscountTPItem.style.display = 'none';
-        }
+        }*/
 
         // Show/hide towing charge amount
         const towingChargeAmountItem = document.getElementById('towingChargeAmountItem');
@@ -1892,16 +1917,16 @@ document.addEventListener('DOMContentLoaded', function() {
             electricDiscountItem.style.display = 'none';
         }
         
-        // Show/hide disabled discount
+        /* Show/hide disabled discount
         const disabledDiscountItem = document.getElementById('disabledDiscountItem');
         const disabledDiscountTPItem = document.getElementById('disabledDiscountTPItem');
-        if (results.disabledDiscountAmount > 0) {
+        if (results.disabledDiscountAmount > 0 ) {
             disabledDiscountItem.style.display = 'flex';
             disabledDiscountTPItem.style.display = 'flex';
         } else {
             disabledDiscountItem.style.display = 'none';
             disabledDiscountTPItem.style.display = 'none';
-        }
+        }*/
         
         // Show/hide basic premium amount
         const basicPremiumItem = document.getElementById('basicPremiumItem');
@@ -1910,6 +1935,14 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             basicPremiumItem.style.display = 'none';
         }
+
+        /* Show/hide third party premium amount
+        const thirdPartyItem = document.getElementById('thirdPartyItem');
+        if (results.thirdParty > 0 && results.hasVehicleValue) {
+            thirdPartyItem.style.display = 'flex';
+        } else {
+            thirdPartyItem.style.display = 'none';
+        }*/
 
         // Show/hide driver premium amount
         const driverPremiumItem = document.getElementById('driverPremiumItem');
