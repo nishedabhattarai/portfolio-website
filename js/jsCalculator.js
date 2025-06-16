@@ -1554,7 +1554,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const premiumRate = isGovernment ? 600 : 700;
         if (vehicleType !== 'motorcycle' && vehicleType !== 'tractor' && vehicleType !== 'private' && vehicleType !== 'electric') {
             driverPremium = 1 * premiumRate;
-              helperPremium = helper * premiumRate;
+            helperPremium = helper * premiumRate;
             passengerPremium = (seatCapacity - 1) * premiumRate;
         }
         if (vehicleType === 'private' || vehicleType === 'electric') {
@@ -1801,18 +1801,14 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('basicPremiumItem').style.display = results.basicPremium > 0 ? 'flex' : 'none';
         document.getElementById('rsmdstAmountItem').style.display = results.rsmdstAmount > 0 ? 'flex' : 'none';
 
-        // Hide third party related items if vehicle value is 0 or empty
-        const showThirdParty = results.hasVehicleValue;
-        document.getElementById('thirdParty').parentElement.style.display = showThirdParty ? 'flex' : 'none';
-        document.getElementById('thirdPartyItem').style.display = showThirdParty ? 'flex' : 'none';
-        document.getElementById('noClaimDiscountTPItem').style.display = (showThirdParty && results.noClaimDiscountTP > 0) ? 'flex' : 'none';
-        document.getElementById('disabledDiscountTPItem').style.display = (showThirdParty && results.disabledDiscountTPAmount > 0) ? 'flex' : 'none';
-
-        document.getElementById('thirdPartyPremiumItem').style.display = results.thirdPartyPremium > 0 ? 'flex' : 'none';
+        // Show/hide driver, helper, passenger and autoplus premiums
         document.getElementById('driverPremiumItem').style.display = results.driverPremium > 0 ? 'flex' : 'none';
         document.getElementById('helperPremiumItem').style.display = results.helperPremium > 0 ? 'flex' : 'none';
         document.getElementById('passengerPremiumItem').style.display = results.passengerPremium > 0 ? 'flex' : 'none';
         document.getElementById('totalApPremiumItem').style.display = results.totalApPremium > 0 ? 'flex' : 'none';
+
+        // Third party premium always show 
+        document.getElementById('thirdPartyPremiumItem').style.display = 'flex';
 
         // Hide results if seat capacity is invalid
         if (vehicleType !== 'motorcycle' && vehicleType !== 'tractor' && seatCapacity <= 0) {
