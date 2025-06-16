@@ -595,37 +595,18 @@ button:hover {
         visibility: visible;
     }
     .print-template {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
         padding: 2px 0 !important;
         min-height: 12px !important;
+        margin: 0;
+        font-size: 10pt;
     }
-
     .printbtn, .downloadPdfBtn, .no-print {
         display: none !important;
     }
-        .result-item {
-        padding: 2px 0 !important;
-        min-height: 12px !important;
-    }
-    
-    .details-grid {
-        grid-template-columns: 1fr !important;
-        gap: 5px !important;
-    }
-    
-    h2, h3 {
-        margin: 5px 0 !important;
-    }
-}
-
-/* Ensure print template uses compact styling */
-.print-template {
-    font-size: 12px;
-    line-height: 1.2;
-}
-
-.print-template .result-item {
-    min-height: 15px;
-    padding: 3px 0;
 }
 
 /* Hide print template by default */
