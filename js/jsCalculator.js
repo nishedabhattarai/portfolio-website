@@ -1399,7 +1399,7 @@ document.addEventListener('DOMContentLoaded', function() {
             else thirdParty = 1900;
 
         } else if (vehicleType === 'motorcycle' && isElectricType) {
-            if (hpWattValue < 801) thirdParty = 1500;
+            if (hpWattValue <= 800) thirdParty = 1500;
             else if (hpWattValue <= 1200) thirdParty = 1700;
             else thirdParty = 1900;            
 
@@ -1806,6 +1806,13 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('helperPremiumItem').style.display = results.helperPremium > 0 ? 'flex' : 'none';
         document.getElementById('passengerPremiumItem').style.display = results.passengerPremium > 0 ? 'flex' : 'none';
         document.getElementById('totalApPremiumItem').style.display = results.totalApPremium > 0 ? 'flex' : 'none';
+
+        // Hide third party related items if vehicle value is 0 or empty
+        const showThirdParty = results.hasVehicleValue;
+        document.getElementById('thirdParty').parentElement.style.display = showThirdParty ? 'flex' : 'none';
+        document.getElementById('thirdPartyItem').style.display = showThirdParty ? 'flex' : 'none';
+        document.getElementById('noClaimDiscountTPItem').style.display = (showThirdParty && results.noClaimDiscountTP > 0) ? 'flex' : 'none';
+        document.getElementById('disabledDiscountTPItem').style.display = (showThirdParty && results.disabledDiscountTPAmount > 0) ? 'flex' : 'none';
 
         // Third party premium always show 
         document.getElementById('thirdPartyPremiumItem').style.display = 'flex';
