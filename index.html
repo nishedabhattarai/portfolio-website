@@ -4,69 +4,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Motor Premium Calculator</title>
-    <link rel="stylesheet" href="css\cssCalculator.css">
+    <link rel="stylesheet" href="css/cssCalculator.css">
     <link rel="icon" type="image/x-icon" href="favicon.png">
 </head>
 <body>
 
     <!-- Top Line with Menu and Custom Settings Icon -->
-<div class="top-line">
-    <div class="menu" onclick="toggleMenu()">☰ Menu</div>
-    <div class="settings-btn" onclick="toggleSettings()">︙</div> <!-- '︙' as Settings Icon -->
-  </div>
+    <div class="top-line">
+        <div class="menu" onclick="toggleMenu()">☰ Menu</div>
+        <div class="settings-btn" onclick="toggleSettings()">︙</div> <!-- '︙' as Settings Icon -->
+    </div>
 
-  <!-- Dropdown Menu -->
-  <div class="dropdown" id="menuDropdown">
-    <div>
-      <h4>Premium Calculator</h4>
-      <ul>
-        <li><a href="index.html" style="color: white; text-decoration: none;">Motor</a></li>
-        <li>Property (Coming Soon)</li>
-        <li>Marine (Coming Soon)</li>
-      </ul>
+    <!-- Dropdown Menu -->
+    <div class="dropdown" id="menuDropdown">
+        <div>
+            <h4>Premium Calculator</h4>
+            <ul>
+                <li><a href="index.html" style="color: white; text-decoration: none;">Motor</a></li>
+                <li>Property (Coming Soon)</li>
+                <li>Marine (Coming Soon)</li>
+            </ul>
+        </div>
+        <div>
+            <h4>Cash Denomination</h4>
+            <ul>
+                <li><a href="deno.html" style="color: white; text-decoration: none;">Cash Denomination</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4>Knowledge (Coming Soon)</h4>
+            <ul>
+                <li>Insurance</li>
+                <li>Share</li>
+                <li>SIP</li>
+            </ul>
+        </div>
+        <div>
+            <h4>Converter (Coming Soon)</h4>
+            <ul>
+                <li>Area converter</li>
+                <li>Price converter</li>
+                <li>Date converter</li>
+            </ul>
+        </div>
+        <div>
+            <button class="about-btn" onclick="showAbout()">About</button>
+        </div>
     </div>
-    <div>
-	<h4>Cash Denomination</h4>
-      <ul>
-	<li><a href="deno.html" style="color: white; text-decoration: none;">Cash Denomination</a></li>
-    </div>
-    <div>
-      <h4>Knowledge (Coming Soon)</h4>
-      <ul>
-        <li>Insurance</li>
-        <li>Share</li>
-        <li>SIP</li>
-      </ul>
-    </div>
-    <div>
-      <h4>Converter (Coming Soon)</h4>
-      <ul>
-        <li>Area converter</li>
-        <li>Price converter</li>
-        <li>Date converter</li>
-      </ul>
-    </div>
-    <div>
-      <button class="about-btn" onclick="showAbout()">About</button>
-    </div>
-  </div>
 
-  <!-- Settings Menu -->
-  <div class="settings-menu" id="settingsMenu">
-    <label>
-      <input type="checkbox" id="darkModeToggle" onclick="toggleDarkMode()"> Dark Mode
-    </label>
-    <label>
-      Font Size:
-      <input type="range" id="fontSizeRange" min="12" max="24" value="16" oninput="changeFontSize()">
-    </label>
-  </div>
+    <!-- Settings Menu -->
+    <div class="settings-menu" id="settingsMenu">
+        <label>
+            <input type="checkbox" id="darkModeToggle" onclick="toggleDarkMode()"> Dark Mode
+        </label>
+        <label>
+            Font Size:
+            <input type="range" id="fontSizeRange" min="12" max="24" value="16" oninput="changeFontSize()">
+        </label>
+    </div>
     
     <div id="aboutOverlay" class="overlay">
         <div class="about-content">
             <span class="close-btn" onclick="hideAbout()">&times;</span>
             <h2>Premium Calculator</h2> 
-            <h2>Updated on: 16-Jun-2025 at 10:21 PM</h2>
+            <h2>Updated on: 23-Jun-2025 at 11:38 PM</h2>
             <p>This is a premium calculator for motor insurance. It calculates the premium based on various parameters such as vehicle type, value, cubic capacity, and additional options.</p>
             <h3>"""""""""""""""</h3>
             <h4>Developed by Nisheda Bhattarai</h4>
@@ -82,7 +83,7 @@
                 <form id="premiumForm">
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="vehicleType"></label>
+                            <label for="vehicleType">Vehicle Type</label>
                             <select id="vehicleType" onchange="toggleVehicleFields()">
                                 <option value="motorcycle" data-link="motorcycle.html">Motorcycle</option>
                                 <option value="private" data-link="private.html">Private</option>
@@ -186,24 +187,24 @@
                     </div>
                         
                     <div class="form-row" id="additionalOptionsGroup">
-                        <div class ="form-group">
-                        <label>Additional Options</label>
-                        <label class="checkbox-label" id="directDiscountOption">
-                            <input type="checkbox" id="directDiscount"> Direct Discount (2.5%)
-                        </label>
-                        <label class="checkbox-label" id="rsmdstOption">
-                            <input type="checkbox" id="rsmdst"> RSMDST
-                        </label>
-                        <label class="checkbox-label" id="disabledFriendlyOption" style="display: none;">
-                            <input type="checkbox" id="disabledFriendly"> Disabled Friendly (25% discount)
-                        </label>
-                        <label class="checkbox-label" id="towingChargeOption" style="display: none;">
-                            <input type="checkbox" id="towingCharge"> Towing Charge
-                        </label>
-                        <label class="checkbox-label" id="ownGoodsOption" style="display: none;">
-                            <input type="checkbox" id="ownGoods"> Own Goods Carrying
-                        </label>
-                    </div>
+                        <div class="form-group">
+                            <label>Additional Options</label>
+                            <label class="checkbox-label" id="directDiscountOption">
+                                <input type="checkbox" id="directDiscount"> Direct Discount (2.5%)
+                            </label>
+                            <label class="checkbox-label" id="rsmdstOption">
+                                <input type="checkbox" id="rsmdst" checked> RSMDST
+                            </label>
+                            <label class="checkbox-label" id="disabledFriendlyOption" style="display: none;">
+                                <input type="checkbox" id="disabledFriendly"> Disabled Friendly (25% discount)
+                            </label>
+                            <label class="checkbox-label" id="towingChargeOption" style="display: none;">
+                                <input type="checkbox" id="towingCharge" checked> Towing Charge
+                            </label>
+                            <label class="checkbox-label" id="ownGoodsOption" style="display: none;">
+                                <input type="checkbox" id="ownGoods"> Own Goods Carrying
+                            </label>
+                        </div>
 
                     <div class="form-group" id="calculationTypeGroup">
                         <div class="form-group">
@@ -231,15 +232,15 @@
                             <div class="error-message" id="durationError"></div>
                         </div>
                     </div>
-                    </div>
+                </div>
 
                     <div class="form-row" id="autoplusGroup" style="display: none;">
                         <div class="form-group">
-                        <label for="autoplusOption">Autoplus Insurance</label>
-                        <select id="autoplusOption" onchange="toggleAutoplusFields()">
-                            <option value="withoutAp">No</option>
-                            <option value="withAp">Yes</option>
-                        </select>
+                            <label for="autoplusOption">Autoplus Insurance</label>
+                            <select id="autoplusOption" onchange="toggleAutoplusFields()">
+                                <option value="withoutAp">No</option>
+                                <option value="withAp">Yes</option>
+                            </select>
                         </div>
                         <div class="form-group" id="companyField" style="display: none;">
                             <label for="companyLabel">Insurance Company</label>
@@ -264,9 +265,9 @@
                         </div>
                     </div>
 
-                    <div class="form-row">
-                        <button type="button" id="calculateBtn">Calculate Premium</button>
-                        <button type="button" id="clearBtn" class="clear-btn">Clear</button>
+                    <div class="form-row" style="margin-top: 5px;">
+                        <button type="button" id="calculateBtn" style="margin-top: 0;">Calculate Premium</button>
+                        <button type="button" id="clearBtn" class="clear-btn" style="margin-top: 0;">Clear</button>
                     </div>
                 </form>
             </div>
@@ -381,90 +382,101 @@
                         <span>Total Premium with Autoplus:</span>
                         <span id="totalPremiumWithAutoplus">NPR 0.00</span>
                     </div>
+                </div>
+                
+                <div class="print-buttons-container" id="printButtons" style="display: none; margin-top: 5px;">
                     <div class="form-row">
-                    <button id="printBtn" class="printbtn">Print</button>
-                    <button id="downloadPdfBtn" class="downloadPdfBtn">Download PDF</button>
+                        <button id="printBtn" class="printbtn" style="margin-top: 1;">Print</button>
+                        <button id="downloadPdfBtn" class="downloadPdfBtn" style="margin-top: 1;">Download PDF</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Print Modal -->
+    <div id="printModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>Print Preview Details</h3>
+            <div class="form-group">
+                <label for="insuredName">Insured Name</label>
+                <input type="text" id="insuredName" placeholder="Enter insured name">
+            </div>
+            <div class="form-group">
+                <label for="vehicleDetails">Vehicle Details</label>
+                <input type="text" id="vehicleDetails" placeholder="Enter vehicle details">
+            </div>
+            <button id="confirmPrint">Generate Print Preview</button>
+        </div>
+    </div>
+
+    <!-- Download Modal -->
+    <div id="downloadModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>Download PDF Details</h3>
+            <div class="form-group">
+                <label for="insuredNamePdf">Insured Name</label>
+                <input type="text" id="insuredNamePdf" placeholder="Enter insured name">
+            </div>
+            <div class="form-group">
+                <label for="vehicleDetailsPdf">Vehicle Details</label>
+                <input type="text" id="vehicleDetailsPdf" placeholder="Enter vehicle details">
+            </div>
+            <button id="confirmDownload">Download</button>
+        </div>
+    </div>
+
+    <!-- Print Template (hidden by default) -->
+    <div id="printTemplate" style="display: none;">            
+        <div class="print-template" style="padding: 2mm; font-size: 10px;">
+            <div class="print-header">
+                <img src="logo.png" alt="Company Logo" class="print-logo">
+                <h2>Premium Calculation Sheet</h2>
+                <div class="header-details">
+                    <p><strong>Date:</strong> <span id="printDate"></span></p>
+                    <p><strong>Ref:</strong> CALC-<span id="printRef"></span></p>
                 </div>
             </div>
             
-            <div id="printModal" class="modal">
-                <div class="modal-content">
-                    <span class="close-modal">&times;</span>
-                    <h3>Print Preview Details</h3>
-                    <div class="form-group">
-                        <label for="insuredName">Insured Name</label>
-                        <input type="text" id="insuredName" placeholder="Enter insured name">
-                    </div>
-                    <div class="form-group">
-                        <label for="vehicleDetails">Vehicle Details</label>
-                        <input type="text" id="vehicleDetails" placeholder="Enter vehicle details">
-                    </div>
-                    <button id="confirmPrint">Generate Print Preview</button>
+            <div class="client-details">
+                <p><strong>Client Name:</strong> <span id="printInsuredName"></span></p>
+                <p><strong>Vehicle Details:</strong> <span id="printVehicleDetails"></span></p>
+            </div>
+            
+            <div class="details-grid">
+                <div class="vehicle-details">
+                    <h3>Vehicle Information</h3>
+                    <!-- Vehicle details will be inserted here -->
+                </div>
+                
+                <div class="calculation-details">
+                    <h3>Calculation Parameters</h3>
+                    <!-- Calculation parameters will be inserted here -->
                 </div>
             </div>
-
-            <!-- Download Modal -->
-            <div id="downloadModal" class="modal">
-                <div class="modal-content">
-                    <span class="close-modal">&times;</span>
-                    <h3>Download PDF Details</h3>
-                    <div class="form-group">
-                        <label for="insuredNamePdf">Insured Name</label>
-                        <input type="text" id="insuredNamePdf" placeholder="Enter insured name">
-                    </div>
-                    <div class="form-group">
-                        <label for="vehicleDetailsPdf">Vehicle Details</label>
-                        <input type="text" id="vehicleDetailsPdf" placeholder="Enter vehicle details">
-                    </div>
-                    <button id="confirmDownload">Download</button>
-                </div>
+            
+            <div class="autoplus-details">
+                <!-- Autoplus details will be inserted here if applicable -->
             </div>
-
-            <div id="printTemplate" class="print-template" style="display: none;">
-                <div class="print-header">
-                    <img src="logo.png" alt="Company Logo" class="print-logo">
-                    <h2>Premium Calculation Sheet</h2>
-                    <div class="header-details">
-                        <p><strong>Date:</strong> <span id="printDate"></span></p>
-                        <p><strong>Ref:</strong> CALC-<span id="printRef"></span></p>
-                    </div>
-                </div>
-                
-                <div class="client-details">
-                    <p><strong>Client Name:</strong> <span id="printInsuredName"></span></p>
-                    <p><strong>Vehicle Details:</strong> <span id="printVehicleDetails"></span></p>
-                </div>
-                
-                <div class="details-grid">
-                    <div class="vehicle-details">
-                        <h3>Vehicle Information</h3>
-                        <!-- Vehicle details will be inserted here -->
-                    </div>
-                    
-                    <div class="calculation-details">
-                        <h3>Calculation Parameters</h3>
-                        <!-- Calculation parameters will be inserted here -->
-                    </div>
-                </div>
-                
-                <div class="autoplus-details">
-                    <!-- Autoplus details will be inserted here if applicable -->
-                </div>
-                
-                <div class="premium-results">
-                    <h3>Premium Calculation Results</h3>
-                    <!-- Results will be inserted here -->
-                </div>
-                
-                <div class="print-footer">
-                    <p>This calculation sheet has been generated from nisheda.com.np</p>
-                    <p>Please verify all details as per your requirements. We are not liable for any discrepancies.</p>
-                </div>
-                <!-- Add this hidden div for PDF generation -->
-                <div id="pdfContent" style="display: none;"></div>
+            
+            <div class="premium-results">
+                <h3>Premium Calculation Results</h3>
+                <!-- Results will be inserted here -->
             </div>
+            
+            <div class="print-footer">
+                <p>This calculation sheet has been generated from nisheda.com.np</p>
+                <p>Please verify all details as per your requirements. We are not liable for any discrepancies.</p>
+            </div>
+        </div>
+    </div>
 
-    <script src="js\jsCalculator.js"></script>
+    <!-- Hidden div for PDF generation -->
+    <div id="pdfContent" style="display: none;"></div>
+
+    <script src="js/jsCalculator.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </body>
 </html>

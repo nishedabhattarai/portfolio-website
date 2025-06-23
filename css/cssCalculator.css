@@ -1,101 +1,35 @@
-    /* Top line spanning the width of the page */
-    .top-line {
-        background-color: #002B5B; /* Dark blue */
-        height: 50px;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0 20px;
-        z-index: 1000; /* To make sure it's always on top */
-      }
-  
-      /* Menu button in top line */
-      .menu {
-        cursor: pointer;
-        color: white;
-        font-size: 20px;
-      }
-  
-      /* Custom Settings button with '︙' symbol */
-      .settings-btn {
-        cursor: pointer;
-        background-color: transparent;
-        color: white;
-        padding: 10px;
-        border-radius: 80%;
-        width: 30px;
-        height: 30px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 22px; /* Adjust size of the dots */
-        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
-      }
-  
-      /* Dropdown Menu */
-      .dropdown {
-        display: none;
-        background-color: #002B5B; /* Dark blue */
-        padding: 10px;
-        border: 1px solid #001f40;
-        width: 250px;
-        margin-top: 10px;
-        border-radius: 5px;
-        color: white;
-        position: absolute;
-        top: 50px; /* Position below the menu button */
-        left: 20px; /* Align with the menu button */
-      }
-  
-      .dropdown h4 {
-        margin: 10px 0 5px;
-        color: #ffffff;
-      }
-  
-      .dropdown ul {
-        list-style: none;
-        padding-left: 20px;
-        margin: 0 0 10px 0;
-      }
-  
-      .dropdown ul li {
-        margin: 4px 0;
-        cursor: pointer;
-        color: #d6e4ff;
-      }
-  
-      .dropdown ul li:hover {
-        text-decoration: underline;
-      }
-  
-      /* Settings Menu */
-      .settings-menu {
-        position: absolute;
-        top: 60px;
-        right: 20px;
-        background-color: #ffffff;
-        color: #333;
-        padding: 15px;
-        width: 200px;
-        border-radius: 5px;
-        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-        display: none;
-      }
-  
-      .settings-menu label {
-        display: block;
-        margin-bottom: 10px;
-      }
-  
-      .settings-menu input {
-        margin-right: 5px;
-      }
-  
-  .settings-btn {
+/* Top line spanning the width of the page */
+.top-line {
+    background-color: #002B5B; /* Dark blue */
+    height: 50px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    z-index: 1000; /* To make sure it's always on top */
+}
+
+/* Menu button in top line */
+.menu {
+    cursor: pointer;
+    color: white;
+    font-size: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+/* Hover effect for Menu */
+.menu:hover {
+    background-color: #0056b3; /* Lighter or contrasting blue */
+}
+
+/* Custom Settings button with '︙' symbol */
+.settings-btn {
     cursor: pointer;
     background-color: transparent;
     color: white;
@@ -109,44 +43,91 @@
     font-size: 22px;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
     transition: background-color 0.3s; /* Smooth transition */
-  }
-  
-  /* Add this rule for hover effect */
-  .settings-btn:hover {
+}
+
+/* Add this rule for hover effect */
+.settings-btn:hover {
     background-color: #0056b3; /* Change to a lighter or contrasting blue */
-  }
-  
-  .menu {
-    cursor: pointer;
-    color: white;
-    font-size: 20px;
+}
+
+/* Dropdown Menu */
+.dropdown {
+    display: none;
+    background-color: #002B5B; /* Dark blue */
     padding: 10px;
+    border: 1px solid #001f40;
+    width: 250px;
+    margin-top: 10px;
     border-radius: 5px;
-    transition: background-color 0.3s;
-  }
-  
-  /* Hover effect for Menu */
-  .menu:hover {
-    background-color: #0056b3; /* Lighter or contrasting blue */
-  }
-  
-      .dark-mode {
-        background-color: #121212;
-        color: #ffffff;
-      }
-  
-      .dark-mode .menu {
-        background-color: #333;
-      }
-  
-      .dark-mode .dropdown {
-        background-color: #333;
-        border: 1px solid #444;
-      }
-  
-      .dark-mode .settings-btn {
-        background-color: #444;
-      }  
+    color: white;
+    position: absolute;
+    top: 50px; /* Position below the menu button */
+    left: 20px; /* Align with the menu button */
+    z-index: 1001;
+}
+
+.dropdown h4 {
+    margin: 10px 0 5px;
+    color: #ffffff;
+}
+
+.dropdown ul {
+    list-style: none;
+    padding-left: 20px;
+    margin: 0 0 10px 0;
+}
+
+.dropdown ul li {
+    margin: 4px 0;
+    cursor: pointer;
+    color: #d6e4ff;
+}
+
+.dropdown ul li:hover {
+    text-decoration: underline;
+}
+
+/* Settings Menu */
+.settings-menu {
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    background-color: #ffffff;
+    color: #333;
+    padding: 15px;
+    width: 200px;
+    border-radius: 5px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    display: none;
+    z-index: 1001;
+}
+
+.settings-menu label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.settings-menu input {
+    margin-right: 5px;
+}
+
+.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+.dark-mode .menu {
+    background-color: #333;
+}
+
+.dark-mode .dropdown {
+    background-color: #333;
+    border: 1px solid #444;
+}
+
+.dark-mode .settings-btn {
+    background-color: #444;
+}
 
 .required {
     color: red;
@@ -162,11 +143,6 @@
     background-color: #c0392b;
 }
 
-.form-row .form-group {
-    flex: 1;
-    min-height: 60px;
-}
-
 * {
     box-sizing: border-box;
     margin: 0;
@@ -175,10 +151,10 @@
 }
 
 body {
-    background-color: #404040;;
+    background-color: #404040;
     color: #333;
-    line-height: 1.00;
-    padding: 1in 20px;
+    line-height: 1.0;
+    padding: 70px 20px 20px; /* Added padding-top to account for fixed header */
     margin: 0;
 }
 
@@ -220,11 +196,13 @@ h1 {
 .form-row {
     display: flex;
     gap: 10px;
+    flex-wrap: wrap;
 }
 
 .form-row .form-group {
     flex: 1;
     min-height: 60px;
+    min-width: 150px;
 }
 
 .about-btn {
@@ -330,13 +308,13 @@ button {
     background-color: #3498db;
     color: white;
     border: none;
-    padding: 12px 20px;
+    padding: 8px 15px !important;
     border-radius: 5px;
     cursor: pointer;
     font-size: 14px;
     font-weight: 600;
     transition: background-color 0.3s;
-    margin-top: 5px;
+    margin-top: 0 !important;
 }
 
 button:hover {
@@ -349,6 +327,11 @@ button:hover {
 
 .clear-btn:hover {
     background-color: #c0392b;
+}
+
+/* Specifically for calculate/clear buttons */
+#calculateBtn, #clearBtn {
+    margin-top: 5px !important;
 }
 
 .error-message {
@@ -404,6 +387,11 @@ button:hover {
     font-style: italic;
 }
 
+/* For form buttons */
+.form-row:last-child {
+    margin-top: 5px; /* Reduced from default */
+}
+
 .printbtn {
     background-color: #4CAF50;
     color: white;
@@ -419,7 +407,7 @@ button:hover {
     margin-right: auto;
 }
 
-.printBtn:hover {
+.printbtn:hover {
     background-color: #45a049;
 }
 
@@ -444,7 +432,7 @@ button:hover {
 
 .print-buttons-container {
     text-align: center;
-    margin-top: 20px;
+    margin-top: 5px;
 }
 
 .print-options {
@@ -470,7 +458,8 @@ button:hover {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.7)
+    background-color: rgba(0,0,0,0.7);
+    overflow: auto;
 }
 
 .modal-content {
@@ -503,9 +492,9 @@ button:hover {
     width: 100%;
     max-width: 800px;
     margin: 0 auto;
-    padding: 15px;
+    padding: 5mm;
     font-size: 12px;
-    position: relative;
+    line-height: 1.0;
 }
 
 .print-header {
@@ -529,7 +518,7 @@ button:hover {
 .client-details {
     margin-bottom: 15px;
     padding: 10px;
-    background: #f5f5f5;
+    background: #eee;
     border-radius: 4px;
 }
 
@@ -562,7 +551,7 @@ button:hover {
     margin-top: 20px;
     padding-top: 10px;
     border-top: 1px solid #ddd;
-    font-size: 10px;
+    font-size: 12px;
     text-align: center;
     color: #666;
 }
@@ -578,35 +567,98 @@ button:hover {
 
 #totalPremiumItem {
     font-weight: bold;
-    font-size: 18px;
+    font-size: 14px;
     border-top: 2px solid #3498db;
     padding-top: 10px;
 }
 
 #totalApPremiumItem {
     font-weight: bold;
+    font-style: italic;
+    font-size: 16px;
+    border-top: 2px solid #3498db;
+    padding-top: 10px;
+
+}
+
+.vehicle-details .seat-capacity-row {
+    margin: 2px 0;
 }
 
 @media print {
-    body * {
-        visibility: hidden;
+    /* Hide elements that shouldn't print
+    .no-print, .top-line, .dropdown, .settings-menu, .modal, .form-container, .results-container, .container {
+        display: none !important;
+    }*/
+
+    /* Hide seat capacity specifically for motorcycle and tractor
+    body[data-vehicle-type="motorcycle"] .vehicle-details p:nth-child(4),
+    body[data-vehicle-type="tractor"] .vehicle-details p:nth-child(4) {
+        display: none !important;
+        height: 0 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        line-height: 0 !important;
+        font-size: 0 !important;
+        visibility: hidden !important;
+    }*/
+
+    /* Remove all margins and padding */
+    body, .print-template {
+        margin: 0 !important;
+        padding: 2mm !important;
+        width: 100% !important;
     }
-    .print-template, .print-template * {
-        visibility: visible;
-    }
+
+    /* Compact the layout */
     .print-template {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        padding: 2px 0 !important;
-        min-height: 12px !important;
-        margin: 0;
-        font-size: 10pt;
+        font-size: 12px !important;
+        line-height: 1 !important;
     }
-    .printbtn, .downloadPdfBtn, .no-print {
+
+    .print-header, .client-details, .details-grid, .premium-results {
+        margin-bottom: 2mm !important;
+        padding: 1mm !important;
+    }
+
+    .result-item {
+        padding: 0.5mm 0 !important;
+        min-height: 8px !important;
+    }
+
+    /* Hide elements that shouldn't print */
+    .no-print, .top-line, .dropdown, .settings-menu, .modal, .form-container .results-container, .container {
         display: none !important;
     }
+    #totalPremiumItem {
+        font-size: 12px !important;
+        font-weight: bold !important;
+    }
+    #totalApPremiumItem {
+        font-size: 12px !important;
+        font-weight: bold !important;
+    }
+    #totalPremiumwithApItem {
+        font-size: 18px !important;
+        font-weight: bold !important;
+    }    
+}
+
+/* Ensure print template uses compact styling */
+.print-template {
+    font-size: 14px;
+    line-height: 1.2;
+}
+
+.print-template .result-item {
+    page-break-inside: avoid;
+    min-height: 10px !important;
+    padding: 2px 0 !important;
+}
+
+/* Add this to your main CSS */
+.vehicle-details p {
+    margin: 2px 0;
 }
 
 /* Hide print template by default */

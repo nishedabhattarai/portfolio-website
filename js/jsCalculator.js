@@ -100,17 +100,10 @@ function toggleVehicleFields() {
     const disabledFriendlyOption = document.getElementById('disabledFriendlyOption');
     const towingChargeOption = document.getElementById('towingChargeOption');
     const ownGoodsOption = document.getElementById('ownGoodsOption');
-    const govTypeGroup = document.getElementById('govTypeGroup');
 
     // Reset electric type to 'No' when vehicle type changes
     if (document.getElementById('electricType')) {
         document.getElementById('electricType').value = 'no';
-    }
-
-    // Link to the selected vehicle type page
-    const selectedOption = document.querySelector(`#vehicleType option[value="${vehicleType}"]`);
-    if (selectedOption && selectedOption.dataset.link) {
-        console.log(`Navigating to: ${selectedOption.dataset.link}`);
     }
 
     // Reset all optional fields
@@ -148,6 +141,13 @@ function toggleVehicleFields() {
         document.getElementById('tonCapacity').required = true;
     }
 
+    // Update helper group visibility
+    if (vehicleType === 'passenger') {
+        helperGroup.style.display = 'block';
+    } else {
+        helperGroup.style.display = 'none';
+    }
+
     // Update Voluntary Excess options for Motorcycle
     if (vehicleType === 'motorcycle') {
         document.getElementById('voluntaryExcess').innerHTML = `
@@ -173,6 +173,7 @@ function toggleVehicleFields() {
         ccGroup.style.display = 'block';
         towingChargeOption.style.display = parseFloat(document.getElementById('vehicleValue').value) > 0 ? 'flex' : 'none';
         autoplusGroup.style.display = parseFloat(document.getElementById('vehicleValue').value) > 24999 ? 'flex' : 'none';
+        helperGroup.style.display = 'none';
     } 
     if (vehicleType === 'electric') {
         ccGroup.style.display = 'none';
@@ -180,17 +181,24 @@ function toggleVehicleFields() {
         document.getElementById('hpWattValue').required = true;
         towingChargeOption.style.display = parseFloat(document.getElementById('vehicleValue').value) > 0 ? 'flex' : 'none';
         autoplusGroup.style.display = parseFloat(document.getElementById('vehicleValue').value) > 24999 ? 'flex' : 'none';
+        helperGroup.style.display = 'none';
     } 
     else if (vehicleType === 'motorcycle') {
         electricTypeGroup.style.display = 'block';
         disabledFriendlyOption.style.display = parseFloat(document.getElementById('vehicleValue').value) > 0 ? 'flex' : 'none';
         autoplusGroup.style.display = parseFloat(document.getElementById('vehicleValue').value) > 24999 ? 'flex' : 'none';
+        seatCapacityGroup.style.display = 'none';
+        towingChargeOption.style.display = 'none';
+        helperGroup.style.display = 'none';
+        ownGoodsOption.style.display = 'none';
     }
     else if (vehicleType === 'tempo') {
         electricTypeGroup.style.display = 'block';
         towingChargeOption.style.display = parseFloat(document.getElementById('vehicleValue').value) > 0 ? 'flex' : 'none';
         disabledFriendlyOption.style.display = 'none';
         autoplusGroup.style.display = 'none';
+        helperGroup.style.display = 'none';
+        ownGoodsOption.style.display = 'none';
     }
     else if (vehicleType === 'tractor') {
         ccGroup.style.display = 'none';
@@ -198,7 +206,11 @@ function toggleVehicleFields() {
         document.getElementById('hpWattValue').required = true;
         trailerGroup.style.display = 'block';
         towingChargeOption.style.display = parseFloat(document.getElementById('vehicleValue').value) > 0 ? 'flex' : 'none';
-        autoplusGroup.style.display = 'none';        
+        autoplusGroup.style.display = 'none';
+        helperGroup.style.display = 'none';
+        ownGoodsOption.style.display = 'none';
+        seatCapacityGroup.style.display = 'none';
+        tonCapacityGroup.style.display = 'none';
     }
     else if (vehicleType === 'passenger') {
         ccGroup.style.display = 'none';
@@ -214,6 +226,7 @@ function toggleVehicleFields() {
         towingChargeOption.style.display = parseFloat(document.getElementById('vehicleValue').value) > 0 ? 'flex' : 'none';
         ownGoodsOption.style.display = parseFloat(document.getElementById('vehicleValue').value) > 0 ? 'flex' : 'none';
         autoplusGroup.style.display = 'none';
+        helperGroup.style.display = 'none';
     }
     else if (vehicleType === 'taxi') {
         ccGroup.style.display = 'block';
@@ -221,6 +234,7 @@ function toggleVehicleFields() {
         towingChargeOption.style.display = parseFloat(document.getElementById('vehicleValue').value) > 0 ? 'flex' : 'none';
         ownGoodsOption.style.display = 'none';
         autoplusGroup.style.display = 'none';
+        helperGroup.style.display = 'none';
     }    
     else {
         towingChargeOption.style.display = parseFloat(document.getElementById('vehicleValue').value) > 0 ? 'flex' : 'none';
@@ -335,7 +349,14 @@ function validateManufacturingYear(yearInput) {
 }
 
 function clearForm() {
-    // Reset form fields
+    // Reset form fields to default
+    document.getElementById('vehicleType').value = 'motorcycle';
+    document.getElementById('vehicleValue').value = '';
+    document.getElementById('cubicCapacity').value = '';
+    document.getElementById('electricType').value = 'no';
+    document.querySelector('input[name="govType"][value="nonGovernment"]').checked = true;
+    
+    // Reset all other fields
     const form = document.getElementById('premiumForm');
     const formData = new FormData(form);
     for (let [name, value] of formData) {
@@ -346,52 +367,17 @@ function clearForm() {
             } else if (element.type === 'number') {
                 element.value = '';
             } else if (element.tagName === 'SELECT') {
-                if (name !== 'vehicleType') {
+                if (name !== 'vehicleType' && name !== 'electricType') {
                     element.selectedIndex = 0;
                 }
             }
         }
     }
 
-    // Uncheck disabled friendly when not motorcycle
-    const vehicleType = document.getElementById('vehicleType').value;
-    if (vehicleType !== 'motorcycle') {
-        document.getElementById('disabledFriendly').checked = false;
-    }
-
-    // Reset all select element to their first option
-    const selects = document.querySelectorAll('select');
-    selects.forEach(select => {
-        select.selectedIndex = 0;
-    });
-
-    // Clear all number inputs
-    const numberInputs = document.querySelectorAll('input[type="number"]');
-    numberInputs.forEach(input => {
-        input.value = '';
-    });
-
-    // Uncheck all checkboxes except rsmdst
-    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-    checkboxes.forEach(checkbox => {
-        if (checkbox.id !== 'rsmdst') {
-            checkbox.checked = false;
-        } else {
-            checkbox.checked = true;
-        }
-    });
-
-    // Restore vehicle type and category
-    const currentVehicleType = document.getElementById('vehicleType').value;
-    const currentGovType = document.querySelector('input[name="govType"]:checked').value; 
-    document.getElementById('vehicleType').value = currentVehicleType;
-    document.querySelector(`input[name="govType"][value="${currentGovType}"]`).checked = true;
-    
     // Hide all optional fields
     document.getElementById('optionalFieldsGroup').style.display = 'none';
     document.getElementById('calculationTypeGroup').style.display = 'none';
     document.getElementById('autoplusGroup').style.display = 'none';
-    document.getElementById('autoplusDetails').style.display = 'none';
     document.getElementById('trailerValueGroup').style.display = 'none';
     document.getElementById('hpWattGroup').style.display = 'none';
     document.getElementById('electricTypeGroup').style.display = 'none';
@@ -408,13 +394,14 @@ function clearForm() {
     document.querySelector('.results-details').style.display = 'none';
     document.querySelector('.results-placeholder').style.display = 'block';
     
+    // Hide print/download buttons
+    document.getElementById('printButtons').style.display = 'none';
+    
     // Reset form fields visibility
     toggleVehicleFields();
     toggleFieldsBasedOnValue();
 }
 
-// Global flag to track if event listeners are already added
-let printAndDownloadListenersAdded = false;
 function generatePrintContent(insuredName, vehicleDetails) {
     // Generate reference number
     const refNumber = Math.floor(1000 + Math.random() * 9000);
@@ -426,51 +413,57 @@ function generatePrintContent(insuredName, vehicleDetails) {
     document.getElementById('printVehicleDetails').textContent = vehicleDetails || 'Not specified';
     
     // Vehicle Details
-    const vehicleType = document.getElementById('vehicleType');
-    document.querySelector('.vehicle-details').innerHTML = `
+    const vehicleType = document.getElementById('vehicleType').value;
+    const seatCapacity = parseFloat(document.getElementById('seatCapacity').value) || 0;
+    const vehicleValue = parseFloat(document.getElementById('vehicleValue').value) || 0;
+    
+    // Vehicle Details HTML
+    let vehicleDetailsHTML = `
         <h3>Vehicle Information</h3>
-        <p><strong>Type:</strong> ${vehicleType.options[vehicleType.selectedIndex].text}</p>
+        <p><strong>Type:</strong> ${vehicleType}</p>
         <p><strong>Category:</strong> ${document.querySelector('input[name="govType"]:checked').value === 'government' ? 'Government' : 'Non Government'}</p>
-        <p><strong>Value:</strong> NPR ${document.getElementById('vehicleValue').value || '0'}</p>
-        ${document.getElementById('cubicCapacity').value ? `<p><strong>Cubic Capacity:</strong> ${document.getElementById('cubicCapacity').value} cc</p>` : ''}
-        ${document.getElementById('hpWattValue').value ? `<p><strong>HP/Watt:</strong> ${document.getElementById('hpWattValue').value}</p>` : ''}
-        ${document.getElementById('seatCapacity').value ? `<p><strong>Seat Capacity:</strong> ${document.getElementById('seatCapacity').value}</p>` : ''}
-        ${document.getElementById('tonCapacity').value ? `<p><strong>Ton Capacity:</strong> ${document.getElementById('tonCapacity').value}</p>` : ''}
-        ${document.getElementById('manufacturingYear').value ? `<p><strong>Manufacturing Year:</strong> ${document.getElementById('manufacturingYear').value}</p>` : ''}
     `;
+
+    if (vehicleValue > 0) {
+        vehicleDetailsHTML += `<p><strong>Value:</strong> NPR ${vehicleValue.toLocaleString()}</p>`;
+    }
+
+    if (vehicleType !== 'motorcycle' && vehicleType !== 'tractor' && seatCapacity > 0) {
+        vehicleDetailsHTML += `<p><strong>Seat Capacity:</strong> ${seatCapacity}</p>`;
+    }
+
+    // Add remaining vehicle details
+    const cubicCapacity = parseFloat(document.getElementById('cubicCapacity').value) || 0;
+    const hpWattValue = parseFloat(document.getElementById('hpWattValue').value) || 0;
+    const tonCapacity = parseFloat(document.getElementById('tonCapacity').value) || 0;
+    const manufacturingYear = document.getElementById('manufacturingYear').value;
+
+    if (cubicCapacity > 0) vehicleDetailsHTML += `<p><strong>Cubic Capacity:</strong> ${cubicCapacity} cc</p>`;
+    if (hpWattValue > 0) vehicleDetailsHTML += `<p><strong>HP/Watt:</strong> ${hpWattValue}</p>`;
+    if (tonCapacity > 0) vehicleDetailsHTML += `<p><strong>Ton Capacity:</strong> ${tonCapacity}</p>`;
+    if (manufacturingYear) vehicleDetailsHTML += `<p><strong>Manufacturing Year:</strong> ${manufacturingYear}</p>`;
+
+    document.querySelector('.vehicle-details').innerHTML = vehicleDetailsHTML;
     
     // Calculation Parameters
     document.querySelector('.calculation-details').innerHTML = `
         <h3>Calculation Parameters</h3>
-        <p><strong>Calculation Type:</strong> ${document.getElementById('calculationType').options[document.getElementById('calculationType').selectedIndex].text}</p>
-        <p><strong>Voluntary Excess:</strong> ${document.getElementById('voluntaryExcess').options[document.getElementById('voluntaryExcess').selectedIndex].text}</p>
-        <p><strong>No Claim Discount:</strong> ${document.getElementById('noClaimDiscount').options[document.getElementById('noClaimDiscount').selectedIndex].text}</p>
-        <p><strong>Direct Discount:</strong> ${document.getElementById('directDiscount').checked ? 'Yes (2.5%)' : 'No'}</p>
-        <p><strong>RSMDST:</strong> ${document.getElementById('rsmdst').checked ? 'Included' : 'Not Included'}</p>
+        <p style="margin-bottom: 4px;"><strong>Type:</strong> ${document.getElementById('calculationType').options[document.getElementById('calculationType').selectedIndex].text}</p>
+        <p style="margin-bottom: 4px;"><strong>Voluntary Excess:</strong> ${document.getElementById('voluntaryExcess').options[document.getElementById('voluntaryExcess').selectedIndex].text}</p>
+        <p style="margin-bottom: 4px;"><strong>No Claim Discount:</strong> ${document.getElementById('noClaimDiscount').options[document.getElementById('noClaimDiscount').selectedIndex].text}</p>
+        <p style="margin-bottom: 4px;"><strong>Direct Discount:</strong> ${document.getElementById('directDiscount').checked ? 'Yes (2.5%)' : 'No'}</p>
+        <p style="margin-bottom: 4px;"><strong>RSMDST:</strong> ${document.getElementById('rsmdst').checked ? 'Included' : 'Not Included'}</p>
     `;
     
-    // Autoplus Details (if applicable)
-    const autoplusSection = document.querySelector('.autoplus-details');
-    if (document.getElementById('autoplusOption').value === 'withAp') {
-        autoplusSection.innerHTML = `
-            <h3>Autoplus Coverage</h3>
-            <p><strong>Insurance Company:</strong> ${document.getElementById('withAp').options[document.getElementById('withAp').selectedIndex].text}</p>
-            <p><strong>Options Selected:</strong></p>
-            <ul>
-                ${document.getElementById('depreciationWaiver').checked ? '<li>Depreciation Waiver</li>' : ''}
-                ${document.getElementById('newVehicleReplacement').checked ? '<li>New Vehicle Replacement</li>' : ''}
-                ${document.getElementById('dailyRental').checked ? '<li>Daily Rental/Transportation Cost</li>' : ''}
-            </ul>
-        `;
-        autoplusSection.style.display = 'block';
-    } else {
-        autoplusSection.style.display = 'none';
-    }
-
     // Premium Results
     const resultsContainer = document.querySelector('.premium-results');
     resultsContainer.innerHTML = '<h3>Premium Calculation Results</h3>';
-    resultsContainer.appendChild(document.querySelector('.results-details').cloneNode(true));
+    
+    // Clone the results details and remove buttons
+    const resultsClone = document.querySelector('.results-details').cloneNode(true);
+    resultsClone.querySelector('#printBtn')?.remove();
+    resultsClone.querySelector('#downloadPdfBtn')?.remove();
+    resultsContainer.appendChild(resultsClone);
     
     // Generate the HTML for PDF
     document.getElementById('pdfContent').innerHTML = document.getElementById('printTemplate').innerHTML;
@@ -486,51 +479,94 @@ function generatePdfContent(insuredNamePdf, vehicleDetailsPdf) {
     pdfContainer.style.padding = '20px';
     pdfContainer.style.fontFamily = 'Arial, sans-serif';
     
-    // Add header
-    pdfContainer.innerHTML = `
-        <div class="print-header">
-            <img src="logo.png" alt="Company Logo" class="print-logo">
-            <h2>Premium Calculation Sheet</h2>
-            <div class="header-details">
-                <p><strong>Date:</strong> ${new Date().toLocaleDateString()}</p>
-                <p><strong>Ref:</strong> CALC-${refNumber}</p>
-            </div>
-        </div>
-        
-        <div class="client-details">
-            <p><strong>Client Name:</strong> ${insuredNamePdf || 'Not specified'}</p>
-            <p><strong>Vehicle Details:</strong> ${vehicleDetailsPdf || 'Not specified'}</p>
-        </div>
-    `;
+    const vehicleType = document.getElementById('vehicleType').value;
+    const seatCapacity = parseFloat(document.getElementById('seatCapacity').value) || 0;
     
-    // Add vehicle details
-    const vehicleType = document.getElementById('vehicleType');
+    // Vehicle Details - Conditionally show seat capacity
+    let vehicleDetailsHTML = `
+        <h3>Vehicle Information</h3>
+        <p><strong>Type:</strong> ${vehicleType}</p>
+        <p><strong>Category:</strong> ${document.querySelector('input[name="govType"]:checked').value === 'government' ? 'Government' : 'Non Government'}</p>
+    `;
+
+    // Add vehicle value if present
+    const vehicleValue = parseFloat(document.getElementById('vehicleValue').value) || 0;
+    if (vehicleValue > 0) {
+        vehicleDetailsHTML += `<p><strong>Value:</strong> NPR ${vehicleValue.toLocaleString()}</p>`;
+    }
+
+    // Only show seat capacity if not motorcycle or tractor
+    if (vehicleType !== 'motorcycle' && vehicleType !== 'tractor' && seatCapacity > 0) {
+        vehicleDetailsHTML += `<p><strong>Seat Capacity:</strong> ${seatCapacity}</p>`;
+    }
+
+    // Add remaining vehicle details
+    const cubicCapacity = parseFloat(document.getElementById('cubicCapacity').value) || 0;
+    const hpWattValue = parseFloat(document.getElementById('hpWattValue').value) || 0;
+    const tonCapacity = parseFloat(document.getElementById('tonCapacity').value) || 0;
+    const manufacturingYear = document.getElementById('manufacturingYear').value;
+
+    if (cubicCapacity > 0) {
+        vehicleDetailsHTML += `<p><strong>Cubic Capacity:</strong> ${cubicCapacity} cc</p>`;
+    }
+    if (hpWattValue > 0) {
+        vehicleDetailsHTML += `<p><strong>HP/Watt:</strong> ${hpWattValue}</p>`;
+    }
+    if (tonCapacity > 0) {
+        vehicleDetailsHTML += `<p><strong>Ton Capacity:</strong> ${tonCapacity}</p>`;
+    }
+    if (manufacturingYear) {
+        vehicleDetailsHTML += `<p><strong>Manufacturing Year:</strong> ${manufacturingYear}</p>`;
+    }
+
+    // Create vehicle details div
     const vehicleDetailsDiv = document.createElement('div');
-    vehicleDetailsDiv.className = 'details-grid';
-    vehicleDetailsDiv.innerHTML = `
-        <div class="vehicle-details">
-            <h3>Vehicle Information</h3>
-            <p><strong>Type:</strong> ${vehicleType.options[vehicleType.selectedIndex].text}</p>
-            <p><strong>Category:</strong> ${document.querySelector('input[name="govType"]:checked').value === 'government' ? 'Government' : 'Non Government'}</p>
-            ${document.getElementById('vehicleValue').value ? `<p><strong>Value:</strong> NPR ${document.getElementById('vehicleValue').value}</p>` : ''}
-            ${document.getElementById('cubicCapacity').value ? `<p><strong>Cubic Capacity:</strong> ${document.getElementById('cubicCapacity').value} cc</p>` : ''}
-            ${document.getElementById('hpWattValue').value ? `<p><strong>HP/Watt:</strong> ${document.getElementById('hpWattValue').value}</p>` : ''}
-            ${document.getElementById('seatCapacity').value ? `<p><strong>Seat Capacity:</strong> ${document.getElementById('seatCapacity').value}</p>` : ''}
-            ${document.getElementById('tonCapacity').value ? `<p><strong>Ton Capacity:</strong> ${document.getElementById('tonCapacity').value}</p>` : ''}
-            ${document.getElementById('manufacturingYear').value ? `<p><strong>Manufacturing Year:</strong> ${document.getElementById('manufacturingYear').value}</p>` : ''}
-        </div>
-        
-        <div class="calculation-details">
-            <h3>Calculation Parameters</h3>
-            <p><strong>Calculation Type:</strong> ${document.getElementById('calculationType').options[document.getElementById('calculationType').selectedIndex].text}</p>
-            <p><strong>Voluntary Excess:</strong> ${document.getElementById('voluntaryExcess').options[document.getElementById('voluntaryExcess').selectedIndex].text}</p>
-            <p><strong>No Claim Discount:</strong> ${document.getElementById('noClaimDiscount').options[document.getElementById('noClaimDiscount').selectedIndex].text}</p>
-            <p><strong>Direct Discount:</strong> ${document.getElementById('directDiscount').checked ? 'Yes (2.5%)' : 'No'}</p>
-            <p><strong>RSMDST:</strong> ${document.getElementById('rsmdst').checked ? 'Included' : 'Not Included'}</p>
+    vehicleDetailsDiv.className = 'vehicle-details';
+    vehicleDetailsDiv.innerHTML = vehicleDetailsHTML;
+
+    // Create calculation details div
+    const calculationDetailsDiv = document.createElement('div');
+    calculationDetailsDiv.className = 'calculation-details';
+    calculationDetailsDiv.innerHTML = `
+        <h3 style="margin-bottom: 5px;">Calculation Parameters</h3>
+        <p style="margin: 3px 0;"><strong>Type:</strong> ${document.getElementById('calculationType').options[document.getElementById('calculationType').selectedIndex].text}</p>
+        <p style="margin: 3px 0;"><strong>Voluntary Excess:</strong> ${document.getElementById('voluntaryExcess').options[document.getElementById('voluntaryExcess').selectedIndex].text}</p>
+        <p style="margin: 3px 0;"><strong>No Claim Discount:</strong> ${document.getElementById('noClaimDiscount').options[document.getElementById('noClaimDiscount').selectedIndex].text}</p>
+        <p style="margin: 3px 0;"><strong>Direct Discount:</strong> ${document.getElementById('directDiscount').checked ? 'Yes (2.5%)' : 'No'}</p>
+        <p style="margin: 3px 0;"><strong>RSMDST:</strong> ${document.getElementById('rsmdst').checked ? 'Included' : 'Not Included'}</p>
+    `;
+
+    // Create details grid
+    const detailsGrid = document.createElement('div');
+    detailsGrid.className = 'details-grid';
+    detailsGrid.appendChild(vehicleDetailsDiv);
+    detailsGrid.appendChild(calculationDetailsDiv);
+
+    // Add header
+    const header = document.createElement('div');
+    header.className = 'print-header';
+    header.innerHTML = `
+        <img src="logo.png" alt="Company Logo" class="print-logo">
+        <h2>Premium Calculation Sheet</h2>
+        <div class="header-details">
+            <p><strong>Date:</strong> ${new Date().toLocaleDateString()}</p>
+            <p><strong>Ref:</strong> CALC-${refNumber}</p>
         </div>
     `;
-    pdfContainer.appendChild(vehicleDetailsDiv);
-    
+
+    // Add client details
+    const clientDetails = document.createElement('div');
+    clientDetails.className = 'client-details';
+    clientDetails.innerHTML = `
+        <p><strong>Client Name:</strong> ${insuredNamePdf || 'Not specified'}</p>
+        <p><strong>Vehicle Details:</strong> ${vehicleDetailsPdf || 'Not specified'}</p>
+    `;
+
+    // Add all sections to the container
+    pdfContainer.appendChild(header);
+    pdfContainer.appendChild(clientDetails);
+    pdfContainer.appendChild(detailsGrid);
+
     // Add Autoplus details if applicable
     if (document.getElementById('autoplusOption').value === 'withAp') {
         const autoplusSection = document.createElement('div');
@@ -577,12 +613,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const durationField = document.getElementById('durationField');
     const companyField = document.getElementById('companyField');
     const shortPeriodSelect = document.getElementById('shortPeriod');
-    const withApSelect = document.getElementById('withApSelect');
-    const withoutApSelect = document.getElementById('withoutAp');
-    const autoplusOption = document.getElementById('autoplusOption');
     const proRateDaysInput = document.getElementById('proRateDays');
     const durationLabel = document.getElementById('durationLabel');
-    const companyLabel = document.getElementById('companyLabel');
     const calculateBtn = document.getElementById('calculateBtn');
     const clearBtn = document.getElementById('clearBtn');
     const resultsPlaceholder = document.querySelector('.results-placeholder');
@@ -600,7 +632,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const vehicleValueInput = document.getElementById('vehicleValue');
     const vehicleValueError = document.getElementById('vehicleValueError');
     const durationError = document.getElementById('durationError');
-    const autoplusError = document.getElementById('autoplusError');
     const helperInput = document.getElementById('helper');
     const printBtn = document.getElementById('printBtn');
     const printModal = document.getElementById('printModal');
@@ -609,6 +640,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const confirmPrintBtn = document.getElementById('confirmPrint');
     const confirmDownloadBtn = document.getElementById('confirmDownload');
     const downloadPdfBtn = document.getElementById('downloadPdfBtn');
+    const currentYear = new Date().getFullYear();
 
     // Add event listener for manufacturing year validation
     manufacturingYearInput.addEventListener('input', function() {
@@ -651,24 +683,30 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Generate print preview
-    confirmPrintBtn.addEventListener('click', function() {
-        // Get values from modal inputs
-        const insuredName = document.getElementById('insuredName').value;
-        const vehicleDetails = document.getElementById('vehicleDetails').value;
+confirmPrintBtn.addEventListener('click', function() {
+    // Get values from modal inputs
+    const insuredName = document.getElementById('insuredName').value;
+    const vehicleDetails = document.getElementById('vehicleDetails').value;
 
-        // Generate content for print/PDF
-        generatePrintContent(insuredName, vehicleDetails);
-        
-        // Hide the modal
-        printModal.style.display = 'none';
-        
-        // Show print template and trigger print
-        document.getElementById('printTemplate').style.display = 'block';
-        setTimeout(() => {
-            window.print();
-            document.getElementById('printTemplate').style.display = 'none';
-        }, 100);
-    });
+    // Set vehicle type for print styling
+    document.body.setAttribute('data-vehicle-type', document.getElementById('vehicleType').value);
+
+    // Generate content for print/PDF
+    generatePrintContent(insuredName, vehicleDetails);
+    
+    // Hide the modal
+    printModal.style.display = 'none';
+    
+    // Show print template and trigger print
+    const printTemplate = document.getElementById('printTemplate');
+    printTemplate.style.display = 'block';
+    
+    // Add a small delay to ensure content is rendered before printing
+    setTimeout(() => {
+        window.print();
+        printTemplate.style.display = 'none';
+    }, 200);
+});
 
     // Generate PDF
     confirmDownloadBtn.addEventListener('click', function() {
@@ -681,45 +719,39 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // PDF options
         const opt = {
-            margin: (5, 5, 5, 5), // Smaller margins
+            margin: [2, 2, 2, 2], // Smaller margins
             filename: `nisheda_${new Date().toISOString().slice(0,10)}.pdf`,
-            image: { type: 'jpeg', quality: 0.98 }, // Higher quality
+            image: { type: 'jpeg', quality: 1 }, // Higher quality
             html2canvas: { 
                 scale: 1,
-                logging: true,
-                useCORS: true,
-                windowHeight: document.getElementById('printTemplate').scrollHeight,
-                scrollY: 0 // Start from top
+                width: 800, // Set specific width
+                windowHeight: element.scrollHeight + 100,
+                scrollX: 0, // Start from left
+                scrollY: 0, // Start from top
+                letterRendering: true, // Enable letter rendering
             },
-            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-            pagebreak: { avoid: '.avoid-break' }
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait', compress: true }
         };
         
-        /* Generate and save the PDF
-        html2pdf().set(opt).from(element).save();
+        // Temporary style adjustments for pdf
+        const originalStyles = { padding: element.style.padding, fontSize: element.style.fontSize };
+
+        // Optimize styles for PDF
+        element.style.padding = '5px';
+        element.style.fontSize = '10pt';
+        
+        // Generate PDF
+        html2pdf().set(opt).from(element).save().then(() => {
+            // Restore original styles
+            element.style.padding = originalStyles.padding;
+            element.style.fontSize = originalStyles.fontSize;
+        });
         
         // Hide the modal
-        downloadModal.style.display = 'none';*/
-
-    // Temporary style adjustments for pdf
-    const originalStyles = { padding: element.style.padding, fontSize: element.style.fontSize };
-
-    // Optimize styles for PDF
-    element.style.padding = '5px';
-    element.style.fontSize = '10pt';
-    
-    // Generate PDF
-    html2pdf().set(opt).from(element).save().then(() => {
-        // Restore original styles
-        element.style.padding = originalStyles.padding;
-        element.style.fontSize = originalStyles.fontSize;
+        downloadModal.style.display = 'none';
     });
-    
-    document.getElementById('printTemplate').style.display = 'none';
-});
 
     // Set current year as max for manufacturing year
-    const currentYear = new Date().getFullYear();
     manufacturingYearInput.max = currentYear;
 
     // Add govType change listener
@@ -727,7 +759,7 @@ document.addEventListener('DOMContentLoaded', function() {
         radio.addEventListener('change', function() {
             toggleFieldsBasedOnValue();
         });
-    })
+    });
 
     // Limit helper input to max 3
     helperInput.addEventListener('input', function() {
@@ -754,19 +786,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Show/hide Autoplus fields based on calculation type
-    autoplusOption.addEventListener('change', function() {
-        if (this.value === 'withAp') {
-            companyField.style.display = 'block';
-            withApSelect.style.display = 'block';
-            autoplusTypeGroup.style.display = 'block';
-            withoutApSelect.style.display = 'none';
-            companyLabel.textContent = 'Shikhar Insurance Co. Ltd.';
-        } else {
-            companyField.style.display = 'none';
-            autoplusTypeGroup.style.display = 'none';
-        }
-        autoplusTypeGroup.style.display = this.value === 'withAp' ? 'block' : 'none';
-        autoplusError.style.display = this.value === 'withAp' ? 'block' : 'none';
+    document.getElementById('autoplusOption').addEventListener('change', function() {
+        toggleAutoplusFields();
     });
 
     // Validate cubic capacity or HP/Watt value on input
@@ -793,23 +814,23 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('autoplusOption').addEventListener('change', toggleAutoplusFields);
     document.getElementById('vehicleType').addEventListener('change', toggleAutoplusFields);
     
-    // Event Litener for seat capacity validation	
+    // Event Listener for seat capacity validation	
     seatCapacityInput.addEventListener('input', function() {
-    const vehicleType = document.getElementById('vehicleType').value;
+        const vehicleType = document.getElementById('vehicleType').value;
         if (!this.value && vehicleType !== 'motorcycle' && vehicleType !== 'tractor') {
-           seatCapacityError.style.display = 'block';
+            seatCapacityError.style.display = 'block';
         } else {
-           seatCapacityError.style.display = 'none';
+            seatCapacityError.style.display = 'none';
         }
     });	    
  
-    // Event Litener for ton capacity validation	
+    // Event Listener for ton capacity validation	
     tonCapacityInput.addEventListener('input', function() {
-    const vehicleType = document.getElementById('vehicleType').value;
+        const vehicleType = document.getElementById('vehicleType').value;
         if (!this.value && vehicleType !== 'motorcycle' && vehicleType !== 'private' && vehicleType !== 'electric' && vehicleType !== 'passenger' && vehicleType !== 'tractor' && vehicleType !== 'tempo' && vehicleType !== 'taxi') {
-           tonCapacityError.style.display = 'block';
+            tonCapacityError.style.display = 'block';
         } else {
-           tonCapacityError.style.display = 'none';
+            tonCapacityError.style.display = 'none';
         }
     });	    
 
@@ -836,7 +857,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Set default checkboxes based on vehicle value
+    // Set default checkboxes
     document.getElementById('directDiscount').checked = true;
     document.getElementById('rsmdst').checked = true;
     document.getElementById('towingCharge').checked = true;
@@ -862,9 +883,9 @@ document.addEventListener('DOMContentLoaded', function() {
             seatCapacityError.textContent = 'Seat capacity is required';
             seatCapacityError.style.display = 'block';
             return; // Stop calculation if validation fails
-            }
+        }
     
-    // Validate seat capacity for required vehicle types
+        // Validate seat capacity for required vehicle types
         if (vehicleType !== 'motorcycle' && vehicleType !== 'tractor' && !seatCapacityInput.value) {
             seatCapacityError.style.display = 'block';
             isValid = false;
@@ -872,8 +893,9 @@ document.addEventListener('DOMContentLoaded', function() {
             seatCapacityError.style.display = 'none';
         }
 
-	// Validate ton capacity for required vehicle types
-        if (vehicleType === 'goods' || vehicleType === 'tanker' || vehicleType === 'construction' || vehicleType === 'agriculture') {                if (!tonCapacityInput.value) {
+        // Validate ton capacity for required vehicle types
+        if (vehicleType === 'goods' || vehicleType === 'tanker' || vehicleType === 'construction' || vehicleType === 'agriculture') {                
+            if (!tonCapacityInput.value) {
                 tonCapacityError.style.display = 'block';
                 isValid = false;
             } else {
@@ -933,7 +955,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     function calculatePremium() {                
-                
         let depreciationPremium = 0;
         let newVehiclePremium = 0;
         let rentalPremium = 0;
@@ -942,7 +963,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const vehicleType = document.getElementById('vehicleType').value;
         const voluntaryExcess = parseInt(document.getElementById('voluntaryExcess').value);
         const noClaimDiscount = parseInt(document.getElementById('noClaimDiscount').value);
-        const vehicleValue = parseFloat(document.getElementById('vehicleValue').value.replace(/,/g, '')) || 0;
+        const vehicleValue = parseFloat(document.getElementById('vehicleValue').value) || 0;
         const cubicCapacity = parseFloat(document.getElementById('cubicCapacity').value) || 0;
         const hpWattValue = parseFloat(document.getElementById('hpWattValue').value) || 0;
         const isElectricType = document.getElementById('electricType')?.value === 'yes';
@@ -1094,7 +1115,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     additionalPremium = 1000;
                 } else if (cubicCapacity > 1600) {
                     normalPremium = vehicleValue * 0.02;
-                    additionalPremium = 500
+                    additionalPremium = 500;
                 } 
             }
         } else if (vehicleType === 'goods') {
@@ -1221,8 +1242,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Tractor premium calculation for Non-Government
                 if (vehicleValue > 0) {
                     normalPremium = vehicleValue * 0.01;
-                    }
                 }
+            }
         } else {
             // Other vehicle types
             const normalPremiumRate = isGovernment ? 0.01 : 0.015;
@@ -1232,13 +1253,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Apply short period factor to normal premium, tariff discount and additional premium if vehicle value > 0 and not annual
         if (vehicleValue > 0 && calcType !== 'annual') {
             normalPremium *= shortPeriodFactor;
-        }
-
-        if (vehicleValue > 0 && calcType !== 'annual') {
             tariffDiscount *= shortPeriodFactor;
-        }
-
-        if (vehicleValue > 0 && calcType !== 'annual') {
             additionalPremium *= shortPeriodFactor;
         }
         
@@ -1269,7 +1284,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         else if (vehicleType === 'passenger' || vehicleType === 'goods' || 
                  vehicleType === 'tanker' || vehicleType === 'tractor' || 
-                 vehicleType === 'tempo' || vehicleType === 'agriulture') {
+                 vehicleType === 'tempo' || vehicleType === 'agriculture') {
             if (vehicleAge >= 5 && vehicleAge <= 10) {
                 oldVehicleCharge = (normalPremium + additionalPremium + trailerCharge - tariffDiscount) * 0.10;
             } else if (vehicleAge > 10) {
@@ -1297,32 +1312,33 @@ document.addEventListener('DOMContentLoaded', function() {
         // Step 5: No Claim Discount Amount
         let noClaimDiscountRate = 0;
         if (vehicleValue > 0) {
-        if (vehicleType === 'private' || vehicleType === 'electric') {
-            // Private vehicle NCD rates
-            if (noClaimDiscount === 1) noClaimDiscountRate = 0.20;
-            else if (noClaimDiscount === 2) noClaimDiscountRate = 0.30;
-            else if (noClaimDiscount === 3) noClaimDiscountRate = 0.40;
-            else if (noClaimDiscount === 4) noClaimDiscountRate = 0.45;
-            else if (noClaimDiscount === 5) noClaimDiscountRate = 0.50;
-        } else if (vehicleType === 'motorcycle') {
-            // Motorcycle NCD rates
-            if (noClaimDiscount === 1) noClaimDiscountRate = 0.15;
-            else if (noClaimDiscount === 2) noClaimDiscountRate = 0.25;
-            else if (noClaimDiscount === 3) noClaimDiscountRate = 0.35;
-        } else {
-            // Other vehicles NCD rates
-            if (noClaimDiscount === 1) noClaimDiscountRate = 0.15;
-            else if (noClaimDiscount === 2) noClaimDiscountRate = 0.25;
-            else if (noClaimDiscount === 3) noClaimDiscountRate = 0.30;
-        }}
+            if (vehicleType === 'private' || vehicleType === 'electric') {
+                // Private vehicle NCD rates
+                if (noClaimDiscount === 1) noClaimDiscountRate = 0.20;
+                else if (noClaimDiscount === 2) noClaimDiscountRate = 0.30;
+                else if (noClaimDiscount === 3) noClaimDiscountRate = 0.40;
+                else if (noClaimDiscount === 4) noClaimDiscountRate = 0.45;
+                else if (noClaimDiscount === 5) noClaimDiscountRate = 0.50;
+            } else if (vehicleType === 'motorcycle') {
+                // Motorcycle NCD rates
+                if (noClaimDiscount === 1) noClaimDiscountRate = 0.15;
+                else if (noClaimDiscount === 2) noClaimDiscountRate = 0.25;
+                else if (noClaimDiscount === 3) noClaimDiscountRate = 0.35;
+            } else {
+                // Other vehicles NCD rates
+                if (noClaimDiscount === 1) noClaimDiscountRate = 0.15;
+                else if (noClaimDiscount === 2) noClaimDiscountRate = 0.25;
+                else if (noClaimDiscount === 3) noClaimDiscountRate = 0.30;
+            }
+        }
         
         const noClaimDiscountAmount = (normalPremium + additionalPremium + oldVehicleCharge + trailerCharge - tariffDiscount - voluntaryExcessAmount) * noClaimDiscountRate;
 
         // Step 6: Own Goods Carrying
         let ownGoodsAmount = 0;
         if (vehicleType === 'passenger' || vehicleType === 'goods' || vehicleType === 'tanker' || vehicleType === 'tractor' || vehicleType === 'tempo' || vehicleType === 'construction' || vehicleType === 'agriculture') {
-        if (hasOwnGoods && vehicleValue > 0) {
-            ownGoodsAmount = (normalPremium + additionalPremium + oldVehicleCharge + trailerCharge - tariffDiscount - voluntaryExcessAmount - noClaimDiscountAmount) * 0.25;
+            if (hasOwnGoods && vehicleValue > 0) {
+                ownGoodsAmount = (normalPremium + additionalPremium + oldVehicleCharge + trailerCharge - tariffDiscount - voluntaryExcessAmount - noClaimDiscountAmount) * 0.25;
             }
         }
                         
@@ -1371,13 +1387,13 @@ document.addEventListener('DOMContentLoaded', function() {
         // Step 11: Basic Premium
         let basicPremium;
 
-        if (vehicleValue >0) {
+        if (vehicleValue > 0) {
             basicPremium = discountBase + towingChargeAmount - electricDiscountAmount - disabledDiscountAmount;
-        // Apply minimum premium rules
-        if (vehicleType === 'private' || vehicleType === 'electric') {
-            basicPremium = Math.max(basicPremium, 2000.00);
-        } else if (vehicleType === 'motorcycle') {
-            basicPremium = Math.max(basicPremium, 1000.00);
+            // Apply minimum premium rules
+            if (vehicleType === 'private' || vehicleType === 'electric') {
+                basicPremium = Math.max(basicPremium, 2000.00);
+            } else if (vehicleType === 'motorcycle') {
+                basicPremium = Math.max(basicPremium, 1000.00);
             }
         } else {
             // for third party only
@@ -1553,7 +1569,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Step 13: No Claim Discount (TP)
         let noClaimDiscountTP = 0;
         if (vehicleValue > 0) {
-        noClaimDiscountTP = thirdParty * noClaimDiscountRate;
+            noClaimDiscountTP = thirdParty * noClaimDiscountRate;
         }
 
         // Step 14: Disabled Friendly Discount (TP 25%)
@@ -1565,12 +1581,12 @@ document.addEventListener('DOMContentLoaded', function() {
         // Step 15: Third Party Premium
         const thirdPartyPremium = thirdParty - noClaimDiscountTP - disabledDiscountTPAmount;
 
-    // Step 16: Calculate premiums based on government/non-government
-    let driverPremium = 0;
-    let helperPremium = 0;
-    let passengerPremium = 0;
+        // Step 16: Calculate premiums based on government/non-government
+        let driverPremium = 0;
+        let helperPremium = 0;
+        let passengerPremium = 0;
 
-    const premiumRate = isGovernment ? 600 : 700;
+        const premiumRate = isGovernment ? 600 : 700;
         if (vehicleType !== 'motorcycle' && vehicleType !== 'tractor' && vehicleType !== 'private' && vehicleType !== 'electric') {
             driverPremium = 1 * premiumRate;
             helperPremium = helper * premiumRate;
@@ -1621,7 +1637,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const totalPremium = basicPremium + thirdPartyPremium + rsmdstAmount + driverPremium + helperPremium + passengerPremium + vatAmount + stampCharge;
         
         // Step 21: Calculate autoplus premium based on options
-
         const isAutoplus = document.getElementById('autoplusOption').value === 'withAp';
 
         if (isAutoplus && (vehicleType === 'motorcycle' || vehicleType === 'private' || vehicleType === 'electric')) {
@@ -1630,83 +1645,83 @@ document.addEventListener('DOMContentLoaded', function() {
             const isRental = document.getElementById('dailyRental').checked;
             const company = document.getElementById('withAp').value;
         
-            //  Base rates
+            // Base rates
             if (isDepreciation && vehicleType === 'motorcycle' && vehicleValue > 0) {
-                    if (vehicleAge === 0) {
-                        depreciationPremium = vehicleValue * 0.0020;
-                    } else if (vehicleAge === 1) {
-                        depreciationPremium = vehicleValue * 0.0025;
-                    } else if (vehicleAge === 2) {
-                        depreciationPremium = vehicleValue * 0.0030;
-                    } else if (vehicleAge === 3) {
-                        depreciationPremium = vehicleValue * 0.0040;
-                    } else if (vehicleAge === 4) {
-                        depreciationPremium = vehicleValue * 0.0050;
-                    } else if (vehicleAge >= 5 && vehicleAge <= 10) {
-                        depreciationPremium = vehicleValue * 0.0060;
-                    }
-                }
-                if (isNewVehicle && vehicleType === 'motorcycle' && vehicleValue > 0) {
-                    if (vehicleAge === 0) {
-                        newVehiclePremium = vehicleValue * 0.0020;
-                    } else if (vehicleAge === 1) {
-                        newVehiclePremium = vehicleValue * 0.0025;
-                    } else if (vehicleAge === 2) {
-                        newVehiclePremium = vehicleValue * 0.0030;
-                    } else if (vehicleAge === 3) {
-                        newVehiclePremium = vehicleValue * 0.0040;
-                    } else if (vehicleAge === 4) {
-                        newVehiclePremium = vehicleValue * 0.0050;
-                    } else if (vehicleAge >= 5 && vehicleAge <= 10) {
-                        newVehiclePremium = vehicleValue * 0.0060;
-                    }
-                }
-                if (isRental && vehicleType === 'motorcycle' && vehicleValue > 0) {
-                    if (vehicleAge >= 0 && vehicleAge <= 10) {
-                        rentalPremium = vehicleValue * 0.0020;
-                    }
-                }
-                if (isDepreciation && vehicleValue > 0 && (vehicleType === 'private' || vehicleType === 'electric')) {
-                    if (vehicleAge === 0) {
-                        depreciationPremium = vehicleValue * 0.0010;
-                    } else if (vehicleAge === 1) {
-                        depreciationPremium = vehicleValue * 0.0013;
-                    } else if (vehicleAge === 2) {
-                        depreciationPremium = vehicleValue * 0.0018;
-                    } else if (vehicleAge === 3) {
-                        depreciationPremium = vehicleValue * 0.0024;
-                    } else if (vehicleAge === 4) {
-                        depreciationPremium = vehicleValue * 0.0038;
-                    } else if (vehicleAge >= 5 && vehicleAge <= 10) {
-                        depreciationPremium = vehicleValue * 0.0051;
-                    }
-                }
-                if (isNewVehicle && (vehicleType === 'private' || vehicleType === 'electric')) {
-                    if (vehicleAge === 0) {
-                        newVehiclePremium = vehicleValue * 0.0010;
-                    } else if (vehicleAge === 1) {
-                        newVehiclePremium = vehicleValue * 0.0013;
-                    } else if (vehicleAge === 2) {
-                        newVehiclePremium = vehicleValue * 0.0018;
-                    } else if (vehicleAge === 3) {
-                        newVehiclePremium = vehicleValue * 0.0024;
-                    } else if (vehicleAge === 4) {
-                        newVehiclePremium = vehicleValue * 0.0038;
-                    } else if (vehicleAge >= 5 && vehicleAge <= 10) {
-                        newVehiclePremium = vehicleValue * 0.0051;
-                    }
-                }
-                if (isRental && (vehicleType === 'private' || vehicleType === 'electric')) {
-                    if (vehicleAge >= 0 && vehicleAge <= 10) {
-                        rentalPremium = vehicleValue * 0.0020;
-                    }
+                if (vehicleAge === 0) {
+                    depreciationPremium = vehicleValue * 0.0020;
+                } else if (vehicleAge === 1) {
+                    depreciationPremium = vehicleValue * 0.0025;
+                } else if (vehicleAge === 2) {
+                    depreciationPremium = vehicleValue * 0.0030;
+                } else if (vehicleAge === 3) {
+                    depreciationPremium = vehicleValue * 0.0040;
+                } else if (vehicleAge === 4) {
+                    depreciationPremium = vehicleValue * 0.0050;
+                } else if (vehicleAge >= 5 && vehicleAge <= 10) {
+                    depreciationPremium = vehicleValue * 0.0060;
                 }
             }
+            if (isNewVehicle && vehicleType === 'motorcycle' && vehicleValue > 0) {
+                if (vehicleAge === 0) {
+                    newVehiclePremium = vehicleValue * 0.0020;
+                } else if (vehicleAge === 1) {
+                    newVehiclePremium = vehicleValue * 0.0025;
+                } else if (vehicleAge === 2) {
+                    newVehiclePremium = vehicleValue * 0.0030;
+                } else if (vehicleAge === 3) {
+                    newVehiclePremium = vehicleValue * 0.0040;
+                } else if (vehicleAge === 4) {
+                    newVehiclePremium = vehicleValue * 0.0050;
+                } else if (vehicleAge >= 5 && vehicleAge <= 10) {
+                    newVehiclePremium = vehicleValue * 0.0060;
+                }
+            }
+            if (isRental && vehicleType === 'motorcycle' && vehicleValue > 0) {
+                if (vehicleAge >= 0 && vehicleAge <= 10) {
+                    rentalPremium = vehicleValue * 0.0020;
+                }
+            }
+            if (isDepreciation && vehicleValue > 0 && (vehicleType === 'private' || vehicleType === 'electric')) {
+                if (vehicleAge === 0) {
+                    depreciationPremium = vehicleValue * 0.0010;
+                } else if (vehicleAge === 1) {
+                    depreciationPremium = vehicleValue * 0.0013;
+                } else if (vehicleAge === 2) {
+                    depreciationPremium = vehicleValue * 0.0018;
+                } else if (vehicleAge === 3) {
+                    depreciationPremium = vehicleValue * 0.0024;
+                } else if (vehicleAge === 4) {
+                    depreciationPremium = vehicleValue * 0.0038;
+                } else if (vehicleAge >= 5 && vehicleAge <= 10) {
+                    depreciationPremium = vehicleValue * 0.0051;
+                }
+            }
+            if (isNewVehicle && (vehicleType === 'private' || vehicleType === 'electric')) {
+                if (vehicleAge === 0) {
+                    newVehiclePremium = vehicleValue * 0.0010;
+                } else if (vehicleAge === 1) {
+                    newVehiclePremium = vehicleValue * 0.0013;
+                } else if (vehicleAge === 2) {
+                    newVehiclePremium = vehicleValue * 0.0018;
+                } else if (vehicleAge === 3) {
+                    newVehiclePremium = vehicleValue * 0.0024;
+                } else if (vehicleAge === 4) {
+                    newVehiclePremium = vehicleValue * 0.0038;
+                } else if (vehicleAge >= 5 && vehicleAge <= 10) {
+                    newVehiclePremium = vehicleValue * 0.0051;
+                }
+            }
+            if (isRental && (vehicleType === 'private' || vehicleType === 'electric')) {
+                if (vehicleAge >= 0 && vehicleAge <= 10) {
+                    rentalPremium = vehicleValue * 0.0020;
+                }
+            }
+        }
 
-        // Step 22: VAT
+        // Step 22: VAT for Autoplus
         const apVatAmount = (depreciationPremium + newVehiclePremium + rentalPremium) * 0.13;
         
-        // Step 23: Stamp Charge
+        // Step 23: Stamp Charge for Autoplus
         let apStampCharge = 0;
 
         // Only apply stamp charge if at least one Autoplus option is checked
@@ -1722,9 +1737,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     apStampCharge = 10.00;
                 } else {
                     apStampCharge = 0.00; // No stamp charge if no Autoplus options are selected
-                    }
                 }
             }
+        }
 
         // Step 24: Total Autoplus Premium
         const totalApPremium = depreciationPremium + newVehiclePremium + rentalPremium + apVatAmount + apStampCharge;
@@ -1733,7 +1748,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let totalPremiumWithAutoplus = 0;
         
         if (isAutoplus && vehicleValue > 0 && (vehicleType === 'motorcycle' || vehicleType === 'private' || vehicleType === 'electric')) {
-        totalPremiumWithAutoplus = totalPremium + totalApPremium;
+            totalPremiumWithAutoplus = totalPremium + totalApPremium;
         }
 
         // Display results
@@ -1819,6 +1834,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('towingChargeAmountItem').style.display = results.towingChargeAmount > 0 ? 'flex' : 'none';
         document.getElementById('basicPremiumItem').style.display = results.basicPremium > 0 ? 'flex' : 'none';
         document.getElementById('rsmdstAmountItem').style.display = results.rsmdstAmount > 0 ? 'flex' : 'none';
+        document.getElementById('printButtons').style.display = 'block';
 
         // Show/hide driver, helper, passenger and autoplus premiums
         document.getElementById('driverPremiumItem').style.display = results.driverPremium > 0 ? 'flex' : 'none';
@@ -1836,11 +1852,27 @@ document.addEventListener('DOMContentLoaded', function() {
         // Third party premium always show 
         document.getElementById('thirdPartyPremiumItem').style.display = results.thirdPartyPremium > 0 ? 'flex' : 'none';
 
+        // Third Party Premium Item
+        const thirdPartyPremiumItem = document.getElementById('thirdPartyPremiumItem');
+        if (results.thirdPartyPremium > 0 && results.hasVehicleValue && 
+            (results.noClaimDiscountTP > 0 || results.disabledDiscountTPAmount > 0)) {
+            thirdPartyPremiumItem.style.display = 'flex';
+            thirdPartyPremiumItem.style.borderTop = '1px solid #3498db';
+            thirdPartyPremiumItem.style.borderBottom = '1px solid #3498db';
+            thirdPartyPremiumItem.style.padding = '8px 0';
+        } else {
+            thirdPartyPremiumItem.style.display = results.thirdPartyPremium > 0 ? 'flex' : 'none';
+            thirdPartyPremiumItem.style.borderTop = 'none';
+            thirdPartyPremiumItem.style.borderBottom = 'none';
+        }
+
         // Hide results if seat capacity is invalid
+        const vehicleType = document.getElementById('vehicleType').value;
+        const seatCapacity = parseFloat(document.getElementById('seatCapacity').value) || 0;
         if (vehicleType !== 'motorcycle' && vehicleType !== 'tractor' && seatCapacity <= 0) {
             document.querySelector('.results-details').style.display = 'none';
             document.querySelector('.results-placeholder').style.display = 'block';
-        return;
+            return;
         }
 
         // Show/hide normal premium
@@ -1915,14 +1947,6 @@ document.addEventListener('DOMContentLoaded', function() {
             directDiscountAmountItem.style.display = 'none';
         }
 
-        /* Show/hide no claim discount (TP) amount
-        const noClaimDiscountTPItem = document.getElementById('noClaimDiscountTPItem');
-        if (results.noClaimDiscountTP > 0) {
-            noClaimDiscountTPItem.style.display = 'flex';
-        } else {
-            noClaimDiscountTPItem.style.display = 'none';
-        }*/
-
         // Show/hide towing charge amount
         const towingChargeAmountItem = document.getElementById('towingChargeAmountItem');
         if (results.towingChargeAmount > 0) {
@@ -1939,32 +1963,18 @@ document.addEventListener('DOMContentLoaded', function() {
             electricDiscountItem.style.display = 'none';
         }
         
-        /* Show/hide disabled discount
-        const disabledDiscountItem = document.getElementById('disabledDiscountItem');
-        const disabledDiscountTPItem = document.getElementById('disabledDiscountTPItem');
-        if (results.disabledDiscountAmount > 0 ) {
-            disabledDiscountItem.style.display = 'flex';
-            disabledDiscountTPItem.style.display = 'flex';
-        } else {
-            disabledDiscountItem.style.display = 'none';
-            disabledDiscountTPItem.style.display = 'none';
-        }*/
-        
         // Show/hide basic premium amount
         const basicPremiumItem = document.getElementById('basicPremiumItem');
-        if (results.basicPremium > 0) {
+        if (results.basicPremium > 0 && results.hasVehicleValue) {
             basicPremiumItem.style.display = 'flex';
+            basicPremiumItem.style.borderTop = '1px solid #3498db';
+            basicPremiumItem.style.borderBottom = '1px solid #3498db';
+            basicPremiumItem.style.padding = '8px 0';
         } else {
             basicPremiumItem.style.display = 'none';
+            basicPremiumItem.style.borderTop = 'none';
+            basicPremiumItem.style.borderBottom = 'none';
         }
-
-        /* Show/hide third party premium amount
-        const thirdPartyItem = document.getElementById('thirdPartyItem');
-        if (results.thirdParty > 0 && results.hasVehicleValue) {
-            thirdPartyItem.style.display = 'flex';
-        } else {
-            thirdPartyItem.style.display = 'none';
-        }*/
 
         // Show/hide driver premium amount
         const driverPremiumItem = document.getElementById('driverPremiumItem');
