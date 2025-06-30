@@ -477,6 +477,7 @@ function generatePdfContent(insuredNamePdf, vehicleDetailsPdf) {
     const pdfContainer = document.createElement('div');
     pdfContainer.className = 'print-template';
     pdfContainer.style.padding = '20px';
+    pdfContainer.style.marginLeft = '20px';
     pdfContainer.style.fontFamily = 'Arial, sans-serif';
     
     const vehicleType = document.getElementById('vehicleType').value;

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insurance Premium Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .calculator {
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        select, input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .checkbox-group {
+            margin: 15px 0;
+        }
+        .result-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .result-table th, .result-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .result-table th {
+            background-color: #f2f2f2;
+        }
+        .total-row {
+            font-weight: bold;
+            background-color: #e9f7ef;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Property Insurance Premium Calculator</h1>
+    
+    <div class="calculator">
+        <div class="form-group">
+            <label for="itemType">Item Description:</label>
+            <select id="itemType" onchange="updateCategories()">
+                <option value="">-- Select an item --</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="category">Category:</label>
+            <select id="category" onchange="updateRate()">
+                <option value="">-- Select a category --</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="rate">Rate (Rs. per 1000):</label>
+            <input type="text" id="rate" readonly>
+        </div>
+        
+        <div class="form-group">
+            <label for="value">Item Value:</label>
+            <input type="number" id="value" oninput="calculatePremium()" placeholder="Enter item value">
+        </div>
+        
+        <div class="checkbox-group">
+            <input type="checkbox" id="directDiscount" onchange="calculatePremium()">
+            <label for="directDiscount">Direct Discount (2.5%)</label>
+        </div>
+        
+        <button onclick="calculatePremium()">Calculate Premium</button>
+        
+        <table class="result-table hidden" id="resultTable">
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Amount (Rs.)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Premium Amount</td>
+                    <td id="premiumAmount">0.00</td>
+                </tr>
+                <tr>
+                    <td>Direct Discount (2.5%)</td>
+                    <td id="discountAmount">0.00</td>
+                </tr>
+                <tr>
+                    <td>VAT (13%)</td>
+                    <td id="vatAmount">0.00</td>
+                </tr>
+                <tr>
+                    <td>Stamp</td>
+                    <td id="stampAmount">20.00</td>
+                </tr>
+                <tr class="total-row">
+                    <td>Total Amount</td>
+                    <td id="totalAmount">0.00</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script>
+        let insuranceData = [];
+        let categories = {};
+
+        // Load CSV data
+        Papa.parse("property_list.csv", {
+            download: true,
+            header: true,
+            complete: function(results) {
+                insuranceData = results.data;
+                populateItemTypes();
+                organizeCategories();
+                console.log("Data loaded:", insuranceData); // For debugging
+            },
+            error: function(error) {
+                console.error("Error loading CSV:", error);
+            }
+        });
+
+        // Populate item types using the Description column
+        function populateItemTypes() {
+            const itemTypeSelect = document.getElementById('itemType');
+            itemTypeSelect.innerHTML = '<option value="">-- Select an item --</option>';
+            
+            // Create a set to avoid duplicates
+            const uniqueDescriptions = new Set();
+            
+            insuranceData.forEach(item => {
+                if (item.Description) {
+                    uniqueDescriptions.add(item.Description);
+                }
+            });
+            
+            // Add options to dropdown
+            uniqueDescriptions.forEach(description => {
+                const option = document.createElement('option');
+                option.value = description;
+                option.textContent = description;
+                itemTypeSelect.appendChild(option);
+            });
+
+            console.log("Dropdown populated with", uniqueDescriptions.size, "items");
+        }
+
+        // Organize data by category for each description
+        function organizeCategories() {
+            categories = {};
+            
+            insuranceData.forEach(item => {
+                if (item.Description) {
+                    if (!categories[item.Description]) {
+                        categories[item.Description] = [];
+                    }
+                    
+                    if (item.Category && item['Rate (Rs. per 1000)']) {
+                        categories[item.Description].push({
+                            category: item.Category,
+                            rate: parseFloat(item['Rate (Rs. per 1000)'])
+                        });
+                    }
+                }
+            });
+
+            console.log("Categories organized:", categories);
+        }
+
+        // Update categories when item type is selected
+        function updateCategories() {
+            const itemType = document.getElementById('itemType').value;
+            const categorySelect = document.getElementById('category');
+            const rateInput = document.getElementById('rate');
+            
+            categorySelect.innerHTML = '<option value="">-- Select a category --</option>';
+            rateInput.value = '';
+            
+            if (itemType && categories[itemType]) {
+                categories[itemType].forEach(item => {
+                    const option = document.createElement('option');
+                    option.value = item.category;
+                    option.textContent = item.category;
+                    option.dataset.rate = item.rate;
+                    categorySelect.appendChild(option);
+                });
+            }
+            
+            document.getElementById('resultTable').classList.add('hidden');
+            console.log("Categories updated for selection:", itemType);
+        }
+
+        // Update rate when category is selected
+        function updateRate() {
+            const categorySelect = document.getElementById('category');
+            const selectedOption = categorySelect.options[categorySelect.selectedIndex];
+            const rateInput = document.getElementById('rate');
+            
+            if (selectedOption && selectedOption.dataset.rate) {
+                rateInput.value = selectedOption.dataset.rate;
+            } else {
+                rateInput.value = '';
+            }
+            
+            document.getElementById('resultTable').classList.add('hidden');
+        }
+
+        // Calculate the premium and all charges
+        function calculatePremium() {
+            const categorySelect = document.getElementById('category');
+            const selectedOption = categorySelect.options[categorySelect.selectedIndex];
+            const valueInput = document.getElementById('value');
+            const directDiscount = document.getElementById('directDiscount').checked;
+            const resultTable = document.getElementById('resultTable');
+            
+            if (!selectedOption || !selectedOption.dataset.rate || !valueInput.value) {
+                alert("Please select an item, category, and enter a value");
+                return;
+            }
+            
+            const rate = parseFloat(selectedOption.dataset.rate);
+            const value = parseFloat(valueInput.value);
+            
+            // Calculate premium (value * rate / 1000)
+            let premium = (value * rate) / 1000;
+            
+            // Calculate discount (2.5% of premium if selected)
+            let discount = directDiscount ? premium * 0.025 : 0;
+            let afterDiscount = premium - discount;
+            
+            // Calculate VAT (13% of afterDiscount)
+            let vat = afterDiscount * 0.13;
+            
+            // Stamp is always 20
+            let stamp = 20;
+            
+            // Calculate total
+            let total = afterDiscount + vat + stamp;
+            
+            // Update the result table
+            document.getElementById('premiumAmount').textContent = premium.toFixed(2);
+            document.getElementById('discountAmount').textContent = discount.toFixed(2);
+            document.getElementById('vatAmount').textContent = vat.toFixed(2);
+            document.getElementById('stampAmount').textContent = stamp.toFixed(2);
+            document.getElementById('totalAmount').textContent = total.toFixed(2);
+            
+            // Show the result table
+            resultTable.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
