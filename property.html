@@ -67,6 +67,16 @@
         .hidden {
             display: none;
         }
+        .category-rate-row {
+            display: flex;
+            gap: 15px;
+        }
+        .category-rate-row > div {
+            flex: 1;
+        }
+        .datalist-input {
+            width: 100%;
+        }
     </style>
 </head>
 <body>
@@ -75,21 +85,22 @@
     <div class="calculator">
         <div class="form-group">
             <label for="itemType">Item Description:</label>
-            <select id="itemType" onchange="updateCategories()">
-                <option value="">-- Select an item --</option>
-            </select>
+            <input list="itemList" id="itemType" class="datalist-input" placeholder="Type or select item" onchange="updateDetails()">
+            <datalist id="itemList">
+                <!-- Options will be populated by JavaScript -->
+            </datalist>
         </div>
         
-        <div class="form-group">
-            <label for="category">Category:</label>
-            <select id="category" onchange="updateRate()">
-                <option value="">-- Select a category --</option>
-            </select>
-        </div>
-        
-        <div class="form-group">
-            <label for="rate">Rate (Rs. per 1000):</label>
-            <input type="text" id="rate" readonly>
+        <div class="category-rate-row">
+            <div class="form-group">
+                <label for="category">Category:</label>
+                <input type="text" id="category" readonly>
+            </div>
+            
+            <div class="form-group">
+                <label for="rate">Rate (Rs. per 1000):</label>
+                <input type="text" id="rate" readonly>
+            </div>
         </div>
         
         <div class="form-group">
@@ -139,7 +150,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
     <script>
         let insuranceData = [];
-        let categories = {};
+        let itemsMap = {}; // Maps descriptions to their full data
 
         // Load CSV data
         Papa.parse("property_list.csv", {
@@ -147,94 +158,42 @@
             header: true,
             complete: function(results) {
                 insuranceData = results.data;
-                populateItemTypes();
-                organizeCategories();
-                console.log("Data loaded:", insuranceData); // For debugging
+                populateItemList();
+                console.log("Data loaded:", insuranceData);
             },
             error: function(error) {
                 console.error("Error loading CSV:", error);
             }
         });
 
-        // Populate item types using the Description column
-        function populateItemTypes() {
-            const itemTypeSelect = document.getElementById('itemType');
-            itemTypeSelect.innerHTML = '<option value="">-- Select an item --</option>';
+        // Populate the datalist with unique descriptions
+        function populateItemList() {
+            const itemList = document.getElementById('itemList');
             
-            // Create a set to avoid duplicates
-            const uniqueDescriptions = new Set();
-            
+            // Create a map of descriptions to their first occurrence (assuming first is default)
             insuranceData.forEach(item => {
-                if (item.Description) {
-                    uniqueDescriptions.add(item.Description);
-                }
-            });
-            
-            // Add options to dropdown
-            uniqueDescriptions.forEach(description => {
-                const option = document.createElement('option');
-                option.value = description;
-                option.textContent = description;
-                itemTypeSelect.appendChild(option);
-            });
-
-            console.log("Dropdown populated with", uniqueDescriptions.size, "items");
-        }
-
-        // Organize data by category for each description
-        function organizeCategories() {
-            categories = {};
-            
-            insuranceData.forEach(item => {
-                if (item.Description) {
-                    if (!categories[item.Description]) {
-                        categories[item.Description] = [];
-                    }
+                if (item.Description && !itemsMap[item.Description]) {
+                    itemsMap[item.Description] = item;
                     
-                    if (item.Category && item['Rate (Rs. per 1000)']) {
-                        categories[item.Description].push({
-                            category: item.Category,
-                            rate: parseFloat(item['Rate (Rs. per 1000)'])
-                        });
-                    }
+                    const option = document.createElement('option');
+                    option.value = item.Description;
+                    itemList.appendChild(option);
                 }
             });
-
-            console.log("Categories organized:", categories);
         }
 
-        // Update categories when item type is selected
-        function updateCategories() {
+        // Update category and rate when item is selected
+        function updateDetails() {
             const itemType = document.getElementById('itemType').value;
-            const categorySelect = document.getElementById('category');
+            const categoryInput = document.getElementById('category');
             const rateInput = document.getElementById('rate');
             
-            categorySelect.innerHTML = '<option value="">-- Select a category --</option>';
-            rateInput.value = '';
-            
-            if (itemType && categories[itemType]) {
-                categories[itemType].forEach(item => {
-                    const option = document.createElement('option');
-                    option.value = item.category;
-                    option.textContent = item.category;
-                    option.dataset.rate = item.rate;
-                    categorySelect.appendChild(option);
-                });
-            }
-            
-            document.getElementById('resultTable').classList.add('hidden');
-            console.log("Categories updated for selection:", itemType);
-        }
-
-        // Update rate when category is selected
-        function updateRate() {
-            const categorySelect = document.getElementById('category');
-            const selectedOption = categorySelect.options[categorySelect.selectedIndex];
-            const rateInput = document.getElementById('rate');
-            
-            if (selectedOption && selectedOption.dataset.rate) {
-                rateInput.value = selectedOption.dataset.rate;
+            if (itemType && itemsMap[itemType]) {
+                const item = itemsMap[itemType];
+                categoryInput.value = item.Category || '';
+                rateInput.value = item['Rate (Rs. per 1000)'] || '';
             } else {
+                categoryInput.value = '';
                 rateInput.value = '';
             }
             
@@ -243,18 +202,18 @@
 
         // Calculate the premium and all charges
         function calculatePremium() {
-            const categorySelect = document.getElementById('category');
-            const selectedOption = categorySelect.options[categorySelect.selectedIndex];
+            const itemType = document.getElementById('itemType').value;
+            const rateInput = document.getElementById('rate');
             const valueInput = document.getElementById('value');
             const directDiscount = document.getElementById('directDiscount').checked;
             const resultTable = document.getElementById('resultTable');
             
-            if (!selectedOption || !selectedOption.dataset.rate || !valueInput.value) {
-                alert("Please select an item, category, and enter a value");
+            if (!itemType || !rateInput.value || !valueInput.value) {
+                alert("Please select an item and enter a value");
                 return;
             }
             
-            const rate = parseFloat(selectedOption.dataset.rate);
+            const rate = parseFloat(rateInput.value);
             const value = parseFloat(valueInput.value);
             
             // Calculate premium (value * rate / 1000)
