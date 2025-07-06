@@ -908,6 +908,142 @@ function loadFallbackData() {
     updateCategory();
 }
 
+function populatePropertyLists() {
+    const nepaliInput = document.getElementById('nepaliDescProperty');
+    const englishInput = document.getElementById('englishDescProperty');
+    const romanInput = document.getElementById('romanDescProperty');
+    const nepaliOptions = document.getElementById('nepaliOptions');
+    const englishOptions = document.getElementById('englishOptions');
+    const romanOptions = document.getElementById('romanOptions');
+    
+    // Clear existing options
+    nepaliOptions.innerHTML = '';
+    englishOptions.innerHTML = '';
+    romanOptions.innerHTML = '';
+    
+    // Add new options
+    propertyItems.forEach(item => {
+        // Nepali options
+        const nepaliOption = document.createElement('div');
+        nepaliOption.className = 'datalist-option';
+        nepaliOption.textContent = item.nepali;
+        nepaliOption.addEventListener('click', () => {
+            nepaliInput.value = item.nepali;
+            englishInput.value = item.english;
+            romanInput.value = item.roman;
+            document.getElementById('category').value = item.category;
+            document.getElementById('rate').value = item.rate;
+            nepaliOptions.style.display = 'none';
+            calculatePremium();
+        });
+        nepaliOptions.appendChild(nepaliOption);
+        
+        // English options
+        const englishOption = document.createElement('div');
+        englishOption.className = 'datalist-option';
+        englishOption.textContent = item.english;
+        englishOption.addEventListener('click', () => {
+            nepaliInput.value = item.nepali;
+            englishInput.value = item.english;
+            romanInput.value = item.roman;
+            document.getElementById('category').value = item.category;
+            document.getElementById('rate').value = item.rate;
+            englishOptions.style.display = 'none';
+            calculatePremium();
+        });
+        englishOptions.appendChild(englishOption);
+        
+        // Roman options
+        const romanOption = document.createElement('div');
+        romanOption.className = 'datalist-option';
+        romanOption.textContent = item.roman;
+        romanOption.addEventListener('click', () => {
+            nepaliInput.value = item.nepali;
+            englishInput.value = item.english;
+            romanInput.value = item.roman;
+            document.getElementById('category').value = item.category;
+            document.getElementById('rate').value = item.rate;
+            romanOptions.style.display = 'none';
+            calculatePremium();
+        });
+        romanOptions.appendChild(romanOption);
+    });
+    
+    // Add event listeners for input fields
+    [nepaliInput, englishInput, romanInput].forEach(input => {
+        const optionsContainer = input === nepaliInput ? nepaliOptions : 
+                               input === englishInput ? englishOptions : romanOptions;
+        
+        input.addEventListener('focus', () => {
+            // Show only the relevant options container
+            nepaliOptions.style.display = input === nepaliInput ? 'block' : 'none';
+            englishOptions.style.display = input === englishInput ? 'block' : 'none';
+            romanOptions.style.display = input === romanInput ? 'block' : 'none';
+        });
+        
+        // Filter options while typing
+        input.addEventListener('input', () => {
+            const value = input.value.toLowerCase();
+            const options = optionsContainer.querySelectorAll('.datalist-option');
+            options.forEach(option => {
+                option.style.display = option.textContent.toLowerCase().includes(value) ? 'block' : 'none';
+            });
+        });
+        
+        // Keyboard navigation
+        input.addEventListener('keydown', (e) => {
+            const options = Array.from(optionsContainer.querySelectorAll('.datalist-option:not([style*="display: none"])'));
+            let activeOption = optionsContainer.querySelector('.datalist-option.active');
+            
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                if (!activeOption) {
+                    // First option
+                    options[0]?.classList.add('active');
+                    options[0]?.scrollIntoView({ block: 'nearest' });
+                } else {
+                    const currentIndex = options.indexOf(activeOption);
+                    const nextIndex = (currentIndex + 1) % options.length;
+                    activeOption.classList.remove('active');
+                    options[nextIndex].classList.add('active');
+                    options[nextIndex].scrollIntoView({ block: 'nearest' });
+                }
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                if (!activeOption) {
+                    // Last option
+                    options[options.length - 1]?.classList.add('active');
+                    options[options.length - 1]?.scrollIntoView({ block: 'nearest' });
+                } else {
+                    const currentIndex = options.indexOf(activeOption);
+                    const prevIndex = (currentIndex - 1 + options.length) % options.length;
+                    activeOption.classList.remove('active');
+                    options[prevIndex].classList.add('active');
+                    options[prevIndex].scrollIntoView({ block: 'nearest' });
+                }
+            } else if (e.key === 'Enter' && activeOption) {
+                e.preventDefault();
+                activeOption.click();
+            } else if (e.key === 'Escape') {
+                optionsContainer.style.display = 'none';
+            }
+        });
+    });
+    
+    // Hide dropdowns when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!nepaliInput.contains(e.target) && !nepaliOptions.contains(e.target)) {
+            nepaliOptions.style.display = 'none';
+        }
+        if (!englishInput.contains(e.target) && !englishOptions.contains(e.target)) {
+            englishOptions.style.display = 'none';
+        }
+        if (!romanInput.contains(e.target) && !romanOptions.contains(e.target)) {
+            romanOptions.style.display = 'none';
+        }
+    });
+}
+
 // Update the calculatePremium function:
 function calculatePremium() {
     const valueInput = document.getElementById('value');
@@ -972,128 +1108,6 @@ function calculatePremium() {
     resultsDiv.classList.remove('hidden');
 }
 
-// Update the setupCustomDatalist function:
-function setupCustomDatalist() {
-    const inputs = document.querySelectorAll('.datalist-input');
-    
-    inputs.forEach(input => {
-        // Remove any existing native dropdown styling
-        input.style.backgroundImage = 'none';
-        input.setAttribute('autocomplete', 'off');
-        
-        // Create container for custom dropdown
-        const container = document.createElement('div');
-        container.className = 'datalist-input-container';
-        input.parentNode.insertBefore(container, input);
-        container.appendChild(input);
-        
-        const datalistId = input.getAttribute('list');
-        const datalist = document.getElementById(datalistId);
-        
-        // Create custom dropdown
-        const optionsContainer = document.createElement('div');
-        optionsContainer.className = 'datalist-options';
-        container.appendChild(optionsContainer);
-        
-        // Populate dropdown
-        const options = Array.from(datalist.options);
-        options.forEach(option => {
-            const customOption = document.createElement('div');
-            customOption.className = 'datalist-option';
-            customOption.textContent = option.value;
-            customOption.addEventListener('click', () => {
-                input.value = option.value;
-                optionsContainer.style.display = 'none';
-                const event = new Event('change');
-                input.dispatchEvent(event);
-            });
-            optionsContainer.appendChild(customOption);
-        });
-        
-        // Show/hide dropdown
-        input.addEventListener('focus', () => {
-            optionsContainer.style.display = 'block';
-        });
-        
-        input.addEventListener('blur', () => {
-            setTimeout(() => optionsContainer.style.display = 'none', 200);
-        });
-        
-        // Keyboard navigation
-        input.addEventListener('keydown', (e) => {
-            const options = optionsContainer.querySelectorAll('.datalist-option:not([style*="display: none"])');
-            let activeOption = optionsContainer.querySelector('.datalist-option.active');
-            
-            if (e.key === 'ArrowDown') {
-                e.preventDefault();
-                if (!activeOption) {
-                    options[0]?.classList.add('active');
-                    options[0]?.scrollIntoView({ block: 'nearest' });
-                } else {
-                    activeOption.classList.remove('active');
-                    const next = activeOption.nextElementSibling;
-                    if (next && next.style.display !== 'none') {
-                        next.classList.add('active');
-                        next.scrollIntoView({ block: 'nearest' });
-                    } else {
-                        options[0]?.classList.add('active');
-                        options[0]?.scrollIntoView({ block: 'nearest' });
-                    }
-                }
-            } else if (e.key === 'ArrowUp') {
-                e.preventDefault();
-                if (activeOption) {
-                    activeOption.classList.remove('active');
-                    const prev = activeOption.previousElementSibling;
-                    if (prev && prev.style.display !== 'none') {
-                        prev.classList.add('active');
-                        prev.scrollIntoView({ block: 'nearest' });
-                    } else {
-                        options[options.length - 1]?.classList.add('active');
-                        options[options.length - 1]?.scrollIntoView({ block: 'nearest' });
-                    }
-                }
-            } else if (e.key === 'Enter' && activeOption) {
-                e.preventDefault();
-                input.value = activeOption.textContent;
-                optionsContainer.style.display = 'none';
-                const event = new Event('change');
-                input.dispatchEvent(event);
-            }
-        });
-    });
-}
-
-function populatePropertyLists() {
-    const nepaliList = document.getElementById('nepaliList');
-    const englishList = document.getElementById('englishList');
-    const romanList = document.getElementById('romanList');
-    
-    nepaliList.innerHTML = '';
-    englishList.innerHTML = '';
-    romanList.innerHTML = '';
-    
-    propertyItems.forEach(item => {
-        if (item.nepali) {
-            const option1 = document.createElement('option');
-            option1.value = item.nepali;
-            nepaliList.appendChild(option1);
-        }
-        
-        if (item.english) {
-            const option2 = document.createElement('option');
-            option2.value = item.english;
-            englishList.appendChild(option2);
-        }
-        
-        if (item.roman) {
-            const option3 = document.createElement('option');
-            option3.value = item.roman;
-            romanList.appendChild(option3);
-        }
-    });
-}
-
 function updateInsuranceType() {
     currentInsuranceType = document.querySelector('input[name="insuranceType"]:checked').value;
     
@@ -1144,39 +1158,6 @@ function updateHomeInsuranceRate() {
     document.getElementById('rate').value = rate;
 }
 
-function updatePropertyDetails(changedField) {
-    const nepaliInput = document.getElementById('nepaliDescProperty');
-    const englishInput = document.getElementById('englishDescProperty');
-    const romanInput = document.getElementById('romanDescProperty');
-    const categoryInput = document.getElementById('category');
-    const rateInput = document.getElementById('rate');
-    
-    let searchValue, searchField;
-    
-    if (changedField === 'nepali') {
-        searchValue = nepaliInput.value;
-        searchField = 'nepali';
-    } else if (changedField === 'english') {
-        searchValue = englishInput.value;
-        searchField = 'english';
-    } else {
-        searchValue = romanInput.value;
-        searchField = 'roman';
-    }
-    
-    const foundItem = propertyItems.find(item => item[searchField] === searchValue);
-    
-    if (foundItem) {
-        nepaliInput.value = foundItem.nepali || '';
-        englishInput.value = foundItem.english || '';
-        romanInput.value = foundItem.roman || '';
-        categoryInput.value = foundItem.category || '';
-        rateInput.value = foundItem.rate || '';
-    }
-    
-    calculatePremium();
-}
-
 function toggleShortTermPeriod() {
     const shortTermPeriod = document.getElementById('shortTermPeriod');
     if (document.getElementById('shortTermPremium').checked) {
@@ -1190,6 +1171,5 @@ function toggleShortTermPeriod() {
 // Initialize the page
 document.addEventListener('DOMContentLoaded', function() {
     loadFallbackData();
-    setupCustomDatalist();
     updateInsuranceType();
 });

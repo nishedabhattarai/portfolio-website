@@ -111,25 +111,25 @@
                 </div>
                 
                 <div id="propertyInsuranceFields" class="hidden">
-                    <div class="form-group">
+                    <div class="form-group datalist-input-container">
                         <label for="nepaliDescProperty">सम्पत्ति विवरण:</label>
-                        <input list="nepaliList" id="nepaliDescProperty" class="datalist-input" placeholder="वस्तुकाे नाम लेख्नुहाेस् वा छान्नुहाेस्" onchange="updatePropertyDetails('nepali')">
-                        <datalist id="nepaliList"></datalist>
+                        <input id="nepaliDescProperty" class="datalist-input" placeholder="वस्तुकाे नाम लेख्नुहाेस् वा छान्नुहाेस्">
+                        <div class="datalist-options" id="nepaliOptions"></div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group datalist-input-container">
                         <label for="englishDescProperty">Item Description:</label>
-                        <input list="englishList" id="englishDescProperty" class="datalist-input" placeholder="Type or select item name" onchange="updatePropertyDetails('english')">
-                        <datalist id="englishList"></datalist>
+                        <input id="englishDescProperty" class="datalist-input" placeholder="Type or select item name">
+                        <div class="datalist-options" id="englishOptions"></div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group datalist-input-container">
                         <label for="romanDescProperty">Roman Description:</label>
-                        <input list="romanList" id="romanDescProperty" class="datalist-input" placeholder="Bastu ko naam lekhnuhos waa chhanuhos" onchange="updatePropertyDetails('roman')">
-                        <datalist id="romanList"></datalist>
+                        <input id="romanDescProperty" class="datalist-input" placeholder="Bastu ko naam lekhnuhos waa chhanuhos">
+                        <div class="datalist-options" id="romanOptions"></div>
                     </div>
                 </div>
-                
+                                
                 <div class="row">
                     <div class="form-group">
                         <label for="value">Item Value (Rs.):</label>

@@ -339,9 +339,23 @@ select, input {
     box-shadow: 0 0 0 2px rgba(0, 43, 91, 0.2);
 }
 
-/* Modern datalist dropdown styling */
+/* Completely hide the native datalist dropdown */
 datalist {
-    display: none !important; /* Hide the native datalist dropdown */
+    display: none !important;
+}
+
+/* Remove native dropdown arrow from input */
+.datalist-input::-webkit-calendar-picker-indicator {
+    display: none !important;
+}
+.datalist-input::-webkit-list-button {
+    display: none !important;
+}
+/* Remove native dropdown styling in Firefox */
+.datalist-input {
+    background-image: none !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
 }
 
 /* Custom dropdown options container */
@@ -357,6 +371,7 @@ datalist {
     z-index: 1000;
     margin-top: 1px;
     display: none; /* Initially hidden */
+    scroll-behavior: smooth;
 }
 
 /* Custom dropdown option styling */
@@ -373,8 +388,9 @@ datalist {
     border-bottom: none;
 }
 
-.datalist-option:hover {
-    background-color: #f5f5f5;
+.datalist-option:hover, .datalist-option.active {
+    background-color: #002B5B;
+    color: white;
 }
 
 .datalist-option.active {
