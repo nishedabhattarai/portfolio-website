@@ -2648,8 +2648,8 @@ function loadFallbackData() {
             roman: "368 Hydrochloric acid",
             category: "उच्च मध्यम जोखिम",
             rate: "4.5"
-        }
-                // न्यून खतराजन्य जोखिम (5.5 rate)
+        },
+        // न्यून खतराजन्य जोखिम (5.5 rate)
         {
             nepali: "369 ३२º भन्दा कम तापक्रममा बल्ने रङ्ग तथा प्रज्वलनशील वेस (बन्द नगरीएको तथा खुल्ला बाहेक)",
             english: "369 Paints with inflammable base having Flash point below 320º C (Closed Cup test) other than in sealed tins or drums",
