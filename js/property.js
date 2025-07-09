@@ -2649,6 +2649,399 @@ function loadFallbackData() {
             category: "उच्च मध्यम जोखिम",
             rate: "4.5"
         }
+                // न्यून खतराजन्य जोखिम (5.5 rate)
+        {
+            nepali: "369 ३२º भन्दा कम तापक्रममा बल्ने रङ्ग तथा प्रज्वलनशील वेस (बन्द नगरीएको तथा खुल्ला बाहेक)",
+            english: "369 Paints with inflammable base having Flash point below 320º C (Closed Cup test) other than in sealed tins or drums",
+            roman: "369 32° bhanda kam tapkramma balne rang tatha prajwalanashil base (band nagariyeko tatha khulla bahek)",
+            category: "न्यून खतराजन्य जोखिम",
+            rate: "5.5"
+        },
+        {
+            nepali: "370 ३२º भन्दा कम तापक्रममा बल्ने वार्निस (बन्द नगरीएको तथा खुल्ला बाहेक)",
+            english: "370 Varnishes having Flash point below 320º C (Closed Cup Test) other than in sealed tins or drums",
+            roman: "370 32° bhanda kam tapkramma balne varnish (band nagariyeko tatha khulla bahek)",
+            category: "न्यून खतराजन्य जोखिम",
+            rate: "5.5"
+        },
+        {
+            nepali: "371 अक्सिजन तथा अक्सिडार्इजिङ् एजेन्ट",
+            english: "371 Oxygen and Oxidizing Agents",
+            roman: "371 Oxygen tatha oxidizing agent",
+            category: "न्यून खतराजन्य जोखिम",
+            rate: "5.5"
+        },
+        {
+            nepali: "372 अति विषाक्त बस्तु",
+            english: "372 Highly Toxic Materials",
+            roman: "372 Ati bishakta bastu",
+            category: "न्यून खतराजन्य जोखिम",
+            rate: "5.5"
+        },
+        {
+            nepali: "373 अलकत्रा",
+            english: "373 Bitumin",
+            roman: "373 Alkatra",
+            category: "न्यून खतराजन्य जोखिम",
+            rate: "5.5"
+        },
+        {
+            nepali: "374 अलकत्रा भएको कागज वा कपडा",
+            english: "374 Bituminized Paper and Cloth",
+            roman: "374 Alkatra bhaeko kagaj wa kapada",
+            category: "न्यून खतराजन्य जोखिम",
+            rate: "5.5"
+        },
+        {
+            nepali: "375 आइरन कार्वोनिल",
+            english: "375 Iron Carbonyl",
+            roman: "375 Iron carbonyl",
+            category: "न्यून खतराजन्य जोखिम",
+            rate: "5.5"
+        },
+        {
+            nepali: "376 औद्योगिक ग्यास (बुलेट बाहेक)",
+            english: "376 Industrial Gas Except Bullet",
+            roman: "376 Audyogik gas (bullet bahek)",
+            category: "न्यून खतराजन्य जोखिम",
+            rate: "5.5"
+        },
+        {
+            nepali: "377 कोल तथा कोइला प्रशोधन",
+            english: "377 Coal and Coal Processing",
+            roman: "377 Coal tatha koila prashodhan",
+            category: "न्यून खतराजन्य जोखिम",
+            rate: "5.5"
+        },
+        {
+            nepali: "378 क्याप्सुल [औषधी बाहेक]",
+            english: "378 Capsule[Except Medicine]",
+            roman: "378 Capsule [aushadhi bahek]",
+            category: "न्यून खतराजन्य जोखिम",
+            rate: "5.5"
+        },
+        {
+            nepali: "379 खेलौना",
+            english: "379 Doll",
+            roman: "379 Khelauna",
+            category: "न्यून खतराजन्य जोखिम",
+            rate: "5.5"
+        },
+        {
+            nepali: "380 खैनी",
+            english: "380 Khaini",
+            roman: "380 Khaini",
+            category: "न्यून खतराजन्य जोखिम",
+            rate: "5.5"
+        },
+        {
+            nepali: "381 गहुँको थ्रेसर",
+            english: "381 Wheat Threshers",
+            roman: "381 Gahumko thresher",
+            category: "न्यून खतराजन्य जोखिम",
+            rate: "5.5"
+        },
+        {
+            nepali: "382 गुट्खा",
+            english: "382 Gutkha",
+            roman: "382 Gutkha",
+            category: "न्यून खतराजन्य जोखिम",
+            rate: "5.5"
+        },
+        {
+            nepali: "383 ग्रिज, मोबिल तथा लुविकेन्टस",
+            english: "383 Grease, Mobile and Lubricants",
+            roman: "383 Grease, mobil tatha lubricants",
+            category: "न्यून खतराजन्य जोखिम",
+            rate: "5.5"
+        },
+        {
+            nepali: "384 घुम्ती नाटक टोली तथा घुम्ती चलचित्र भवन",
+            english: "384 Touring Drama Troupes and Touring Cinema Theatres",
+            roman: "384 Ghumti natak toli tatha ghumti chalchitra bhawan",
+            category: "न्यून खतराजन्य जोखिम",
+            rate: "5.5"
+        },
+        {
+            nepali: "385 चलचित्र खिच्ने, सम्पादन गर्ने, प्रयोगशाला, ध्वनी सम्पादन तथा फिल्म प्रोसेस गर्ने ठाँउ",
+            english: "385 Cinematography Film Editing, Laboratory and Sound Recording Rooms where Film Processing is carried out",
+            roman: "385 Chalchitra khichne, sampadan garne, prayogshala, dhwani sampadan tatha film process garne thau",
+            category: "न्यून खतराजन्य जोखिम",
+            rate: "5.5"
+        },
+        {
+            nepali: "386 चलचित्र फिल्म उत्पादन स्टुडियो",
+            english: "386 Cinema Film Production Studios",
+            roman: "386 Chalchitra film utpadan studio",
+            category: "न्यून खतराजन्य जोखिम",
+            rate: "5.5"
+        },
+        {
+            nepali: "387 चारकोल बल तथा चारकोल",
+            english: "387 Charcoal Ball",
+            roman: "387 Charcoal ball tatha charcoal",
+            category: "न्यून खतराजन्य जोखिम",
+            rate: "5.5"
+        },
+        {
+            nepali: "388 झोलङ्गे पुल",
+            english: "388 Suspension Bridge",
+            roman: "388 Jholange pul",
+            category: "न्यून खतराजन्य जोखिम",
+            rate: "5.5"
+        },
+        {
+            nepali: "389 टाँचा मार्ने, थिच्ने",
+            english: "389 Stamping, Pressing",
+            roman: "389 Tancha marne, thichne",
+            category: "न्यून खतराजन्य जोखिम",
+            rate: "5.5"
+        },
+        {
+            nepali: "390 टारपुलिन तथा क्यानभास प्रुफिङ",
+            english: "390 Tarpaulin and Canvas Proofing",
+            roman: "390 Tarpaulin tatha canvas proofing",
+            category: "न्यून खतराजन्य जोखिम",
+            rate: "5.5"
+        },
+        {
+            nepali: "391 टिनको छपाई",
+            english: "391 Tin Printers",
+            roman: "391 Tinko chhapai",
+            category: "न्यून खतराजन्य जोखिम",
+            rate: "5.5"
+        },
+        {
+            nepali: "392 टुक्रा पार्ने वा धुल्याउने प्लान्ट [अन्य]",
+            english: "392 Pulverizing Plants [Others]",
+            roman: "392 Tukra parne wa dhulyaune plant [anya]",
+            category: "न्यून खतराजन्य जोखिम",
+            rate: "5.5"
+        },
+        {
+            nepali: "393 ढुवानीकर्ताको गोदाम",
+            english: "393 Transporters Warehouse (Transporter's godowns & Godowns of clearing and forwarding agents.)",
+            roman: "393 Dhuvanikartako godaam",
+            category: "न्यून खतराजन्य जोखिम",
+            rate: "5.5"
+        },
+        {
+            nepali: "394 तातो वा चिसो रोलिङ",
+            english: "394 Hotor Cold Rolling",
+            roman: "394 Tato wa chiso rolling",
+            category: "न्यून खतराजन्य जोखिम",
+            rate: "5.5"
+        },
+        {
+            nepali: "395 नरीवलको जट्टा, कोयर तथा क्याडीको भण्डारण",
+            english: "395 Storage of Coir Waste, Coir Fibre, Caddies",
+            roman: "395 Nariwal ko jatta, coir tatha caddyko bhandaran",
+            category: "न्यून खतराजन्य जोखिम",
+            rate: "5.5"
+        },
+        {
+            nepali: "396 नस",
+            english: "396 Snuff",
+            roman: "396 Nas",
+            category: "न्यून खतराजन्य जोखिम",
+            rate: "5.5"
+        },
+        {
+            nepali: "397 पोलिस्टर फिल्म तथा विओपिपि",
+            english: "397 Polyester Film Manufacturing/ BOPP Film Manufacturing",
+            roman: "397 Polyester film tatha BOPP",
+            category: "न्यून खतराजन्य जोखिम",
+            rate: "5.5"
+        },
+        {
+            nepali: "398 प्याकिङ तथा खोल",
+            english: "398 Packing and Lagging",
+            roman: "398 Packing tatha khol",
+            category: "न्यून खतराजन्य जोखिम",
+            rate: "5.5"
+        },
+        {
+            nepali: "399 प्रज्वलनशील सल्भेन्ट प्रयोग हुने ग्रेनाइट उद्योग",
+            english: "399 Granite Factories using Inflammable Solvents",
+            roman: "399 Prajwalan shil solvent prayog hune granite udyog",
+            category: "न्यून खतराजन्य जोखिम",
+            rate: "5.5"
+        },
+        {
+            nepali: "400 प्रदर्शनी, पर्व, उत्सव, मण्डप",
+            english: "400 Exhibition, Fetes, Celebration and Mandup",
+            roman: "400 Pradarshani, parva, utsav, mandap",
+            category: "न्यून खतराजन्य जोखिम",
+            rate: "5.5"
+        },
+        {
+            nepali: "401 प्रिफ्यावका सामग्री",
+            english: "401 Prefab Goods",
+            roman: "401 Prefabka samagri",
+            category: "न्यून खतराजन्य जोखिम",
+            rate: "5.5"
+        },
+        {
+            nepali: "402 प्लाष्टिक",
+            english: "402 Plastics",
+            roman: "402 Plastic",
+            category: "न्यून खतराजन्य जोखिम",
+            rate: "5.5"
+        },
+        {
+            nepali: "403 फाइवर उद्योग [मानव निर्मित]",
+            english: "403 Fiber Manufacturing [Man-Made]",
+            roman: "403 Fiber udyog [manav nirmita]",
+            category: "न्यून खतराजन्य जोखिम",
+            rate: "5.5"
+        },
+        {
+            nepali: "404 फाउन्ड्रिज",
+            english: "404 Foundries",
+            roman: "404 Foundry",
+            category: "न्यून खतराजन्य जोखिम",
+            rate: "5.5"
+        },
+        {
+            nepali: "405 फिल्टर तथा मैन कागज",
+            english: "405 Filter and Wax Paper",
+            roman: "405 Filter tatha main kagaj",
+            category: "न्यून खतराजन्य जोखिम",
+            rate: "5.5"
+        },
+        {
+            nepali: "406 फोम",
+            english: "406 Foam",
+            roman: "406 Foam",
+            category: "न्यून खतराजन्य जोखिम",
+            rate: "5.5"
+        },
+        {
+            nepali: "407 फोम प्लास्टिक",
+            english: "407 Foam Plastics",
+            roman: "407 Foam plastic",
+            category: "न्यून खतराजन्य जोखिम",
+            rate: "5.5"
+        },
+        {
+            nepali: "408 फोम प्लास्टिक तथा कन्भर्टिङ प्लान्ट",
+            english: "408 Foamed Plastics and Converting Plants",
+            roman: "408 Foam plastic tatha converting plant",
+            category: "न्यून खतराजन्य जोखिम",
+            rate: "5.5"
+        },
+        {
+            nepali: "409 फोम रवर",
+            english: "409 Foam Rubber",
+            roman: "409 Foam rubber",
+            category: "न्यून खतराजन्य जोखिम",
+            rate: "5.5"
+        },
+        {
+            nepali: "410 फ्रेन्च पोलिस",
+            english: "410 French Polish",
+            roman: "410 French polish",
+            category: "न्यून खतराजन्य जोखिम",
+            rate: "5.5"
+        },
+        {
+            nepali: "411 बन्द नगरीएको (खुल्ला) किरा मार्ने तथा संक्रमन प्रतिरोधी पदार्थ",
+            english: "411 Disinfectant liquids and liquid insecticides–other than in sealed tins or drums",
+            roman: "411 Band nagariyeko (khulla) kira marne tatha sankraman pratiridhi padartha",
+            category: "न्यून खतराजन्य जोखिम",
+            rate: "5.5"
+        },
+        {
+            nepali: "412 ब्रुनार्इ नगरेको फ्याव्रिक",
+            english: "412 Non-woven Fabric Manufacturing",
+            roman: "412 Brunei nagareko fabric",
+            category: "न्यून खतराजन्य जोखिम",
+            rate: "5.5"
+        },
+        {
+            nepali: "413 माल्ट निकाल्ने प्लान्ट",
+            english: "413 Malt Extraction Plants",
+            roman: "413 Malt nikaalne plant",
+            category: "न्यून खतराजन्य जोखिम",
+            rate: "5.5"
+        },
+        {
+            nepali: "414 मिथाइलेटेड स्पिरिट",
+            english: "414 Methylated Spirit",
+            roman: "414 Methylated spirit",
+            category: "न्यून खतराजन्य जोखिम",
+            rate: "5.5"
+        },
+        {
+            nepali: "415 समिल",
+            english: "415 Saw Mills",
+            roman: "415 Sawmill",
+            category: "न्यून खतराजन्य जोखिम",
+            rate: "5.5"
+        },
+        {
+            nepali: "416 सर्कस",
+            english: "416 Circus",
+            roman: "416 Circus",
+            category: "न्यून खतराजन्य जोखिम",
+            rate: "5.5"
+        },
+        {
+            nepali: "417 सवारी साधनको उत्पादन",
+            english: "417 Automobile Production",
+            roman: "417 Sawari sadhan ko utpadan",
+            category: "न्यून खतराजन्य जोखिम",
+            rate: "5.5"
+        },
+        {
+            nepali: "418 साँङ्गितिक समारोह, साँस्कृतिक कार्यक्रम",
+            english: "418 Music Concert and Cultural Program",
+            roman: "418 Sangeetik samaroha, sanskritik karyakram",
+            category: "न्यून खतराजन्य जोखिम",
+            rate: "5.5"
+        },
+        {
+            nepali: "419 सार्वजनिक कार्यक्रम",
+            english: "419 Public Program",
+            roman: "419 Sarwajanik karyakram",
+            category: "न्यून खतराजन्य जोखिम",
+            rate: "5.5"
+        },
+        {
+            nepali: "420 सिट मेटल फ्याव्रिकेटर्स",
+            english: "420 Sheet Metal Fabricators",
+            roman: "420 Sheet metal fabricators",
+            category: "न्यून खतराजन्य जोखिम",
+            rate: "5.5"
+        },
+        {
+            nepali: "421 स्टेन्सिल पेपर तथा डुप्लिकेटिङ",
+            english: "421 Duplicating/stencil Paper",
+            roman: "421 Stencil paper tatha duplicating",
+            category: "न्यून खतराजन्य जोखिम",
+            rate: "5.5"
+        },
+        {
+            nepali: "422 स्ट्रक्चरल स्टिल फ्याव्रिकेटर्स",
+            english: "422 Structural Steel Fabricators",
+            roman: "422 Structural steel fabricators",
+            category: "न्यून खतराजन्य जोखिम",
+            rate: "5.5"
+        },
+        {
+            nepali: "423 स्प्रे पेन्टिङ तथा पाउडर कोटिङ",
+            english: "423 Spray Painting and Powder Coating",
+            roman: "423 Spray painting tatha powder coating",
+            category: "न्यून खतराजन्य जोखिम",
+            rate: "5.5"
+        },
+        {
+            nepali: "424 हार्इड्रोक्लोरिक एसिड",
+            english: "424 Hydrochloric Acid",
+            roman: "424 Hydrochloric acid",
+            category: "न्यून खतराजन्य जोखिम",
+            rate: "5.5"
+        }
     ];
     populatePropertyLists();
     updateCategory();
