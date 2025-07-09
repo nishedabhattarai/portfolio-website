@@ -11,7 +11,7 @@
     <!-- Top Line with Menu and Custom Settings Icon -->
     <div class="top-line">
         <div class="menu" onclick="toggleMenu()">☰ Menu</div>
-        <div class="settings-btn" onclick="toggleSettings()">︙</div> <!-- '︙' as Settings Icon -->
+        <div class="settings-btn" onclick="toggleSettings()">︙</div>
     </div>
 
     <!-- Dropdown Menu -->
@@ -81,18 +81,18 @@
             <div class="calculator">
                 <div class="form-group">
                     <label><h3>Insurance Type:</h3></label>
-                    <div class="radio-group">
+                    <div class="radio-group mobile-radio-group">
                         <div class="radio-option">
                             <input type="radio" id="homeInsurance" name="insuranceType" value="home" checked onchange="updateInsuranceType()">
-                            <label for="homeInsurance">Home Insurance</label>
+                            <label for="homeInsurance">Home</label>
                         </div>
                         <div class="radio-option">
                             <input type="radio" id="propertyInsurance" name="insuranceType" value="property" onchange="updateInsuranceType()">
-                            <label for="propertyInsurance">Property Insurance</label>
+                            <label for="propertyInsurance">Property</label>
                         </div>
                     </div>
                 </div>
-                
+                                
                 <div id="homeInsuranceFields">
                     <div class="form-group">
                         <label for="nepaliDescHome">सम्पत्ति विवरण:</label>

@@ -198,7 +198,7 @@ function loadFallbackData() {
         {
             nepali: "21 कन्क्रिटका ब्लक तथा सामान",
             english: "21 Concrete Block and Products",
-            roman: "21 Concreteka block tatha saamaan",
+            roman: "21 Concreteka block tatha saaman",
             category: "सामान्य जोखिम",
             rate: "2"
         },
@@ -729,7 +729,7 @@ function loadFallbackData() {
         },
         {
             nepali: "97 विमानस्थल टर्मिनल [भवन, क्याफे, पसल लगायत सबै कुरा समावेश गरिएको]",
-            english: "97 Airport Terminal Buildings [including all facilities like Cafes Shops etc.]",
+            english: "97 Airport Terminal Buildings [including all facilities like Cafes, Shops, etc.]",
             roman: "97 Bimansthal terminal [bhawan, cafe, pasal lagaayat sabai kura samavesh gareko]",
             category: "सामान्य जोखिम",
             rate: "2"
@@ -750,7 +750,7 @@ function loadFallbackData() {
         },
         {
             nepali: "100 शैक्षिक केन्द्र, शैक्षिक परामर्शगृह, अध्ययन तथा अनुसन्धान केन्द्र",
-            english: "100 Educational Center Education Consultancy Education and Research Center",
+            english: "100 Educational Center, Education Consultancy, Education and Research Center",
             roman: "100 Shaikshik kendra, shaikshik paramarshgriha, adhyayan tatha anusandhan kendra",
             category: "सामान्य जोखिम",
             rate: "2"
@@ -764,7 +764,7 @@ function loadFallbackData() {
         },
         {
             nepali: "102 सडक, राजमार्ग, सर्भिस रोड",
-            english: "102 Road Highway and Service Road",
+            english: "102 Road, Highway and Service Road",
             roman: "102 Sadak, rajmarg, service road",
             category: "सामान्य जोखिम",
             rate: "2"
@@ -834,7 +834,7 @@ function loadFallbackData() {
         },
         {
             nepali: "112 सुन, चाँदि, प्लाटिनम",
-            english: "112 Gold Silver Platinum",
+            english: "112 Gold, Silver, Platinum",
             roman: "112 Sun, chaadi, platinum",
             category: "सामान्य जोखिम",
             rate: "2"
@@ -857,6 +857,41 @@ function loadFallbackData() {
             nepali: "115 स्टेडियम [इन्डोर तथा आउटडोर)",
             english: "115 Stadium [Indoor and Outdoor]",
             roman: "115 Stadium [indoor tatha outdoor]",
+            category: "सामान्य जोखिम",
+            rate: "2"
+        },
+        {
+            nepali: "116 स्पा तथा सौना",
+            english: "116 Spa and Sauna",
+            roman: "116 Spa tatha sauna",
+            category: "सामान्य जोखिम",
+            rate: "2"
+        },
+        {
+            nepali: "117 स्पोर्ट्स सामग्री",
+            english: "117 Sports Goods",
+            roman: "117 Sports saamagri",
+            category: "सामान्य जोखिम",
+            rate: "2"
+        },
+        {
+            nepali: "118 स्वीट मिट",
+            english: "118 Sweat Meat",
+            roman: "118 Sweet meat",
+            category: "सामान्य जोखिम",
+            rate: "2"
+        },
+        {
+            nepali: "119 हस्तकलाका सामग्री",
+            english: "119 Handicrafts",
+            roman: "119 Hastakalaka saamagri",
+            category: "सामान्य जोखिम",
+            rate: "2"
+        },
+        {
+            nepali: "120 हाइटेन्सन लाइन, खम्बा वा टावर",
+            english: "120 Hi-Tension Line, Pole and Tower",
+            roman: "120 High tension line, khamba wa tower",
             category: "सामान्य जोखिम",
             rate: "2"
         },
@@ -903,6 +938,1717 @@ function loadFallbackData() {
             rate: "2"
         },
         // मध्यम जोखिम (3 rate)
+        {
+            nepali: "127 अगरवत्ती तथा धुप",
+            english: "127 Agarbatti and Dhoop",
+            roman: "127 Agarbatti tatha dhup",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "128 अडियो भिडियो क्यासेट, सिडि, डिभिडि, एमडि, एलडि",
+            english: "128 Audio Video Cassette, CD, DVD, MD, LD",
+            roman: "128 Audio video cassette, CD, DVD, MD, LD",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "129 अदुवा",
+            english: "129 Ginger",
+            roman: "129 Aduwa",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "130 अलैंची",
+            english: "130 Cardamom",
+            roman: "130 Alaichi",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "131 इनर्जी ड्रिङ्क",
+            english: "131 Energy Drink",
+            roman: "131 Energy drink",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "132 इन्जिनियरिङ वर्कशप (रु दुई करोड सम्मको बीमाङ्कको लागि मात्र)",
+            english: "132 Engineering Workshop consist of Machine Shop (Turning Milling Drilling Grinding Cutting etc) the Fitting Shop the Foundry Shop the Blacksmith the Welding shop and the with 2 crore sum assured limit",
+            roman: "132 Engineering workshop (ru dui crore samma ko beemanka ko lagi matra)",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "133 उन मिल",
+            english: "133 Woolen Mills",
+            roman: "133 Un mill",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "134 उन सफा गर्ने तथा थिच्ने",
+            english: "134 Wool Cleaning and Pressing",
+            roman: "134 Un saphaa garne tatha thichhne",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "135 ऊन",
+            english: "135 wool",
+            roman: "135 Un",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "136 एयरक्राफ्ट ह्याङ्गर",
+            english: "136 Aircraft Hangers",
+            roman: "136 Aircraft hangar",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "137 कत्था",
+            english: "137 Katha",
+            roman: "137 Katha",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "138 कन्फेक्सनरी",
+            english: "138 Confectionary",
+            roman: "138 Confectionery",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "139 कपडामा वुट्टा भर्ने",
+            english: "139 Embroidery",
+            roman: "139 Kapada ma butta bharne",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "140 कपास तथा कपास प्रशोधन",
+            english: "140 Cotton and Cotton Procesing",
+            roman: "140 Kapaas tatha kapaas prashodhan",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "141 कफि केलाउने, तताउने, पिस्ने तथा छोडाउने",
+            english: "141 Coffee Curing, Roasting, Grinding and Pulping",
+            roman: "141 Coffee kelaaune, tataaune, pisne tatha chhodaune",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "142 कवाडी",
+            english: "142 Scrap",
+            roman: "142 Kabaadi",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "143 कार्पेट तथा दरी [अन्य]",
+            english: "143 Carpet and Drugget [Others]",
+            roman: "143 Carpet tatha dari [anya]",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "144 केवल [सबै प्रकारको]",
+            english: "144 Cable [All Kinds]",
+            roman: "144 Keval [sabai prakarko]",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "145 कोल्ड स्टोरेज",
+            english: "145 Cold Storage",
+            roman: "145 Cold storage",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "146 खाद्य पसल (ग्यास तथा मट्टीतेल बाहेक)",
+            english: "146 Grocery except Cooking Gas and Kerosene",
+            roman: "146 Khadya pasal (gas tatha mattitel bahek)",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "147 गम, ग्लु तथा ग्यालेटाइन",
+            english: "147 Gum/Glue/Gelatine",
+            roman: "147 Gum, glue tatha gelatin",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "148 गलैंचा, राडी, पाखी",
+            english: "148 Carpet and Drugget Manufacturing [Cotton/Wool]",
+            roman: "148 Galaincha, radi, pakhi",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "149 गार्मेन्ट",
+            english: "149 Garment",
+            roman: "149 Garment",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "150 गुलावको तेल",
+            english: "150 Rose Oil",
+            roman: "150 Gulabko tel",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "151 चलचित्र भवन",
+            english: "151 Cinema Hall",
+            roman: "151 Chalchitra bhawan",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "152 चिउरा मिल",
+            english: "152 Beaten Rice Mill",
+            roman: "152 Chiura mill",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "153 चिनी",
+            english: "153 Sugar",
+            roman: "153 Chini",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "154 चिनी क्यान्डी",
+            english: "154 Sugar Candy",
+            roman: "154 Chini candy",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "155 चिया ब्लेन्डिङ, प्याकिङ तथा प्रशोधन",
+            english: "155 Tea Blending, Packing and Tea Processing",
+            roman: "155 Chiya blending, packing tatha prashodhan",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "156 छाता",
+            english: "156 Umbrella",
+            roman: "156 Chhata",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "157 झुल",
+            english: "157 Mosquito Cutrain",
+            roman: "157 Jhool",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "158 टाँक",
+            english: "158 Button",
+            roman: "158 Tank",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "159 टाइपराइटर रिवन",
+            english: "159 Typewriter Ribbon",
+            roman: "159 Typewriter ribbon",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "160 टेक्स्टाइल मिल",
+            english: "160 Textile Mills",
+            roman: "160 Textile mill",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "161 डसना तथा तकिया बनाउने",
+            english: "161 Pillow Making",
+            roman: "161 Dasna tatha takiya banaaune",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "162 डिपार्टमेन्टल स्टोर",
+            english: "162 Departmental Store",
+            roman: "162 Departmental store",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "163 डुंगा, डुंगाको पाल वा खाँवो",
+            english: "163 Boat and Jiggery",
+            roman: "163 Dunga, dungako paal wa khambo",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "164 डेरी तथा डेरी प्लान्ट",
+            english: "164 Milk Pasteurizing Plants and Dairies",
+            roman: "164 Dairy tatha dairy plant",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "165 तयारी कपडा",
+            english: "165 Readymade Garments",
+            roman: "165 Tayaari kapadaa",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "166 तुना",
+            english: "166 Lace",
+            roman: "166 Tuna",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "167 दाना उद्योग [माछा तथा पशुपन्छीको]",
+            english: "167 Fish Animal and Birds' Food",
+            roman: "167 Dana udyog [machha tatha pashupanchhiko]",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "168 दालचिनी",
+            english: "168 Cinnamon",
+            roman: "168 Dalchini",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "169 दुग्ध उद्योग",
+            english: "169 Condensed Milk Factories",
+            roman: "169 Dugdha udyog",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "170 धाउ प्रशोधन",
+            english: "170 Ore Processing",
+            roman: "170 Dhau prashodhan",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "171 धाउबाट धातु छुट्याउने तथा धातु छुट्याउने",
+            english: "171 Metal Smelting Extraction and Forging Mills",
+            roman: "171 Dhaubaata dhaatu chhutyauune tatha dhaatu chhutyauune",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "172 धागो",
+            english: "172 Thread",
+            roman: "172 Dhago",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "173 धागो कारखाना बाहिरको लुगा प्रशोधन केन्द्र",
+            english: "173 Cloth Processing Units situated Outside the Compound of Textile Mills",
+            roman: "173 Dhago karkhana baahirko luga prashodhan kendra",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "174 धागो प्रशोधन",
+            english: "174 Yarn Processing",
+            roman: "174 Dhago prashodhan",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "175 धातुको छपाई",
+            english: "175 Metal Printers",
+            roman: "175 Dhaatuko chhapai",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "176 धातुको पाइप",
+            english: "176 Metal Pipe",
+            roman: "176 Dhaatuko pipe",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "177 धातुको पाइपलाई विभिन्न रूप दिने",
+            english: "177 Metal Pipe Extruding",
+            roman: "177 Dhaatuko pipelaai bibhinna roop dine",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "178 धातुको लेप लगाउने",
+            english: "178 Galvanizing Works",
+            roman: "178 Dhaatuko lep lagaune",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "179 धातुले मोड्ने कार्य",
+            english: "179 Metallizing works [Involving Metals Only]",
+            roman: "179 Dhaatule modne kaarya",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "180 धान मिल",
+            english: "180 Rice Mills",
+            roman: "180 Dhaan mill",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "181 नाली तथा फोहोर प्रशोधन केन्द्र",
+            english: "181 Effluent/Sewage Treatment Plant",
+            roman: "181 Naali tatha fohor prashodhan kendra",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "182 पत्र धातु, सामान वा भाडा पगाल्ने",
+            english: "182 Scrapt metal Utensil Melting",
+            roman: "182 Patra dhaatu, saamaan wa bhaadaa pagaalaune",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "183 पाल वा त्रिपाल",
+            english: "183 Tent",
+            roman: "183 Paal wa tripaal",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "184 पुल (काठ तथा स्टिल) झोलुङ्गे पुल बाहेक",
+            english: "184 Bridges (wood and Steel) apart from Suspension Breidge",
+            roman: "184 Pul (kaath tatha steel) jholunge pul bahek",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "185 पुस्तक तथा पुस्तकालय",
+            english: "185 Book and Library",
+            roman: "185 Pustak tatha pustakaalay",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "186 प्रकाशन तथा वुक बाइन्ङिङ",
+            english: "186 Publication and Book Binding",
+            roman: "186 Prakashan tatha book binding",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "187 प्रसारण स्टेशन तथा टिभी र एफएम प्रसारण स्टेशन",
+            english: "187 Transmission Stations and TV and FM Stations",
+            roman: "187 Prasaaran station tatha TV ra FM prasaaran station",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "188 फलफूल तथा सागपात सुकाउने",
+            english: "188 Fruit and Vegetable Dryingand Dehydrating",
+            roman: "188 Phalphul tatha saagpaat sukaaune",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "189 फलफूल तथा फलफूलको गुदी निकाल्ने काम",
+            english: "189 Fruit and fruit pulp making",
+            roman: "189 Phalphul tatha phalphulko gudi nikaalne kaam",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "190 फलाम, स्टिल, एल्मुनियम, काँस, पित्तल, जस्ता र तामा तथा धातुजन्य उद्योग",
+            english: "190 Iron, Steel, Aluminum, Bronze, Brass, Zinc, Copper Industry",
+            roman: "190 Phalaam, steel, aluminum, kaas, pittal, jasta ra taamaa tatha dhaatujanya udyog",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "191 फ्युज",
+            english: "191 Fuse",
+            roman: "191 Fuse",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "192 बट्टा",
+            english: "192 Canning",
+            roman: "192 Batta",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "193 बायु प्रभावित पानी",
+            english: "193 Aerated Water",
+            roman: "193 Bayu prabhavit paani",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "194 बिऊ",
+            english: "194 Seed",
+            roman: "194 Biu",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "195 बुटिक",
+            english: "195 Boutique",
+            roman: "195 Boutique",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "196 बुनाइ गर्ने मिल",
+            english: "196 Weaving Mills",
+            roman: "196 Bunaai garne mill",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "197 बेकरी",
+            english: "197 Bakery",
+            roman: "197 Bakery",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "198 ब्रुअरी",
+            english: "198 Breweries",
+            roman: "198 Brewery",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "199 ब्रोन्ज पाउडर",
+            english: "199 BronzePowder",
+            roman: "199 Bronze powder",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "200 मकै ब्रान",
+            english: "200 Maize Bran",
+            roman: "200 Makai bran",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "201 मखमलको कपडा",
+            english: "201 Velvet Cloth",
+            roman: "201 Makhmal ko kapadaa",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "202 मदिरा",
+            english: "202 Distilleries",
+            roman: "202 Madiraa",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "203 मसला",
+            english: "203 Curry Spices",
+            roman: "203 Masalaa",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "204 मसी",
+            english: "204 Ink",
+            roman: "204 Masi",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "205 माड",
+            english: "205 Starch",
+            roman: "205 Maad",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "206 मिल [अन्न, दलहन, पिठो पिस्ने तथा पोलिस गर्ने]",
+            english: "206 Mill [Cereal, Rice, Flour, Dal]",
+            roman: "206 Mill [anna, dalhan, pitho pisne tatha polish garne]",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "207 मेडिकल सामान",
+            english: "207 Medical Equipment",
+            roman: "207 Medical saamaan",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "208 मैन तथा मैनवत्ती",
+            english: "208 Wax and Candle",
+            roman: "208 Main tatha mainbatti",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "209 मोजा तथा होजियारी सामान",
+            english: "209 Shocks and Hosiery Goods",
+            roman: "209 Moja tatha hosiery saamaan",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "210 मोजाइक",
+            english: "210 Mosaic",
+            roman: "210 Mosaic",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "211 रेलवे ट्रयाक",
+            english: "211 Railways Tracks",
+            roman: "211 Railway track",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "212 रेशम तथा कातेको सिल्क मिल",
+            english: "212 Silk Mills / Spun Silk Mills",
+            roman: "212 Resham tatha kaateko silk mill",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "213 लन्ड्री",
+            english: "213 Laundry",
+            roman: "213 Laundry",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "214 लुगा सिलाउने पसल",
+            english: "214 Tailor",
+            roman: "214 Luga silaaune pasal",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "215 विजुली सम्बन्धी सामान",
+            english: "215 Electric Goods",
+            roman: "215 Bijuli sambandhi saamaan",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "216 विद्युतीय प्रसारण लाईन तथा वितरण",
+            english: "216 Electric Transmission and Distribution",
+            roman: "216 Bidyutiy prasaaran line tatha vitran",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "217 विद्युतीय सामान",
+            english: "217 Electronic Goods",
+            roman: "217 Bidyutiy saamaan",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "218 विस्कुट",
+            english: "218 Biscuit",
+            roman: "218 Biscuit",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "219 वेवरेज",
+            english: "219 Beverage",
+            roman: "219 Beverage",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "220 व्यवसायिक भवन (पसल भाडा प्रयोजन तथा व्यवसायिक प्रयोजनको लागि प्रयोग हुने बहु उपयोगी भवन)",
+            english: "220 Commercial Building (Multi Purpose commercial Building)",
+            roman: "220 Byawasayik bhawan (pasal bhadaa prayojan tatha byawasayik prayojanko lagi prayog hune bahu upayogi bhawan)",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "221 व्रिकेट",
+            english: "221 Briquettes",
+            roman: "221 Briquette",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "222 सख्खर",
+            english: "222 Khandsari Sugar",
+            roman: "222 Sakkhar",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "223 सफ्ट ड्रिङ्क",
+            english: "223 Soft Drinks",
+            roman: "223 Soft drink",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "224 समुन्द्री खाद्य प्रशोधन",
+            english: "224 Sea Food Processing",
+            roman: "224 Samundri khadya prashodhan",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "225 साँङ्गितिक उपकरण वा सामान",
+            english: "225 Musical Instruments",
+            roman: "225 Sangeetik upakaran wa saamaan",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "226 सिसाकलम",
+            english: "226 Pencil",
+            roman: "226 Sisakalam",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "227 सुकाउने वा सुख्खा बनाउने",
+            english: "227 Dehydration",
+            roman: "227 Sukaune wa sukhkha banaaune",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "228 सुख्खा फल जस्तै: काजु, बदम तथा बदाम",
+            english: "228 Dry Fruit Like: Cashew, Nut, Peanuts and Almond",
+            roman: "228 Sukhkha phal jastai: kaaju, badaam tatha badaam",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "229 सुपारी",
+            english: "229 Betel Nut and Arecanut",
+            roman: "229 Supari",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "230 सेवई",
+            english: "230 Vermicellior Spaghetti",
+            roman: "230 Sewai",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "231 सोडा पानी",
+            english: "231 Soda Water",
+            roman: "231 Soda paani",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "232 सौर्य तथा वायु उर्जा",
+            english: "232 Solar and Wind Engery",
+            roman: "232 Saurya tatha bayu urja",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "233 स्टेशनरी",
+            english: "233 Stationary",
+            roman: "233 Stationery",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "234 स्पिनिङ मिल",
+            english: "234 Spinning Mills",
+            roman: "234 Spinning mill",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "235 हरित गृह, एल्गी तथा स्पिरौलिना",
+            english: "235 Green Houses/ Algae/ Spirulina",
+            roman: "235 Harit griha, algae tatha spirulina",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "236 हस्पिटल ईक्युपमेन्ट तथा सर्जिकल सामानहरु",
+            english: "236 Hospital Equipment and Surgical Goods",
+            roman: "236 Hospital equipment tatha surgical saamaan haru",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+        {
+            nepali: "237 हार्डवेयर",
+            english: "237 Hardware",
+            roman: "237 Hardware",
+            category: "मध्यम जोखिम",
+            rate: "3"
+        },
+
+        // उच्च मध्यम जोखिम (4.5 rate)
+        {
+            nepali: "238 अलोइ फाइवर",
+            english: "238 AloeFibers",
+            roman: "238 Alloy fiber",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "239 आइरिस तेल",
+            english: "239 Iris Oil",
+            roman: "239 Iris tel",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "240 आयोडिन",
+            english: "240 Iodine",
+            roman: "240 Iodine",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "241 इक्युप्लिटस तेल",
+            english: "241 Eucalyptus Oil",
+            roman: "241 Eucalyptus tel",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "242 इग्निसन कर्ड्स",
+            english: "242 Ignition Chords",
+            roman: "242 Ignition cords",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "243 इनामेल तथा इनामेल कोट गरिएका सामान",
+            english: "243 Enamel Ware",
+            roman: "243 Enamel tatha enamel coat gariyeka saamaan",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "244 एन्जेलिका तेल",
+            english: "244 Angelica Oil",
+            roman: "244 Angelica tel",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "245 एल्मुनियम कार्वाइड",
+            english: "245 Aluminum Carbide",
+            roman: "245 Aluminum carbide",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "246 एलुमिनियम पाउडर [फाइवर]",
+            english: "246 Aluminum Powder/Dust",
+            roman: "246 Aluminum powder [fiber]",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "247 औषधी",
+            english: "247 Drug and Pharmaceuticals",
+            roman: "247 Aushadhi",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "248 कपर नाइट्रेट",
+            english: "248 Copper Nitrate",
+            roman: "248 Copper nitrate",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "249 कर्क",
+            english: "249 Cork",
+            roman: "249 Kark",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "250 कस्मेटिक्स सामाग्री",
+            english: "250 Cosmetic Item",
+            roman: "250 Cosmetics saamagri",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "251 काँच [सबै प्रकारको]",
+            english: "251 Glass of all type",
+            roman: "251 Kaach [sabai prakarko]",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "252 काँचको कलात्मक सामान बनाउने",
+            english: "252 Art Work of Glass",
+            roman: "252 Kaachko kalatmak saamaan banaaune",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        // Add these items to your propertyItems array in the loadFallbackData() function
+        {
+            nepali: "251 काँच [सबै प्रकारको]",
+            english: "251 Glass of all type",
+            roman: "251 Kaach [sabai prakarko]",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "252 काँचको कलात्मक सामान बनाउने",
+            english: "252 Art Work of Glass",
+            roman: "252 Kaachko kalatmak saamaan banaaune",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "253 कागज तथा कार्डवोर्ड मिल",
+            english: "253 Paper and Cardboard Mills",
+            roman: "253 Kagaj tatha cardboard mill",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "254 काठ, काठको सामान, उल उड तथा फर्निचर [स-मिल बाहेक]",
+            english: "254 Wood, Carpenters, Wood Wool, Furniture (Excluding Saw Mill)",
+            roman: "254 Kaath, kaathko saamaan ul wood tatha furniture [sawmill bahek]",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "255 काठको सिजनिङ, ट्रिटमेन्ट तथा इम्प्रेग्नेशन",
+            english: "255 WoodSeasoning/Treatment/ Impregnation Expect Playwood and Venure",
+            roman: "255 Kaathko seasoning, treatment tatha impregnation",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "256 कार्डबोर्ड वा गत्ताको बाकस",
+            english: "256 Cardboard Box",
+            roman: "256 Cardboard wa gattako baakas",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "257 कार्वन पेपर",
+            english: "257 Carbon paper",
+            roman: "257 Carbon paper",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "258 कृषिजन्य बस्तु: बाँस बेत नरिवलको जटा, कपासको पात, सियनाको पात, घाँस, खर, सनपाट, फोहोर, पतकर, भुसा",
+            english: "258 Agricultural Goods: Bamboo, Cane, Jute, Hey, Straw, Coconut Husk, Cotton Leaf, Siana Leaf, Grass, Fodder, Sunpat, Coir, Mess, Dry Leaves, Hemp",
+            roman: "258 Krishijanya bastu: baans, bet, naribal ko jata, kapaasko paat, sienako paat, ghaans, khar, sanpaat, fohor, patkar, bhusaa",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "259 कोवाल्ट नाइट्रेट",
+            english: "259 Cobalt Nitrate",
+            roman: "259 Cobalt nitrate",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "260 क्याल्सियम क्लोरेट",
+            english: "260 Calcium Chlorate",
+            roman: "260 Calcium chlorate",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "261 क्याल्सियम पाउडर",
+            english: "261 Calcium Powder",
+            roman: "261 Calcium powder",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "262 क्लोभ तेल",
+            english: "262 Clove Oil",
+            roman: "262 Clove tel",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "263 क्लोरिन",
+            english: "263 Chlorine",
+            roman: "263 Chlorine",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "264 खनिज तेल तथा खाने तेल बाहेकका सबै तेल",
+            english: "264 Mineral Oiland All Oils other than Edible Oil",
+            roman: "264 Khanij tel tatha khaane tel bahekka sabai tel",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "265 खाक्सी चिल्लो पार्ने",
+            english: "265 Abrasive Manufacturing",
+            roman: "265 Khaksi chillo paarne",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "266 खाना पकाउने ग्यास बुलेट बाहेक",
+            english: "266 Cooking Gas except bullet",
+            roman: "266 Khaanaa pakaune gas bullet bahek",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "267 खानेतेल",
+            english: "267 Edible Oil",
+            roman: "267 Khanetel",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "268 खाम तथा कागजको झोला",
+            english: "268 Envelope and Paper Bag",
+            roman: "268 Khaam tatha kagajko jhola",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "269 ग्यास होल्डर्स, बुलेट स्फेयर",
+            english: "269 Gas Holders/Bullets/Spheres",
+            roman: "269 Gas holders, bullet sphere",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "270 ग्रेफाइट इलेक्ट्रोड",
+            english: "270 Graphite Electrode",
+            roman: "270 Graphite electrode",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "271 घिऊ",
+            english: "271 Ghee",
+            roman: "271 Ghiu",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "272 चाउमिन, पास्ता वा चाउचाऊ",
+            english: "272 Chowmin, Pasta and Noodles",
+            roman: "272 Chowmein, pasta wa chauchau",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "273 चीजबल्स",
+            english: "273 Chees Balls",
+            roman: "273 Cheese balls",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "274 चुरोट तथा सिगार",
+            english: "274 Cigarette and Cigar",
+            roman: "274 Churot tatha cigar",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "275 चुरोटको फिल्टर",
+            english: "275 Cigarette Filter",
+            roman: "275 Churotko filter",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "276 छापाखाना",
+            english: "276 Press",
+            roman: "276 Chhapakhaana",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "277 छाला तथा काँचो छाला, छाला प्रशोधन",
+            english: "277 Hides and Skins Tanneries",
+            roman: "277 Chhaala tatha kaancho chhaala, chhaala prashodhan",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "278 जस्मिन तेल",
+            english: "278 Jasmine Oil",
+            roman: "278 Jasmine tel",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "279 जिंक नाइट्रेट",
+            english: "279 Zinc Nitrate",
+            roman: "279 Zinc nitrate",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "280 जिङ्क पाउडर",
+            english: "280 Zinc Powder",
+            roman: "280 Zinc powder",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "281 जिङ्क पेरोअक्साइड",
+            english: "281 Zinc Peroxide",
+            roman: "281 Zinc peroxide",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "282 जिप फास्ट्नर्स",
+            english: "282 Zip Fasteners",
+            roman: "282 Zip fasteners",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "283 जिप्सम बोर्ड",
+            english: "283 Gypsum Board",
+            roman: "283 Gypsum board",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "284 जुत्ता तथा चप्पल [फोम प्लास्टिक बाहेक]",
+            english: "284 Footwear [except foam plastic]",
+            roman: "284 Jutta tatha chappal [foam plastic bahek]",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "285 जुनिपर तेल",
+            english: "285 Juniper Oil",
+            roman: "285 Juniper tel",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "286 जौ जर्म",
+            english: "286 Malt Germ",
+            roman: "286 Jau germ",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "287 टापिओका",
+            english: "287 Tapioca",
+            roman: "287 Tapioca",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "288 टायर तथा ट्युव",
+            english: "288 Tyres and Tubes",
+            roman: "288 Tyre tatha tube",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "289 टायर रिट्रिडिङ तथा रिसोलिङ",
+            english: "289 Tyre Retreading and Resoling",
+            roman: "289 Tyre retreading tatha resoling",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "290 ठेकेदारको यन्त्र तथा उपकरण [एकै स्थानमा भएको]",
+            english: "290 Contractors Plant and Machinery [At one Location Only]",
+            roman: "290 Thekedarko yantra tatha upakaran [ekai sthaanma bhaeko]",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "291 डिटर्जेन्ट",
+            english: "291 Detergent",
+            roman: "291 Detergent",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "292 तरल ग्यासको विर्को लगाउने प्लान्ट",
+            english: "292 Liquefied Gas Bottling Plants",
+            roman: "292 Taral gasko birko lagaune plant",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "293 तेल डिस्टिल प्लान्ट",
+            english: "293 Oil Distillation Plants",
+            roman: "293 Tel distill plant",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "294 तेल निकाल्ने",
+            english: "294 Oil Extraction",
+            roman: "294 Tel nikaalne",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "295 तेल मिल रिफाइनिङ",
+            english: "295 Oil Mills Refining",
+            roman: "295 Tel mill refining",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "296 तेलको बीज",
+            english: "296 Oil Seeds",
+            roman: "296 Telko beej",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "297 दाना छोडाउने वा छुट्याउने तथा पेल्ने मिल",
+            english: "297 Grain/Seeds Disintegrating/crushing/ Decorticating factories/ Dal Mills",
+            roman: "297 Daana chhodaune wa chhutyauune tatha pelne mill",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "298 दालमोठ तथा पापड",
+            english: "298 Dalmoth and Papad",
+            roman: "298 Daalmoth tatha paapad",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "299 धुँवा उत्सर्जक",
+            english: "299 Smoke Generators",
+            roman: "299 Dhuwaa utsarjak",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "300 धोक्रो वा कपडा भएको कागज",
+            english: "300 Hessian Paper and Cloth",
+            roman: "300 Dhorko wa kapadaa bhaeko kagaj",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "301 नाइट्रिक एसिड",
+            english: "301 Nitric Acid",
+            roman: "301 Nitric acid",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "302 नाइट्रो कटन थ्रेड",
+            english: "302 Nitro Cotton Thread",
+            roman: "302 Nitro cotton thread",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "303 नाइट्रो सिल्क",
+            english: "303 Nitro Silk",
+            roman: "303 Nitro silk",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "304 नाइलन फाइवर",
+            english: "304 Nylon Fiber",
+            roman: "304 Nylon fiber",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "305 निकेल नाइट्रेट",
+            english: "305 Nickel Nitrate",
+            roman: "305 Nickel nitrate",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "306 पार्टिकल बोर्ड",
+            english: "306 Particle Board",
+            roman: "306 Particle board",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "307 पुदिना वा वावरीको तेल",
+            english: "307 Peppermint Oil",
+            roman: "307 Pudina wa bawariko tel",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "308 पेट्रोलियम कोक क्याल्सिनेसन",
+            english: "308 Petroleum Coke Calcination",
+            roman: "308 Petroleum coke calcination",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "309 पोटासियम नाइट्रेट",
+            english: "309 Potassium Nitrate",
+            roman: "309 Potassium nitrate",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "310 पोटासियम पेरोअक्साइड",
+            english: "310 Potassium Peroxide",
+            roman: "310 Potassium peroxide",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "311 फायरलाइटर्स",
+            english: "311 Firelighters",
+            roman: "311 Firelighters",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "312 फेरिक नाइट्रेट",
+            english: "312 FerricNitrate",
+            roman: "312 Ferric nitrate",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "313 फेरोसिलिकन",
+            english: "313 Ferrosilicon",
+            roman: "313 Ferrosilicon",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "314 फोरमाइका",
+            english: "314 Formica",
+            roman: "314 Formica",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "315 फ्लोरिङ एण्ड फर्निसिङ्",
+            english: "315 Flooring and Furnishing",
+            roman: "315 Flooring & furnishing",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "316 फ्ल्यास पाउडर फोटोग्राफिक",
+            english: "316 Flash Powder Photographic",
+            roman: "316 Flash powder photographic",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "317 वनस्पति तेल",
+            english: "317 Vegetable Oil",
+            roman: "317 Banaspati tel",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "318 वनस्पतिको रेशा",
+            english: "318 Vegetable Fibers",
+            roman: "318 Banaspati ko resaa",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "319 वनस्पती घिऊ",
+            english: "319 vegetable Ghee",
+            roman: "319 Banaspati ghiu",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "320 बन्दरगाह, सुख्खा बन्दरगाह तथा विशेष आर्थिक क्षेत्र",
+            english: "320 Port, Dry Port and Special Economic Zone",
+            roman: "320 Bandargaah, sukhkha bandargaah tatha vishes aarthik kshetra",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "321 बायो ग्यास",
+            english: "321 Bio Gas",
+            roman: "321 Bio gas",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "322 ब्याट्री वा शेल [सबै प्रकारको ]",
+            english: "322 Batteryof any Kind",
+            roman: "322 Battery wa shell [sabai prakarko]",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "323 ब्रान डस्ट",
+            english: "323 Bran Dust",
+            roman: "323 Bran dust",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "324 ब्लिचिङ पाउडर",
+            english: "324 Bleaching Powder",
+            roman: "324 Bleaching powder",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "325 भिनेगर",
+            english: "325 Vinegar",
+            roman: "325 Vinegar",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "326 भेरमाउथ तेल",
+            english: "326 Vermouth Oil",
+            roman: "326 Vermouth tel",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "327 भोल्युम बार्क,  फाइवर",
+            english: "327 Volume Bark Fibre",
+            roman: "327 Volume bark, fiber",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "328 भ्यालेरियन तेल",
+            english: "328 Valerian Oil",
+            roman: "328 Valerian tel",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "329 मर्क्युरस नाइट्रेट",
+            english: "329 Mercurous Nitrate",
+            roman: "329 Mercurous nitrate",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "330 मल समिश्रण कार्य",
+            english: "330 Manure Blending Works",
+            roman: "330 Mal samishran karya",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "331 मलखाद",
+            english: "331 Fertilizer",
+            roman: "331 Malkhaad",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "332 माइका",
+            english: "332 Mica",
+            roman: "332 Mica",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "333 मेहेन्दी वा तिउरीको तेल",
+            english: "333 Rosemary Oil",
+            roman: "333 Mehendi wa tiuri ko tel",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "334 मैन्टोल",
+            english: "334 Incandescent Gas mantle",
+            roman: "334 Menthol",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "335 म्यांगानिज नाइट्रेट",
+            english: "335 Manganese Nitrate",
+            roman: "335 Manganese nitrate",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "336 म्यांगानिज पेरोअक्साइड",
+            english: "336 Manganese Peroxide",
+            roman: "336 Manganese peroxide",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "337 म्याग्नेसियम नाइट्रेट",
+            english: "337 Magnesium Nitrate",
+            roman: "337 Magnesium nitrate",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "338 म्याट्रेस",
+            english: "338 Mattress",
+            roman: "338 Mattress",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "339 युरिया नाइट्रेट",
+            english: "339 Urea Nitrate",
+            roman: "339 Urea nitrate",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "340 रङ्ग तथा बार्निस",
+            english: "340 Color and Varnish",
+            roman: "340 Rang tatha varnish",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "341 रवर उद्योग",
+            english: "341 Rubber",
+            roman: "341 Rubber udyog",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "342 रवर सिमेन्ट",
+            english: "342 Rubber Cement",
+            roman: "342 Rubber cement",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "343 रवरको सामान उत्पादन [स्प्रेडिङ विना]",
+            english: "343 Rubber Goods Manufacturing without spreading",
+            roman: "343 Rubber ko saamaan utpaadan [spreading bina]",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "344 रसायन [यस तालिकामा अन्यत्र उल्लेख भएको बाहेक]",
+            english: "344 Chemical [Other than mentioned in this table]",
+            roman: "344 Rasayan [yas talikamaa anyatra ullekh bhaeko bahek]",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "345 रोलर कम्पोजिसन",
+            english: "345 Roller Composition",
+            roman: "345 Roller composition",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "346 लिड नाइट्रेट",
+            english: "346 Lead Nitrate",
+            roman: "346 Lead nitrate",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "347 लिड पेरोअक्साइट",
+            english: "347 Lead Peroxide",
+            roman: "347 Lead peroxide",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "348 लिथोग्राफ प्रेस",
+            english: "348 Lithographic Presses",
+            roman: "348 Lithograph press",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "349 ल्याभेण्डर तेल",
+            english: "349 Lavender Oil",
+            roman: "349 Lavender tel",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "350 ल्यामिनेटेड कागज तथा कार्डबोर्ड मिल",
+            english: "350 Laminated Paper and Cardboard Mills",
+            roman: "350 Laminated kagaj tatha cardboard mill",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "351 वनस्पतीजन्य रेसा (रेयन फार्इवर सहितको कुनै पनि पदार्थ)",
+            english: "351 Vegetable fibres of any kind including Rayon Fibre",
+            roman: "351 Banaspatijanaya resaa (rayon fiber sahitko kunai pani padartha)",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "352 सनमाइका",
+            english: "352 Sunmica",
+            roman: "352 Sunmica",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "353 सरसफाई सम्बन्धी सामान",
+            english: "353 Toiletry products and Sanitation Goods",
+            roman: "353 Sarsafai sambandhi saamaan",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "354 सल्फ्युरिक एसिड",
+            english: "354 Sulphuric Acid",
+            roman: "354 Sulfuric acid",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "355 सल्लाको तेल",
+            english: "355 Pine Oil",
+            roman: "355 Salla ko tel",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "356 सावुन",
+            english: "356 Soap",
+            roman: "356 Sabuun",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "357 सिट्रोनेला तेल",
+            english: "357 Citronella Oil",
+            roman: "357 Citronella tel",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "358 सिल्भर नाइट्रेट",
+            english: "358 Silver Nitrate",
+            roman: "358 Silver nitrate",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "359 सुन्तलाको तेल",
+            english: "359 Orange Oil",
+            roman: "359 Suntala ko tel",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "360 सुर्ती उद्योग",
+            english: "360 Tobacco",
+            roman: "360 Surti udyog",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "361 सुर्ती केलाउने तथा पुन: सुकाउने",
+            english: "361 Tobacco Curing / Re-drying",
+            roman: "361 Surti kelaaune tatha puna: sukaaune",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "362 सोडियम अमाल्गम",
+            english: "362 Sodium Amalgam",
+            roman: "362 Sodium amalgam",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "363 सोडियम नाइट्रेट",
+            english: "363 Sodium Nitrate",
+            roman: "363 Sodium nitrate",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "364 सोडियम पेरोअक्साइड",
+            english: "364 Sodium Peroxide",
+            roman: "364 Sodium peroxide",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "365 सोयाविन",
+            english: "365 Soyabean",
+            roman: "365 Soyabean",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "366 स्पार्कल्स",
+            english: "366 Sparkles",
+            roman: "366 Sparks",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "367 स्प्रस उड टार",
+            english: "367 Spruce Wood Tar",
+            roman: "367 Spruce wood tar",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        },
+        {
+            nepali: "368 हाइड्रोक्लोरिक एसिड",
+            english: "368 Hydrochloric Acid",
+            roman: "368 Hydrochloric acid",
+            category: "उच्च मध्यम जोखिम",
+            rate: "4.5"
+        }
     ];
     populatePropertyLists();
     updateCategory();
@@ -1117,7 +2863,7 @@ function updateInsuranceType() {
         
         document.getElementById('nepaliDescHome').value = "01 आवासीय भवन वा घर, मठ मन्दिर, ध्यान, पूजा तथा प्रार्थनास्थल तथा त्यसभित्र रहेको सम्पत्ति वा सामान";
         document.getElementById('englishDescHome').value = "01 Residential Building or home, Temples, Meditation and Pray or Worship Place including Goods and Properties inside";
-        document.getElementById('romanDescHome').value = "01 Aawasiya bhawan wa ghar, math mandir, dhyan, pooja tatha prarthanasthal tatha tyasbhitra rahayeko sampatti wa saamaan.";
+        document.getElementById('romanDescHome').value = "01 Aawasiya bhawan wa ghar, math mandir, dhyan, pooja tatha prarthanasthal tatha tyasbhitra rahayeko sampatti wa saaman.";
         
         updateHomeInsuranceRate();
         updateCategory();
