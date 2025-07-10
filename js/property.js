@@ -3036,11 +3036,818 @@ function loadFallbackData() {
             rate: "5.5"
         },
         {
-            nepali: "424 हार्इड्रोक्लोरिक एसिड",
+            nepali: "424 हाईड्रोक्लोरिक एसिड",
             english: "424 Hydrochloric Acid",
             roman: "424 Hydrochloric acid",
             category: "न्यून खतराजन्य जोखिम",
             rate: "5.5"
+        },
+        // मध्यम खतराजन्य जोखिम (7.5 rate)
+        {
+            nepali: "425 32ºC वा 32ºC देखि 65ºC सम्मको तापक्रममा बल्ने प्रज्वलनशील पदार्थ",
+            english: "425 Flammable liquids having flash points between 32ºC to 65ºC.",
+            roman: "425 32°C wa 32°C dekhi 65°C sammako tapkramma balne prajwalanashil padartha",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "426 अक्सिजन सहितको अक्सिडाइजिङ एजेन्ट",
+            english: "426 Oxidizing Agents and Oxygen",
+            roman: "426 Oxygen sahitko oxidizing agent",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "427 आरडिएक्स [रिमोट डिटोनेटेड एक्स्प्लोसिभ]",
+            english: "427 RDX [Remote Detonated Explosive]",
+            roman: "427 RDX [Remote Detonated Explosive]",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "428 इथर",
+            english: "428 Ether",
+            roman: "428 Ether",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "429 इथाइलिन नाइट्रेट",
+            english: "429 Ethylene Nitrate",
+            roman: "429 Ethylene nitrate",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "430 इन्स्ट्यानण्ट इग्निसन कर्ड",
+            english: "430 Instant Ignition Chord",
+            roman: "430 Instant ignition cord",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "431 एमोनियम क्लोरेट",
+            english: "431 Ammonium Chlorate",
+            roman: "431 Ammonium chlorate",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "432 एमोनियम नाइट्रेट",
+            english: "432 Ammonium Nitrate",
+            roman: "432 Ammonium nitrate",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "433 एमोनियम नाइट्रेट एक्स्प्लोसिभ",
+            english: "433 Ammonium Nitrate Explosive",
+            roman: "433 Ammonium nitrate explosive",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "434 एमोनियम परक्लोरेट",
+            english: "434 Ammonium Perchlorate",
+            roman: "434 Ammonium perchlorate",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "435 एलमुनियम तथा म्याग्नेसियम पाउडर प्लान्ट",
+            english: "435 Aluminum/ Magnesium Powder Plants",
+            roman: "435 Aluminum tatha magnesium powder plant",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "436 औद्योगिक सल्भेन्ट",
+            english: "436 Industrial Solvent",
+            roman: "436 Audyogik solvent",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "437 कडा अक्सिडाइजिङ एजेन्ट्स",
+            english: "437 Strong Oxidizing Agents",
+            roman: "437 Kadha oxidizing agents",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "438 कपर कार्वाइड",
+            english: "438 Copper Carbide",
+            roman: "438 Copper carbide",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "439 कपुर",
+            english: "439 Camphor",
+            roman: "439 Kapoor",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "440 कृतिम रेशम तथा फाइवर",
+            english: "440 Rayon Fiberor Fiber",
+            roman: "440 Kritim resham tatha fiber",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "441 क्याल्सियम क्लोराइड",
+            english: "441 Calcium Chloride",
+            roman: "441 Calcium chloride",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "442 क्याल्सियम नाइट्रेट एक्स्प्लोसिभ",
+            english: "442 Calcium Nitrate Explosive",
+            roman: "442 Calcium nitrate explosive",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "443 क्लोरेट एक्स्पोसिभ",
+            english: "443 Chlorate Explosive",
+            roman: "443 Chlorate explosive",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "444 खतरापूर्ण सामानको फोहोर",
+            english: "444 Waste of Hazardous Materials",
+            roman: "444 Khatarapurna saman ko fohor",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "445 खानीको लागि आवश्यक विस्फोटक",
+            english: "445 Mining Charges",
+            roman: "445 Khaniko lagi aawashyak bisphotak",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "446 गन कटन",
+            english: "446 Gun Cotton",
+            roman: "446 Gun cotton",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "447 गन कटन सोलुसन",
+            english: "447 Gun Cotton Solution",
+            roman: "447 Gun cotton solution",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "448 गन पाउडर",
+            english: "448 Gun Powder",
+            roman: "448 Gun powder",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "449 ग्यालेटिनाइज्ड निट्रोसेलुलोज पाउडर",
+            english: "449 Gelatinezed Nitrocellulose Powder",
+            roman: "449 Gelatinized nitrocellulose powder",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "450 ग्लिसिरिन नाइट्रेट",
+            english: "450 Glycerin Nitrate",
+            roman: "450 Glycerine nitrate",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "451 जिङ्क पाइक्रेट",
+            english: "451 Zinc Picrate",
+            roman: "451 Zinc picrate",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "452 जिङ्क फस्फाइड",
+            english: "452 Zinc Phosphide",
+            roman: "452 Zinc phosphide",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "453 जिर्कोनियम हाइड्राइड",
+            english: "453 Zirconium Hydride",
+            roman: "453 Zirconium hydride",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "454 टिटानियम हाइड्राइड",
+            english: "454 Titanium Hydride",
+            roman: "454 Titanium hydride",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "455 टीएनटी",
+            english: "455 TNT",
+            roman: "455 TNT",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "456 टेट्रानाइट्रोनाइलिन",
+            english: "456 Tetranitroniline",
+            roman: "456 Tetranitroniline",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "457 टेट्रानाइट्रोनाप्थालिन",
+            english: "457 Tetranitronaphthalene",
+            roman: "457 Tetranitronaphthaline",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "458 टेट्रानाइट्रोनाप्थालिन",
+            english: "458 Tetranitronapthalene",
+            roman: "458 Tetranitronaphthalin",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "459 टेट्रानाइट्रोफिनोल",
+            english: "459 Tetranitrophenol",
+            roman: "459 Tetranitrophenol",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "460 टेट्रानाइट्रोवेन्जेन",
+            english: "460 Tetranitrobenzene",
+            roman: "460 Tetranitrobenzene",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "461 टेट्रानाइट्रोग्लिसिरिन",
+            english: "461 Trinitroglycerin",
+            roman: "461 Tetranitroglycerin",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "462 ट्राइनाइट्रोटुलेन",
+            english: "462 Trinitotulene",
+            roman: "462 Trinitrotoluene",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "463 ट्राइनाइट्रोफिनोल",
+            english: "463 Trinitrophenol",
+            roman: "463 Trinitrophenol",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "464 ट्राइनाइट्रोफेनोलमिथाइलाइनाइट्रामाइन",
+            english: "464 Trinitrophenolmethylinitramine",
+            roman: "464 Trinitrophenolmethylinitramine",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "465 ट्राइनाइट्रोसेलुलोज",
+            english: "465 Trinitrocellulose",
+            roman: "465 Trinitrocellulose",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "466 ट्राइप्रोपाइलुमिनियम",
+            english: "466 Tripropyluminum",
+            roman: "466 Tripropyluminium",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "467 ड्राइनाइट्रो ग्लाइकोल",
+            english: "467 Dinitro Glycol",
+            roman: "467 Dinitro glycol",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "468 डाइनिट्रो ग्लिसिरिन",
+            english: "468 Dinitro Glycirne",
+            roman: "468 Dinitro glycerin",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "469 डायनामाइट",
+            english: "469 Dynamite",
+            roman: "469 Dynamite",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "470 डेटोनेटर",
+            english: "470 Detonators",
+            roman: "470 Detonator",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "471 तारपिन डिस्टीलरी",
+            english: "471 Rosin Distilleries",
+            roman: "471 Tarpin distillery",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "472 नाइट्रस [सबै प्रकारको]",
+            english: "472 Nitrites of all Kinds",
+            roman: "472 Nitrous [sabai prakarko]",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "473 नाइट्रेट एक्स्प्लोसिभ्स",
+            english: "473 Nitrate Explosives",
+            roman: "473 Nitrate explosives",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "474 नाइट्रो सुगर",
+            english: "474 NitroSugar",
+            roman: "474 Nitro sugar",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "475 नाइट्रो स्टार्च",
+            english: "475 NitroStarch",
+            roman: "475 Nitro starch",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "476 नाइट्रोग्लिसिरिन",
+            english: "476 Nitroglycerine",
+            roman: "476 Nitroglycerin",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "477 नाइट्रोग्लिसिरिन पाउडर",
+            english: "477 Nitroglycirine Powder",
+            roman: "477 Nitroglycerin powder",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "478 नाइट्रोजन क्लोराइड",
+            english: "478 Nitrogen Chloride",
+            roman: "478 Nitrogen chloride",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "479 नाइट्रोजन ट्राइक्लोराइड",
+            english: "479 Nitrogen Trichloride",
+            roman: "479 Nitrogen trichloride",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "480 निट्रो कार्वोनाइट्रेट",
+            english: "480 Nitro Carbonitrate",
+            roman: "480 Nitro carbonitrate",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "481 निट्रो सेलुलोज वस्तु",
+            english: "481 Nitro Cellulose Products",
+            roman: "481 Nitro cellulose bastu",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "482 निट्रोगेलाटिन डायनामाइट",
+            english: "482 Nitrogelatine Dynamite",
+            roman: "482 Nitrogelatin dynamite",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "483 निट्रोसेलुलोज",
+            english: "483 Nitrocellulose",
+            roman: "483 Nitrocellulose",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "484 पड्काउने सामग्री (बन्दुकमा राख्ने)",
+            english: "484 Explosive Charges",
+            roman: "484 Padkaune samagri (bandukma rakhne)",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "485 पर्क्युसियन क्याप्सुल",
+            english: "485 Percussion Capsules",
+            roman: "485 Percussion capsul",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "486 पर्क्रोमेट्स",
+            english: "486 Perchromates",
+            roman: "486 Perchromates",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "487 पर्क्लोरिक एसिड",
+            english: "487 Perchloric Acid",
+            roman: "487 Perchloric acid",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "488 पर्क्लोरेट [सबै प्रकारको]",
+            english: "488 Perchlorate of all Kind",
+            roman: "488 Perchlorate [sabai prakarko]",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "489 पर्क्लोरेट विस्फोटक",
+            english: "489 Perchlorate Explosives",
+            roman: "489 Perchlorate bisphotak",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "490 पानीको सम्पर्कमा आँउदा प्रज्वलनशील ग्यास निकाल्ने पदार्थ",
+            english: "490 Materials which evolves Combustible Gases in Contact of Water",
+            roman: "490 Panikko samparka ma aunda prajwalanashil gas nikalne padartha",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "491 पेट्रोकेमिकल",
+            english: "491 Petrochemicals",
+            roman: "491 Petrochemical",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "492 पोटासियम",
+            english: "492 Potassium",
+            roman: "492 Potassium",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "493 पोटासियम अमाल्गम",
+            english: "493 Potassium Amalgam",
+            roman: "493 Potassium amalgam",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "494 पोटासियम हाइड्राइड",
+            english: "494 Potassium Hydride",
+            roman: "494 Potassium hydride",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "495 प्रज्वलनशील ग्यास",
+            english: "495 Combustible Gases",
+            roman: "495 Prajwalanashil gas",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "496 प्रज्वलनशील निस्क्रिय ग्याँस",
+            english: "496 Inert Gases- Combustible",
+            roman: "496 Prajwalanashil niskriya gas",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "497 प्राइमर्स [विस्फोटक]",
+            english: "497 Primers",
+            roman: "497 Primers [bisphotak]",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "498 फस्फाइड्स",
+            english: "498 Phosphides",
+            roman: "498 Phosphides",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "499 फस्फाइन",
+            english: "499 Phosphine",
+            roman: "499 Phosphine",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "500 फस्फोरस [पहेँलो वा सेतो]",
+            english: "500 Phosphorus [Yellow or White]",
+            roman: "500 Phosphorus [pahelo wa seto]",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "501 मट्टितेल, डिजल, पेट्रोल",
+            english: "501 Kerosene, Diesel, Petrol",
+            roman: "501 Mattitel, diesel, petrol",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "502 मर्क्युरिक क्यानेट",
+            english: "502 Mercuric Cyanate",
+            roman: "502 Mercuric cyanate",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "503 युरिया पेरोअक्साइड",
+            english: "503 Urea Peroxide",
+            roman: "503 Urea peroxide",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "504 लाहा",
+            english: "504 Lac or Shellac",
+            roman: "504 Laha",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "505 लिड ट्राइनाइट्रोरेसोर्सिनेट",
+            english: "505 Lead Trinitroresorcinate",
+            roman: "505 Lead trinitroresorcinate",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "506 लिथियम एलुमिनियम हाइड्राइड",
+            english: "506 Lithium Aluminum Hydride",
+            roman: "506 Lithium aluminium hydride",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "507 विडी",
+            english: "507 Beedi",
+            roman: "507 Bidi",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "508 संक्रमण प्रतिरोधि तरल तथा तरल किटनाशक",
+            english: "508 Disinfectant Liquids and Liquid Insecticides",
+            roman: "508 Sankraman pratirakshit taral tatha taral kitnashak",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "509 साल्टपिटर ब्लास्टिङ पाउडर",
+            english: "509 Saltpeter Blasting Powder",
+            roman: "509 Saltpeter blasting powder",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "510 सिल्भर एसिटाइलिन",
+            english: "510 Silver Acetylene",
+            roman: "510 Silver acetylene",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "511 सुगर नाइट्रेट",
+            english: "511 Sugar Nitrate",
+            roman: "511 Sugar nitrate",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "512 सेफ्टी एक्स्क्लुसिभ",
+            english: "512 Safety Exclusive",
+            roman: "512 Safety exclusive",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "513 सोडियम",
+            english: "513 Sodium",
+            roman: "513 Sodium",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "514 सोडियम डाइनाइट्रो फिनोल",
+            english: "514 Sodium Dinitro Phenol",
+            roman: "514 Sodium dinitro phenol",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "515 सोडियम हाइड्राइड",
+            english: "515 Sodium Hydride",
+            roman: "515 Sodium hydride",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "516 सोडियम हाइपोसल्फाइड",
+            english: "516 Sodium Hyposulphide",
+            roman: "516 Sodium hyposulphide",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "517 स्टार्च नाइट्रेट",
+            english: "517 Start Nitrate",
+            roman: "517 Starch nitrate",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "518 हतियार तथा गोलिगठ्ठा",
+            english: "518 Arms and Ammunitions",
+            roman: "518 Hathiyar tatha goligathha",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "519 हाइड्राइड्स",
+            english: "519 Hydrides",
+            roman: "519 Hydrides",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "520 हाइड्रोजन क्यानाइड",
+            english: "520 Hydrogen Cyanide",
+            roman: "520 Hydrogen cyanide",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "521 हाइड्रोजन पेरोअक्साइड",
+            english: "521 Hydrogen Peroxide",
+            roman: "521 Hydrogen peroxide",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "522 हाइड्रोजन सल्फाइड",
+            english: "522 Hydrogen Sulphide",
+            roman: "522 Hydrogen sulphide",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        {
+            nepali: "523 हाइड्रोलिथ",
+            english: "523 Hydrolith",
+            roman: "523 Hydrolith",
+            category: "मध्यम खतराजन्य जोखिम",
+            rate: "7.5"
+        },
+        // उच्च खतराजन्य जोखिम (9 rate)
+        {
+            nepali: "524 पाइरोटेक्निक पदार्थ",
+            english: "524 Pyrotechnic materials",
+            roman: "524 Paairotechnic padartha",
+            category: "उच्च खतराजन्य जोखिम",
+            rate: "9"
+        },
+        {
+            nepali: "525 आफैं बल्ने पदार्थ",
+            english: "525 Materials which are self ignitable",
+            roman: "525 Aafai balne padartha",
+            category: "उच्च खतराजन्य जोखिम",
+            rate: "9"
+        },
+        {
+            nepali: "526 उच्च ज्वलनशील औद्योगिक ग्यास",
+            english: "526 High Flamable Industrial Gas",
+            roman: "526 Uchcha jwalanshil audyogik gas",
+            category: "उच्च खतराजन्य जोखिम",
+            rate: "9"
+        },
+        {
+            nepali: "527 कटन जिन तथा प्रेस हाउस",
+            english: "527 Cotton Gin and Press Houses",
+            roman: "527 Cotton gin tatha press house",
+            category: "उच्च खतराजन्य जोखिम",
+            rate: "9"
+        },
+        {
+            nepali: "528 प्लाइउड, काठलाई राम्रो पार्ने तथा ल्यामिनेट गर्ने",
+            english: "528 Plywood / Wood Veneering Factories/ Laminating",
+            roman: "528 Plywood, kathlai ramro parne tatha laminate garne",
+            category: "उच्च खतराजन्य जोखिम",
+            rate: "9"
+        },
+        {
+            nepali: "529 भुईंचम्पा, पटका तथा आतिसबाजी",
+            english: "529 Crackers and Fire Works",
+            roman: "529 Bhuinchampa, pataka tatha atisbaji",
+            category: "उच्च खतराजन्य जोखिम",
+            rate: "9"
+        },
+        {
+            nepali: "530 माथि उल्लेखित बाहेकका स्वजलन हुने प्रज्वलनशील पदार्थ",
+            english: "530 Self-Ignitable or Spontaneous Combustible Materials other than abvoe Listed",
+            roman: "530 Mathi ullekhit bahekka swajwalan hune prajwalanashil padartha",
+            category: "उच्च खतराजन्य जोखिम",
+            rate: "9"
+        },
+        {
+            nepali: "531 युरेनियम तथा युरेनियम जस्तै पदार्थ",
+            english: "531 Uranium and similar products",
+            roman: "531 Uranium tatha uranium jastai padartha",
+            category: "उच्च खतराजन्य जोखिम",
+            rate: "9"
+        },
+        {
+            nepali: "532 विद्युत उत्पादन केन्द्र (आणविक भट्टि बाट विद्युत उत्पादन गर्ने केन्द्र)",
+            english: "532 electricity PowerHouse - Aotmic Power Plant only",
+            roman: "532 Bidyut utpadan kendra (aanawik bhatti bata bidyut utpadan garne kendra)",
+            category: "उच्च खतराजन्य जोखिम",
+            rate: "9"
+        },
+        {
+            nepali: "533 विस्फोटक तथा विस्फोटक पदार्थ",
+            english: "533 Explosives of any Kind and Blasting Materials",
+            roman: "533 Bisphotak tatha bisphotak padartha",
+            category: "उच्च खतराजन्य जोखिम",
+            rate: "9"
+        },
+        {
+            nepali: "534 विस्फोटक पदार्थ बनाउने रसायन",
+            english: "534 Pyrotechnic Chemical",
+            roman: "534 Bisphotak padartha banaune rasayan",
+            category: "उच्च खतराजन्य जोखिम",
+            rate: "9"
+        },
+        {
+            nepali: "535 सलाई",
+            english: "535 Matches",
+            roman: "535 Salaai",
+            category: "उच्च खतराजन्य जोखिम",
+            rate: "9"
+        },
+        {
+            nepali: "536 सशक्त अक्सिडाईजिङ् एजेन्ट",
+            english: "536 Strong Oxidising Agents",
+            roman: "536 Sashakta oxidizing agent",
+            category: "उच्च खतराजन्य जोखिम",
+            rate: "9"
+        },
+        {
+            nepali: "537 सेलुलोइड",
+            english: "537 Celluloid",
+            roman: "537 Celluloid",
+            category: "उच्च खतराजन्य जोखिम",
+            rate: "9"
+        },
+        {
+            nepali: "538 सेलुलोइड फिल्म",
+            english: "538 Celluloid Film",
+            roman: "538 Celluloid film",
+            category: "उच्च खतराजन्य जोखिम",
+            rate: "9"
+        },
+        {
+            nepali: "539 सेलुलोइड सामान",
+            english: "539 Celluloid Goods",
+            roman: "539 Celluloid saamaan",
+            category: "उच्च खतराजन्य जोखिम",
+            rate: "9"
         }
     ];
     populatePropertyLists();
