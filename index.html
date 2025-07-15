@@ -498,12 +498,12 @@
             // Load CSS
             const link = document.createElement('link');
             link.rel = 'stylesheet';
-            link.href = 'top-line.css';
+            link.href = 'css/top-line.css';
             document.head.appendChild(link);
             
             // Load JS
             const script = document.createElement('script');
-            script.src = 'top-line.js';
+            script.src = 'js/top-line.js';
             document.body.appendChild(script);
         })
         .catch(error => console.error('Error loading top-line:', error));

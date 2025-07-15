@@ -56,14 +56,14 @@ body {
 
 .quick-links {
     display: flex;
-    gap: 15px;
+    gap: 14px;
     margin-left: 20px;
 }
 
 .quick-links a {
     color: white;
     text-decoration: none;
-    font-size: 14px;
+    font-size: 13px;
     padding: 5px 10px;
     border-radius: 4px;
     transition: background-color 0.3s;
