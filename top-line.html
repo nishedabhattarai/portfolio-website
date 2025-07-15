@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top Line</title>
+    <link rel="stylesheet" href="css/top-line.css">
+    <link rel="icon" type="image/x-icon" href="favicon.png">
+
+</head>
+<body>
+<!-- Top Line with Menu and Custom Settings Icon -->
+<div class="top-line">
+    <div class="menu-container">
+        <div class="menu" onclick="toggleMenu()">☰ Menu</div>
+        <div class="name">NISHEDA BHATTARAI</div>
+        <div class="quick-links">
+            <a href="index.html">Motor</a>
+            <a href="property.html">Property</a>
+            <a href="deno.html">Denomination</a>
+        </div>
+    </div>
+    <div class="settings-btn" onclick="toggleSettings()">︙</div> <!-- '︙' as Settings Icon -->
+</div>
+
+<!-- Dropdown Menu -->
+<div class="dropdown" id="menuDropdown">
+    <div>
+        <h4>Premium Calculator</h4>
+        <ul>
+            <li><a href="index.html" style="color: white; text-decoration: none;">Motor</a></li>
+            <li><a href="property.html" style="color: white; text-decoration: none;">Property</a></li>
+            <li>Marine (Coming Soon)</li>
+        </ul>
+    </div>
+    <div>
+        <h4>Cash Denomination</h4>
+        <ul>
+            <li><a href="deno.html" style="color: white; text-decoration: none;">Cash Denomination</a></li>
+        </ul>
+    </div>
+    <div>
+        <h4>Knowledge (Coming Soon)</h4>
+        <ul>
+            <li>Insurance</li>
+            <li>Share</li>
+            <li>SIP</li>
+        </ul>
+    </div>
+    <div>
+        <h4>Converter (Coming Soon)</h4>
+        <ul>
+            <li>Area converter</li>
+            <li>Price converter</li>
+            <li>Date converter</li>
+        </ul>
+    </div>
+    <div>
+        <button class="about-btn" onclick="showAbout()">About</button>
+    </div>
+</div>
+
+<!-- Settings Menu -->
+<div class="settings-menu" id="settingsMenu">
+    <label>
+        <input type="checkbox" id="darkModeToggle" onclick="toggleDarkMode()"> Dark Mode
+    </label>
+    <label>
+        Font Size:
+        <input type="range" id="fontSizeRange" min="12" max="24" value="16" oninput="changeFontSize()">
+    </label>
+</div>
+
+<!-- About Overlay -->
+<div id="aboutOverlay" class="overlay">
+    <div class="about-content">
+        <span class="close-btn" onclick="hideAbout()">&times;</span>
+        <h2>Premium Calculator</h2>
+        <p class="update-date">Updated on: 23-Jun-2025 at 11:38 PM</p>
+        <p>This is a premium calculator for Motor Insurance, Property insurance and Cash Denomination. It calculates the premium based on various parameters for motor insurance such as vehicle type, value, cubic capacity, additional options, calculate property insurance premium based on property details and cash denomination facility as per bill and payment options with data save facility.</p>
+        <h4>Developed by Nisheda Bhattarai</h4>
+        <p>Email: nisheda@walla.com</p>
+    </div>
+</div>
+    <div class="top-line-container"></div>
+
+    <script src="js/top-line.js"></script>
+
+</body>
+</html>

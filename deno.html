@@ -4,161 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cash Denomination</title>
+    <link rel="stylesheet" href="css/top-line.css">
     <link rel="icon" type="image/x-icon" href="favicon.png">
 
     <style>
-    /* Top line spanning the width of the page */
-    .top-line {
-        background-color: #002B5B; /* Dark blue */
-        height: 50px;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0 20px;
-        z-index: 1000; /* To make sure it's always on top */
+    /* Add this at the top of your CSS */
+    .form-group h3 {
+        margin-top: 0;
+        margin-bottom: 8px;
     }
-  
-    /* Menu button in top line */
-    .menu {
-        cursor: pointer;
-        color: white;
-        font-size: 20px;
-    }
-  
-    /* Custom Settings button with '︙' symbol */
-    .settings-btn {
-        cursor: pointer;
-        background-color: transparent;
-        color: white;
-        padding: 10px;
-        border-radius: 80%;
-        width: 30px;
-        height: 30px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 22px; /* Adjust size of the dots */
-        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
-    }
-  
-    /* Dropdown Menu */
-    .dropdown {
-        display: none;
-        background-color: #002B5B; /* Dark blue */
-        padding: 10px;
-        border: 1px solid #001f40;
-        width: 250px;
-        margin-top: 10px;
-        border-radius: 5px;
-        color: white;
-        position: absolute;
-        top: 50px; /* Position below the menu button */
-        left: 20px; /* Align with the menu button */
-    }
-  
-    .dropdown h4 {
-        margin: 10px 0 5px;
-        color: #ffffff;
-    }
-  
-    .dropdown ul {
-        list-style: none;
-        padding-left: 20px;
-        margin: 0 0 10px 0;
-    }
-  
-    .dropdown ul li {
-        margin: 4px 0;
-        cursor: pointer;
-        color: #d6e4ff;
-    }
-  
-    .dropdown ul li:hover {
-        text-decoration: underline;
-    }
-  
-    /* Settings Menu */
-    .settings-menu {
-        position: absolute;
-        top: 60px;
-        right: 20px;
-        background-color: #ffffff;
-        color: #333;
-        padding: 15px;
-        width: 200px;
-        border-radius: 5px;
-        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-        display: none;
-    }
-  
-    .settings-menu label {
-        display: block;
-        margin-bottom: 10px;
-    }
-  
-    .settings-menu input {
-        margin-right: 5px;
-    }
-  
-    .settings-btn {
-        cursor: pointer;
-        background-color: transparent;
-        color: white;
-        padding: 10px;
-        border-radius: 80%;
-        width: 30px;
-        height: 30px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 22px;
-        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
-        transition: background-color 0.3s; /* Smooth transition */
-    }
-  
-    /* Add this rule for hover effect */
-    .settings-btn:hover {
-        background-color: #0056b3; /* Change to a lighter or contrasting blue */
-    }
-  
-    .menu {
-        cursor: pointer;
-        color: white;
-        font-size: 20px;
-        padding: 10px;
-        border-radius: 5px;
-        transition: background-color 0.3s;
-    }
-  
-    /* Hover effect for Menu */
-    .menu:hover {
-        background-color: #0056b3; /* Lighter or contrasting blue */
-    }
-  
-    .dark-mode {
-        background-color: #121212;
-        color: #ffffff;
-    }
-  
-    .dark-mode .menu {
-        background-color: #333;
-    }
-  
-    .dark-mode .dropdown {
-        background-color: #333;
-        border: 1px solid #444;
-    }
-  
-    .dark-mode .settings-btn {
-        background-color: #444;
-    }  
-
+    
     body {
-        background-color: #D3D3D3;
+        background-color: #404040;
         color: #333;
         font-family: Arial, sans-serif;
         margin: 10px;
@@ -179,13 +36,20 @@
         gap: 20px;
     }
     
+    h1 {
+        text-align: center;
+        margin: 0px 0 15px; /* Reduced top margin */
+        color: whitesmoke;
+        font-size: 1.5rem;
+    }
+
     .input-column {
         flex: 1;
         min-width: 400px;
         border: 2px solid #ddd;
         padding: 15px;
         border-radius: 4px;
-        background-color: white;
+        background-color: #D3D3D3;
     }
     
     .result-column {
@@ -194,7 +58,7 @@
         border: 2px solid #ddd;
         padding: 15px;
         border-radius: 4px;
-        background-color: white;
+        background-color: #D3D3D3;
     }
     
     .section {
@@ -380,57 +244,6 @@
         }
     }
     
-    .about-btn {
-        background-color: #4CAF50;
-        color: white;
-        padding: 10px 20px;
-        border: none;
-        max-width: 100px;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 16px;
-    }
-    
-    .about-btn:hover {
-        background-color: #45a049;
-    }
-
-    /* Overlay styling */
-    .overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0,0,0,0.7);
-        display: none;
-        justify-content: center;
-        align-items: center;
-        z-index: 1000;
-    }
-
-    .about-content {
-        background-color: white;
-        padding: 30px;
-        border-radius: 8px;
-        max-width: 500px;
-        text-align: center;
-        position: relative;
-    }
-
-    .close-btn {
-        position: absolute;
-        top: 10px;
-        right: 15px;
-        font-size: 24px;
-        cursor: pointer;
-        color: #555;
-    }
-
-    .close-btn:hover {
-        color: #000;
-    }
-
     /* Add these styles */
     .mode-selector {
         margin: 10px 0;
@@ -478,71 +291,78 @@
     </style>
 </head>
 <body>
-    <!-- Top Line with Menu and Custom Settings Icon -->
-    <div class="top-line">
+<!-- Top Line with Menu and Custom Settings Icon -->
+<div class="top-line">
+    <div class="menu-container">
         <div class="menu" onclick="toggleMenu()">☰ Menu</div>
-        <div class="settings-btn" onclick="toggleSettings()">︙</div> <!-- '︙' as Settings Icon -->
+        <div class="quick-links">
+            <a href="index.html">MOTOR</a>
+            <a href="property.html" style="color: orange; text-decoration: none; font-weight: bold;">PROPERTY</a>
+            <a href="deno.html">DENOMINATION</a>
+        </div>
     </div>
+    <div class="settings-btn" onclick="toggleSettings()">︙</div> <!-- '︙' as Settings Icon -->
+</div>
 
-    <!-- Dropdown Menu -->
-    <div class="dropdown" id="menuDropdown">
-        <div>
-            <h4>Premium Calculator</h4>
-            <ul>
-                <li><a href="index.html" style="color: white; text-decoration: none;">Motor</a></li>
-                <li><a href="property.html" style="color: white; text-decoration: none;">Property</a></li>
-                <li>Marine (Coming Soon)</li>
-            </ul>
-        </div>
-        <div>
-            <h4>Cash Denomination</h4>
-            <ul>
-                <li><a href="deno.html" style="color: white; text-decoration: none;">Cash Denomination</a></li>
-            </ul>
-        </div>
-        <div>
-            <h4>Knowledge (Coming Soon)</h4>
-            <ul>
-                <li>Insurance</li>
-                <li>Share</li>
-                <li>SIP</li>
-            </ul>
-        </div>
-        <div>
-            <h4>Converter (Coming Soon)</h4>
-            <ul>
-                <li>Area converter</li>
-                <li>Price converter</li>
-                <li>Date converter</li>
-            </ul>
-        </div>
-        <div>
-            <button class="about-btn" onclick="showAbout()">About</button>
-        </div>
+<!-- Dropdown Menu -->
+<div class="dropdown" id="menuDropdown">
+    <div>
+        <h4>Premium Calculator</h4>
+        <ul>
+            <li><a href="index.html" style="color: #d6e4ff; text-decoration: none;">Motor</a></li>
+            <li><a href="property.html" style="color: orange; text-decoration: none;">Property (New)</a></li>
+            <li>Marine (Coming Soon)</li>
+        </ul>
     </div>
+    <div>
+        <h4>Cash Denomination</h4>
+        <ul>
+            <li><a href="deno.html" style="color: #d6e4ff; text-decoration: none;">Cash Denomination</a></li>
+        </ul>
+    </div>
+    <div>
+        <h4>Knowledge (Coming Soon)</h4>
+        <ul>
+            <li>Insurance</li>
+            <li>Share</li>
+            <li>SIP</li>
+        </ul>
+    </div>
+    <div>
+        <h4>Converter (Coming Soon)</h4>
+        <ul>
+            <li>Area converter</li>
+            <li>Price converter</li>
+            <li>Date converter</li>
+        </ul>
+    </div>
+    <div>
+        <button class="about-btn" onclick="showAbout()">About</button>
+    </div>
+</div>
 
-    <!-- Settings Menu -->
-    <div class="settings-menu" id="settingsMenu">
-        <label>
-            <input type="checkbox" id="darkModeToggle" onclick="toggleDarkMode()"> Dark Mode
-        </label>
-        <label>
-            Font Size:
-            <input type="range" id="fontSizeRange" min="12" max="24" value="16" oninput="changeFontSize()">
-        </label>
+<!-- Settings Menu -->
+<div class="settings-menu" id="settingsMenu">
+    <label>
+        <input type="checkbox" id="darkModeToggle" onclick="toggleDarkMode()"> Dark Mode
+    </label>
+    <label>
+        Font Size:
+        <input type="range" id="fontSizeRange" min="12" max="24" value="16" oninput="changeFontSize()">
+    </label>
+</div>
+
+<!-- About Overlay -->
+<div id="aboutOverlay" class="overlay">
+    <div class="about-content">
+        <span class="close-btn" onclick="hideAbout()">&times;</span>
+        <h2>Premium Calculator</h2>
+        <p class="update-date">Updated on: 15-Jul-2025 at 02:38 AM</p>
+        <p>This is a premium calculator for Motor Insurance, Property insurance and Cash Denomination. It calculates the premium based on various parameters such as vehicle type, value, cubic capacity, additional options for motor insurance, calculate property insurance premium based on property details and cash denomination facility as per bill and payment options with data save facility. I am trying to provide most of the usable tools that helps us to calculate insurance premium.</p><br>
+        <h4>Developed by Nisheda Bhattarai</h4>
+        <p>Email: nisheda@walla.com</p>
     </div>
-    
-    <div id="aboutOverlay" class="overlay">
-        <div class="about-content">
-            <span class="close-btn" onclick="hideAbout()">&times;</span>
-            <h2>Premium Calculator</h2> 
-            <h2>Version 1.12</h2>
-            <p>This is a premium calculator for motor insurance. It calculates the premium based on various parameters such as vehicle type, value, cubic capacity, and additional options.</p>
-            <h3>"""""""""""""""</h3>
-            <h4>Developed by Nisheda Bhattarai</h4>
-            <p>Email: nisheda@walla.com</p>
-        </div>
-    </div>
+</div>
 
     <div class="header">
         <h1>Cash Denomination</h1>
@@ -2101,5 +1921,6 @@
             }
         }
     </script>
+    <script src="js/top-line.js"></script>
 </body>
 </html>

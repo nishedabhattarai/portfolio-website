@@ -5,477 +5,511 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Motor Premium Calculator</title>
     <link rel="stylesheet" href="css/cssCalculator.css">
+    <link rel="stylesheet" href="css/top-line.css">
     <link rel="icon" type="image/x-icon" href="favicon.png">
+
 </head>
 <body>
-
-    <!-- Top Line with Menu and Custom Settings Icon -->
-    <div class="top-line">
+<!-- Top Line with Menu and Custom Settings Icon -->
+<div class="top-line">
+    <div class="menu-container">
         <div class="menu" onclick="toggleMenu()">☰ Menu</div>
-        <div class="settings-btn" onclick="toggleSettings()">︙</div> <!-- '︙' as Settings Icon -->
+        <div class="quick-links">
+            <a href="index.html">MOTOR</a>
+            <a href="property.html" style="color: orange; text-decoration: none; font-weight: bold;">PROPERTY</a>
+            <a href="deno.html">DENOMINATION</a>
+        </div>
     </div>
+    <div class="settings-btn" onclick="toggleSettings()">︙</div> <!-- '︙' as Settings Icon -->
+</div>
 
-    <!-- Dropdown Menu -->
-    <div class="dropdown" id="menuDropdown">
-        <div>
-            <h4>Premium Calculator</h4>
-            <ul>
-                <li><a href="index.html" style="color: white; text-decoration: none;">Motor</a></li>
-                <li><a href="property.html" style="color: white; text-decoration: none;">Property</a></li>
-                <li>Marine (Coming Soon)</li>
-            </ul>
-        </div>
-        <div>
-            <h4>Cash Denomination</h4>
-            <ul>
-                <li><a href="deno.html" style="color: white; text-decoration: none;">Cash Denomination</a></li>
-            </ul>
-        </div>
-        <div>
-            <h4>Knowledge (Coming Soon)</h4>
-            <ul>
-                <li>Insurance</li>
-                <li>Share</li>
-                <li>SIP</li>
-            </ul>
-        </div>
-        <div>
-            <h4>Converter (Coming Soon)</h4>
-            <ul>
-                <li>Area converter</li>
-                <li>Price converter</li>
-                <li>Date converter</li>
-            </ul>
-        </div>
-        <div>
-            <button class="about-btn" onclick="showAbout()">About</button>
-        </div>
+<!-- Dropdown Menu -->
+<div class="dropdown" id="menuDropdown">
+    <div>
+        <h4>Premium Calculator</h4>
+        <ul>
+            <li><a href="index.html" style="color: #d6e4ff; text-decoration: none;">Motor</a></li>
+            <li><a href="property.html" style="color: orange; text-decoration: none;">Property (New)</a></li>
+            <li>Marine (Coming Soon)</li>
+        </ul>
     </div>
+    <div>
+        <h4>Cash Denomination</h4>
+        <ul>
+            <li><a href="deno.html" style="color: #d6e4ff; text-decoration: none;">Cash Denomination</a></li>
+        </ul>
+    </div>
+    <div>
+        <h4>Knowledge (Coming Soon)</h4>
+        <ul>
+            <li>Insurance</li>
+            <li>Share</li>
+            <li>SIP</li>
+        </ul>
+    </div>
+    <div>
+        <h4>Converter (Coming Soon)</h4>
+        <ul>
+            <li>Area converter</li>
+            <li>Price converter</li>
+            <li>Date converter</li>
+        </ul>
+    </div>
+    <div>
+        <button class="about-btn" onclick="showAbout()">About</button>
+    </div>
+</div>
 
-    <!-- Settings Menu -->
-    <div class="settings-menu" id="settingsMenu">
-        <label>
-            <input type="checkbox" id="darkModeToggle" onclick="toggleDarkMode()"> Dark Mode
-        </label>
-        <label>
-            Font Size:
-            <input type="range" id="fontSizeRange" min="12" max="24" value="16" oninput="changeFontSize()">
-        </label>
+<!-- Settings Menu -->
+<div class="settings-menu" id="settingsMenu">
+    <label>
+        <input type="checkbox" id="darkModeToggle" onclick="toggleDarkMode()"> Dark Mode
+    </label>
+    <label>
+        Font Size:
+        <input type="range" id="fontSizeRange" min="12" max="24" value="16" oninput="changeFontSize()">
+    </label>
+</div>
+
+<!-- About Overlay -->
+<div id="aboutOverlay" class="overlay">
+    <div class="about-content">
+        <span class="close-btn" onclick="hideAbout()">&times;</span>
+        <h2>Premium Calculator</h2>
+        <p class="update-date">Updated on: 15-Jul-2025 at 02:38 AM</p>
+        <p>This is a premium calculator for Motor Insurance, Property insurance and Cash Denomination. It calculates the premium based on various parameters such as vehicle type, value, cubic capacity, additional options for motor insurance, calculate property insurance premium based on property details and cash denomination facility as per bill and payment options with data save facility. I am trying to provide most of the usable tools that helps us to calculate insurance premium.</p><br>
+        <h4>Developed by Nisheda Bhattarai</h4>
+        <p>Email: nisheda@walla.com</p>
     </div>
+</div>
+
+<div class="container">
+    <h1>Motor Insurance Premium Calculator</h1>
     
-    <div id="aboutOverlay" class="overlay">
-        <div class="about-content">
-            <span class="close-btn" onclick="hideAbout()">&times;</span>
-            <h2>Premium Calculator</h2> 
-            <h2>Updated on: 23-Jun-2025 at 11:38 PM</h2>
-            <p>This is a premium calculator for motor insurance. It calculates the premium based on various parameters such as vehicle type, value, cubic capacity, and additional options.</p>
-            <h3>"""""""""""""""</h3>
-            <h4>Developed by Nisheda Bhattarai</h4>
-            <p>Email: nisheda@walla.com</p>
-        </div>
-    </div>
-
-    <div class="container">
-        <h1>Motor Premium Calculator</h1>
-        
-        <div class="calculator-grid">
-            <div class="form-container">
-                <form id="premiumForm">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="vehicleType">Vehicle Type</label>
-                            <select id="vehicleType" onchange="toggleVehicleFields()">
-                                <option value="motorcycle" data-link="motorcycle.html">Motorcycle</option>
-                                <option value="private" data-link="private.html">Private</option>
-                                <option value="electric" data-link="electric.html">Electric Vehicle (PV)</option>
-                                <option value="passenger" data-link="passenger.html">Passenger</option>
-                                <option value="goods" data-link="goodsloading.html">Goods Loading</option>
-                                <option value="tanker" data-link="tanker.html">Tanker</option>
-                                <option value="tractor" data-link="tractor.html">Tractor</option>
-                                <option value="tempo" data-link="tempo.html">Tricycle/Tempo/E-Rikshaw</option>
-                                <option value="construction" data-link="construction.html">Construction</option>
-                                <option value="taxi" data-link="taxi.html">Taxi</option>
-                                <option value="agriculture" data-link="agriculture.html">Agriculture/Forestry</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Vehicle Category</label>
-                            <div class="radio-group">
-                                <label><input type="radio" name="govType" value="nonGovernment" checked> Non Government</label>
-                                <label><input type="radio" name="govType" value="government"> Government</label>
-                            </div>
-                        </div>
+    <div class="calculator-grid">
+        <div class="form-container">
+            <form id="premiumForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="vehicleType">Vehicle Type</label>
+                        <select id="vehicleType" onchange="toggleVehicleFields()">
+                            <option value="motorcycle" data-link="motorcycle.html">Motorcycle</option>
+                            <option value="private" data-link="private.html">Private</option>
+                            <option value="electric" data-link="electric.html">Electric Vehicle (PV)</option>
+                            <option value="passenger" data-link="passenger.html">Passenger</option>
+                            <option value="goods" data-link="goodsloading.html">Goods Loading</option>
+                            <option value="tanker" data-link="tanker.html">Tanker</option>
+                            <option value="tractor" data-link="tractor.html">Tractor</option>
+                            <option value="tempo" data-link="tempo.html">Tricycle/Tempo/E-Rikshaw</option>
+                            <option value="construction" data-link="construction.html">Construction</option>
+                            <option value="taxi" data-link="taxi.html">Taxi</option>
+                            <option value="agriculture" data-link="agriculture.html">Agriculture/Forestry</option>
+                        </select>
                     </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="vehicleValue">Vehicle Value</label>
-                            <input type="number" id="vehicleValue" placeholder="Ignore for Third Party" min="25000" oninput="toggleFieldsBasedOnValue()">
-                            <div class="error-message" id="vehicleValueError"></div>
-                        </div>
-                        <div class="form-group" id="ccGroup">
-                            <label for="cubicCapacity">Cubic Capacity (cc)<span class="required">*</span></label>
-                            <input type="number" id="cubicCapacity" placeholder="Enter cc" min="0">
-                            <div class="error-message" id="cubicCapacityError">Cubic capacity is required</div>
-                        </div>
-                        <div class="form-group" id="electricTypeGroup" style="display: none;">
-                            <label for="electricType">Electric Type</label>
-                            <select id="electricType" onchange="toggleElectricFields()">
-                                <option value="no">No</option>
-                                <option value="yes">Yes</option>
-                            </select>
-                        </div>
-                        <div class="form-group" id="hpWattGroup" style="display: none;">
-                            <label for="hpWattValue">HP/Watt Value<span class="required">*</span></label>
-                            <input type="number" id="hpWattValue" placeholder="Enter HP/watt" min="0">
-                            <div class="error-message" id="hpWattValueError">HP/Watt value is required</div>
-                        </div>
-                        <div class="form-group" id="seatCapacityGroup">
-                            <label for="seatCapacity">Seat Capacity<span class="required">*</span></label>
-                            <input type="number" id="seatCapacity" placeholder="Enter Seat Capacity" min="1">
-                            <div class="error-message" id="seatCapacityError">Seat capacity is required</div>
-                        </div>
-                        <div class="form-group" id="helperGroup" style="display: none;">
-                            <label for="helper">Helper (Max 3)</label>
-                            <input type="number" id="helper" placeholder="Enter helpers" min="0" max="3">
-                        </div>
-                        <div class="form-group" id="tonCapacityGroup" style="display: none;">
-                            <label for="tonCapacity">Ton Capacity<span class="required">*</span></label>
-                            <input type="number" id="tonCapacity" placeholder="Enter ton Capacity" min="0">
-                            <div class="error-message" id="tonCapacityError">Ton capacity is required</div>
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group" id="trailerGroup" style="display: none;">
-                            <label for="hasTrailer">Trailer</label>
-                            <select id="hasTrailer" onchange="toggleTrailerValue()">
-                                <option value="no">No</option>
-                                <option value="yes">Yes</option>
-                            </select>
-                        </div>
-                        <div class="form-group" id="trailerValueGroup" style="display: none;">
-                            <label for="trailerValue">Trailer Value</label>
-                            <input type="number" id="trailerValue" placeholder="Enter value" min="0">
-                        </div>
-                    </div>
-
-                    <div class="form-row" id="optionalFieldsGroup">
-                        <div class="form-group" id="voluntaryExcessGroup">
-                            <label for="voluntaryExcess">Voluntary Excess</label>
-                            <select id="voluntaryExcess">
-                                <option value="0">0 (0%)</option>
-                                <option value="500">500 (10%)</option>
-                                <option value="1000">1000 (15%)</option>
-                                <option value="2000">2000 (20%)</option>
-                            </select>
-                        </div>
-                        <div class="form-group" id="noClaimDiscountGroup">
-                            <label for="noClaimDiscount">No Claim Discount</label>
-                            <select id="noClaimDiscount">
-                                <option value="0">0 (0%)</option>
-                                <option value="1">1 (15%)</option>
-                                <option value="2">2 (25%)</option>
-                                <option value="3">3 (35%)</option>
-                            </select>
-                        </div>
-                        <div class="form-group" id="manufacturingYearGroup">
-                            <label for="manufacturingYear">Manufacturing Year<span class="required">*</span></label>
-                            <input type="number" id="manufacturingYear" placeholder="YYYY" min="1900" max="9999">
-                            <div class="error-message" id="manufacturingYearError"></div>
-                        </div>
-                    </div>
-                        
-                    <div class="form-row" id="additionalOptionsGroup">
-                        <div class="form-group">
-                            <label>Additional Options</label>
-                            <label class="checkbox-label" id="directDiscountOption">
-                                <input type="checkbox" id="directDiscount"> Direct Discount (2.5%)
-                            </label>
-                            <label class="checkbox-label" id="rsmdstOption">
-                                <input type="checkbox" id="rsmdst" checked> RSMDST
-                            </label>
-                            <label class="checkbox-label" id="disabledFriendlyOption" style="display: none;">
-                                <input type="checkbox" id="disabledFriendly"> Disabled Friendly (25% discount)
-                            </label>
-                            <label class="checkbox-label" id="towingChargeOption" style="display: none;">
-                                <input type="checkbox" id="towingCharge" checked> Towing Charge
-                            </label>
-                            <label class="checkbox-label" id="ownGoodsOption" style="display: none;">
-                                <input type="checkbox" id="ownGoods"> Own Goods Carrying
-                            </label>
-                        </div>
-
-                    <div class="form-group" id="calculationTypeGroup">
-                        <div class="form-group">
-                            <label for="calculationType">Calculation Type</label>
-                            <select id="calculationType">
-                                <option value="annual">Annual</option>
-                                <option value="shortPeriod">Short Period</option>
-                                <option value="proRate">Pro Rate</option>
-                            </select>
-                        </div>
-                        <div class="form-group" id="durationField" style="display: none;">
-                            <label id="durationLabel">Duration</label>
-                            <select id="shortPeriod" style="display: none;">
-                                <option value="1week">1 Week</option>
-                                <option value="1month">1 Month</option>
-                                <option value="2months">2 Months</option>
-                                <option value="3months">3 Months</option>
-                                <option value="4months">4 Months</option>
-                                <option value="5months">5 Months</option>
-                                <option value="6months">6 Months</option>
-                                <option value="7months">7 Months</option>
-                                <option value="8months">8 Months or Above</option>
-                            </select>
-                            <input type="number" id="proRateDays" placeholder="Number of days" min="1" max="365" style="display: none;">
-                            <div class="error-message" id="durationError"></div>
+                    <div class="form-group">
+                        <label>Vehicle Category</label>
+                        <div class="radio-group">
+                            <label><input type="radio" name="govType" value="nonGovernment" checked> Non Government</label>
+                            <label><input type="radio" name="govType" value="government"> Government</label>
                         </div>
                     </div>
                 </div>
 
-                    <div class="form-row" id="autoplusGroup" style="display: none;">
-                        <div class="form-group">
-                            <label for="autoplusOption">Autoplus Insurance</label>
-                            <select id="autoplusOption" onchange="toggleAutoplusFields()">
-                                <option value="withoutAp">No</option>
-                                <option value="withAp">Yes</option>
-                            </select>
-                        </div>
-                        <div class="form-group" id="companyField" style="display: none;">
-                            <label for="companyLabel">Insurance Company</label>
-                            <select id="withAp">
-                                <option value="shikhar">Shikhar Insurance Co. Ltd.</option>
-                            </select>
-                        </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="vehicleValue">Vehicle Value</label>
+                        <input type="number" id="vehicleValue" placeholder="Ignore for Third Party" min="25000" oninput="toggleFieldsBasedOnValue()">
+                        <div class="error-message" id="vehicleValueError"></div>
+                    </div>
+                    <div class="form-group" id="ccGroup">
+                        <label for="cubicCapacity">Cubic Capacity (cc)<span class="required">*</span></label>
+                        <input type="number" id="cubicCapacity" placeholder="Enter cc" min="0">
+                        <div class="error-message" id="cubicCapacityError">Cubic capacity is required</div>
+                    </div>
+                    <div class="form-group" id="electricTypeGroup" style="display: none;">
+                        <label for="electricType">Electric Type</label>
+                        <select id="electricType" onchange="toggleElectricFields()">
+                            <option value="no">No</option>
+                            <option value="yes">Yes</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="hpWattGroup" style="display: none;">
+                        <label for="hpWattValue">HP/Watt Value<span class="required">*</span></label>
+                        <input type="number" id="hpWattValue" placeholder="Enter HP/watt" min="0">
+                        <div class="error-message" id="hpWattValueError">HP/Watt value is required</div>
+                    </div>
+                    <div class="form-group" id="seatCapacityGroup">
+                        <label for="seatCapacity">Seat Capacity<span class="required">*</span></label>
+                        <input type="number" id="seatCapacity" placeholder="Enter Seat Capacity" min="1">
+                        <div class="error-message" id="seatCapacityError">Seat capacity is required</div>
+                    </div>
+                    <div class="form-group" id="helperGroup" style="display: none;">
+                        <label for="helper">Helper (Max 3)</label>
+                        <input type="number" id="helper" placeholder="Enter helpers" min="0" max="3">
+                    </div>
+                    <div class="form-group" id="tonCapacityGroup" style="display: none;">
+                        <label for="tonCapacity">Ton Capacity<span class="required">*</span></label>
+                        <input type="number" id="tonCapacity" placeholder="Enter ton Capacity" min="0">
+                        <div class="error-message" id="tonCapacityError">Ton capacity is required</div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group" id="trailerGroup" style="display: none;">
+                        <label for="hasTrailer">Trailer</label>
+                        <select id="hasTrailer" onchange="toggleTrailerValue()">
+                            <option value="no">No</option>
+                            <option value="yes">Yes</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="trailerValueGroup" style="display: none;">
+                        <label for="trailerValue">Trailer Value</label>
+                        <input type="number" id="trailerValue" placeholder="Enter value" min="0">
+                    </div>
+                </div>
+
+                <div class="form-row" id="optionalFieldsGroup">
+                    <div class="form-group" id="voluntaryExcessGroup">
+                        <label for="voluntaryExcess">Voluntary Excess</label>
+                        <select id="voluntaryExcess">
+                            <option value="0">0 (0%)</option>
+                            <option value="500">500 (10%)</option>
+                            <option value="1000">1000 (15%)</option>
+                            <option value="2000">2000 (20%)</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="noClaimDiscountGroup">
+                        <label for="noClaimDiscount">No Claim Discount</label>
+                        <select id="noClaimDiscount">
+                            <option value="0">0 (0%)</option>
+                            <option value="1">1 (15%)</option>
+                            <option value="2">2 (25%)</option>
+                            <option value="3">3 (35%)</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="manufacturingYearGroup">
+                        <label for="manufacturingYear">Manufacturing Year<span class="required">*</span></label>
+                        <input type="number" id="manufacturingYear" placeholder="YYYY" min="1900" max="9999">
+                        <div class="error-message" id="manufacturingYearError"></div>
+                    </div>
+                </div>
                     
-                        <div class="form-group" id="autoplusTypeGroup" style="display: none;">
-                            <label for="autoplusOption">Autoplus Options</label>
-                            <div class="checkbox-group">
-                                <label class="checkbox-label" id="depreciationWaiverOption">
-                                    <input type="checkbox" id="depreciationWaiver" checked> Depreciation Waiver
-                                </label>
-                                <label class="checkbox-label" id="newVehicleReplacementOption"> 
-                                    <input type="checkbox" id="newVehicleReplacement"> New Vehicle Replacement
-                                </label>
-                                <label class="checkbox-label">
-                                    <input type="checkbox" id="dailyRental"> Daily Rental / Transportation Cost
-                                </label>
-                            </div>
+                <div class="form-row" id="additionalOptionsGroup">
+                    <div class="form-group">
+                        <label>Additional Options</label>
+                        <label class="checkbox-label" id="directDiscountOption">
+                            <input type="checkbox" id="directDiscount"> Direct Discount (2.5%)
+                        </label>
+                        <label class="checkbox-label" id="rsmdstOption">
+                            <input type="checkbox" id="rsmdst" checked> RSMDST
+                        </label>
+                        <label class="checkbox-label" id="disabledFriendlyOption" style="display: none;">
+                            <input type="checkbox" id="disabledFriendly"> Disabled Friendly (25% discount)
+                        </label>
+                        <label class="checkbox-label" id="towingChargeOption" style="display: none;">
+                            <input type="checkbox" id="towingCharge" checked> Towing Charge
+                        </label>
+                        <label class="checkbox-label" id="ownGoodsOption" style="display: none;">
+                            <input type="checkbox" id="ownGoods"> Own Goods Carrying
+                        </label>
+                    </div>
+
+                <div class="form-group" id="calculationTypeGroup">
+                    <div class="form-group">
+                        <label for="calculationType">Calculation Type</label>
+                        <select id="calculationType">
+                            <option value="annual">Annual</option>
+                            <option value="shortPeriod">Short Period</option>
+                            <option value="proRate">Pro Rate</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="durationField" style="display: none;">
+                        <label id="durationLabel">Duration</label>
+                        <select id="shortPeriod" style="display: none;">
+                            <option value="1week">1 Week</option>
+                            <option value="1month">1 Month</option>
+                            <option value="2months">2 Months</option>
+                            <option value="3months">3 Months</option>
+                            <option value="4months">4 Months</option>
+                            <option value="5months">5 Months</option>
+                            <option value="6months">6 Months</option>
+                            <option value="7months">7 Months</option>
+                            <option value="8months">8 Months or Above</option>
+                        </select>
+                        <input type="number" id="proRateDays" placeholder="Number of days" min="1" max="365" style="display: none;">
+                        <div class="error-message" id="durationError"></div>
+                    </div>
+                </div>
+            </div>
+
+                <div class="form-row" id="autoplusGroup" style="display: none;">
+                    <div class="form-group">
+                        <label for="autoplusOption">Autoplus Insurance</label>
+                        <select id="autoplusOption" onchange="toggleAutoplusFields()">
+                            <option value="withoutAp">No</option>
+                            <option value="withAp">Yes</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="companyField" style="display: none;">
+                        <label for="companyLabel">Insurance Company</label>
+                        <select id="withAp">
+                            <option value="shikhar">Shikhar Insurance Co. Ltd.</option>
+                        </select>
+                    </div>
+                
+                    <div class="form-group" id="autoplusTypeGroup" style="display: none;">
+                        <label for="autoplusOption">Autoplus Options</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label" id="depreciationWaiverOption">
+                                <input type="checkbox" id="depreciationWaiver" checked> Depreciation Waiver
+                            </label>
+                            <label class="checkbox-label" id="newVehicleReplacementOption"> 
+                                <input type="checkbox" id="newVehicleReplacement"> New Vehicle Replacement
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="dailyRental"> Daily Rental / Transportation Cost
+                            </label>
                         </div>
                     </div>
+                </div>
 
-                    <div class="form-row" style="margin-top: 5px;">
-                        <button type="button" id="calculateBtn" style="margin-top: 0;">Calculate Premium</button>
-                        <button type="button" id="clearBtn" class="clear-btn" style="margin-top: 0;">Clear</button>
-                    </div>
-                </form>
+                <div class="form-row" style="margin-top: 5px;">
+                    <button type="button" id="calculateBtn" style="margin-top: 0;">Calculate Premium</button>
+                    <button type="button" id="clearBtn" class="clear-btn" style="margin-top: 0;">Clear</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="results-container">
+            <h2>Calculation Results</h2>
+            <div class="results-placeholder">
+                <p>Fill the form and click "Calculate Premium" to see results</p>
             </div>
-
-            <div class="results-container">
-                <h2>Calculation Results</h2>
-                <div class="results-placeholder">
-                    <p>Fill the form and click "Calculate Premium" to see results</p>
+            <div class="results-details" style="display: none;">
+                <div class="result-item" id="normalPremiumItem" style="display: none;">
+                    <span>Normal Premium:</span>
+                    <span id="normalPremium">NPR 0.00</span>
                 </div>
-                <div class="results-details" style="display: none;">
-                    <div class="result-item" id="normalPremiumItem" style="display: none;">
-                        <span>Normal Premium:</span>
-                        <span id="normalPremium">NPR 0.00</span>
-                    </div>
-                    <div class="result-item" id="additionalPremiumItem" style="display: none;">
-                        <span>Additional Premium:</span>
-                        <span id="additionalPremium">NPR 0.00</span>
-                    </div>
-                    <div class="result-item" id="tariffDiscountItem" style="display: none;">
-                        <span>Tariff Discount:</span>
-                        <span id="tariffDiscount">NPR 0.00</span>
-                    </div>
-                    <div class="result-item" id="trailerChargeItem" style="display: none;">
-                        <span>Trailer Charge:</span>
-                        <span id="trailerCharge">NPR 0.00</span>
-                    </div>
-                    <div class="result-item" id="oldVehicleChargeItem" style="display: none;">
-                        <span>Old Vehicle Charge:</span>
-                        <span id="oldVehicleCharge">NPR 0.00</span>
-                    </div>
-                    <div class="result-item" id="voluntaryExcessAmountItem" style="display: none;">
-                        <span>Voluntary Excess Amount:</span>
-                        <span id="voluntaryExcessAmount">NPR 0.00</span>
-                    </div>
-                    <div class="result-item" id="noClaimDiscountAmountItem" style="display: none;">
-                        <span>No Claim Discount Amount:</span>
-                        <span id="noClaimDiscountAmount">NPR 0.00</span>
-                    </div>
-                    <div class="result-item" id="ownGoodsAmountItem" style="display: none;">
-                        <span>Own Goods Carrying:</span>
-                        <span id="ownGoodsAmount">NPR 0.00</span>
-                    </div>
-                    <div class="result-item" id="directDiscountAmountItem" style="display: none;">
-                        <span>Direct Discount Amount:</span>
-                        <span id="directDiscountAmount">NPR 0.00</span>
-                    </div>
-                    <div class="result-item discount-item" id="electricDiscountItem" style="display: none;">
-                        <span>Electric Type Discount (25%):</span>
-                        <span id="electricDiscountAmount">NPR 0.00</span>
-                    </div>
-                    <div class="result-item discount-item" id="disabledDiscountItem" style="display: none;">
-                        <span>Disabled Friendly Discount (25%):</span>
-                        <span id="disabledDiscountAmount">NPR 0.00</span>
-                    </div>
-                    <div class="result-item" id="towingChargeAmountItem" style="display: none;">
-                        <span>Towing Charge:</span>
-                        <span id="towingChargeAmount">NPR 0.00</span>
-                    </div>
-                    <div class="result-item" id="basicPremiumItem" style="display: none;">
-                        <span>Basic Premium:</span>
-                        <span id="basicPremium">NPR 0.00</span>
-                    </div>
-                    <div class="result-item" id="thirdPartyItem" style="display: none;">
-                        <span>Third Party:</span>
-                        <span id="thirdParty">NPR 0.00</span>
-                    </div>
-                    <div class="result-item" id="noClaimDiscountTPItem" style="display: none;">
-                        <span>No Claim Discount (TP):</span>
-                        <span id="noClaimDiscountTP">NPR 0.00</span>
-                    </div>
-                    <div class="result-item discount-item" id="disabledDiscountTPItem" style="display: none;">
-                        <span>Disabled Friendly Discount (TP 25%):</span>
-                        <span id="disabledDiscountTPAmount">NPR 0.00</span>
-                    </div>
-                    <div class="result-item" id="thirdPartyPremiumItem" style="display: none;">
-                        <span>Third Party Premium:</span>
-                        <span id="thirdPartyPremium">NPR 0.00</span>
-                    </div>
-                    <div class="result-item" id="driverPremiumItem" style="display: none;">
-                        <span>Driver Premium:</span>
-                        <span id="driverPremium">NPR 0.00</span>
-                    </div>
-                    <div class="result-item" id="helperPremiumItem" style="display: none;">
-                        <span>Helper Premium:</span>
-                        <span id="helperPremium">NPR 0.00</span>
-                    </div>
-                    <div class="result-item" id="passengerPremiumItem" style="display: none;">
-                        <span>Passenger Premium:</span>
-                        <span id="passengerPremium">NPR 0.00</span>
-                    </div>
-                    <div class="result-item" id="rsmdstAmountItem" style="display: none;">
-                        <span>RSMDST:</span>
-                        <span id="rsmdstAmount">NPR 0.00</span>
-                    </div>
-                    <div class="result-item">
-                        <span>VAT (13%):</span>
-                        <span id="vatAmount">NPR 0.00</span>
-                    </div>
-                    <div class="result-item">
-                        <span>Stamp Charge:</span>
-                        <span id="stampCharge">NPR 0.00</span>
-                    </div>
-                    <div class="result-item total">
-                        <span>Total Premium:</span>
-                        <span id="totalPremium">NPR 0.00</span>
-                    </div>
-                    <div class="result-item" id="totalApPremiumItem" style="display: none;">
-                        <span>Total Autoplus Premium:</span>
-                        <span id="totalApPremium">NPR 0.00</span>
-                    </div>
-                    <div class="result-item total" id="totalPremiumWithAutoplusItem" style="display: none;">
-                        <span>Total Premium with Autoplus:</span>
-                        <span id="totalPremiumWithAutoplus">NPR 0.00</span>
-                    </div>
+                <div class="result-item" id="additionalPremiumItem" style="display: none;">
+                    <span>Additional Premium:</span>
+                    <span id="additionalPremium">NPR 0.00</span>
                 </div>
-                
-                <div class="print-buttons-container" id="printButtons" style="display: none; margin-top: 5px;">
-                    <div class="form-row">
-                        <button id="printBtn" class="printbtn" style="margin-top: 1;">Print</button>
-                        <button id="downloadPdfBtn" class="downloadPdfBtn" style="margin-top: 1;">Download PDF</button>
-                    </div>
+                <div class="result-item" id="tariffDiscountItem" style="display: none;">
+                    <span>Tariff Discount:</span>
+                    <span id="tariffDiscount">NPR 0.00</span>
+                </div>
+                <div class="result-item" id="trailerChargeItem" style="display: none;">
+                    <span>Trailer Charge:</span>
+                    <span id="trailerCharge">NPR 0.00</span>
+                </div>
+                <div class="result-item" id="oldVehicleChargeItem" style="display: none;">
+                    <span>Old Vehicle Charge:</span>
+                    <span id="oldVehicleCharge">NPR 0.00</span>
+                </div>
+                <div class="result-item" id="voluntaryExcessAmountItem" style="display: none;">
+                    <span>Voluntary Excess Amount:</span>
+                    <span id="voluntaryExcessAmount">NPR 0.00</span>
+                </div>
+                <div class="result-item" id="noClaimDiscountAmountItem" style="display: none;">
+                    <span>No Claim Discount Amount:</span>
+                    <span id="noClaimDiscountAmount">NPR 0.00</span>
+                </div>
+                <div class="result-item" id="ownGoodsAmountItem" style="display: none;">
+                    <span>Own Goods Carrying:</span>
+                    <span id="ownGoodsAmount">NPR 0.00</span>
+                </div>
+                <div class="result-item" id="directDiscountAmountItem" style="display: none;">
+                    <span>Direct Discount Amount:</span>
+                    <span id="directDiscountAmount">NPR 0.00</span>
+                </div>
+                <div class="result-item discount-item" id="electricDiscountItem" style="display: none;">
+                    <span>Electric Type Discount (25%):</span>
+                    <span id="electricDiscountAmount">NPR 0.00</span>
+                </div>
+                <div class="result-item discount-item" id="disabledDiscountItem" style="display: none;">
+                    <span>Disabled Friendly Discount (25%):</span>
+                    <span id="disabledDiscountAmount">NPR 0.00</span>
+                </div>
+                <div class="result-item" id="towingChargeAmountItem" style="display: none;">
+                    <span>Towing Charge:</span>
+                    <span id="towingChargeAmount">NPR 0.00</span>
+                </div>
+                <div class="result-item" id="basicPremiumItem" style="display: none;">
+                    <span>Basic Premium:</span>
+                    <span id="basicPremium">NPR 0.00</span>
+                </div>
+                <div class="result-item" id="thirdPartyItem" style="display: none;">
+                    <span>Third Party:</span>
+                    <span id="thirdParty">NPR 0.00</span>
+                </div>
+                <div class="result-item" id="noClaimDiscountTPItem" style="display: none;">
+                    <span>No Claim Discount (TP):</span>
+                    <span id="noClaimDiscountTP">NPR 0.00</span>
+                </div>
+                <div class="result-item discount-item" id="disabledDiscountTPItem" style="display: none;">
+                    <span>Disabled Friendly Discount (TP 25%):</span>
+                    <span id="disabledDiscountTPAmount">NPR 0.00</span>
+                </div>
+                <div class="result-item" id="thirdPartyPremiumItem" style="display: none;">
+                    <span>Third Party Premium:</span>
+                    <span id="thirdPartyPremium">NPR 0.00</span>
+                </div>
+                <div class="result-item" id="driverPremiumItem" style="display: none;">
+                    <span>Driver Premium:</span>
+                    <span id="driverPremium">NPR 0.00</span>
+                </div>
+                <div class="result-item" id="helperPremiumItem" style="display: none;">
+                    <span>Helper Premium:</span>
+                    <span id="helperPremium">NPR 0.00</span>
+                </div>
+                <div class="result-item" id="passengerPremiumItem" style="display: none;">
+                    <span>Passenger Premium:</span>
+                    <span id="passengerPremium">NPR 0.00</span>
+                </div>
+                <div class="result-item" id="rsmdstAmountItem" style="display: none;">
+                    <span>RSMDST:</span>
+                    <span id="rsmdstAmount">NPR 0.00</span>
+                </div>
+                <div class="result-item">
+                    <span>VAT (13%):</span>
+                    <span id="vatAmount">NPR 0.00</span>
+                </div>
+                <div class="result-item">
+                    <span>Stamp Charge:</span>
+                    <span id="stampCharge">NPR 0.00</span>
+                </div>
+                <div class="result-item total">
+                    <span>Total Premium:</span>
+                    <span id="totalPremium">NPR 0.00</span>
+                </div>
+                <div class="result-item" id="totalApPremiumItem" style="display: none;">
+                    <span>Total Autoplus Premium:</span>
+                    <span id="totalApPremium">NPR 0.00</span>
+                </div>
+                <div class="result-item total" id="totalPremiumWithAutoplusItem" style="display: none;">
+                    <span>Total Premium with Autoplus:</span>
+                    <span id="totalPremiumWithAutoplus">NPR 0.00</span>
+                </div>
+            </div>
+            
+            <div class="print-buttons-container" id="printButtons" style="display: none; margin-top: 5px;">
+                <div class="form-row">
+                    <button id="printBtn" class="printbtn" style="margin-top: 1;">Print</button>
+                    <button id="downloadPdfBtn" class="downloadPdfBtn" style="margin-top: 1;">Download PDF</button>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- Print Modal -->
-    <div id="printModal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h3>Print Preview Details</h3>
-            <div class="form-group">
-                <label for="insuredName">Insured Name</label>
-                <input type="text" id="insuredName" placeholder="Enter insured name">
-            </div>
-            <div class="form-group">
-                <label for="vehicleDetails">Vehicle Details</label>
-                <input type="text" id="vehicleDetails" placeholder="Enter vehicle details">
-            </div>
-            <button id="confirmPrint">Generate Print Preview</button>
+<!-- Print Modal -->
+<div id="printModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h3>Print Preview Details</h3>
+        <div class="form-group">
+            <label for="insuredName">Insured Name</label>
+            <input type="text" id="insuredName" placeholder="Enter insured name">
         </div>
-    </div>
-
-    <!-- Download Modal -->
-    <div id="downloadModal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h3>Download PDF Details</h3>
-            <div class="form-group">
-                <label for="insuredNamePdf">Insured Name</label>
-                <input type="text" id="insuredNamePdf" placeholder="Enter insured name">
-            </div>
-            <div class="form-group">
-                <label for="vehicleDetailsPdf">Vehicle Details</label>
-                <input type="text" id="vehicleDetailsPdf" placeholder="Enter vehicle details">
-            </div>
-            <button id="confirmDownload">Download</button>
+        <div class="form-group">
+            <label for="vehicleDetails">Vehicle Details</label>
+            <input type="text" id="vehicleDetails" placeholder="Enter vehicle details">
         </div>
+        <button id="confirmPrint">Generate Print Preview</button>
     </div>
+</div>
 
-    <!-- Print Template (hidden by default) -->
-    <div id="printTemplate" style="display: none;">            
-        <div class="print-template" style="padding: 2mm; font-size: 10px;">
-            <div class="print-header">
-                <img src="logo.png" alt="Company Logo" class="print-logo">
-                <h2>Premium Calculation Sheet</h2>
-                <div class="header-details">
-                    <p><strong>Date:</strong> <span id="printDate"></span></p>
-                    <p><strong>Ref:</strong> CALC-<span id="printRef"></span></p>
-                </div>
-            </div>
-            
-            <div class="client-details">
-                <p><strong>Client Name:</strong> <span id="printInsuredName"></span></p>
-                <p><strong>Vehicle Details:</strong> <span id="printVehicleDetails"></span></p>
-            </div>
-            
-            <div class="details-grid">
-                <div class="vehicle-details">
-                    <h3>Vehicle Information</h3>
-                    <!-- Vehicle details will be inserted here -->
-                </div>
-                
-                <div class="calculation-details">
-                    <h3>Calculation Parameters</h3>
-                    <!-- Calculation parameters will be inserted here -->
-                </div>
-            </div>
-            
-            <div class="autoplus-details">
-                <!-- Autoplus details will be inserted here if applicable -->
-            </div>
-            
-            <div class="premium-results">
-                <h3>Premium Calculation Results</h3>
-                <!-- Results will be inserted here -->
-            </div>
-            
-            <div class="print-footer">
-                <p>This calculation sheet has been generated from nisheda.com.np</p>
-                <p>Please verify all details as per your requirements. We are not liable for any discrepancies.</p>
+<!-- Download Modal -->
+<div id="downloadModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h3>Download PDF Details</h3>
+        <div class="form-group">
+            <label for="insuredNamePdf">Insured Name</label>
+            <input type="text" id="insuredNamePdf" placeholder="Enter insured name">
+        </div>
+        <div class="form-group">
+            <label for="vehicleDetailsPdf">Vehicle Details</label>
+            <input type="text" id="vehicleDetailsPdf" placeholder="Enter vehicle details">
+        </div>
+        <button id="confirmDownload">Download</button>
+    </div>
+</div>
+
+<!-- Print Template (hidden by default) -->
+<div id="printTemplate" style="display: none;">            
+    <div class="print-template" style="padding: 2mm; font-size: 10px;">
+        <div class="print-header">
+            <img src="logo.png" alt="Company Logo" class="print-logo">
+            <h2>Premium Calculation Sheet</h2>
+            <div class="header-details">
+                <p><strong>Date:</strong> <span id="printDate"></span></p>
+                <p><strong>Ref:</strong> CALC-<span id="printRef"></span></p>
             </div>
         </div>
+        
+        <div class="client-details">
+            <p><strong>Client Name:</strong> <span id="printInsuredName"></span></p>
+            <p><strong>Vehicle Details:</strong> <span id="printVehicleDetails"></span></p>
+        </div>
+        
+        <div class="details-grid">
+            <div class="vehicle-details">
+                <h3>Vehicle Information</h3>
+                <!-- Vehicle details will be inserted here -->
+            </div>
+            
+            <div class="calculation-details">
+                <h3>Calculation Parameters</h3>
+                <!-- Calculation parameters will be inserted here -->
+            </div>
+        </div>
+        
+        <div class="autoplus-details">
+            <!-- Autoplus details will be inserted here if applicable -->
+        </div>
+        
+        <div class="premium-results">
+            <h3>Premium Calculation Results</h3>
+            <!-- Results will be inserted here -->
+        </div>
+        
+        <div class="print-footer">
+            <p>This calculation sheet has been generated from nisheda.com.np</p>
+            <p>Please verify all details as per your requirements. We are not liable for any discrepancies.</p>
+        </div>
     </div>
+</div>
 
-    <!-- Hidden div for PDF generation -->
-    <div id="pdfContent" style="display: none;"></div>
+<!-- Hidden div for PDF generation -->
+<div id="pdfContent" style="display: none;"></div>
 
+<!-- Top-line Container -->
+<div id="top-line-container"></div>
+
+<!-- Loader Script -->
+<script>
+    // Load HTML
+    fetch('includes/top-line.html')
+        .then(response => response.text())
+        .then(html => {
+            document.getElementById('top-line-container').innerHTML = html;
+            
+            // Load CSS
+            const link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = 'top-line.css';
+            document.head.appendChild(link);
+            
+            // Load JS
+            const script = document.createElement('script');
+            script.src = 'top-line.js';
+            document.body.appendChild(script);
+        })
+        .catch(error => console.error('Error loading top-line:', error));
+</script>
+
+    <script src="js/top-line.js"></script>
     <script src="js/jsCalculator.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </body>

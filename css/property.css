@@ -4,193 +4,48 @@
     margin-bottom: 8px;
 }
 
-/* Top line spanning the width of the page */
-.top-line {
-    background-color: #002B5B; /* Dark blue */
-    height: 50px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 20px;
-    z-index: 1000; /* To make sure it's always on top */
-}
-
-/* Menu button in top line */
-.menu {
-    cursor: pointer;
-    color: white;
-    font-size: 20px;
-    padding: 10px;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-}
-
-/* Hover effect for Menu */
-.menu:hover {
-    background-color: #0056b3; /* Lighter or contrasting blue */
-}
-
-/* Custom Settings button with '︙' symbol */
-.settings-btn {
-    cursor: pointer;
-    background-color: transparent;
-    color: white;
-    padding: 10px;
-    border-radius: 80%;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 22px;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
-    transition: background-color 0.3s; /* Smooth transition */
-}
-
-/* Add this rule for hover effect */
-.settings-btn:hover {
-    background-color: #0056b3; /* Change to a lighter or contrasting blue */
-}
-
-/* Dropdown Menu */
-.dropdown {
-    display: none;
-    background-color: #002B5B; /* Dark blue */
-    padding: 10px;
-    border: 1px solid #001f40;
-    width: 250px;
-    margin-top: 10px;
-    border-radius: 5px;
-    color: white;
-    position: absolute;
-    top: 50px; /* Position below the menu button */
-    left: 20px; /* Align with the menu button */
-    z-index: 1001;
-}
-
-.dropdown h4 {
-    margin: 10px 0 5px;
-    color: #ffffff;
-}
-
-.dropdown ul {
-    list-style: none;
-    padding-left: 20px;
-    margin: 0 0 10px 0;
-}
-
-.dropdown ul li {
-    margin: 4px 0;
-    cursor: pointer;
-    color: #d6e4ff;
-}
-
-.dropdown ul li:hover {
-    text-decoration: underline;
-}
-
-/* Settings Menu */
-.settings-menu {
-    position: absolute;
-    top: 60px;
-    right: 20px;
-    background-color: #ffffff;
-    color: #333;
-    padding: 15px;
-    width: 200px;
-    border-radius: 5px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    display: none;
-    z-index: 1001;
-}
-
-.settings-menu label {
-    display: block;
-    margin-bottom: 10px;
-}
-
-.settings-menu input {
-    margin-right: 5px;
-}
-
-.dark-mode {
-    background-color: #121212;
-    color: #ffffff;
-}
-
-.dark-mode .menu {
-    background-color: #333;
-}
-
-.dark-mode .dropdown {
-    background-color: #333;
-    border: 1px solid #444;
-}
-
-.dark-mode .settings-btn {
-    background-color: #444;
-}
-
-.dark-mode .calculator,
-.dark-mode .results {
-    background-color: #333;
-    color: #fff;
-}
-
-.dark-mode input,
-.dark-mode select {
-    background-color: #444;
-    color: #fff;
-    border-color: #555;
-}
-
 body {
     font-family: Arial, sans-serif;
     background-color: #404040;
     color: #333;
-    max-width: 1200px;
-    margin: 0 auto;
+    margin: 0;
     padding: 20px;
-    padding-top: 70px;
+    padding-top: 70px; /* To avoid content being hidden behind the fixed top line */
 }
+
 .calculator-container {
     display: flex;
-    gap: 30px;
+    flex-direction: column;
+    gap: 20px;
 }
-.calculator {
+
+.calculator, .results {
     background-color: #D3D3D3;
-    padding: 20px;
+    padding: 15px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    flex: 2;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 h1 {
     text-align: center;
-    margin: 0px 0 15px; /* Reduced top margin */
+    margin: 0 0 15px;
     color: whitesmoke;
+    font-size: 1.5rem;
 }
 
-.results {
-    background-color: #D3D3D3;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    flex: 1;
-}
 .form-group {
     margin-bottom: 10px;
 }
+
 label {
     display: block;
-    margin-bottom: 3px;
+    margin-bottom: 5px;
     font-weight: bold;
     font-size: 14px;
 }
+
 select, input {
     width: 100%;
     padding: 8px;
@@ -199,120 +54,84 @@ select, input {
     box-sizing: border-box;
     font-size: 14px;
 }
+
 .radio-group {
     display: flex;
     gap: 15px;
     margin-bottom: 8px;
+    flex-wrap: wrap;
 }
+
 .radio-option {
     display: flex;
     align-items: center;
     gap: 5px;
-    white-space: nowrap;
 }
+
 .row {
     display: flex;
-    gap: 15px;
+    flex-direction: column;
+    gap: 10px;
 }
-.row > div {
-    flex: 1;
-}
+
 .checkbox-container {
     display: flex;
-    align-items: center;
+    flex-wrap: nowrap; /* Prevent wrapping */
     gap: 15px;
     margin: 8px 0;
-    flex-wrap: wrap;
+    align-items: center; /* Align items vertically */
 }
+
 .checkbox-option {
     display: flex;
     align-items: center;
     gap: 5px;
-    white-space: nowrap;
+    white-space: nowrap; /* Prevent text wrapping */
+    margin: 0; /* Remove any default margins */
+    padding: 0; /* Remove any default padding */
 }
+
 .checkbox-option label {
     margin-bottom: 0;
 }
+
 .datalist-input {
     width: 100%;
 }
+
 .result-table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 10px;
     font-size: 14px;
 }
+
 .result-table th, .result-table td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: left;
 }
+
 .result-table th {
     background-color: #f2f2f2;
 }
+
 .total-row {
     font-weight: bold;
     background-color: #e9f7ef;
 }
+
 .hidden {
     display: none;
 }
+
 .short-term-period {
-    margin-left: 5px;
-    width: auto;
+    margin-top: 5px;
+    width: 100%;
 }
+
 #homeInsuranceFields, #propertyInsuranceFields {
     margin-bottom: 15px;
-}
-
-.about-btn {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    max-width: 100px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-}
-.about-btn:hover {
-    background-color: #45a049;
-}
-
-/* Overlay styling */
-.overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.7);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
-
-.about-content {
-    background-color: white;
-    padding: 30px;
-    border-radius: 8px;
-    max-width: 500px;
-    text-align: center;
-    position: relative;
-}
-
-.close-btn {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size: 24px;
-    cursor: pointer;
-    color: #555;
-}
-
-.close-btn:hover {
-    color: #000;
 }
 
 /* Enhanced Datalist Dropdown Styles */
@@ -339,25 +158,6 @@ select, input {
     box-shadow: 0 0 0 2px rgba(0, 43, 91, 0.2);
 }
 
-/* Completely hide the native datalist dropdown */
-datalist {
-    display: none !important;
-}
-
-/* Remove native dropdown arrow from input */
-.datalist-input::-webkit-calendar-picker-indicator {
-    display: none !important;
-}
-.datalist-input::-webkit-list-button {
-    display: none !important;
-}
-/* Remove native dropdown styling in Firefox */
-.datalist-input {
-    background-image: none !important;
-    -moz-appearance: none !important;
-    appearance: none !important;
-}
-
 /* Custom dropdown options container */
 .datalist-options {
     position: absolute;
@@ -366,11 +166,11 @@ datalist {
     border-radius: 4px;
     max-height: 200px;
     overflow-y: auto;
-    width: calc(100% - 2px); /* Match input width */
+    width: calc(100% - 2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     z-index: 1000;
     margin-top: 1px;
-    display: none; /* Initially hidden */
+    display: none;
     scroll-behavior: smooth;
 }
 
@@ -398,10 +198,32 @@ datalist {
     color: white;
 }
 
-.form-group {
-    margin-bottom: 8px; /* Reduced from 10px */
-}
-
-.row {
-    gap: 10px; /* Reduced from 15px */
+@media (min-width: 480px) {
+    .calculator-container {
+        flex-direction: row;
+    }
+    
+    .calculator {
+        flex: 2;
+    }
+    
+    .results {
+        flex: 1;
+    }
+    
+    .row {
+        flex-direction: row;
+    }
+    
+    .checkbox-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    
+    .short-term-period {
+        width: auto;
+        margin-left: 5px;
+        margin-top: 0;
+    }
 }

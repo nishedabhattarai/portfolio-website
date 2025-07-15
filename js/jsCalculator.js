@@ -6,52 +6,6 @@ const format = (amount) => new Intl.NumberFormat('en-NP', {
     maximumFractionDigits: 2
 }).format(amount);
 
-// Toggle the dropdown menu
-function toggleMenu() {
-    const dropdown = document.getElementById("menuDropdown");
-    dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
-}
-
-// Toggle the settings menu
-function toggleSettings() {
-    const settingsMenu = document.getElementById("settingsMenu");
-    settingsMenu.style.display = settingsMenu.style.display === "block" ? "none" : "block";
-}
-
-// Toggle Dark Mode
-function toggleDarkMode() {
-    const body = document.body;
-    const darkModeCheckbox = document.getElementById("darkModeToggle");
-
-    if (darkModeCheckbox.checked) {
-        body.classList.add("dark-mode");
-    } else {
-        body.classList.remove("dark-mode");
-    }
-}
-
-// Change Font Size
-function changeFontSize() {
-    const fontSize = document.getElementById("fontSizeRange").value;
-    document.body.style.fontSize = fontSize + "px";
-}
-
-function showAbout() {
-    document.getElementById('aboutOverlay').style.display = 'flex';
-}
-
-function hideAbout() {
-    document.getElementById('aboutOverlay').style.display = 'none';
-}
-
-// Close overlay when clicking outside the content
-window.onclick = function(event) {
-    const overlay = document.getElementById('aboutOverlay');
-    if (event.target == overlay) {
-        overlay.style.display = 'none';
-    }
-}
-
 function toggleFieldsBasedOnValue() {
     const vehicleValue = parseFloat(document.getElementById('vehicleValue').value) || 0;
     const optionalFieldsGroup = document.getElementById('optionalFieldsGroup');

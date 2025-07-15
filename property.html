@@ -5,208 +5,216 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Property Insurance</title>
     <link rel="stylesheet" href="css/property.css">
+    <link rel="stylesheet" href="css/top-line.css">
     <link rel="icon" type="image/x-icon" href="favicon.png">
 </head>
 <body>
-    <!-- Top Line with Menu and Custom Settings Icon -->
-    <div class="top-line">
+<!-- Top Line with Menu and Custom Settings Icon -->
+<div class="top-line">
+    <div class="menu-container">
         <div class="menu" onclick="toggleMenu()">☰ Menu</div>
-        <div class="settings-btn" onclick="toggleSettings()">︙</div>
+        <div class="quick-links">
+            <a href="index.html">MOTOR</a>
+            <a href="property.html" style="color: orange; text-decoration: none; font-weight: bold;">PROPERTY</a>
+            <a href="deno.html">DENOMINATION</a>
+        </div>
     </div>
+    <div class="settings-btn" onclick="toggleSettings()">︙</div> <!-- '︙' as Settings Icon -->
+</div>
 
-    <!-- Dropdown Menu -->
-    <div class="dropdown" id="menuDropdown">
-        <div>
-            <h4>Premium Calculator</h4>
-            <ul>
-                <li><a href="index.html" style="color: white; text-decoration: none;">Motor</a></li>
-                <li><a href="property.html" style="color: white; text-decoration: none;">Property</a></li>
-                <li>Marine (Coming Soon)</li>
-            </ul>
-        </div>
-        <div>
-            <h4>Cash Denomination</h4>
-            <ul>
-                <li><a href="deno.html" style="color: white; text-decoration: none;">Cash Denomination</a></li>
-            </ul>
-        </div>
-        <div>
-            <h4>Knowledge (Coming Soon)</h4>
-            <ul>
-                <li>Insurance</li>
-                <li>Share</li>
-                <li>SIP</li>
-            </ul>
-        </div>
-        <div>
-            <h4>Converter (Coming Soon)</h4>
-            <ul>
-                <li>Area converter</li>
-                <li>Price converter</li>
-                <li>Date converter</li>
-            </ul>
-        </div>
-        <div>
-            <button class="about-btn" onclick="showAbout()">About</button>
-        </div>
+<!-- Dropdown Menu -->
+<div class="dropdown" id="menuDropdown">
+    <div>
+        <h4>Premium Calculator</h4>
+        <ul>
+            <li><a href="index.html" style="color: #d6e4ff; text-decoration: none;">Motor</a></li>
+            <li><a href="property.html" style="color: orange; text-decoration: none;">Property (New)</a></li>
+            <li>Marine (Coming Soon)</li>
+        </ul>
     </div>
+    <div>
+        <h4>Cash Denomination</h4>
+        <ul>
+            <li><a href="deno.html" style="color: #d6e4ff; text-decoration: none;">Cash Denomination</a></li>
+        </ul>
+    </div>
+    <div>
+        <h4>Knowledge (Coming Soon)</h4>
+        <ul>
+            <li>Insurance</li>
+            <li>Share</li>
+            <li>SIP</li>
+        </ul>
+    </div>
+    <div>
+        <h4>Converter (Coming Soon)</h4>
+        <ul>
+            <li>Area converter</li>
+            <li>Price converter</li>
+            <li>Date converter</li>
+        </ul>
+    </div>
+    <div>
+        <button class="about-btn" onclick="showAbout()">About</button>
+    </div>
+</div>
 
-    <!-- Settings Menu -->
-    <div class="settings-menu" id="settingsMenu">
-        <label>
-            <input type="checkbox" id="darkModeToggle" onclick="toggleDarkMode()"> Dark Mode
-        </label>
-        <label>
-            Font Size:
-            <input type="range" id="fontSizeRange" min="12" max="24" value="16" oninput="changeFontSize()">
-        </label>
-    </div>
-    
-    <div id="aboutOverlay" class="overlay">
-        <div class="about-content">
-            <span class="close-btn" onclick="hideAbout()">&times;</span>
-            <h2>Premium Calculator</h2> 
-            <p>This is a premium calculator for motor insurance. It calculates the premium based on various parameters such as vehicle type, value, cubic capacity, and additional options.</p>
-            <h3>"""""""""""""""</h3>
-            <h4>Developed by Nisheda Bhattarai</h4>
-            <p>Email: nisheda@walla.com</p>
-            <h3>Updated on: 6-Jul-2025 at [08:22 AM]</h3>
-        </div>
-    </div>
+<!-- Settings Menu -->
+<div class="settings-menu" id="settingsMenu">
+    <label>
+        <input type="checkbox" id="darkModeToggle" onclick="toggleDarkMode()"> Dark Mode
+    </label>
+    <label>
+        Font Size:
+        <input type="range" id="fontSizeRange" min="12" max="24" value="16" oninput="changeFontSize()">
+    </label>
+</div>
 
-    <div class="container">
-        <h1>Property Insurance Premium Calculator</h1>
-    
-        <div class="calculator-container">
-            <div class="calculator">
+<!-- About Overlay -->
+<div id="aboutOverlay" class="overlay">
+    <div class="about-content">
+        <span class="close-btn" onclick="hideAbout()">&times;</span>
+        <h2>Premium Calculator</h2>
+        <p class="update-date">Updated on: 15-Jul-2025 at 02:38 AM</p>
+        <p>This is a premium calculator for Motor Insurance, Property insurance and Cash Denomination. It calculates the premium based on various parameters such as vehicle type, value, cubic capacity, additional options for motor insurance, calculate property insurance premium based on property details and cash denomination facility as per bill and payment options with data save facility. I am trying to provide most of the usable tools that helps us to calculate insurance premium.</p><br>
+        <h4>Developed by Nisheda Bhattarai</h4>
+        <p>Email: nisheda@walla.com</p>
+    </div>
+</div>
+
+<div class="container">
+    <h1>Property Insurance Premium Calculator</h1>
+
+    <div class="calculator-container">
+        <div class="calculator">
+            <div class="form-group">
+                <label><h3>Insurance Type:</h3></label>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" id="homeInsurance" name="insuranceType" value="home" checked onchange="updateInsuranceType()">
+                        <label for="homeInsurance">Home</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="propertyInsurance" name="insuranceType" value="property" onchange="updateInsuranceType()">
+                        <label for="propertyInsurance">Property</label>
+                    </div>
+                </div>
+            </div>
+                            
+            <div id="homeInsuranceFields">
                 <div class="form-group">
-                    <label><h3>Insurance Type:</h3></label>
-                    <div class="radio-group mobile-radio-group">
-                        <div class="radio-option">
-                            <input type="radio" id="homeInsurance" name="insuranceType" value="home" checked onchange="updateInsuranceType()">
-                            <label for="homeInsurance">Home</label>
-                        </div>
-                        <div class="radio-option">
-                            <input type="radio" id="propertyInsurance" name="insuranceType" value="property" onchange="updateInsuranceType()">
-                            <label for="propertyInsurance">Property</label>
-                        </div>
-                    </div>
-                </div>
-                                
-                <div id="homeInsuranceFields">
-                    <div class="form-group">
-                        <label for="nepaliDescHome">सम्पत्ति विवरण:</label>
-                        <input type="text" id="nepaliDescHome" value="1 आवासीय भवन वा घर, मठ मन्दिर, ध्यान, पूजा तथा प्रार्थनास्थल तथा त्यसभित्र रहेको सम्पत्ति वा सामान" readonly>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="englishDescHome">Item Description:</label>
-                        <input type="text" id="englishDescHome" value="1 Residential Building or home, Temples, Meditation and Pray or Worship Place including Goods and Properties inside" readonly>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="romanDescHome">Roman Description:</label>
-                        <input type="text" id="romanDescHome" value="1 Aawasiya bhawan wa ghar, math mandir, dhyan, pooja tatha prarthanasthal tatha tyasbhitra rahayeko sampatti wa saamaan." readonly>
-                    </div>
+                    <label for="nepaliDescHome">सम्पत्ति विवरण:</label>
+                    <input type="text" id="nepaliDescHome" value="1 आवासीय भवन वा घर, मठ मन्दिर, ध्यान, पूजा तथा प्रार्थनास्थल तथा त्यसभित्र रहेको सम्पत्ति वा सामान" readonly>
                 </div>
                 
-                <div id="propertyInsuranceFields" class="hidden">
-                    <div class="form-group datalist-input-container">
-                        <label for="nepaliDescProperty">सम्पत्ति विवरण (नेपालीमा खोज्नुहोस):</label>
-                        <input id="nepaliDescProperty" class="datalist-input" placeholder="वस्तुकाे नाम लेख्नुहाेस् वा छान्नुहाेस्">
-                        <div class="datalist-options" id="nepaliOptions"></div>
-                    </div>
-
-                    <div class="form-group datalist-input-container">
-                        <label for="englishDescProperty">Item Description (Search in ENGLISH):</label>
-                        <input id="englishDescProperty" class="datalist-input" placeholder="Type or select item name">
-                        <div class="datalist-options" id="englishOptions"></div>
-                    </div>
-
-                    <div class="form-group datalist-input-container">
-                        <label for="romanDescProperty">Roman Description (Type in ROMAN):</label>
-                        <input id="romanDescProperty" class="datalist-input" placeholder="Bastu ko naam lekhnuhos waa chhanuhos">
-                        <div class="datalist-options" id="romanOptions"></div>
-                    </div>
-                </div>
-                                
-                <div class="row">
-                    <div class="form-group">
-                        <label for="value">Item Value (Rs.):</label>
-                        <input type="number" id="value" oninput="calculatePremium()" placeholder="Enter item value">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="category">Category:</label>
-                        <input type="text" id="category" readonly>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="rate">Rate (Rs. per 1000):</label>
-                        <input type="text" id="rate" readonly>
-                    </div>
+                <div class="form-group">
+                    <label for="englishDescHome">Item Description:</label>
+                    <input type="text" id="englishDescHome" value="1 Residential Building or home, Temples, Meditation and Pray or Worship Place including Goods and Properties inside" readonly>
                 </div>
                 
-                <div class="checkbox-container">
-                    <div class="checkbox-option">
-                        <input type="checkbox" id="directDiscount" onchange="calculatePremium()">
-                        <label for="directDiscount">Direct Discount (2.5%)</label>
-                    </div>
-                    
-                    <div class="checkbox-option">
-                        <input type="checkbox" id="shortTermPremium" onchange="toggleShortTermPeriod()">
-                        <label for="shortTermPremium">Short Term Premium</label>
-                        <select id="shortTermPeriod" class="short-term-period hidden" onchange="calculatePremium()">
-                            <option value="0.15">For upto one month (एक महिना सम्मको लागि)</option>
-                            <option value="0.40">For upto three months (तीन महिना सम्मको लागि)</option>
-                            <option value="0.70">For upto six months (छ महिना सम्मको लागि)</option>
-                            <option value="0.85">For upto nine months (नौं महिना सम्मको लागि)</option>
-                            <option value="1.00">Over nine months (नौं भन्दा बढी अवधिको लागि)</option>
-                        </select>
-                    </div>
+                <div class="form-group">
+                    <label for="romanDescHome">Roman Description:</label>
+                    <input type="text" id="romanDescHome" value="1 Aawasiya bhawan wa ghar, math mandir, dhyan, pooja tatha prarthanasthal tatha tyasbhitra rahayeko sampatti wa saamaan." readonly>
                 </div>
             </div>
             
-            <div class="results hidden" id="results">
-                <h3>Premium Calculation</h3>
-                <table class="result-table">
-                    <thead>
-                        <tr>
-                            <th>Description</th>
-                            <th>Amount (Rs.)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Premium Amount</td>
-                            <td id="premiumAmount">0.00</td>
-                        </tr>
-                        <tr id="discountRow" class="hidden">
-                            <td>Direct Discount (2.5%)</td>
-                            <td id="discountAmount">0.00</td>
-                        </tr>
-                        <tr id="shortTermRow" class="hidden">
-                            <td>Short Term Premium</td>
-                            <td id="shortTermAmount">0.00</td>
-                        </tr>
-                        <tr>
-                            <td>VAT (13%)</td>
-                            <td id="vatAmount">0.00</td>
-                        </tr>
-                        <tr>
-                            <td>Stamp</td>
-                            <td id="stampAmount">20.00</td>
-                        </tr>
-                        <tr class="total-row">
-                            <td>Total Amount</td>
-                            <td id="totalAmount">0.00</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div id="propertyInsuranceFields" class="hidden">
+                <div class="form-group datalist-input-container">
+                    <label for="nepaliDescProperty">सम्पत्ति विवरण (नेपालीमा खोज्नुहोस):</label>
+                    <input id="nepaliDescProperty" class="datalist-input" placeholder="वस्तुकाे नाम लेख्नुहाेस् वा छान्नुहाेस्">
+                    <div class="datalist-options" id="nepaliOptions"></div>
+                </div>
+
+                <div class="form-group datalist-input-container">
+                    <label for="englishDescProperty">Item Description (Search in ENGLISH):</label>
+                    <input id="englishDescProperty" class="datalist-input" placeholder="Type or select item name">
+                    <div class="datalist-options" id="englishOptions"></div>
+                </div>
+
+                <div class="form-group datalist-input-container">
+                    <label for="romanDescProperty">Roman Description (Type in ROMAN):</label>
+                    <input id="romanDescProperty" class="datalist-input" placeholder="Bastu ko naam lekhnuhos waa chhanuhos">
+                    <div class="datalist-options" id="romanOptions"></div>
+                </div>
+            </div>
+                            
+            <div class="row">
+                <div class="form-group">
+                    <label for="value">Item Value (Rs.):</label>
+                    <input type="number" id="value" oninput="calculatePremium()" placeholder="Enter item value">
+                </div>
+                
+                <div class="form-group">
+                    <label for="category">Category:</label>
+                    <input type="text" id="category" readonly>
+                </div>
+                
+                <div class="form-group">
+                    <label for="rate">Rate (Rs. per 1000):</label>
+                    <input type="text" id="rate" readonly>
+                </div>
+            </div>
+            
+            <div class="checkbox-container">
+                <div class="checkbox-option">
+                    <input type="checkbox" id="directDiscount" onchange="calculatePremium()">
+                    <label for="directDiscount">Direct Discount (2.5%)</label>
+                </div>
+                
+                <div class="checkbox-option">
+                    <input type="checkbox" id="shortTermPremium" onchange="toggleShortTermPeriod()">
+                    <label for="shortTermPremium">Short Term Premium</label>
+                    <select id="shortTermPeriod" class="short-term-period hidden" onchange="calculatePremium()">
+                        <option value="0.15">For upto one month (एक महिना सम्मको लागि)</option>
+                        <option value="0.40">For upto three months (तीन महिना सम्मको लागि)</option>
+                        <option value="0.70">For upto six months (छ महिना सम्मको लागि)</option>
+                        <option value="0.85">For upto nine months (नौं महिना सम्मको लागि)</option>
+                        <option value="1.00">Over nine months (नौं भन्दा बढी अवधिको लागि)</option>
+                    </select>
+                </div>
             </div>
         </div>
+        
+        <div class="results hidden" id="results">
+            <h3>Premium Calculation</h3>
+            <table class="result-table">
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Amount (Rs.)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Premium Amount</td>
+                        <td id="premiumAmount">0.00</td>
+                    </tr>
+                    <tr id="discountRow" class="hidden">
+                        <td>Direct Discount (2.5%)</td>
+                        <td id="discountAmount">0.00</td>
+                    </tr>
+                    <tr id="shortTermRow" class="hidden">
+                        <td>Short Term Premium</td>
+                        <td id="shortTermAmount">0.00</td>
+                    </tr>
+                    <tr>
+                        <td>VAT (13%)</td>
+                        <td id="vatAmount">0.00</td>
+                    </tr>
+                    <tr>
+                        <td>Stamp</td>
+                        <td id="stampAmount">20.00</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td>Total Amount</td>
+                        <td id="totalAmount">0.00</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-    
+</div>
+    <script src="js/top-line.js"></script>    
     <script src="js/property.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
 </body>
