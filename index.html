@@ -484,31 +484,6 @@
 <!-- Hidden div for PDF generation -->
 <div id="pdfContent" style="display: none;"></div>
 
-<!-- Top-line Container -->
-<div id="top-line-container"></div>
-
-<!-- Loader Script -->
-<script>
-    // Load HTML
-    fetch('includes/top-line.html')
-        .then(response => response.text())
-        .then(html => {
-            document.getElementById('top-line-container').innerHTML = html;
-            
-            // Load CSS
-            const link = document.createElement('link');
-            link.rel = 'stylesheet';
-            link.href = 'css/top-line.css';
-            document.head.appendChild(link);
-            
-            // Load JS
-            const script = document.createElement('script');
-            script.src = 'js/top-line.js';
-            document.body.appendChild(script);
-        })
-        .catch(error => console.error('Error loading top-line:', error));
-</script>
-
     <script src="js/top-line.js"></script>
     <script src="js/jsCalculator.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
