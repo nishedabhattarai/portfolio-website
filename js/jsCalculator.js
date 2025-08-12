@@ -1552,8 +1552,8 @@ confirmPrintBtn.addEventListener('click', function() {
             passengerPremium = (seatCapacity - 1) * premiumRate;
         }
         if (vehicleType === 'tractor') {
-            driverPremium = 700;
-            helperPremium = 700;
+            driverPremium = 1 * premiumRate;
+            helperPremium = 1 * premiumRate;
         }
 
         // Apply short period factor to driver, helper and passenger if vehicle value > 0
