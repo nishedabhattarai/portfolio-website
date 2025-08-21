@@ -19,7 +19,7 @@
             <a href="deno.html">DENOMINATION</a>
         </div>
     </div>
-    <div class="settings-btn" onclick="toggleSettings()">︙</div> <!-- '︙' as Settings Icon -->
+    <div class="settings-btn" onclick="toggleSettings()">︙</div>
 </div>
 
 <!-- Dropdown Menu -->
@@ -75,8 +75,8 @@
     <div class="about-content">
         <span class="close-btn" onclick="hideAbout()">&times;</span>
         <h2>Premium Calculator</h2>
-        <p class="update-date">Updated on: 15-Jul-2025 at 02:38 AM</p>
-        <p>This is a premium calculator for Motor Insurance, Property insurance and Cash Denomination. It calculates the premium based on various parameters such as vehicle type, value, cubic capacity, additional options for motor insurance, calculate property insurance premium based on property details and cash denomination facility as per bill and payment options with data save facility. I am trying to provide most of the usable tools that helps us to calculate insurance premium.</p><br>
+        <p class="update-date">Updated on: 21-Aug-2025 at 03:49 AM</p>
+        <p>This is a premium calculator for Motor Insurance, Property insurance and Cash Denomination.</p>
         <h4>Developed by Nisheda Bhattarai</h4>
         <p>Email: nisheda@walla.com</p>
     </div>
@@ -90,11 +90,11 @@
             <div class="form-group">
                 <label><h3>Insurance Type:</h3></label>
                 <div class="radio-group">
-                    <div class="radio-option">
+                    <div class="radio-option selected" id="homeOption">
                         <input type="radio" id="homeInsurance" name="insuranceType" value="home" checked onchange="updateInsuranceType()">
                         <label for="homeInsurance">Home</label>
                     </div>
-                    <div class="radio-option">
+                    <div class="radio-option" id="propertyOption">
                         <input type="radio" id="propertyInsurance" name="insuranceType" value="property" onchange="updateInsuranceType()">
                         <label for="propertyInsurance">Property</label>
                     </div>
@@ -155,27 +155,42 @@
                 </div>
             </div>
             
+            <div class="calculation-type-row">
+                <div class="form-group">
+                    <label for="calculationType">Calculation Type:</label>
+                    <select id="calculationType" onchange="toggleCalculationFields()">
+                        <option value="annual">Annual</option>
+                        <option value="shortTerm">Short Term</option>
+                        <option value="prorate">Prorate</option>
+                    </select>
+                </div>
+                
+                <div id="shortTermContainer" class="form-group hidden">
+                    <label for="shortTermPeriod">Short Term Period:</label>
+                    <select id="shortTermPeriod" onchange="calculatePremium()">
+                        <option value="0.15">For upto one month</option>
+                        <option value="0.40">For upto three months</option>
+                        <option value="0.70">For upto six months</option>
+                        <option value="0.85">For upto nine months</option>
+                        <option value="1.00">Over nine months</option>
+                    </select>
+                </div>
+                
+                <div id="prorateContainer" class="form-group hidden">
+                    <label for="numberOfDays">Number of Days:</label>
+                    <input type="number" id="numberOfDays" min="1" max="365" value="30" oninput="calculatePremium()">
+                </div>
+            </div>
+            
             <div class="checkbox-container">
                 <div class="checkbox-option">
                     <input type="checkbox" id="directDiscount" onchange="calculatePremium()">
                     <label for="directDiscount">Direct Discount (2.5%)</label>
                 </div>
-                
-                <div class="checkbox-option">
-                    <input type="checkbox" id="shortTermPremium" onchange="toggleShortTermPeriod()">
-                    <label for="shortTermPremium">Short Term Premium</label>
-                    <select id="shortTermPeriod" class="short-term-period hidden" onchange="calculatePremium()">
-                        <option value="0.15">For upto one month (एक महिना सम्मको लागि)</option>
-                        <option value="0.40">For upto three months (तीन महिना सम्मको लागि)</option>
-                        <option value="0.70">For upto six months (छ महिना सम्मको लागि)</option>
-                        <option value="0.85">For upto nine months (नौं महिना सम्मको लागि)</option>
-                        <option value="1.00">Over nine months (नौं भन्दा बढी अवधिको लागि)</option>
-                    </select>
-                </div>
             </div>
         </div>
         
-        <div class="results hidden" id="results">
+        <div class="results" id="results">
             <h3>Premium Calculation</h3>
             <table class="result-table">
                 <thead>
@@ -193,10 +208,6 @@
                         <td>Direct Discount (2.5%)</td>
                         <td id="discountAmount">0.00</td>
                     </tr>
-                    <tr id="shortTermRow" class="hidden">
-                        <td>Short Term Premium</td>
-                        <td id="shortTermAmount">0.00</td>
-                    </tr>
                     <tr>
                         <td>VAT (13%)</td>
                         <td id="vatAmount">0.00</td>
@@ -206,15 +217,112 @@
                         <td id="stampAmount">20.00</td>
                     </tr>
                     <tr class="total-row">
-                        <td>Total Amount</td>
+                        <td>Total Premium</td>
                         <td id="totalAmount">0.00</td>
                     </tr>
                 </tbody>
             </table>
+            <div class="print-buttons-container" id="printButtons" style="margin-top: 20px;">
+                <button id="printBtn" class="print-btn" onclick="printCalculation()">Print</button>
+                <button id="downloadPdfBtn" class="download-btn" onclick="generatePDF()">Download PDF</button>
+            </div>            
         </div>
     </div>
 </div>
-    <script src="js/top-line.js"></script>    
+
+<!-- Print Preview -->
+<div id="printPreview" class="print-preview">
+    <div class="print-header">
+        <img src="favicon.png" alt="Logo">
+        <div class="print-title">
+            <h2 id="printTitle">Premium Calculation Sheet</h2>
+        </div>
+    </div>
+    <div class="print-meta">
+        <div>Date: <span id="printDate"></span></div>
+        <div>Reference: <span id="printRef"></span></div>
+    </div>
+    <div class="print-parameters">
+        <table>
+            <tr>
+                <th colspan="2">Insurance Details</th>
+            </tr>
+            <tr>
+                <td>Insurance Type</td>
+                <td id="printInsuranceType"></td>
+            </tr>
+            <tr>
+                <td>Description (Nepali)</td>
+                <td id="printDescNepali"></td>
+            </tr>
+            <tr>
+                <td>Description (English)</td>
+                <td id="printDescEnglish"></td>
+            </tr>
+            <tr>
+                <td>Item Value</td>
+                <td id="printValue"></td>
+            </tr>
+            <tr>
+                <td>Category</td>
+                <td id="printCategory"></td>
+            </tr>
+            <tr>
+                <td>Rate</td>
+                <td id="printRate"></td>
+            </tr>
+            <tr>
+                <td>Calculation Type</td>
+                <td id="printCalculationType"></td>
+            </tr>
+            <tr id="printShortTermRow" class="hidden">
+                <td>Short Term Period</td>
+                <td id="printShortTerm"></td>
+            </tr>
+            <tr id="printProrateRow" class="hidden">
+                <td>Number of Days</td>
+                <td id="printProrateDays"></td>
+            </tr>
+            <tr>
+                <td>Direct Discount</td>
+                <td id="printDirectDiscount"></td>
+            </tr>
+        </table>
+    </div>
+    <div class="print-parameters">
+        <table>
+            <tr>
+                <th colspan="2">Calculation Results</th>
+            </tr>
+            <tr>
+                <td>Premium Amount</td>
+                <td id="printPremium"></td>
+            </tr>
+            <tr id="printDiscountRow" class="hidden">
+                <td>Direct Discount (2.5%)</td>
+                <td id="printDiscount"></td>
+            </tr>
+            <tr>
+                <td>VAT (13%)</td>
+                <td id="printVat"></td>
+            </tr>
+            <tr>
+                <td>Stamp Duty</td>
+                <td id="printStamp"></td>
+            </tr>
+            <tr>
+                <td><strong>Total Premium</strong></td>
+                <td><strong id="printTotal"></strong></td>
+            </tr>
+        </table>
+    </div>
+    <div class="print-footer">
+        <p>This calculation sheet has been generated from nisheda.com.np</p>
+        <p>Please verify all details as per your requirements. We are not liable for any discrepancies.</p>
+    </div>
+</div>
+
+    <script src="js/top-line.js"></script>
     <script src="js/property.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
 </body>
