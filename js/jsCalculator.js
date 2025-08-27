@@ -172,7 +172,6 @@ function toggleVehicleFields() {
         towingChargeOption.style.display = parseFloat(document.getElementById('vehicleValue').value) > 0 ? 'flex' : 'none';
         autoplusGroup.style.display = parseFloat(document.getElementById('vehicleValue').value) > 24999 ? 'flex' : 'none';
         ownGoodsOption.style.display = parseFloat(document.getElementById('vehicleValue').value) > 0 ? 'flex' : 'none';
-        autoplusGroup.style.display = 'none';
     }
     else if (vehicleType === 'tanker' || vehicleType === 'agriculture' || 
              vehicleType === 'goods' || vehicleType === 'construction') {
