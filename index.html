@@ -4,12 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Motor Premium Calculator</title>
+    <link rel="stylesheet" href="css/overlay.css">
     <link rel="stylesheet" href="css/cssCalculator.css">
     <link rel="stylesheet" href="css/top-line.css">
     <link rel="icon" type="image/x-icon" href="favicon.png">
 
 </head>
 <body>
+    <!-- Overlay HTML -->
+    <div id="sitewide-overlay">
+        <div class="overlay-content">
+            <div class="close-btn" onclick="closeOverlay()">×</div>
+            <h2>New Update Notification</h2>
+            <p>Now, we can calculate <i>'Autoplus Premium'</i> for <b>COMMERCIAL VEHICLE (PASSENGER)</b></p>
+            <p>and short term premium calculation also available for Autoplus Premium.</p>
+            <div class="countdown">
+                <div class="countdown-progress"></div>
+            </div>
+        </div>
+    </div>
 <!-- Top Line with Menu and Custom Settings Icon -->
 <div class="top-line">
     <div class="menu-container">
@@ -76,7 +89,7 @@
     <div class="about-content">
         <span class="close-btn" onclick="hideAbout()">&times;</span>
         <h2>Premium Calculator</h2>
-        <p class="update-date">Updated on: 12-Aug-2025 at 10:21 PM</p>
+        <p class="update-date">Updated on: 30-Aug-2025 at 02:17 AM</p>
         <p>This is a premium calculator for Motor Insurance, Property insurance and Cash Denomination. It calculates the premium based on various parameters such as vehicle type, value, cubic capacity, additional options for motor insurance, calculate property insurance premium based on property details and cash denomination facility as per bill and payment options with data save facility. I am trying to provide most of the usable tools that helps us to calculate insurance premium.</p><br>
         <h4>Developed by Nisheda Bhattarai</h4>
         <p>Email: nisheda@walla.com</p>
@@ -437,7 +450,7 @@
 </div>
 
 <!-- Print Template (hidden by default) -->
-<div id="printTemplate" style="display: none;">            
+<div id="printTemplate" style="display: none;">
     <div class="print-template" style="padding: 2mm; font-size: 10px;">
         <div class="print-header">
             <img src="logo.png" alt="Company Logo" class="print-logo">
@@ -485,6 +498,7 @@
 <div id="pdfContent" style="display: none;"></div>
 
     <script src="js/top-line.js"></script>
+    <script src="js/overlay.js"></script>
     <script src="js/jsCalculator.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </body>

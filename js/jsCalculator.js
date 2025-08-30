@@ -1696,6 +1696,13 @@ confirmPrintBtn.addEventListener('click', function() {
             }
         }
 
+        // Short period factor for autoplus premiums
+        if (vehicleValue > 0 && calcType !== 'annual') {
+        depreciationPremium *= shortPeriodFactor;
+        newVehiclePremium *= shortPeriodFactor;
+        rentalPremium *= shortPeriodFactor;
+        }
+
         // Step 22: VAT for Autoplus
         const apVatAmount = (depreciationPremium + newVehiclePremium + rentalPremium) * 0.13;
         
