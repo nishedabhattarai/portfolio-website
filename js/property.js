@@ -4007,8 +4007,10 @@ function loadFallbackData() {
         }
         
         let calculatedPremium = premium * calculationFactor;
+
+        // Apply direct discount if applicable
         let discount = directDiscount ? calculatedPremium * 0.025 : 0;
-        
+
         // Calculate VAT after discount
         let vat = (calculatedPremium - discount) * 0.13;
         let stamp = value <= 100000 ? 10 : 20;
@@ -4126,58 +4128,59 @@ function loadFallbackData() {
         
         // Show preview
         preview.style.display = 'block';
+        
+        return preview;
     }
 
     function generatePDF() {
-        showPrintPreview();
+        const preview = showPrintPreview();
+        
+        // Use setTimeout to ensure the preview is rendered before generating PDF
         setTimeout(() => {
             const element = document.getElementById('printPreview');
+            
             const opt = {
-                margin: 10,
+                margin: 5,
                 filename: 'Property_Insurance_Calculation.pdf',
                 image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 2 },
-                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                html2canvas: { 
+                    scale: 2, 
+                    useCORS: true, 
+                    logging: false,
+                    width: 800,
+                    windowWidth: 800
+                },
+                jsPDF: { 
+                    unit: 'mm', 
+                    format: 'a4', 
+                    orientation: 'portrait',
+                    compress: true
+                }
             };
             
-            // Use html2pdf if available, otherwise alert the user
+            // Use html2pdf if available
             if (typeof html2pdf !== 'undefined') {
-                html2pdf().set(opt).from(element).save();
+                html2pdf().set(opt).from(element).save().then(() => {
+                    element.style.display = 'none';
+                }).catch(error => {
+                    console.error('PDF generation error:', error);
+                    element.style.display = 'none';
+                    alert("Error generating PDF. Please try again.");
+                });
             } else {
                 alert("PDF generation library not loaded. Please try again.");
+                element.style.display = 'none';
             }
-            document.getElementById('printPreview').style.display = 'none';
         }, 500);
     }
 
     function printCalculation() {
-        showPrintPreview();
+        const preview = showPrintPreview();
+        
+        // Use setTimeout to ensure the preview is rendered before printing
         setTimeout(() => {
             window.print();
-            document.getElementById('printPreview').style.display = 'none';
         }, 500);
-    }
-
-    function toggleSettings() {
-        const settings = document.getElementById('settingsMenu');
-        settings.style.display = settings.style.display === 'flex' ? 'none' : 'flex';
-    }
-
-    function toggleDarkMode() {
-        document.body.classList.toggle('dark-mode');
-    }
-
-    function changeFontSize() {
-        const size = document.getElementById('fontSizeRange').value;
-        document.body.style.fontSize = size + 'px';
-    }
-
-    function showAbout() {
-        document.getElementById('aboutOverlay').style.display = 'flex';
-    }
-
-    function hideAbout() {
-        document.getElementById('aboutOverlay').style.display = 'none';
     }
 
     // Initialize the page
@@ -4190,4 +4193,13 @@ function loadFallbackData() {
         const script = document.createElement('script');
         script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
         document.head.appendChild(script);
+        
+        // Close print preview when clicking outside
+        document.addEventListener('click', function(event) {
+            const preview = document.getElementById('printPreview');
+            if (preview.style.display === 'block' && !preview.contains(event.target) && 
+                event.target.id !== 'printBtn' && event.target.id !== 'downloadPdfBtn') {
+                preview.style.display = 'none';
+            }
+        });
     });
