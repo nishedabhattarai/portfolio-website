@@ -3992,7 +3992,6 @@ function loadFallbackData() {
         
         // Calculate base premium
         let premium = (value * rate) / 1000;
-        let discount = directDiscount ? premium * 0.025 : 0;
         
         // Handle different calculation types
         let calculationFactor = 1;
@@ -4008,6 +4007,7 @@ function loadFallbackData() {
         }
         
         let calculatedPremium = premium * calculationFactor;
+        let discount = directDiscount ? calculatedPremium * 0.025 : 0;
         
         // Calculate VAT after discount
         let vat = (calculatedPremium - discount) * 0.13;
@@ -4156,12 +4156,6 @@ function loadFallbackData() {
             window.print();
             document.getElementById('printPreview').style.display = 'none';
         }, 500);
-    }
-
-    // Top line functionality
-    function toggleMenu() {
-        const menu = document.getElementById('menuDropdown');
-        menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
     }
 
     function toggleSettings() {
