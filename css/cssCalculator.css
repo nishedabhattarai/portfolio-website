@@ -8,6 +8,11 @@ body {
     margin-left: 4px;
 }
 
+.required-text {
+    color: orange;
+    margin-left: 4px;
+}
+
 .clear-btn {
     background-color: #e74c3c;
     margin-left: 10px;
@@ -42,6 +47,14 @@ h1 {
     margin: 0px 0 15px; /* Reduced top margin */
     color: whitesmoke;
     font-size: 1.5rem;
+}
+
+h3 {
+    text-align: center;
+    margin: 0px 0 15px; /* Reduced top margin */
+    color: black;
+    font-size: 1.0rem;
+    font-style: normal;
 }
 
 .calculator-grid {
