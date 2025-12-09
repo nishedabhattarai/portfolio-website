@@ -1279,10 +1279,12 @@ confirmPrintBtn.addEventListener('click', function() {
         if (vehicleValue > 0) {
             basicPremium = discountBase + towingChargeAmount - electricDiscountAmount - disabledDiscountAmount;
             // Apply minimum premium rules
-            if (vehicleType === 'private' || vehicleType === 'electric') {
-                basicPremium = Math.max(basicPremium, 2000.00);
-            } else if (vehicleType === 'motorcycle') {
-                basicPremium = Math.max(basicPremium, 1000.00);
+            if (calcType === 'annual') {
+                if (vehicleType === 'private' || vehicleType === 'electric') {
+                    basicPremium = Math.max(basicPremium, 2000.00);
+                } else if (vehicleType === 'motorcycle') {
+                    basicPremium = Math.max(basicPremium, 1000.00);
+                }
             }
         } else {
             // for third party only
