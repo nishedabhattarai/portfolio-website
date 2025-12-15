@@ -262,6 +262,7 @@
                 left: 0;
                 top: 0;
                 width: 100%;
+                background-color: white;
                 color: black;
                 font-size: 12px;
                 padding: 5mm;
@@ -292,6 +293,7 @@
             display: none;
             padding: 5mm;
             background: white;
+            color: black;
             max-width: 800px;
             margin: 0 auto;
             font-size: 12px;
