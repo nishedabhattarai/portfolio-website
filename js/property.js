@@ -3808,398 +3808,430 @@ function loadFallbackData() {
     updateCategory();
 }
 
-    function populatePropertyLists() {
-        const nepaliInput = document.getElementById('nepaliDescProperty');
-        const englishInput = document.getElementById('englishDescProperty');
-        const romanInput = document.getElementById('romanDescProperty');
-        const nepaliOptions = document.getElementById('nepaliOptions');
-        const englishOptions = document.getElementById('englishOptions');
-        const romanOptions = document.getElementById('romanOptions');
+function populatePropertyLists() {
+    const nepaliInput = document.getElementById('nepaliDescProperty');
+    const englishInput = document.getElementById('englishDescProperty');
+    const romanInput = document.getElementById('romanDescProperty');
+    const nepaliOptions = document.getElementById('nepaliOptions');
+    const englishOptions = document.getElementById('englishOptions');
+    const romanOptions = document.getElementById('romanOptions');
+    
+    // Clear existing options
+    nepaliOptions.innerHTML = '';
+    englishOptions.innerHTML = '';
+    romanOptions.innerHTML = '';
+    
+    // Add new options
+    propertyItems.forEach(item => {
+        // Nepali options
+        const nepaliOption = document.createElement('div');
+        nepaliOption.className = 'datalist-option';
+        nepaliOption.textContent = item.nepali;
+        nepaliOption.addEventListener('click', () => {
+            nepaliInput.value = item.nepali;
+            englishInput.value = item.english;
+            romanInput.value = item.roman;
+            document.getElementById('category').value = item.category;
+            document.getElementById('rate').value = item.rate;
+            nepaliOptions.style.display = 'none';
+            calculatePremium();
+        });
+        nepaliOptions.appendChild(nepaliOption);
         
-        // Clear existing options
-        nepaliOptions.innerHTML = '';
-        englishOptions.innerHTML = '';
-        romanOptions.innerHTML = '';
+        // English options
+        const englishOption = document.createElement('div');
+        englishOption.className = 'datalist-option';
+        englishOption.textContent = item.english;
+        englishOption.addEventListener('click', () => {
+            nepaliInput.value = item.nepali;
+            englishInput.value = item.english;
+            romanInput.value = item.roman;
+            document.getElementById('category').value = item.category;
+            document.getElementById('rate').value = item.rate;
+            englishOptions.style.display = 'none';
+            calculatePremium();
+        });
+        englishOptions.appendChild(englishOption);
         
-        // Add new options
-        propertyItems.forEach(item => {
-            // Nepali options
-            const nepaliOption = document.createElement('div');
-            nepaliOption.className = 'datalist-option';
-            nepaliOption.textContent = item.nepali;
-            nepaliOption.addEventListener('click', () => {
-                nepaliInput.value = item.nepali;
-                englishInput.value = item.english;
-                romanInput.value = item.roman;
-                document.getElementById('category').value = item.category;
-                document.getElementById('rate').value = item.rate;
-                nepaliOptions.style.display = 'none';
-                calculatePremium();
-            });
-            nepaliOptions.appendChild(nepaliOption);
-            
-            // English options
-            const englishOption = document.createElement('div');
-            englishOption.className = 'datalist-option';
-            englishOption.textContent = item.english;
-            englishOption.addEventListener('click', () => {
-                nepaliInput.value = item.nepali;
-                englishInput.value = item.english;
-                romanInput.value = item.roman;
-                document.getElementById('category').value = item.category;
-                document.getElementById('rate').value = item.rate;
-                englishOptions.style.display = 'none';
-                calculatePremium();
-            });
-            englishOptions.appendChild(englishOption);
-            
-            // Roman options
-            const romanOption = document.createElement('div');
-            romanOption.className = 'datalist-option';
-            romanOption.textContent = item.roman;
-            romanOption.addEventListener('click', () => {
-                nepaliInput.value = item.nepali;
-                englishInput.value = item.english;
-                romanInput.value = item.roman;
-                document.getElementById('category').value = item.category;
-                document.getElementById('rate').value = item.rate;
-                romanOptions.style.display = 'none';
-                calculatePremium();
-            });
-            romanOptions.appendChild(romanOption);
+        // Roman options
+        const romanOption = document.createElement('div');
+        romanOption.className = 'datalist-option';
+        romanOption.textContent = item.roman;
+        romanOption.addEventListener('click', () => {
+            nepaliInput.value = item.nepali;
+            englishInput.value = item.english;
+            romanInput.value = item.roman;
+            document.getElementById('category').value = item.category;
+            document.getElementById('rate').value = item.rate;
+            romanOptions.style.display = 'none';
+            calculatePremium();
+        });
+        romanOptions.appendChild(romanOption);
+    });
+    
+    // Add event listeners for input fields
+    [nepaliInput, englishInput, romanInput].forEach(input => {
+        const optionsContainer = input === nepaliInput ? nepaliOptions : 
+                            input === englishInput ? englishOptions : romanOptions;
+        
+        input.addEventListener('focus', () => {
+            // Show only the relevant options container
+            nepaliOptions.style.display = input === nepaliInput ? 'block' : 'none';
+            englishOptions.style.display = input === englishInput ? 'block' : 'none';
+            romanOptions.style.display = input === romanInput ? 'block' : 'none';
         });
         
-        // Add event listeners for input fields
-        [nepaliInput, englishInput, romanInput].forEach(input => {
-            const optionsContainer = input === nepaliInput ? nepaliOptions : 
-                                   input === englishInput ? englishOptions : romanOptions;
-            
-            input.addEventListener('focus', () => {
-                // Show only the relevant options container
-                nepaliOptions.style.display = input === nepaliInput ? 'block' : 'none';
-                englishOptions.style.display = input === englishInput ? 'block' : 'none';
-                romanOptions.style.display = input === romanInput ? 'block' : 'none';
+        // Filter options while typing
+        input.addEventListener('input', () => {
+            const value = input.value.toLowerCase();
+            const options = optionsContainer.querySelectorAll('.datalist-option');
+            options.forEach(option => {
+                option.style.display = option.textContent.toLowerCase().includes(value) ? 'block' : 'none';
             });
+        });
+        
+        // Keyboard navigation
+        input.addEventListener('keydown', (e) => {
+            const options = Array.from(optionsContainer.querySelectorAll('.datalist-option:not([style*="display: none"])'));
+            let activeOption = optionsContainer.querySelector('.datalist-option.active');
             
-            // Filter options while typing
-            input.addEventListener('input', () => {
-                const value = input.value.toLowerCase();
-                const options = optionsContainer.querySelectorAll('.datalist-option');
-                options.forEach(option => {
-                    option.style.display = option.textContent.toLowerCase().includes(value) ? 'block' : 'none';
-                });
-            });
-            
-            // Keyboard navigation
-            input.addEventListener('keydown', (e) => {
-                const options = Array.from(optionsContainer.querySelectorAll('.datalist-option:not([style*="display: none"])'));
-                let activeOption = optionsContainer.querySelector('.datalist-option.active');
-                
-                if (e.key === 'ArrowDown') {
-                    e.preventDefault();
-                    if (!activeOption) {
-                        // First option
-                        options[0]?.classList.add('active');
-                        options[0]?.scrollIntoView({ block: 'nearest' });
-                    } else {
-                        const currentIndex = options.indexOf(activeOption);
-                        const nextIndex = (currentIndex + 1) % options.length;
-                        activeOption.classList.remove('active');
-                        options[nextIndex].classList.add('active');
-                        options[nextIndex].scrollIntoView({ block: 'nearest' });
-                    }
-                } else if (e.key === 'ArrowUp') {
-                    e.preventDefault();
-                    if (!activeOption) {
-                        // Last option
-                        options[options.length - 1]?.classList.add('active');
-                        options[options.length - 1]?.scrollIntoView({ block: 'nearest' });
-                    } else {
-                        const currentIndex = options.indexOf(activeOption);
-                        const prevIndex = (currentIndex - 1 + options.length) % options.length;
-                        activeOption.classList.remove('active');
-                        options[prevIndex].classList.add('active');
-                        options[prevIndex].scrollIntoView({ block: 'nearest' });
-                    }
-                } else if (e.key === 'Enter' && activeOption) {
-                    e.preventDefault();
-                    activeOption.click();
-                } else if (e.key === 'Escape') {
-                    optionsContainer.style.display = 'none';
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                if (!activeOption) {
+                    // First option
+                    options[0]?.classList.add('active');
+                    options[0]?.scrollIntoView({ block: 'nearest' });
+                } else {
+                    const currentIndex = options.indexOf(activeOption);
+                    const nextIndex = (currentIndex + 1) % options.length;
+                    activeOption.classList.remove('active');
+                    options[nextIndex].classList.add('active');
+                    options[nextIndex].scrollIntoView({ block: 'nearest' });
                 }
-            });
-        });
-        
-        // Hide dropdowns when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!nepaliInput.contains(e.target) && !nepaliOptions.contains(e.target)) {
-                nepaliOptions.style.display = 'none';
-            }
-            if (!englishInput.contains(e.target) && !englishOptions.contains(e.target)) {
-                englishOptions.style.display = 'none';
-            }
-            if (!romanInput.contains(e.target) && !romanOptions.contains(e.target)) {
-                romanOptions.style.display = 'none';
-            }
-        });
-    }
-
-    // Update the calculatePremium function:
-    // Add this new function to handle calculation type changes
-    function toggleCalculationFields() {
-        const calculationType = document.getElementById('calculationType').value;
-        const shortTermContainer = document.getElementById('shortTermContainer');
-        const prorateContainer = document.getElementById('prorateContainer');
-        
-        shortTermContainer.classList.add('hidden');
-        prorateContainer.classList.add('hidden');
-        
-        if (calculationType === 'shortTerm') {
-            shortTermContainer.classList.remove('hidden');
-        } else if (calculationType === 'prorate') {
-            prorateContainer.classList.remove('hidden');
-        }
-        
-        calculatePremium();
-    }
-
-    function calculatePremium() {
-        const valueInput = document.getElementById('value');
-        const rateInput = document.getElementById('rate');
-        const resultsDiv = document.getElementById('results');
-        const calculationType = document.getElementById('calculationType').value;
-        
-        // Always show results when there's a value
-        if (valueInput.value && !isNaN(parseFloat(valueInput.value))) {
-            resultsDiv.classList.remove('hidden');
-            document.getElementById('printButtons').style.display = 'flex';
-        } else {
-            resultsDiv.classList.add('hidden');
-            document.getElementById('printButtons').style.display = 'none';
-            return;
-        }
-        
-        if (currentInsuranceType === 'home') {
-            updateHomeInsuranceRate();
-            updateCategory();
-        } else if (!rateInput.value) {
-            return;
-        }
-        
-        const rate = parseFloat(rateInput.value);
-        const value = parseFloat(valueInput.value);
-        const directDiscount = document.getElementById('directDiscount').checked;
-        
-        // Calculate base premium
-        let premium = (value * rate) / 1000;
-        
-        // Handle different calculation types
-        let calculationFactor = 1;
-        
-        if (calculationType === 'shortTerm') {
-            const shortTermPeriod = parseFloat(document.getElementById('shortTermPeriod').value) || 1;
-            calculationFactor = shortTermPeriod;
-        } else if (calculationType === 'prorate') {
-            const numberOfDays = parseInt(document.getElementById('numberOfDays').value) || 1;
-            const days = Math.min(Math.max(1, numberOfDays), 365);
-            document.getElementById('numberOfDays').value = days;
-            calculationFactor = days / 365;
-        }
-        
-        let calculatedPremium = premium * calculationFactor;
-
-        // Apply direct discount if applicable
-        let discount = directDiscount ? calculatedPremium * 0.025 : 0;
-
-        // Calculate VAT after discount
-        let vat = (calculatedPremium - discount) * 0.13;
-        let stamp = value <= 100000 ? 10 : 20;
-        let total = calculatedPremium - discount + vat + stamp;
-        
-        // Update results table
-        document.getElementById('premiumAmount').textContent = format(calculatedPremium);
-        document.getElementById('discountAmount').textContent = format(discount);
-        document.getElementById('vatAmount').textContent = format(vat);
-        document.getElementById('stampAmount').textContent = format(stamp);
-        document.getElementById('totalAmount').textContent = format(total);
-        
-        // Handle direct discount display
-        document.getElementById('discountRow').classList.toggle('hidden', !directDiscount);
-    }
-
-    function updateInsuranceType() {
-        currentInsuranceType = document.querySelector('input[name="insuranceType"]:checked').value;
-        
-        // Update UI for selected insurance type
-        document.getElementById('homeOption').classList.toggle('selected', currentInsuranceType === 'home');
-        document.getElementById('propertyOption').classList.toggle('selected', currentInsuranceType === 'property');
-        
-        if (currentInsuranceType === 'home') {
-            document.getElementById('homeInsuranceFields').classList.remove('hidden');
-            document.getElementById('propertyInsuranceFields').classList.add('hidden');
-            updateHomeInsuranceRate();
-        } else {
-            document.getElementById('homeInsuranceFields').classList.add('hidden');
-            document.getElementById('propertyInsuranceFields').classList.remove('hidden');
-        }
-        calculatePremium();
-    }
-
-    function updateCategory() {
-        const value = parseFloat(document.getElementById('value').value) || 0;
-        if (currentInsuranceType === 'home') {
-            document.getElementById('category').value = value > 20000000 ? "मध्यम जाेखिम" : "अति सामान्य जाेखिम";
-        }
-    }
-
-    function updateHomeInsuranceRate() {
-        const value = parseFloat(document.getElementById('value').value) || 0;
-        let rate = '0.50';
-        if (value > 20000000) {
-            rate = '3.00';
-        } else if (value > 10000000) {
-            rate = '1.50';
-        }
-        document.getElementById('rate').value = rate;
-    }
-
-    // PDF and Print functions
-    function showPrintPreview() {
-        const preview = document.getElementById('printPreview');
-        const insuranceType = currentInsuranceType === 'home' ? 'Home' : 'Property';
-        const calculationType = document.getElementById('calculationType').value;
-        const directDiscount = document.getElementById('directDiscount').checked;
-        
-        // Get current date and generate reference number
-        const now = new Date();
-        const currentDate = now.toLocaleDateString();
-        const refNo = 'REF-' + now.getTime().toString().slice(-6);
-        
-        // Set preview content
-        document.getElementById('printDate').textContent = currentDate;
-        document.getElementById('printRef').textContent = refNo;
-        
-        // Set insurance details
-        const descNepali = currentInsuranceType === 'home' ? 
-            document.getElementById('nepaliDescHome').value : 
-            document.getElementById('nepaliDescProperty').value;
-        const descEnglish = currentInsuranceType === 'home' ? 
-            document.getElementById('englishDescHome').value : 
-            document.getElementById('englishDescProperty').value;
-        
-        document.getElementById('printInsuranceType').textContent = insuranceType;
-        document.getElementById('printDescNepali').textContent = descNepali;
-        document.getElementById('printDescEnglish').textContent = descEnglish;
-        document.getElementById('printValue').textContent = format(parseFloat(document.getElementById('value').value));
-        document.getElementById('printCategory').textContent = document.getElementById('category').value;
-        document.getElementById('printRate').textContent = document.getElementById('rate').value + ' per 1000';
-        
-        // Set calculation type details
-        document.getElementById('printCalculationType').textContent = 
-            calculationType === 'annual' ? 'Annual' : 
-            calculationType === 'shortTerm' ? 'Short Term' : 'Prorate';
-            
-        // Show/hide and set calculation type specific fields
-        document.getElementById('printShortTermRow').classList.add('hidden');
-        document.getElementById('printProrateRow').classList.add('hidden');
-        
-        if (calculationType === 'shortTerm') {
-            const shortTermSelect = document.getElementById('shortTermPeriod');
-            const selectedOption = shortTermSelect.options[shortTermSelect.selectedIndex].text;
-            document.getElementById('printShortTermRow').classList.remove('hidden');
-            document.getElementById('printShortTerm').textContent = selectedOption;
-        } else if (calculationType === 'prorate') {
-            document.getElementById('printProrateRow').classList.remove('hidden');
-            document.getElementById('printProrateDays').textContent = document.getElementById('numberOfDays').value + ' days';
-        }
-        
-        // Set direct discount
-        document.getElementById('printDirectDiscount').textContent = directDiscount ? 'Yes (2.5%)' : 'No';
-        
-        // Set calculation results
-        document.getElementById('printPremium').textContent = document.getElementById('premiumAmount').textContent;
-        document.getElementById('printDiscount').textContent = document.getElementById('discountAmount').textContent;
-        document.getElementById('printVat').textContent = document.getElementById('vatAmount').textContent;
-        document.getElementById('printStamp').textContent = document.getElementById('stampAmount').textContent;
-        document.getElementById('printTotal').textContent = document.getElementById('totalAmount').textContent;
-        
-        // Show/hide discount row
-        document.getElementById('printDiscountRow').classList.toggle('hidden', !directDiscount);
-        
-        // Show preview
-        preview.style.display = 'block';
-        
-        return preview;
-    }
-
-    function generatePDF() {
-        const preview = showPrintPreview();
-        
-        // Use setTimeout to ensure the preview is rendered before generating PDF
-        setTimeout(() => {
-            const element = document.getElementById('printPreview');
-            
-            const opt = {
-                margin: 5,
-                filename: 'Property_Insurance_Calculation.pdf',
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { 
-                    scale: 2, 
-                    useCORS: true, 
-                    logging: false,
-                    width: 800,
-                    windowWidth: 800
-                },
-                jsPDF: { 
-                    unit: 'mm', 
-                    format: 'a4', 
-                    orientation: 'portrait',
-                    compress: true
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                if (!activeOption) {
+                    // Last option
+                    options[options.length - 1]?.classList.add('active');
+                    options[options.length - 1]?.scrollIntoView({ block: 'nearest' });
+                } else {
+                    const currentIndex = options.indexOf(activeOption);
+                    const prevIndex = (currentIndex - 1 + options.length) % options.length;
+                    activeOption.classList.remove('active');
+                    options[prevIndex].classList.add('active');
+                    options[prevIndex].scrollIntoView({ block: 'nearest' });
                 }
-            };
-            
-            // Use html2pdf if available
-            if (typeof html2pdf !== 'undefined') {
-                html2pdf().set(opt).from(element).save().then(() => {
-                    element.style.display = 'none';
-                }).catch(error => {
-                    console.error('PDF generation error:', error);
-                    element.style.display = 'none';
-                    alert("Error generating PDF. Please try again.");
-                });
-            } else {
-                alert("PDF generation library not loaded. Please try again.");
-                element.style.display = 'none';
-            }
-        }, 500);
-    }
-
-    function printCalculation() {
-        const preview = showPrintPreview();
-        
-        // Use setTimeout to ensure the preview is rendered before printing
-        setTimeout(() => {
-            window.print();
-        }, 500);
-    }
-
-    // Initialize the page
-    document.addEventListener('DOMContentLoaded', function() {
-        loadFallbackData();
-        updateInsuranceType();
-        toggleCalculationFields();
-        
-        // Initialize html2pdf
-        const script = document.createElement('script');
-        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
-        document.head.appendChild(script);
-        
-        // Close print preview when clicking outside
-        document.addEventListener('click', function(event) {
-            const preview = document.getElementById('printPreview');
-            if (preview.style.display === 'block' && !preview.contains(event.target) && 
-                event.target.id !== 'printBtn' && event.target.id !== 'downloadPdfBtn') {
-                preview.style.display = 'none';
+            } else if (e.key === 'Enter' && activeOption) {
+                e.preventDefault();
+                activeOption.click();
+            } else if (e.key === 'Escape') {
+                optionsContainer.style.display = 'none';
             }
         });
     });
+    
+    // Hide dropdowns when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!nepaliInput.contains(e.target) && !nepaliOptions.contains(e.target)) {
+            nepaliOptions.style.display = 'none';
+        }
+        if (!englishInput.contains(e.target) && !englishOptions.contains(e.target)) {
+            englishOptions.style.display = 'none';
+        }
+        if (!romanInput.contains(e.target) && !romanOptions.contains(e.target)) {
+            romanOptions.style.display = 'none';
+        }
+    });
+}
+
+// Update the calculatePremium function:
+// Add this new function to handle calculation type changes
+function toggleCalculationFields() {
+    const calculationType = document.getElementById('calculationType').value;
+    const shortTermContainer = document.getElementById('shortTermContainer');
+    const prorateContainer = document.getElementById('prorateContainer');
+    
+    shortTermContainer.classList.add('hidden');
+    prorateContainer.classList.add('hidden');
+    
+    if (calculationType === 'shortTerm') {
+        shortTermContainer.classList.remove('hidden');
+    } else if (calculationType === 'prorate') {
+        prorateContainer.classList.remove('hidden');
+    }
+    
+    calculatePremium();
+}
+
+function calculatePremium() {
+    const valueInput = document.getElementById('value');
+    const rateInput = document.getElementById('rate');
+    const resultsDiv = document.getElementById('results');
+    const calculationType = document.getElementById('calculationType').value;
+    
+    // Always show results when there's a value
+    if (valueInput.value && !isNaN(parseFloat(valueInput.value))) {
+        resultsDiv.classList.remove('hidden');
+        document.getElementById('printButtons').style.display = 'flex';
+    } else {
+        resultsDiv.classList.add('hidden');
+        document.getElementById('printButtons').style.display = 'none';
+        return;
+    }
+    
+    if (currentInsuranceType === 'home') {
+        updateHomeInsuranceRate();
+        updateCategory();
+    } else if (!rateInput.value) {
+        return;
+    }
+    
+    const rate = parseFloat(rateInput.value);
+    const value = parseFloat(valueInput.value);
+    const directDiscount = document.getElementById('directDiscount').checked;
+    
+    // Calculate base premium
+    let premium = (value * rate) / 1000;
+    
+    // Handle different calculation types
+    let calculationFactor = 1;
+    
+    if (calculationType === 'shortTerm') {
+        const shortTermPeriod = parseFloat(document.getElementById('shortTermPeriod').value) || 1;
+        calculationFactor = shortTermPeriod;
+    } else if (calculationType === 'prorate') {
+        const numberOfDays = parseInt(document.getElementById('numberOfDays').value) || 1;
+        const days = Math.min(Math.max(1, numberOfDays), 365);
+        document.getElementById('numberOfDays').value = days;
+        calculationFactor = days / 365;
+    }
+    
+    let calculatedPremium = premium * calculationFactor;
+
+    // Apply direct discount if applicable
+    let discount = directDiscount ? calculatedPremium * 0.025 : 0;
+
+    // Calculate VAT after discount
+    let vat = (calculatedPremium - discount) * 0.13;
+    let stamp = value <= 100000 ? 10 : 20;
+    let total = calculatedPremium - discount + vat + stamp;
+    
+    // Update results table
+    document.getElementById('premiumAmount').textContent = format(calculatedPremium);
+    document.getElementById('discountAmount').textContent = format(discount);
+    document.getElementById('vatAmount').textContent = format(vat);
+    document.getElementById('stampAmount').textContent = format(stamp);
+    document.getElementById('totalAmount').textContent = format(total);
+    
+    // Handle direct discount display
+    document.getElementById('discountRow').classList.toggle('hidden', !directDiscount);
+}
+
+function updateInsuranceType() {
+    currentInsuranceType = document.querySelector('input[name="insuranceType"]:checked').value;
+    
+    // Update UI for selected insurance type
+    document.getElementById('homeOption').classList.toggle('selected', currentInsuranceType === 'home');
+    document.getElementById('propertyOption').classList.toggle('selected', currentInsuranceType === 'property');
+    
+    if (currentInsuranceType === 'home') {
+        document.getElementById('homeInsuranceFields').classList.remove('hidden');
+        document.getElementById('propertyInsuranceFields').classList.add('hidden');
+        updateHomeInsuranceRate();
+    } else {
+        document.getElementById('homeInsuranceFields').classList.add('hidden');
+        document.getElementById('propertyInsuranceFields').classList.remove('hidden');
+        
+        // Clear category and rate when switching to Property type (issue #3)
+        document.getElementById('category').value = '';
+        document.getElementById('rate').value = '';
+        
+        // Also clear the property description fields
+        document.getElementById('nepaliDescProperty').value = '';
+        document.getElementById('englishDescProperty').value = '';
+        document.getElementById('romanDescProperty').value = '';
+    }
+    calculatePremium();
+}
+
+function updateCategory() {
+    const value = parseFloat(document.getElementById('value').value) || 0;
+    if (currentInsuranceType === 'home') {
+        document.getElementById('category').value = value > 20000000 ? "मध्यम जाेखिम" : "अति सामान्य जाेखिम";
+    }
+}
+
+function updateHomeInsuranceRate() {
+    const value = parseFloat(document.getElementById('value').value) || 0;
+    let rate = '0.50';
+    if (value > 20000000) {
+        rate = '3.00';
+    } else if (value > 10000000) {
+        rate = '1.50';
+    }
+    document.getElementById('rate').value = rate;
+}
+
+// PDF and Print functions
+function showPrintPreview() {
+    const preview = document.getElementById('printPreview');
+    const insuranceType = currentInsuranceType === 'home' ? 'Home' : 'Property';
+    const calculationType = document.getElementById('calculationType').value;
+    const directDiscount = document.getElementById('directDiscount').checked;
+    
+    // Get current date and generate reference number
+    const now = new Date();
+    const currentDate = now.toLocaleDateString();
+    const refNo = 'REF-' + now.getTime().toString().slice(-6);
+    
+    // Set preview content
+    document.getElementById('printDate').textContent = currentDate;
+    document.getElementById('printRef').textContent = refNo;
+    
+    // Set insurance details
+    const descNepali = currentInsuranceType === 'home' ? 
+        document.getElementById('nepaliDescHome').value : 
+        document.getElementById('nepaliDescProperty').value;
+    const descEnglish = currentInsuranceType === 'home' ? 
+        document.getElementById('englishDescHome').value : 
+        document.getElementById('englishDescProperty').value;
+    
+    document.getElementById('printInsuranceType').textContent = insuranceType;
+    document.getElementById('printDescNepali').textContent = descNepali;
+    document.getElementById('printDescEnglish').textContent = descEnglish;
+    document.getElementById('printValue').textContent = format(parseFloat(document.getElementById('value').value));
+    document.getElementById('printCategory').textContent = document.getElementById('category').value;
+    document.getElementById('printRate').textContent = document.getElementById('rate').value + ' per 1000';
+    
+    // Set calculation type details
+    document.getElementById('printCalculationType').textContent = 
+        calculationType === 'annual' ? 'Annual' : 
+        calculationType === 'shortTerm' ? 'Short Term' : 'Prorate';
+        
+    // Show/hide and set calculation type specific fields
+    document.getElementById('printShortTermRow').classList.add('hidden');
+    document.getElementById('printProrateRow').classList.add('hidden');
+    
+    if (calculationType === 'shortTerm') {
+        const shortTermSelect = document.getElementById('shortTermPeriod');
+        const selectedOption = shortTermSelect.options[shortTermSelect.selectedIndex].text;
+        document.getElementById('printShortTermRow').classList.remove('hidden');
+        document.getElementById('printShortTerm').textContent = selectedOption;
+    } else if (calculationType === 'prorate') {
+        document.getElementById('printProrateRow').classList.remove('hidden');
+        document.getElementById('printProrateDays').textContent = document.getElementById('numberOfDays').value + ' days';
+    }
+    
+    // Set direct discount
+    document.getElementById('printDirectDiscount').textContent = directDiscount ? 'Yes (2.5%)' : 'No';
+    
+    // Set calculation results
+    document.getElementById('printPremium').textContent = document.getElementById('premiumAmount').textContent;
+    document.getElementById('printDiscount').textContent = document.getElementById('discountAmount').textContent;
+    document.getElementById('printVat').textContent = document.getElementById('vatAmount').textContent;
+    document.getElementById('printStamp').textContent = document.getElementById('stampAmount').textContent;
+    document.getElementById('printTotal').textContent = document.getElementById('totalAmount').textContent;
+    
+    // Show/hide discount row
+    document.getElementById('printDiscountRow').classList.toggle('hidden', !directDiscount);
+    
+    // Show preview
+    preview.style.display = 'block';
+    
+    return preview;
+}
+
+function generatePDF() {
+    const preview = showPrintPreview();
+    
+    // Check if html2pdf is available
+    if (typeof html2pdf === 'undefined') {
+        alert("PDF generation library is still loading. Please try again in a moment.");
+        preview.style.display = 'none';
+        return;
+    }
+    
+    // Use setTimeout to ensure the preview is rendered before generating PDF
+    setTimeout(() => {
+        const element = document.getElementById('printPreview');
+        
+        const opt = {
+            margin: 5,
+            filename: 'Property_Insurance_Calculation.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { 
+                scale: 2, 
+                useCORS: true, 
+                logging: false,
+                width: 800,
+                windowWidth: 800
+            },
+            jsPDF: { 
+                unit: 'mm', 
+                format: 'a4', 
+                orientation: 'portrait',
+                compress: true
+            }
+        };
+        
+        html2pdf().set(opt).from(element).save().then(() => {
+            element.style.display = 'none';
+        }).catch(error => {
+            console.error('PDF generation error:', error);
+            element.style.display = 'none';
+            alert("Error generating PDF. Please try again.");
+        });
+    }, 500);
+}
+
+function printCalculation() {
+    const preview = showPrintPreview();
+    
+    // Use setTimeout to ensure the preview is rendered before printing
+    setTimeout(() => {
+        window.print();
+        
+        // Hide preview after printing (issue #4)
+        setTimeout(() => {
+            preview.style.display = 'none';
+        }, 1000);
+    }, 500);
+}
+
+// Initialize the page
+document.addEventListener('DOMContentLoaded', function() {
+    loadFallbackData();
+    updateInsuranceType();
+    toggleCalculationFields();
+    
+    // Initialize html2pdf
+    const script = document.createElement('script');
+    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
+    script.onload = function() {
+        console.log('PDF library loaded successfully');
+    };
+    script.onerror = function() {
+        console.error('Failed to load PDF library');
+        alert('PDF functionality may not work properly. Please check your internet connection.');
+    };
+    document.head.appendChild(script);
+    
+    // Close print preview when clicking outside
+    document.addEventListener('click', function(event) {
+        const preview = document.getElementById('printPreview');
+        if (preview && preview.style.display === 'block' && 
+            !preview.contains(event.target) && 
+            event.target.id !== 'printBtn' && 
+            event.target.id !== 'downloadPdfBtn') {
+            preview.style.display = 'none';
+        }
+    });
+    
+    // Hide print preview after printing (issue #4)
+    window.onafterprint = function() {
+        const preview = document.getElementById('printPreview');
+        if (preview) {
+            preview.style.display = 'none';
+        }
+    };
+});
