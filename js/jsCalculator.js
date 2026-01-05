@@ -23,7 +23,7 @@ function toggleFieldsBasedOnValue() {
     if (vehicleValue > 24999) {
         optionalFieldsGroup.style.display = 'flex';
         calculationTypeGroup.style.display = 'flex';
-        autoplusGroup.style.display = (vehicleType === 'motorcycle' || vehicleType === 'private' || vehicleType === 'electric' || vehicleType === 'passenger' || vehicleType === 'goods' || vehicleType === 'taxi' || vehicleType === 'tanker' || vehicleType === 'tractor') ? 'flex' : 'none';
+        autoplusGroup.style.display = (vehicleType === 'motorcycle' || vehicleType === 'private' || vehicleType === 'electric' || vehicleType === 'passenger' || vehicleType === 'goods' || vehicleType === 'taxi' || vehicleType === 'tanker' || vehicleType === 'tractor' || vehicleType === 'construction' || vehicleType === 'tempo' || vehicleType === 'agriculture') ? 'flex' : 'none';
         autoplusTypeGroup.style.display = isAutoplus ? 'flex' : 'none';
         directDiscountOption.style.display = isGovernment ? 'none' : 'flex';
         towingChargeOption.style.display = vehicleType === 'motorcycle' ? 'none' : 'flex';
@@ -127,6 +127,8 @@ function toggleVehicleFields() {
         ccGroup.style.display = 'block';
         towingChargeOption.style.display = parseFloat(document.getElementById('vehicleValue').value) > 0 ? 'flex' : 'none';
         autoplusGroup.style.display = parseFloat(document.getElementById('vehicleValue').value) > 24999 ? 'flex' : 'none';
+        newVehicleReplacement.style.display = 'block';
+        dailyRental.style.display = 'block';
         helperGroup.style.display = 'none';
     } 
     if (vehicleType === 'electric') {
@@ -135,12 +137,16 @@ function toggleVehicleFields() {
         document.getElementById('hpWattValue').required = true;
         towingChargeOption.style.display = parseFloat(document.getElementById('vehicleValue').value) > 0 ? 'flex' : 'none';
         autoplusGroup.style.display = parseFloat(document.getElementById('vehicleValue').value) > 24999 ? 'flex' : 'none';
+        newVehicleReplacement.style.display = 'block';
+        dailyRental.style.display = 'block';
         helperGroup.style.display = 'none';
     } 
     else if (vehicleType === 'motorcycle') {
         electricTypeGroup.style.display = 'block';
         disabledFriendlyOption.style.display = parseFloat(document.getElementById('vehicleValue').value) > 0 ? 'flex' : 'none';
         autoplusGroup.style.display = parseFloat(document.getElementById('vehicleValue').value) > 24999 ? 'flex' : 'none';
+        newVehicleReplacement.style.display = 'block';
+        dailyRental.style.display = 'block';
         seatCapacityGroup.style.display = 'none';
         towingChargeOption.style.display = 'none';
         helperGroup.style.display = 'none';
@@ -150,7 +156,9 @@ function toggleVehicleFields() {
         electricTypeGroup.style.display = 'block';
         towingChargeOption.style.display = parseFloat(document.getElementById('vehicleValue').value) > 0 ? 'flex' : 'none';
         disabledFriendlyOption.style.display = 'none';
-        autoplusGroup.style.display = 'none';
+        autoplusGroup.style.display = parseFloat(document.getElementById('vehicleValue').value) > 24999 ? 'flex' : 'none';
+        newVehicleReplacement.style.display = 'block';
+        dailyRental.style.display = 'block';
         helperGroup.style.display = 'none';
         ownGoodsOption.style.display = 'none';
     }
@@ -161,6 +169,8 @@ function toggleVehicleFields() {
         trailerGroup.style.display = 'block';
         towingChargeOption.style.display = parseFloat(document.getElementById('vehicleValue').value) > 0 ? 'flex' : 'none';
         autoplusGroup.style.display = parseFloat(document.getElementById('vehicleValue').value) > 24999 ? 'flex' : 'none';
+        newVehicleReplacement.style.display = 'none';
+        dailyRental.style.display = 'none';
         helperGroup.style.display = 'none';
         ownGoodsOption.style.display = 'none';
         seatCapacityGroup.style.display = 'none';
@@ -171,6 +181,8 @@ function toggleVehicleFields() {
         helperGroup.style.display = 'block';
         towingChargeOption.style.display = parseFloat(document.getElementById('vehicleValue').value) > 0 ? 'flex' : 'none';
         autoplusGroup.style.display = parseFloat(document.getElementById('vehicleValue').value) > 24999 ? 'flex' : 'none';
+        newVehicleReplacement.style.display = 'none';
+        dailyRental.style.display = 'none';
         ownGoodsOption.style.display = parseFloat(document.getElementById('vehicleValue').value) > 0 ? 'flex' : 'none';
     }
     else if (vehicleType === 'tanker' || vehicleType === 'agriculture' || 
@@ -180,6 +192,8 @@ function toggleVehicleFields() {
         towingChargeOption.style.display = parseFloat(document.getElementById('vehicleValue').value) > 0 ? 'flex' : 'none';
         ownGoodsOption.style.display = parseFloat(document.getElementById('vehicleValue').value) > 0 ? 'flex' : 'none';
         autoplusGroup.style.display = parseFloat(document.getElementById('vehicleValue').value) > 24999 ? 'flex' : 'none';
+        newVehicleReplacement.style.display = 'none';
+        dailyRental.style.display = 'none';
         helperGroup.style.display = 'none';
     }
     else if (vehicleType === 'taxi') {
@@ -188,8 +202,10 @@ function toggleVehicleFields() {
         towingChargeOption.style.display = parseFloat(document.getElementById('vehicleValue').value) > 0 ? 'flex' : 'none';
         ownGoodsOption.style.display = 'none';
         autoplusGroup.style.display = parseFloat(document.getElementById('vehicleValue').value) > 24999 ? 'flex' : 'none';
+        newVehicleReplacement.style.display = 'none';
+        dailyRental.style.display = 'none';
         helperGroup.style.display = 'none';
-    }    
+    }
     else {
         towingChargeOption.style.display = parseFloat(document.getElementById('vehicleValue').value) > 0 ? 'flex' : 'none';
     }
@@ -202,7 +218,7 @@ function toggleAutoplusFields() {
     const vehicleType = document.getElementById('vehicleType').value;
         
     // Only show Autoplus options for motorcycle, private, and electric vehicles
-    const showAutoplus = (vehicleType === 'motorcycle' || vehicleType === 'private' || vehicleType === 'electric' || vehicleType === 'goods' || vehicleType === 'passenger' || vehicleType === 'taxi' || vehicleType === 'tanker' || vehicleType === 'tractor');
+    const showAutoplus = (vehicleType === 'motorcycle' || vehicleType === 'private' || vehicleType === 'electric' || vehicleType === 'goods' || vehicleType === 'passenger' || vehicleType === 'taxi' || vehicleType === 'tanker' || vehicleType === 'tractor' || vehicleType === 'construction' || vehicleType === 'tempo' || vehicleType === 'agriculture');
     
     if (autoplusOption === 'withAp' && showAutoplus) {
         companyField.style.display = 'block';
@@ -1673,7 +1689,7 @@ confirmPrintBtn.addEventListener('click', function() {
                     rentalPremium = vehicleValue * 0.0020;
                 }
             }
-            if (isDepreciation && vehicleValue > 0 && (vehicleType === 'passenger' || vehicleType === 'goods' || vehicleType === 'taxi' || vehicleType === 'tanker' || vehicleType === 'tractor')) {
+            if (isDepreciation && vehicleValue > 0 && (vehicleType === 'passenger' || vehicleType === 'goods' || vehicleType === 'taxi' || vehicleType === 'tanker' || vehicleType === 'tractor' || vehicleType === 'construction' || vehicleType === 'tempo')) {
                 if (vehicleAge === 0) {
                     depreciationPremium = vehicleValue * 0.0020;
                 } else if (vehicleAge === 1) {
@@ -1682,7 +1698,7 @@ confirmPrintBtn.addEventListener('click', function() {
                     depreciationPremium = vehicleValue * 0.0030;
                 }
             }
-            if (isNewVehicle && (vehicleType === 'passenger' || vehicleType === 'goods' || vehicleType === 'taxi' || vehicleType === 'tanker' || vehicleType === 'tractor')) {
+            if (isNewVehicle && (vehicleType === 'passenger' || vehicleType === 'goods' || vehicleType === 'taxi' || vehicleType === 'tanker' || vehicleType === 'tractor' || vehicleType === 'construction' || vehicleType === 'tempo')) {
                 if (vehicleAge === 0) {
                     newVehiclePremium = vehicleValue * 0.0000;
                 } else if (vehicleAge === 1) {
@@ -1691,7 +1707,7 @@ confirmPrintBtn.addEventListener('click', function() {
                     newVehiclePremium = vehicleValue * 0.0000;
                 }
             }
-            if (isRental && (vehicleType === 'passenger' || vehicleType === 'goods' || vehicleType === 'taxi' || vehicleType === 'tanker' || vehicleType === 'tractor')) {
+            if (isRental && (vehicleType === 'passenger' || vehicleType === 'goods' || vehicleType === 'taxi' || vehicleType === 'tanker' || vehicleType === 'tractor' || vehicleType === 'construction' || vehicleType === 'tempo')) {
                 if (vehicleAge >= 0 && vehicleAge <= 3) {
                     rentalPremium = vehicleValue * 0.0000;
                 }
