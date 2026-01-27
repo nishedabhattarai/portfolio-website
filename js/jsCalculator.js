@@ -130,6 +130,7 @@ function toggleVehicleFields() {
         newVehicleReplacement.style.display = 'block';
         dailyRental.style.display = 'block';
         helperGroup.style.display = 'none';
+        trailerGroup.style.display = 'none';
     } 
     if (vehicleType === 'electric') {
         ccGroup.style.display = 'none';
@@ -140,6 +141,7 @@ function toggleVehicleFields() {
         newVehicleReplacement.style.display = 'block';
         dailyRental.style.display = 'block';
         helperGroup.style.display = 'none';
+        trailerGroup.style.display = 'none';
     } 
     else if (vehicleType === 'motorcycle') {
         electricTypeGroup.style.display = 'block';
@@ -151,6 +153,7 @@ function toggleVehicleFields() {
         towingChargeOption.style.display = 'none';
         helperGroup.style.display = 'none';
         ownGoodsOption.style.display = 'none';
+        trailerGroup.style.display = 'none';
     }
     else if (vehicleType === 'tempo') {
         electricTypeGroup.style.display = 'block';
@@ -161,6 +164,7 @@ function toggleVehicleFields() {
         dailyRental.style.display = 'block';
         helperGroup.style.display = 'none';
         ownGoodsOption.style.display = 'none';
+        trailerGroup.style.display = 'none';
     }
     else if (vehicleType === 'tractor') {
         ccGroup.style.display = 'none';
@@ -184,6 +188,7 @@ function toggleVehicleFields() {
         newVehicleReplacement.style.display = 'none';
         dailyRental.style.display = 'none';
         ownGoodsOption.style.display = parseFloat(document.getElementById('vehicleValue').value) > 0 ? 'flex' : 'none';
+        trailerGroup.style.display = 'none';
     }
     else if (vehicleType === 'tanker' || vehicleType === 'agriculture' || 
              vehicleType === 'goods' || vehicleType === 'construction') {
@@ -195,6 +200,7 @@ function toggleVehicleFields() {
         newVehicleReplacement.style.display = 'none';
         dailyRental.style.display = 'none';
         helperGroup.style.display = 'none';
+        trailerGroup.style.display = 'none';
     }
     else if (vehicleType === 'taxi') {
         ccGroup.style.display = 'block';
@@ -205,6 +211,7 @@ function toggleVehicleFields() {
         newVehicleReplacement.style.display = 'none';
         dailyRental.style.display = 'none';
         helperGroup.style.display = 'none';
+        trailerGroup.style.display = 'none';
     }
     else {
         towingChargeOption.style.display = parseFloat(document.getElementById('vehicleValue').value) > 0 ? 'flex' : 'none';
@@ -251,7 +258,7 @@ function toggleTrailerValue() {
     const hasTrailer = document.getElementById('hasTrailer').value;
     const trailerValueGroup = document.getElementById('trailerValueGroup');
     
-    if (hasTrailer === 'yes') {
+    if (hasTrailer === 'yes' && document.getElementById('vehicleType').value === 'tractor') {
         trailerValueGroup.style.display = 'block';
     } else {
         trailerValueGroup.style.display = 'none';
@@ -1230,7 +1237,7 @@ confirmPrintBtn.addEventListener('click', function() {
         
         // Step 2: Trailer Charge
         let trailerCharge = 0;
-        if (hasTrailer && trailerValue > 16000) {
+        if (hasTrailer && trailerValue > 16000 && vehicleType === 'tractor') {
             trailerCharge = trailerValue * 0.0125 - 200;
         }                
 
@@ -1243,14 +1250,14 @@ confirmPrintBtn.addEventListener('click', function() {
         let oldVehicleCharge = 0;
         if (vehicleType === 'motorcycle' || vehicleType === 'construction') {
             if (vehicleAge >= 5 && vehicleAge <= 10) {
-                oldVehicleCharge = (normalPremium + additionalPremium + trailerCharge - tariffDiscount) * 0.15;
+                oldVehicleCharge = (normalPremium + additionalPremium - tariffDiscount) * 0.15;
             } else if (vehicleAge > 10) {
-                oldVehicleCharge = (normalPremium + additionalPremium + trailerCharge - tariffDiscount) * 0.25;
+                oldVehicleCharge = (normalPremium + additionalPremium - tariffDiscount) * 0.25;
             }
         } 
         else if (vehicleType === 'private' || vehicleType === 'electric' || vehicleType === 'taxi') {
             if (vehicleAge > 10) {
-                oldVehicleCharge = (normalPremium + additionalPremium + trailerCharge - tariffDiscount) * 0.10;
+                oldVehicleCharge = (normalPremium + additionalPremium - tariffDiscount) * 0.10;
             }
         }
         else if (vehicleType === 'passenger' || vehicleType === 'goods' || 
