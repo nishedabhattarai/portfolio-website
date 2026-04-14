@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Marine Cargo Insurance | Premium + SRCC</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #eef2f5;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            padding: 16px;
+        }
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+        .header {
+            background: #1e3a5f;
+            color: white;
+            padding: 16px 24px;
+        }
+        .header h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        .badge {
+            background: #e67e22;
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            margin-top: 6px;
+        }
+        .two-columns {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px;
+        }
+        .column {
+            flex: 1;
+            min-width: 300px;
+        }
+        .card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 14px 18px;
+            margin-bottom: 18px;
+        }
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            padding-bottom: 4px;
+            border-bottom: 2px solid #e67e22;
+            color: #1e3a5f;
+        }
+        label {
+            display: block;
+            font-weight: 500;
+            font-size: 0.75rem;
+            margin-bottom: 4px;
+            color: #2c3e50;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            background: white;
+        }
+        input:focus, select:focus {
+            outline: none;
+            border-color: #1e3a5f;
+            box-shadow: 0 0 0 2px rgba(30,58,95,0.1);
+        }
+        /* Combobox */
+        .combobox-wrapper {
+            position: relative;
+            margin-bottom: 10px;
+        }
+        .combobox-input {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 0.85rem;
+        }
+        .combobox-list {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            max-height: 200px;
+            overflow-y: auto;
+            background: white;
+            border: 1px solid #cbd5e1;
+            border-top: none;
+            border-radius: 0 0 6px 6px;
+            z-index: 100;
+            display: none;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        .combobox-list.show {
+            display: block;
+        }
+        .combobox-item {
+            padding: 6px 10px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .combobox-item:hover, .combobox-item.highlight {
+            background: #eef2ff;
+        }
+        .risk-group {
+            display: flex;
+            gap: 8px;
+            margin: 6px 0 10px;
+        }
+        .risk-btn {
+            flex: 1;
+            background: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            padding: 6px 4px;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            font-size: 0.75rem;
+            text-align: center;
+        }
+        .risk-btn.active {
+            background: #1e3a5f;
+            border-color: #1e3a5f;
+            color: white;
+        }
+        .rate-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 8px;
+            text-align: center;
+            margin: 8px 0;
+        }
+        .rate-value {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #1e3a5f;
+        }
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 8px 0;
+            font-weight: normal;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+        .checkbox-label input {
+            width: 16px;
+            height: 16px;
+            margin: 0;
+        }
+        /* inline rows */
+        .inline-row {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        .inline-row .field {
+            flex: 1;
+        }
+        .result-line {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            border-bottom: 1px solid #edf2f7;
+            font-size: 0.8rem;
+        }
+        .result-line.total {
+            font-weight: 700;
+            font-size: 0.9rem;
+            border-top: 2px solid #e2e8f0;
+            margin-top: 4px;
+            padding-top: 8px;
+            border-bottom: none;
+            color: #1e3a5f;
+        }
+        .discount-note {
+            background: #e8f0fe;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            margin-top: 6px;
+            color: #1e3a5f;
+        }
+        button {
+            background: #1e3a5f;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 12px;
+            font-weight: 500;
+            cursor: pointer;
+            width: 100%;
+            font-size: 0.85rem;
+            margin-top: 8px;
+        }
+        button:hover {
+            background: #0f2c48;
+        }
+        .desc-preview {
+            background: #f9f9fb;
+            border-radius: 6px;
+            padding: 8px;
+            font-size: 0.75rem;
+            margin-top: 8px;
+            border-left: 3px solid #e67e22;
+        }
+        .small-note {
+            font-size: 0.65rem;
+            color: #5b6e8c;
+            margin-top: 3px;
+        }
+        .footer-note {
+            font-size: 0.65rem;
+            text-align: center;
+            padding: 12px 20px;
+            border-top: 1px solid #e9ecef;
+            color: #6c7a8e;
+            background: #fafbfc;
+        }
+        select[multiple] {
+            height: auto;
+            min-height: 100px;
+        }
+        hr {
+            margin: 8px 0;
+        }
+        .sub-card {
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px dashed #e2e8f0;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>Marine Cargo Insurance</h1>
+        <div class="badge">Nepal Marine Tariff</div>
+    </div>
+
+    <div class="two-columns">
+        <!-- LEFT COLUMN -->
+        <div class="column">
+            <div class="card">
+                <div class="card-title">1. Cargo & Risk Coverage</div>
+                <label>🔍 Search & Select Commodity</label>
+                <div class="combobox-wrapper">
+                    <input type="text" id="comboboxInput" class="combobox-input" placeholder="Type to search... cement, automobile, तेल" autocomplete="off">
+                    <div id="comboboxList" class="combobox-list"></div>
+                </div>
+                <div class="desc-preview">
+                    <strong>Selected:</strong> <span id="previewEn">—</span><br>
+                    <span id="previewNe" style="font-size:0.7rem;">—</span>
+                </div>
+
+                <label style="margin-top: 8px;">Risk coverage</label>
+                <div class="risk-group" id="riskToggle">
+                    <button type="button" class="risk-btn" data-risk="A">All Risk A</button>
+                    <button type="button" class="risk-btn" data-risk="B">Basic Risk B</button>
+                    <button type="button" class="risk-btn" data-risk="C">Minimum Risk C</button>
+                </div>
+
+                <div class="rate-box">
+                    <div style="font-size:0.7rem;">Insurance Rate</div>
+                    <div class="rate-value" id="rateValue">0.00%</div>
+                </div>
+
+                <label class="checkbox-label" id="srccWrapper">
+                    <input type="checkbox" id="srccCheckbox"> + SRCC (Strikes, Riots & Civil Commotions)
+                </label>
+                <div class="small-note">SRCC: Sea 0.03% | Air/Rail 0.02% | Auto with All Risk A</div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">2. Transit & Discounts</div>
+                <label>Mode of transit</label>
+                <select id="transitMode">
+                    <option value="sea">🌊 By Sea</option>
+                    <option value="air">✈️ By Air</option>
+                    <option value="rail">🚛 By Rail/Road</option>
+                </select>
+                
+                <!-- Sub options for Rail/Road (dynamic) -->
+                <div id="railSubOptions" style="margin-top: 8px; display: none;">
+                    <label>Rail/Road Transit Type</label>
+                    <select id="railType">
+                        <option value="limited">Inland Transit within Nepal (Limited Distance) - 30%</option>
+                        <option value="standard">Inland Transit within Nepal - 25%</option>
+                        <option value="discount">Inland Transit Discount - 20%</option>
+                    </select>
+                </div>
+
+                <!-- Container Discount (only for Sea) -->
+                <div id="containerDiscountDiv" style="margin-top: 8px; display: none;">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="containerDiscount"> 🧳 Container Discount (10% off Base Rate)
+                    </label>
+                    <div class="small-note">Applicable only for Sea shipments</div>
+                </div>
+
+                <label style="margin-top: 10px;">🏷️ Direct Discount (2.5% Fixed)</label>
+                <label class="checkbox-label">
+                    <input type="checkbox" id="directDiscountCheck"> Apply 2.5% Direct Discount (before VAT)
+                </label>
+
+                <div class="discount-note" id="highValueNote">
+                    💰 High-Value Discount: 20% off subtotal if Invoice Value > NRs 50,00,00,000
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT COLUMN -->
+        <div class="column">
+            <div class="card">
+                <div class="card-title">3. Value, Duty & Exchange Rate</div>
+                <!-- Row 1: Invoice + Tolerance -->
+                <div class="inline-row">
+                    <div class="field">
+                        <label>📄 Invoice (NRs)</label>
+                        <input type="number" id="invoiceValue" value="1000000" step="10000">
+                    </div>
+                    <div class="field">
+                        <label>➕ Tolerance (%)</label>
+                        <input type="number" id="tolerancePercent" value="0" step="0.5">
+                    </div>
+                </div>
+                <!-- Row 2: Incremental + Duty + Exchange -->
+                <div class="inline-row">
+                    <div class="field">
+                        <label>📈 Incremental (%)</label>
+                        <input type="number" id="incrementalPercent" value="0" step="0.5">
+                    </div>
+                    <div class="field">
+                        <label>🛃 Duty (%)</label>
+                        <input type="number" id="dutyPercent" value="0" step="0.5">
+                    </div>
+                    <div class="field">
+                        <label>💱 Exchange Rate</label>
+                        <input type="number" id="exchangeRate" value="1.00" step="0.01">
+                    </div>
+                </div>
+                <div class="small-note">Order: Invoice → +Tol% → +Inc% → +Duty% → × Rate = Insurable Value</div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">4. Premium Breakdown</div>
+                <div style="background:#f8fafc; border-radius: 8px; padding: 10px;">
+                    <div class="result-line"><strong>Insurable Value (NRs):</strong> <span id="finalInsurableValue">0.00</span></div>
+                    <div class="result-line"><strong>Base Rate:</strong> <span id="ratePercentDisplay">0.0000%</span></div>
+                    <div class="result-line"><strong>Gross Premium:</strong> <span id="grossPremium">0.00</span></div>
+                    <div class="result-line"><strong>Transit Discount (<span id="discountPercentLabel">0%</span>):</strong> <span id="discountAmount">- 0.00</span></div>
+                    <div class="result-line"><strong>Net Premium (after transit):</strong> <span id="netPremium">0.00</span></div>
+                    <div class="result-line"><strong>SRCC Premium:</strong> <span id="srccAmount">0.00</span></div>
+                    <div class="result-line"><strong>Subtotal (Net + SRCC):</strong> <span id="subtotalAfterSrcc">0.00</span></div>
+                    <div class="result-line" style="background:#eef2fa;"><strong>🏆 High-Value Discount (20% if >50Cr):</strong> <span id="highValueDiscountAmt">- 0.00</span></div>
+                    <div class="result-line"><strong>After High-Value:</strong> <span id="afterHighValue">0.00</span></div>
+                    <div class="result-line"><strong>💸 Direct Discount (2.5%):</strong> <span id="directDiscountAmt">- 0.00</span></div>
+                    <div class="result-line"><strong>Total after all discounts:</strong> <span id="totalAfterAllDisc">0.00</span></div>
+                    <div class="result-line"><strong>VAT (13%):</strong> <span id="vatAmount">0.00</span></div>
+                    <div class="result-line"><strong>Service Fee:</strong> <span>NRs 20.00</span></div>
+                    <div class="result-line total"><strong>FINAL PAYABLE (NRs):</strong> <span id="totalPayable">0.00</span></div>
+                </div>
+                <button id="recalcBtn">⟳ Recalculate</button>
+            </div>
+        </div>
+    </div>
+    <div class="footer-note">
+        ✅ High-Value Discount 20% applies if Invoice Value > 50 Crore (NRs 500,000,000).
+    </div>
+</div>
+
+<script>
+    // ========== CARGO DATASET ==========
+    const cargoRates = [];
+    function addCargo(en, ne, rateA, rateB, rateC) {
+        cargoRates.push({ en: en.trim(), ne: ne.trim(), rates: { A: parseFloat(rateA), B: parseFloat(rateB), C: parseFloat(rateC) } });
+    }
+
+    addCargo("AUTOMOBILES (Other than driven on own power)", "स्वःचालित सवारी साधनहरु", 0.26, 0.14, 0.06);
+    addCargo("BAGGED CARGO - New Gunny/Jute Bags", "बोरामा रहेका सामान - नयाँ जुट/गनी", 0.25, 0.15, 0.06);
+    addCargo("BAGGED CARGO - Polythene/Double Bags", "बोरामा सामान - पोलिथिन/दोहोरो", 0.22, 0.13, 0.05);
+    addCargo("BETLENUTS", "सुपारी", 0.5, 0.3, 0.12);
+    addCargo("BEVERAGES & MINERAL WATER - Glass Bottles", "पेय पदार्थ - शीशाको बोतल", 0.4, 0.25, 0.1);
+    addCargo("BEVERAGES & MINERAL WATER - Other Packing", "पेय पदार्थ - अन्य प्याकिङ्ग", 0.3, 0.15, 0.06);
+    addCargo("CABLES AND WIRES", "सबै प्रकारका तारहरु", 0.15, 0.1, 0.04);
+    addCargo("CEMENT", "सिमेन्ट", 0.5, 0.15, 0.06);
+    addCargo("CHEMICALS - Non Hazardous", "रासायनिक - जोखिम रहित", 0.3, 0.18, 0.07);
+    addCargo("CHEMICALS - Hazardous", "रासायनिक - जोखिमपूर्ण", 0.4, 0.25, 0.1);
+    addCargo("CHEMICALS - Extra Hazardous", "रासायनिक - अति जोखिमपूर्ण", 0.5, 0.3, 0.12);
+    addCargo("COAL", "कोइला", 0.5, 0.4, 0.3);
+    addCargo("CARPETS, TEXTILES, GARMENT MATERIALS", "कार्पेट, कपडा, गार्मेन्ट कच्चा पदार्थ", 0.15, 0.1, 0.04);
+    addCargo("COTTON, YARN, THREAD", "कपास, धागो", 0.1, 0.08, 0.04);
+    addCargo("EDIBLE OIL & GHEE - Bulk/Tanks", "खाद्य तेल घ्यू - ट्याङ्कर", 0.35, 0.2, 0.08);
+    addCargo("EDIBLE OIL & GHEE - Drum/Jar", "खाद्य तेल घ्यू - ड्रम/जार", 0.22, 0.15, 0.06);
+    addCargo("EDIBLE ITEMS - Grains & Pulses", "खाद्य पदार्थ - अन्न, दाल", 0.25, 0.15, 0.06);
+    addCargo("EDIBLE ITEMS - Oil Seeds", "तेलहनहरु", 0.32, 0.17, 0.07);
+    addCargo("EDIBLE ITEMS - Others", "खाद्य पदार्थ - अन्य", 0.25, 0.15, 0.06);
+    addCargo("ELECTRIC & ELECTRONIC ITEMS", "बिद्युतीय तथा इलेक्ट्रोनिक सामान", 0.3, 0.2, 0.08);
+    addCargo("EMPTY GAS CYLINDER", "ग्याँसको खाली सिलिन्डर", 0.08, 0.05, 0.03);
+    addCargo("FRAGILE ARTICLES (China, Glass, Sanitary)", "सजिलै टुटफुट हुने सामान", 0.8, 0.5, 0.2);
+    addCargo("FERTILIZER - In Bulk", "कृषि मल - ठूलो परिमाण", 0.5, 0.23, 0.09);
+    addCargo("FERTILIZER - In Bags", "कृषि मल - बोरामा", 0.4, 0.2, 0.08);
+    addCargo("FOOT WEAR", "जुत्ताहरु", 0.2, 0.12, 0.05);
+    addCargo("FURNITURE - Metal & Plastics", "फर्निचर - धातु/प्लाष्टिक", 0.2, 0.12, 0.05);
+    addCargo("FURNITURE - Wooden & other", "फर्निचर - काठ तथा अन्य", 0.7, 0.4, 0.2);
+    addCargo("GOLD, SILVER, PRECIOUS STONES", "सुन, चाँदी, बहुमूल्य पत्थर", 0.5, 0.3, 0.12);
+    addCargo("HANDICRAFTS (Non Fragile)", "हस्तकला (नटुट्ने)", 0.3, 0.15, 0.06);
+    addCargo("LEATHER - Raw & Semi Finished", "छाला - काँचो तथा अर्ध तयारी", 0.25, 0.15, 0.06);
+    addCargo("LEATHER - Finished Goods", "छाला - तयारी सामान", 0.2, 0.12, 0.05);
+    addCargo("LIQUID CARGO - Non Hazardous (Tanker/Drums)", "तरल सामान - जोखिम रहित (ट्याङ्कर/ड्रम)", 0.4, 0.25, 0.1);
+    addCargo("LIQUID CARGO - Non Hazardous (Other Packing)", "तरल सामान - जोखिम रहित (अन्य)", 0.3, 0.18, 0.07);
+    addCargo("LIQUID CARGO - Hazardous (Tanker/Drums)", "तरल सामान - जोखिमपूर्ण (ट्याङ्कर/ड्रम)", 0.6, 0.35, 0.14);
+    addCargo("LIQUID CARGO - Hazardous (Other Packing)", "तरल सामान - जोखिमपूर्ण (अन्य)", 0.4, 0.25, 0.1);
+    addCargo("LIQUID CARGO - Extra Hazardous (Tanker/Drums)", "तरल सामान - अति जोखिमपूर्ण (ट्याङ्कर/ड्रम)", 0.8, 0.5, 0.2);
+    addCargo("LIQUID CARGO - Extra Hazardous (Other)", "तरल सामान - अति जोखिमपूर्ण (अन्य)", 0.4, 0.25, 0.1);
+    addCargo("LPG - In Tanker or Bullet", "एलपीजी - ट्याङ्कर वा बुलेट", 0.4, 0.25, 0.1);
+    addCargo("LPG - In Cylinders", "एलपीजी - सिलिण्डर", 0.2, 0.12, 0.05);
+    addCargo("MACHINERY - Hand Tools", "मेशिनरी - हाते औजार", 0.2, 0.1, 0.04);
+    addCargo("MACHINERY - Power Tools", "मेशिनरी - शक्ति औजार", 0.3, 0.2, 0.08);
+    addCargo("MARBLE AND GRANITE", "मार्बल तथा ग्रेनाइट", 0.5, 0.3, 0.12);
+    addCargo("METAL - BILLETS, INGOTS", "बिलेट, इनगट", 0.06, 0.04, 0.02);
+    addCargo("METAL HARDWARE & SHEETS", "धातुका निर्माण सामाग्री, पाता", 0.08, 0.05, 0.03);
+    addCargo("METAL SCRAP", "धातु रद्दी", 0.08, 0.05, 0.03);
+    addCargo("MATCHES & EXPLOSIVES", "सलाई तथा बिस्फोटक", 0.9, 0.55, 0.25);
+    addCargo("PAPER - News Prints, Cardboards", "कागज - न्यूज प्रिन्ट, कार्डबोर्ड", 0.3, 0.15, 0.06);
+    addCargo("PAPER - Books, Magazines", "किताब, पत्रपत्रिका", 0.25, 0.12, 0.05);
+    addCargo("PAPER - Others", "कागज अन्य", 0.3, 0.15, 0.06);
+    addCargo("PLYWOOD & PARTICLE BOARD", "प्लाइउड, पार्टिकल बोर्ड", 0.25, 0.15, 0.06);
+    addCargo("PERISHABLE - Non Refrigerated", "सजिलै बिग्रने - रेफ्रिजरेटेड नभएको", 0.4, 0.2, 0.08);
+    addCargo("PERISHABLE - Refrigerated", "सजिलै बिग्रने - रेफ्रिजरेटेड", 0.3, 0.16, 0.06);
+    addCargo("PERSONAL EFFECTS & HOUSEHOLD GOODS", "व्यक्तिगत तथा घरायसी सामान", 2.0, 0.5, 0.2);
+    addCargo("PETROLEUM FUEL - In Bulk", "पेट्रोलियम इन्धन - ठूलो परिमाण", 0.8, 0.5, 0.2);
+    addCargo("PETROLEUM FUEL - In Tanker", "पेट्रोलियम इन्धन - ट्याङ्कर", 0.4, 0.25, 0.1);
+    addCargo("PHARMACEUTICALS, MEDICINES", "औषधि, ट्वाइलेटरिज", 0.25, 0.15, 0.06);
+    addCargo("PLASTIC - Sheets", "प्लाष्टिक सीट", 0.18, 0.1, 0.04);
+    addCargo("PLASTIC - Granules", "प्लाष्टिक दाना", 0.25, 0.15, 0.06);
+    addCargo("PLASTIC - Other Goods", "प्लाष्टिक अन्य सामान", 0.2, 0.12, 0.05);
+    addCargo("SPARE PARTS - Electric/Electronic", "स्पेयर पार्ट्स - बिद्युतीय/इलेक्ट्रोनिक", 0.32, 0.22, 0.09);
+    addCargo("SPARE PARTS - Glass Items", "स्पेयर पार्ट्स - शीशा", 0.8, 0.5, 0.2);
+    addCargo("SPARE PARTS - Mechanical", "स्पेयर पार्ट्स - मेकानिकल", 0.25, 0.15, 0.06);
+    addCargo("SPARE PARTS - Rubber & Plastic (incl tires)", "स्पेयर पार्ट्स - रबर/प्लाष्टिक (टायर)", 0.2, 0.12, 0.05);
+    addCargo("STRAW, GRASS, JUTE, COMBUSTIBLE FIBRES", "पराल, घाँस, जुट, बल्ने रेशा", 0.7, 0.5, 0.2);
+    addCargo("SUGAR - In Bulk", "चिनी - ठूलो परिमाण", 0.6, 0.35, 0.14);
+    addCargo("SUGAR - Other Packing", "चिनी - अन्य प्याकिङ्ग", 0.35, 0.2, 0.08);
+    addCargo("TIMBER & WOOD", "चिरान काठ", 0.15, 0.1, 0.04);
+    addCargo("TOBACCO - Leaf Tobacco", "सुर्तीको पात", 0.3, 0.2, 0.1);
+    addCargo("TOBACCO - Tobacco Products", "सुर्तिजन्य बस्तु", 0.25, 0.15, 0.06);
+
+    // DOM elements
+    const comboboxInput = document.getElementById('comboboxInput');
+    const comboboxList = document.getElementById('comboboxList');
+    const previewEn = document.getElementById('previewEn');
+    const previewNe = document.getElementById('previewNe');
+    const riskBtns = document.querySelectorAll('.risk-btn');
+    const rateValueSpan = document.getElementById('rateValue');
+    const srccCheckbox = document.getElementById('srccCheckbox');
+    const transitMode = document.getElementById('transitMode');
+    const railSubOptions = document.getElementById('railSubOptions');
+    const railType = document.getElementById('railType');
+    const containerDiscountDiv = document.getElementById('containerDiscountDiv');
+    const containerDiscountCheck = document.getElementById('containerDiscount');
+    const directDiscountCheck = document.getElementById('directDiscountCheck');
+    const invoiceInput = document.getElementById('invoiceValue');
+    const toleranceInput = document.getElementById('tolerancePercent');
+    const incrementalInput = document.getElementById('incrementalPercent');
+    const dutyInput = document.getElementById('dutyPercent');
+    const exchangeInput = document.getElementById('exchangeRate');
+    const recalcBtn = document.getElementById('recalcBtn');
+
+    // Result spans
+    const finalInsurableSpan = document.getElementById('finalInsurableValue');
+    const ratePercentDisplay = document.getElementById('ratePercentDisplay');
+    const grossPremiumSpan = document.getElementById('grossPremium');
+    const discountPercentLabel = document.getElementById('discountPercentLabel');
+    const discountAmountSpan = document.getElementById('discountAmount');
+    const netPremiumSpan = document.getElementById('netPremium');
+    const srccAmountSpan = document.getElementById('srccAmount');
+    const subtotalAfterSrccSpan = document.getElementById('subtotalAfterSrcc');
+    const highValueDiscountAmtSpan = document.getElementById('highValueDiscountAmt');
+    const afterHighValueSpan = document.getElementById('afterHighValue');
+    const directDiscountAmtSpan = document.getElementById('directDiscountAmt');
+    const totalAfterAllDiscSpan = document.getElementById('totalAfterAllDisc');
+    const vatAmountSpan = document.getElementById('vatAmount');
+    const totalPayableSpan = document.getElementById('totalPayable');
+
+    let selectedCargoIndex = null;
+    let selectedRisk = 'A';
+    let currentHighlight = -1;
+
+    // Combobox with keyboard support
+    function renderCombobox(filter = "") {
+        comboboxList.innerHTML = "";
+        const lowerFilter = filter.toLowerCase();
+        const filtered = cargoRates.filter((item) => 
+            lowerFilter === "" || item.en.toLowerCase().includes(lowerFilter) || item.ne.toLowerCase().includes(lowerFilter)
+        );
+        if (filtered.length === 0) {
+            const div = document.createElement('div');
+            div.className = "combobox-item";
+            div.textContent = "No matching cargo";
+            comboboxList.appendChild(div);
+        } else {
+            filtered.forEach((item, idx) => {
+                const originalIdx = cargoRates.findIndex(c => c.en === item.en);
+                const div = document.createElement('div');
+                div.className = "combobox-item";
+                div.textContent = `${item.en.substring(0, 65)}${item.en.length > 65 ? '…' : ''}`;
+                div.setAttribute('data-index', originalIdx);
+                div.onclick = () => selectItem(originalIdx, item.en);
+                comboboxList.appendChild(div);
+            });
+        }
+        currentHighlight = -1;
+    }
+
+    function selectItem(idx, displayText) {
+        selectedCargoIndex = idx;
+        comboboxInput.value = displayText;
+        comboboxList.classList.remove('show');
+        updatePreviewAndRate();
+    }
+
+    comboboxInput.addEventListener('input', (e) => {
+        renderCombobox(e.target.value);
+        comboboxList.classList.add('show');
+    });
+    comboboxInput.addEventListener('focus', () => {
+        renderCombobox(comboboxInput.value);
+        comboboxList.classList.add('show');
+    });
+    comboboxInput.addEventListener('keydown', (e) => {
+        const items = document.querySelectorAll('.combobox-item');
+        if (items.length === 0) return;
+        if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            currentHighlight = (currentHighlight + 1) % items.length;
+            updateHighlight(items);
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            currentHighlight = (currentHighlight - 1 + items.length) % items.length;
+            updateHighlight(items);
+        } else if (e.key === 'Enter' && currentHighlight >= 0) {
+            e.preventDefault();
+            const selected = items[currentHighlight];
+            const idx = parseInt(selected.getAttribute('data-index'));
+            if (!isNaN(idx)) selectItem(idx, selected.textContent);
+        }
+    });
+    function updateHighlight(items) {
+        items.forEach((item, i) => {
+            if (i === currentHighlight) item.classList.add('highlight');
+            else item.classList.remove('highlight');
+        });
+    }
+    document.addEventListener('click', (e) => {
+        if (!comboboxInput.contains(e.target) && !comboboxList.contains(e.target)) {
+            comboboxList.classList.remove('show');
+        }
+    });
+
+    // Transit logic
+    function updateTransitUI() {
+        const mode = transitMode.value;
+        if (mode === 'rail') {
+            railSubOptions.style.display = 'block';
+            containerDiscountDiv.style.display = 'none';
+        } else if (mode === 'sea') {
+            railSubOptions.style.display = 'none';
+            containerDiscountDiv.style.display = 'block';
+        } else {
+            railSubOptions.style.display = 'none';
+            containerDiscountDiv.style.display = 'none';
+        }
+        calculateAll();
+    }
+    transitMode.addEventListener('change', updateTransitUI);
+    railType.addEventListener('change', calculateAll);
+    containerDiscountCheck.addEventListener('change', calculateAll);
+
+    function getTransitDiscountPercent() {
+        const mode = transitMode.value;
+        if (mode === 'air') return 20;
+        if (mode === 'sea') return 0;
+        if (mode === 'rail') {
+            const type = railType.value;
+            if (type === 'limited') return 30;
+            if (type === 'standard') return 25;
+            if (type === 'discount') return 20;
+        }
+        return 0;
+    }
+
+    function getBaseRateWithContainerDisc(baseRate) {
+        if (transitMode.value === 'sea' && containerDiscountCheck.checked) {
+            return baseRate * 0.90; // 10% off base rate
+        }
+        return baseRate;
+    }
+
+    function getSrccRate() {
+        const mode = transitMode.value;
+        if (mode === 'sea') return 0.03;
+        return 0.02; // air or rail
+    }
+
+    function computeInsurableValue() {
+        let inv = parseFloat(invoiceInput.value) || 0;
+        let tol = parseFloat(toleranceInput.value) || 0;
+        let inc = parseFloat(incrementalPercent.value) || 0;
+        let duty = parseFloat(dutyInput.value) || 0;
+        let exRate = parseFloat(exchangeInput.value) || 1;
+        let afterTol = inv * (1 + tol / 100);
+        let afterInc = afterTol * (1 + inc / 100);
+        let afterDuty = afterInc * (1 + duty / 100);
+        return Math.max(0, afterDuty * exRate);
+    }
+
+    function calculateAll() {
+        if (selectedCargoIndex === null || !cargoRates[selectedCargoIndex]) {
+            finalInsurableSpan.innerText = '0.00';
+            ratePercentDisplay.innerText = '0.0000%';
+            grossPremiumSpan.innerText = '0.00';
+            discountPercentLabel.innerText = '0%';
+            discountAmountSpan.innerText = '- 0.00';
+            netPremiumSpan.innerText = '0.00';
+            srccAmountSpan.innerText = '0.00';
+            subtotalAfterSrccSpan.innerText = '0.00';
+            highValueDiscountAmtSpan.innerText = '- 0.00';
+            afterHighValueSpan.innerText = '0.00';
+            directDiscountAmtSpan.innerText = '- 0.00';
+            totalAfterAllDiscSpan.innerText = '0.00';
+            vatAmountSpan.innerText = '0.00';
+            totalPayableSpan.innerText = '0.00';
+            return;
+        }
+        const cargo = cargoRates[selectedCargoIndex];
+        let baseRate = cargo.rates[selectedRisk];
+        baseRate = getBaseRateWithContainerDisc(baseRate);
+        const insurableValue = computeInsurableValue();
+        finalInsurableSpan.innerText = insurableValue.toFixed(2);
+        ratePercentDisplay.innerText = baseRate.toFixed(4) + '%';
+
+        const grossPremium = insurableValue * (baseRate / 100);
+        const transitDiscPct = getTransitDiscountPercent();
+        const transitDiscAmt = grossPremium * (transitDiscPct / 100);
+        const netAfterTransit = grossPremium - transitDiscAmt;
+
+        let srccEnabled = srccCheckbox.checked;
+        if (selectedRisk === 'A') {
+            srccEnabled = true;
+            srccCheckbox.checked = true;
+            srccCheckbox.disabled = true;
+        } else {
+            srccCheckbox.disabled = false;
+        }
+        let srccPremium = 0;
+        if (srccEnabled) srccPremium = insurableValue * (getSrccRate() / 100);
+        const subtotalSrcc = netAfterTransit + srccPremium;
+
+        // High-Value Discount (20% if invoice value > 500,000,000)
+        let invoiceVal = parseFloat(invoiceInput.value) || 0;
+        let highValueDiscount = 0;
+        if (invoiceVal > 500000000) {
+            highValueDiscount = subtotalSrcc * 0.20;
+        }
+        const afterHighValue = subtotalSrcc - highValueDiscount;
+
+        // Direct Discount 2.5% fixed if checked
+        let directDiscAmt = 0;
+        if (directDiscountCheck.checked) {
+            directDiscAmt = afterHighValue * 0.025;
+        }
+        const totalAfterDirect = afterHighValue - directDiscAmt;
+
+        const vat = totalAfterDirect * 0.13;
+        const serviceFee = 20;
+        const finalTotal = totalAfterDirect + vat + serviceFee;
+
+        discountPercentLabel.innerText = `${transitDiscPct}%`;
+        grossPremiumSpan.innerText = grossPremium.toFixed(2);
+        discountAmountSpan.innerText = `- ${transitDiscAmt.toFixed(2)}`;
+        netPremiumSpan.innerText = netAfterTransit.toFixed(2);
+        srccAmountSpan.innerText = srccPremium.toFixed(2);
+        subtotalAfterSrccSpan.innerText = subtotalSrcc.toFixed(2);
+        highValueDiscountAmtSpan.innerText = `- ${highValueDiscount.toFixed(2)}`;
+        afterHighValueSpan.innerText = afterHighValue.toFixed(2);
+        directDiscountAmtSpan.innerText = `- ${directDiscAmt.toFixed(2)}`;
+        totalAfterAllDiscSpan.innerText = totalAfterDirect.toFixed(2);
+        vatAmountSpan.innerText = vat.toFixed(2);
+        totalPayableSpan.innerText = finalTotal.toFixed(2);
+    }
+
+    function updatePreviewAndRate() {
+        if (selectedCargoIndex !== null && cargoRates[selectedCargoIndex]) {
+            const c = cargoRates[selectedCargoIndex];
+            previewEn.innerText = c.en;
+            previewNe.innerText = c.ne;
+            let rate = c.rates[selectedRisk];
+            if (transitMode.value === 'sea' && containerDiscountCheck.checked) rate = rate * 0.90;
+            rateValueSpan.innerHTML = `${rate.toFixed(2)}%`;
+        } else {
+            previewEn.innerText = "—";
+            previewNe.innerText = "—";
+            rateValueSpan.innerHTML = "0.00%";
+        }
+        calculateAll();
+    }
+
+    function setRisk(risk) {
+        selectedRisk = risk;
+        riskBtns.forEach(btn => {
+            if (btn.getAttribute('data-risk') === risk) btn.classList.add('active');
+            else btn.classList.remove('active');
+        });
+        updatePreviewAndRate();
+    }
+
+    riskBtns.forEach(btn => btn.addEventListener('click', () => setRisk(btn.getAttribute('data-risk'))));
+    srccCheckbox.addEventListener('change', calculateAll);
+    directDiscountCheck.addEventListener('change', calculateAll);
+    invoiceInput.addEventListener('input', calculateAll);
+    toleranceInput.addEventListener('input', calculateAll);
+    incrementalInput.addEventListener('input', calculateAll);
+    dutyInput.addEventListener('input', calculateAll);
+    exchangeInput.addEventListener('input', calculateAll);
+    recalcBtn.addEventListener('click', calculateAll);
+
+    // Init
+    setRisk('A');
+    if (cargoRates.length > 0) {
+        selectedCargoIndex = 0;
+        comboboxInput.value = cargoRates[0].en;
+        updatePreviewAndRate();
+    }
+    updateTransitUI();
+    calculateAll();
+</script>
+</body>
+</html>
