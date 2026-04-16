@@ -1,178 +1,407 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Marine Cargo Insurance | Premium + SRCC</title>
+    <title>Marine Cargo Insurance</title>
+    <link rel="stylesheet" href="css/overlay.css">
+    <link rel="stylesheet" href="css/top-line.css">
+    <link rel="icon" type="image/x-icon" href="favicon.png">
     <style>
-        * {
+        /* Provided CSS styles */
+        .form-group h3 {
+            margin-top: 0px;
+            margin-bottom: 8px;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #404040;
+            color: #333;
+            line-height: 1.0;
+            padding: 70px 20px 20px;
             margin: 0;
-            padding: 0;
+        }
+
+        .calculator-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .calculator, .results {
+            background-color: #D3D3D3;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            width: 100%;
             box-sizing: border-box;
         }
-        body {
-            background: #eef2f5;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            padding: 16px;
-        }
-        .container {
-            max-width: 1300px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-            overflow: hidden;
-        }
-        .header {
-            background: #1e3a5f;
-            color: white;
-            padding: 16px 24px;
-        }
-        .header h1 {
+
+        h1 {
+            text-align: center;
+            margin: 0 0 15px;
+            color: whitesmoke;
             font-size: 1.5rem;
-            font-weight: 600;
         }
-        .badge {
-            background: #e67e22;
-            display: inline-block;
-            padding: 2px 10px;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            margin-top: 6px;
-        }
-        .two-columns {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            padding: 20px;
-        }
-        .column {
-            flex: 1;
-            min-width: 300px;
-        }
-        .card {
-            background: white;
-            border: 1px solid #e2e8f0;
-            border-radius: 10px;
-            padding: 14px 18px;
-            margin-bottom: 18px;
-        }
-        .card-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 12px;
-            padding-bottom: 4px;
-            border-bottom: 2px solid #e67e22;
-            color: #1e3a5f;
-        }
-        label {
-            display: block;
-            font-weight: 500;
-            font-size: 0.75rem;
-            margin-bottom: 4px;
-            color: #2c3e50;
-        }
-        input, select {
-            width: 100%;
-            padding: 8px 10px;
-            border: 1px solid #cbd5e1;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            background: white;
-        }
-        input:focus, select:focus {
-            outline: none;
-            border-color: #1e3a5f;
-            box-shadow: 0 0 0 2px rgba(30,58,95,0.1);
-        }
-        /* Combobox */
-        .combobox-wrapper {
-            position: relative;
+
+        .form-group {
             margin-bottom: 10px;
         }
-        .combobox-input {
-            width: 100%;
-            padding: 8px 10px;
-            border: 1px solid #cbd5e1;
-            border-radius: 6px;
-            font-size: 0.85rem;
-        }
-        .combobox-list {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            max-height: 200px;
-            overflow-y: auto;
-            background: white;
-            border: 1px solid #cbd5e1;
-            border-top: none;
-            border-radius: 0 0 6px 6px;
-            z-index: 100;
-            display: none;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-        }
-        .combobox-list.show {
+
+        label {
             display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            font-size: 14px;
         }
-        .combobox-item {
-            padding: 6px 10px;
-            cursor: pointer;
-            font-size: 0.8rem;
-            border-bottom: 1px solid #f0f0f0;
-        }
-        .combobox-item:hover, .combobox-item.highlight {
-            background: #eef2ff;
-        }
-        .risk-group {
-            display: flex;
-            gap: 8px;
-            margin: 6px 0 10px;
-        }
-        .risk-btn {
-            flex: 1;
-            background: #f1f5f9;
-            border: 1px solid #cbd5e1;
-            padding: 6px 4px;
-            border-radius: 6px;
-            font-weight: 500;
-            cursor: pointer;
-            font-size: 0.75rem;
-            text-align: center;
-        }
-        .risk-btn.active {
-            background: #1e3a5f;
-            border-color: #1e3a5f;
-            color: white;
-        }
-        .rate-box {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
+
+        select, input {
+            width: 100%;
             padding: 8px;
-            text-align: center;
-            margin: 8px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 14px;
         }
-        .rate-value {
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: #1e3a5f;
+
+        .radio-group {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
         }
-        .checkbox-label {
+
+        .radio-option {
             display: flex;
             align-items: center;
-            gap: 8px;
-            margin: 8px 0;
-            font-weight: normal;
+            gap: 2px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 2px solid #002B5B;
+            background-color: #e6f0ff;
+            transition: all 0.3s;
             cursor: pointer;
-            font-size: 0.8rem;
         }
-        .checkbox-label input {
+
+        .radio-option.selected {
+            border-color: #002B5B;
+            background-color: #e6f0ff;
+            box-shadow: 0 0 0 2px rgba(0,43,91,0.2);
+        }
+
+        .row {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .checkbox-container {
+            display: flex;
+            justify-content: flex-start;
+            margin: 15px 0;
+        }
+
+        .checkbox-option {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            white-space: nowrap;
+            margin-left: 15px;
+            padding: 0;
+        }
+
+        .checkbox-option label {
+            margin-bottom: 0;
+        }
+
+        .checkbox-option input[type="checkbox"] {
             width: 16px;
             height: 16px;
             margin: 0;
         }
-        /* inline rows */
+
+        .datalist-input {
+            width: 100%;
+        }
+
+        .result-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .result-table th, .result-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .result-table th {
+            background-color: #f2f2f2;
+        }
+
+        .total-row {
+            font-weight: bold;
+            background-color: #e9f7ef;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .short-term-period {
+            margin-top: 5px;
+            width: 100%;
+        }
+
+        #homeInsuranceFields, #propertyInsuranceFields {
+            margin-bottom: 15px;
+        }
+
+        .datalist-input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            background-color: white;
+            transition: border-color 0.3s;
+        }
+
+        .datalist-input-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .datalist-input:focus {
+            border-color: #002B5B;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(0, 43, 91, 0.2);
+        }
+
+        .datalist-options {
+            position: absolute;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            max-height: 200px;
+            overflow-y: auto;
+            width: calc(100% - 2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            margin-top: 1px;
+            display: none;
+            scroll-behavior: smooth;
+        }
+
+        .datalist-option {
+            padding: 8px 12px;
+            font-size: 14px;
+            cursor: pointer;
+            color: #333;
+            transition: background-color 0.2s;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .datalist-option:last-child {
+            border-bottom: none;
+        }
+
+        .datalist-option:hover, .datalist-option.active {
+            background-color: #002B5B;
+            color: white;
+        }
+
+        .print-buttons-container {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            justify-content: center;
+        }
+
+        .print-btn, .download-btn {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .print-btn:hover {
+            background-color: #45a049;
+        }
+
+        .download-btn {
+            background-color: #2980b9;
+        }
+
+        .download-btn:hover {
+            background-color: #256fb0;
+        }
+
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            .print-preview, .print-preview * {
+                visibility: visible;
+            }
+            .print-preview {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                background-color: white;
+                color: black;
+                font-size: 12px;
+                padding: 5mm;
+            }
+            .no-print {
+                display: none;
+            }
+            .print-parameters table {
+                width: 100%;
+                border-collapse: collapse;
+                page-break-inside: avoid;
+            }
+            .print-parameters th, .print-parameters td {
+                padding: 4px;
+                font-size: 11px;
+            }
+            .print-footer {
+                margin-top: 10px;
+                font-size: 10px;
+            }
+        }
+
+        .print-preview {
+            display: none;
+            padding: 5mm;
+            background: white;
+            color: black;
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 12px;
+            line-height: 1.0;
+        }
+
+        .print-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 5px;
+            text-align: center;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .print-header img {
+            height: 35px;
+            margin-bottom: 3px;
+        }
+
+        .print-title {
+            width: 100%;
+            text-align: center;
+        }
+
+        .print-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 11px;
+        }
+
+        .print-parameters {
+            margin: 10px 0;
+        }
+
+        .print-parameters table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11px;
+        }
+
+        .print-parameters th, .print-parameters td {
+            border: 1px solid #ddd;
+            padding: 4px;
+            text-align: left;
+        }
+
+        .print-footer {
+            margin-top: 10px;
+            font-size: 10px;
+            text-align: center;
+            border-top: 1px solid #ddd;
+            padding-top: 5px;
+        }
+
+        @media (min-width: 480px) {
+            .calculator-container {
+                flex-direction: row;
+            }
+            .calculator {
+                flex: 2;
+            }
+            .results {
+                flex: 1;
+            }
+            .row {
+                flex-direction: row;
+            }
+            .checkbox-container {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            .short-term-period {
+                width: auto;
+                margin-left: 5px;
+                margin-top: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .checkbox-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .checkbox-option {
+                margin-left: 0;
+                margin-top: 10px;
+            }
+            .calculation-fields-row {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .calculation-fields-row .form-group {
+                width: 100%;
+            }
+        }
+
+        /* Additional custom styles for this page */
+        .inline-checkboxes {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .inline-checkboxes .checkbox-option {
+            margin-left: 0;
+        }
         .inline-row {
             display: flex;
             gap: 12px;
@@ -181,131 +410,164 @@
         .inline-row .field {
             flex: 1;
         }
-        .result-line {
-            display: flex;
-            justify-content: space-between;
-            padding: 6px 0;
-            border-bottom: 1px solid #edf2f7;
-            font-size: 0.8rem;
-        }
-        .result-line.total {
-            font-weight: 700;
-            font-size: 0.9rem;
-            border-top: 2px solid #e2e8f0;
-            margin-top: 4px;
-            padding-top: 8px;
-            border-bottom: none;
-            color: #1e3a5f;
-        }
-        .discount-note {
-            background: #e8f0fe;
-            padding: 4px 8px;
-            border-radius: 6px;
-            font-size: 0.7rem;
-            margin-top: 6px;
-            color: #1e3a5f;
-        }
-        button {
-            background: #1e3a5f;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            padding: 8px 12px;
-            font-weight: 500;
-            cursor: pointer;
-            width: 100%;
-            font-size: 0.85rem;
-            margin-top: 8px;
-        }
-        button:hover {
-            background: #0f2c48;
-        }
         .desc-preview {
-            background: #f9f9fb;
+            background: #e8f0fe;
             border-radius: 6px;
             padding: 8px;
             font-size: 0.75rem;
             margin-top: 8px;
-            border-left: 3px solid #e67e22;
+            border-left: 3px solid #002B5B;
         }
         .small-note {
-            font-size: 0.65rem;
-            color: #5b6e8c;
-            margin-top: 3px;
+            font-size: 0.7rem;
+            color: #555;
+            margin-top: 4px;
         }
-        .footer-note {
-            font-size: 0.65rem;
-            text-align: center;
-            padding: 12px 20px;
-            border-top: 1px solid #e9ecef;
-            color: #6c7a8e;
-            background: #fafbfc;
-        }
-        select[multiple] {
-            height: auto;
-            min-height: 100px;
-        }
-        hr {
-            margin: 8px 0;
-        }
-        .sub-card {
+        .discount-note {
+            background: #e8f0fe;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 0.7rem;
             margin-top: 8px;
-            padding-top: 8px;
-            border-top: 1px dashed #e2e8f0;
+            color: #002B5B;
+        }
+        button {
+            background: #002B5B;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: #001f44;
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="header">
-        <h1>Marine Cargo Insurance</h1>
-        <div class="badge">Nepal Marine Tariff</div>
+<div class="top-line">
+    <div class="menu-container">
+        <div class="menu" onclick="toggleMenu()">☰ Menu</div>
+        <div class="quick-links">
+            <a href="https://nisheda.com.np">MOTOR</a>
+            <a href="/property" style="color: orange; text-decoration: none; font-weight: bold;">PROPERTY</a>
+            <a href="/deno">DENOMINATION</a>
+        </div>
     </div>
+    <div class="settings-btn" onclick="toggleSettings()">︙</div> <!-- '︙' as Settings Icon -->
+</div>
 
-    <div class="two-columns">
-        <!-- LEFT COLUMN -->
-        <div class="column">
-            <div class="card">
-                <div class="card-title">1. Cargo & Risk Coverage</div>
-                <label>🔍 Search & Select Commodity</label>
-                <div class="combobox-wrapper">
-                    <input type="text" id="comboboxInput" class="combobox-input" placeholder="Type to search... cement, automobile, तेल" autocomplete="off">
-                    <div id="comboboxList" class="combobox-list"></div>
+<!-- Dropdown Menu -->
+<div class="dropdown" id="menuDropdown">
+    <div>
+        <h4>Premium Calculator</h4>
+        <ul>
+            <li><a href="/auto" style="color: #d6e4ff; text-decoration: none;">Motor</a></li>
+            <li><a href="/property" style="color: #d6e4ff; text-decoration: none;">Property</a></li>
+            <li><a href="/marine" style="color: orange; text-decoration: none;">Marine (New)</a></li>
+        </ul>
+    </div>
+    <div>
+        <h4>Cash Denomination</h4>
+        <ul>
+            <li><a href="/deno" style="color: #d6e4ff; text-decoration: none;">Cash Denomination</a></li>
+        </ul>
+    </div>
+    <div>
+        <h4>Knowledge (Coming Soon)</h4>
+        <ul>
+            <li>Insurance</li>
+            <li>Share</li>
+            <li>SIP</li>
+        </ul>
+    </div>
+    <div>
+        <h4>Converter (Coming Soon)</h4>
+        <ul>
+            <li>Area converter</li>
+            <li>Price converter</li>
+            <li>Date converter</li>
+        </ul>
+    </div>
+    <div>
+        <button class="about-btn" onclick="showAbout()">About</button>
+    </div>
+</div>
+
+<!-- Settings Menu -->
+<div class="settings-menu" id="settingsMenu">
+    <label>
+        <input type="checkbox" id="darkModeToggle" onclick="toggleDarkMode()"> Dark Mode
+    </label>
+    <label>
+        Font Size:
+        <input type="range" id="fontSizeRange" min="12" max="24" value="16" oninput="changeFontSize()">
+    </label>
+</div>
+
+<!-- About Overlay -->
+<div id="aboutOverlay" class="overlay">
+    <div class="about-content">
+        <span class="close-btn" onclick="hideAbout()">&times;</span>
+        <h2>Premium Calculator</h2>
+        <p class="update-date">Updated on: 27-Jan-2026 at 9:44 PM</p>
+        <p>This is a premium calculator for Motor Insurance, Property insurance and Cash Denomination. It calculates the premium based on various parameters such as vehicle type, value, cubic capacity, additional options for motor insurance, calculate property insurance premium based on property details and cash denomination facility as per bill and payment options with data save facility. I am trying to provide most of the usable tools that helps us to calculate insurance premium.</p><br>
+        <h4>Developed by Nisheda Bhattarai</h4>
+        <p>Narayangarh, Chitwan, Nepal. Email: nisheda@yahoo.com</p>
+    </div>
+</div>
+
+<h1>Marine Cargo Insurance Premium Calculator</h1>
+<div class="container">
+    <div class="calculator-container">
+        <!-- Left Column: Calculator -->
+        <div class="calculator">
+            <!-- Cargo Selection -->
+            <div class="form-group">
+                <h3>1. Search & Select Commodity</h3>
+                <div class="datalist-input-container">
+                    <input type="text" id="cargoSearch" class="datalist-input" placeholder="Type to search... cement, automobile, तेल" autocomplete="off">
+                    <div id="cargoDropdown" class="datalist-options"></div>
                 </div>
-                <div class="desc-preview">
+                <div class="desc-preview" id="descPreview">
                     <strong>Selected:</strong> <span id="previewEn">—</span><br>
                     <span id="previewNe" style="font-size:0.7rem;">—</span>
                 </div>
-
-                <label style="margin-top: 8px;">Risk coverage</label>
-                <div class="risk-group" id="riskToggle">
-                    <button type="button" class="risk-btn" data-risk="A">All Risk A</button>
-                    <button type="button" class="risk-btn" data-risk="B">Basic Risk B</button>
-                    <button type="button" class="risk-btn" data-risk="C">Minimum Risk C</button>
-                </div>
-
-                <div class="rate-box">
-                    <div style="font-size:0.7rem;">Insurance Rate</div>
-                    <div class="rate-value" id="rateValue">0.00%</div>
-                </div>
-
-                <label class="checkbox-label" id="srccWrapper">
-                    <input type="checkbox" id="srccCheckbox"> + SRCC (Strikes, Riots & Civil Commotions)
-                </label>
-                <div class="small-note">SRCC: Sea 0.03% | Air/Rail 0.02% | Auto with All Risk A</div>
             </div>
 
-            <div class="card">
-                <div class="card-title">2. Transit & Discounts</div>
-                <label>Mode of transit</label>
+            <!-- Risk Coverage -->
+            <div class="form-group">
+                <h3>2. Risk Coverage</h3>
+                <div class="radio-group" id="riskGroup">
+                    <div class="radio-option" data-risk="A">
+                        <span>All Risk A (सम्पूर्ण जोखिम)</span>
+                    </div>
+                    <div class="radio-option" data-risk="B">
+                        <span>Basic Risk B (आधारभूत जोखिम)</span>
+                    </div>
+                    <div class="radio-option" data-risk="C">
+                        <span>Minimum Risk C (न्यूनतम जोखिम)</span>
+                    </div>
+                </div>
+                <div style="background:#e8f0fe; border-radius:6px; padding:8px; text-align:center; margin-top:8px;">
+                    <span style="font-size:0.75rem;">Insurance Rate</span>
+                    <div style="font-size:1.6rem; font-weight:700; color:#002B5B;" id="rateValue">0.00%</div>
+                </div>
+            </div>
+
+            <!-- Transit Mode -->
+            <div class="form-group">
+                <h3>3. Transit Mode</h3>
                 <select id="transitMode">
                     <option value="sea">🌊 By Sea</option>
                     <option value="air">✈️ By Air</option>
                     <option value="rail">🚛 By Rail/Road</option>
                 </select>
-                
-                <!-- Sub options for Rail/Road (dynamic) -->
-                <div id="railSubOptions" style="margin-top: 8px; display: none;">
+                <div id="railSubOptions" style="margin-top:8px; display:none;">
                     <label>Rail/Road Transit Type</label>
                     <select id="railType">
                         <option value="limited">Inland Transit within Nepal (Limited Distance) - 30%</option>
@@ -313,31 +575,30 @@
                         <option value="discount">Inland Transit Discount - 20%</option>
                     </select>
                 </div>
-
-                <!-- Container Discount (only for Sea) -->
-                <div id="containerDiscountDiv" style="margin-top: 8px; display: none;">
-                    <label class="checkbox-label">
+                <div id="containerDiscountDiv" style="margin-top:8px; display:none;">
+                    <label class="checkbox-option" style="margin-left:0;">
                         <input type="checkbox" id="containerDiscount"> 🧳 Container Discount (10% off Base Rate)
                     </label>
-                    <div class="small-note">Applicable only for Sea shipments</div>
-                </div>
-
-                <label style="margin-top: 10px;">🏷️ Direct Discount (2.5% Fixed)</label>
-                <label class="checkbox-label">
-                    <input type="checkbox" id="directDiscountCheck"> Apply 2.5% Direct Discount (before VAT)
-                </label>
-
-                <div class="discount-note" id="highValueNote">
-                    💰 High-Value Discount: 20% off subtotal if Invoice Value > NRs 50,00,00,000
                 </div>
             </div>
-        </div>
 
-        <!-- RIGHT COLUMN -->
-        <div class="column">
-            <div class="card">
-                <div class="card-title">3. Value, Duty & Exchange Rate</div>
-                <!-- Row 1: Invoice + Tolerance -->
+            <!-- SRCC and Direct Discount inline -->
+            <div class="form-group">
+                <h3>4. Additional Cover & Discounts</h3>
+                <div class="inline-checkboxes">
+                    <label class="checkbox-option">
+                        <input type="checkbox" id="srccCheckbox"> + SRCC (Strikes, Riots)
+                    </label>
+                    <label class="checkbox-option">
+                        <input type="checkbox" id="directDiscountCheck" checked> Direct Discount (2.5%)
+                    </label>
+                </div>
+                <div class="small-note">SRCC: Sea 0.03% | Air/Rail 0.02% | Auto with All Risk A</div>
+            </div>
+
+            <!-- Value Fields -->
+            <div class="form-group">
+                <h3>5. Value, Duty & Exchange Rate</h3>
                 <div class="inline-row">
                     <div class="field">
                         <label>📄 Invoice (NRs)</label>
@@ -348,7 +609,6 @@
                         <input type="number" id="tolerancePercent" value="0" step="0.5">
                     </div>
                 </div>
-                <!-- Row 2: Incremental + Duty + Exchange -->
                 <div class="inline-row">
                     <div class="field">
                         <label>📈 Incremental (%)</label>
@@ -364,32 +624,33 @@
                     </div>
                 </div>
                 <div class="small-note">Order: Invoice → +Tol% → +Inc% → +Duty% → × Rate = Insurable Value</div>
-            </div>
-
-            <div class="card">
-                <div class="card-title">4. Premium Breakdown</div>
-                <div style="background:#f8fafc; border-radius: 8px; padding: 10px;">
-                    <div class="result-line"><strong>Insurable Value (NRs):</strong> <span id="finalInsurableValue">0.00</span></div>
-                    <div class="result-line"><strong>Base Rate:</strong> <span id="ratePercentDisplay">0.0000%</span></div>
-                    <div class="result-line"><strong>Gross Premium:</strong> <span id="grossPremium">0.00</span></div>
-                    <div class="result-line"><strong>Transit Discount (<span id="discountPercentLabel">0%</span>):</strong> <span id="discountAmount">- 0.00</span></div>
-                    <div class="result-line"><strong>Net Premium (after transit):</strong> <span id="netPremium">0.00</span></div>
-                    <div class="result-line"><strong>SRCC Premium:</strong> <span id="srccAmount">0.00</span></div>
-                    <div class="result-line"><strong>Subtotal (Net + SRCC):</strong> <span id="subtotalAfterSrcc">0.00</span></div>
-                    <div class="result-line" style="background:#eef2fa;"><strong>🏆 High-Value Discount (20% if >50Cr):</strong> <span id="highValueDiscountAmt">- 0.00</span></div>
-                    <div class="result-line"><strong>After High-Value:</strong> <span id="afterHighValue">0.00</span></div>
-                    <div class="result-line"><strong>💸 Direct Discount (2.5%):</strong> <span id="directDiscountAmt">- 0.00</span></div>
-                    <div class="result-line"><strong>Total after all discounts:</strong> <span id="totalAfterAllDisc">0.00</span></div>
-                    <div class="result-line"><strong>VAT (13%):</strong> <span id="vatAmount">0.00</span></div>
-                    <div class="result-line"><strong>Service Fee:</strong> <span>NRs 20.00</span></div>
-                    <div class="result-line total"><strong>FINAL PAYABLE (NRs):</strong> <span id="totalPayable">0.00</span></div>
+                <div class="discount-note" id="highValueNote">
+                    💰 High-Value Discount: 20% off subtotal if Invoice Value > NRs 50,00,00,000 (50 Crore)
                 </div>
-                <button id="recalcBtn">⟳ Recalculate</button>
             </div>
+            <button id="recalcBtn">⟳ Recalculate Premium</button>
         </div>
-    </div>
-    <div class="footer-note">
-        ✅ High-Value Discount 20% applies if Invoice Value > 50 Crore (NRs 500,000,000).
+
+        <!-- Right Column: Results -->
+        <div class="results">
+            <h3 style="margin-top:0;">Premium Breakdown</h3>
+            <table class="result-table" id="resultTable">
+                <tr><td><strong>Insurable Value (NRs)</strong></td><td id="finalInsurableValue">0.00</td></tr>
+                <tr><td><strong>Base Rate</strong></td><td id="ratePercentDisplay">0.0000%</td></tr>
+                <tr><td><strong>Gross Premium</strong></td><td id="grossPremium">0.00</td></tr>
+                <tr><td><strong>Transit Discount (<span id="discountPercentLabel">0%</span>)</strong></td><td id="discountAmount">- 0.00</td></tr>
+                <tr><td><strong>Net Premium (after transit)</strong></td><td id="netPremium">0.00</td></tr>
+                <tr><td><strong>SRCC Premium</strong></td><td id="srccAmount">0.00</td></tr>
+                <tr><td><strong>Subtotal (Net + SRCC)</strong></td><td id="subtotalAfterSrcc">0.00</td></tr>
+                <tr style="background:#eef2fa;"><td><strong>High-Value Discount (20% if >50Cr)</strong></td><td id="highValueDiscountAmt">- 0.00</td></tr>
+                <tr><td><strong>After High-Value</strong></td><td id="afterHighValue">0.00</td></tr>
+                <tr><td><strong>Direct Discount (2.5%)</strong></td><td id="directDiscountAmt">- 0.00</td></tr>
+                <tr><td><strong>Total after all discounts</strong></td><td id="totalAfterAllDisc">0.00</td></tr>
+                <tr><td><strong>VAT (13%)</strong></td><td id="vatAmount">0.00</td></tr>
+                <tr><td><strong>Service Fee</strong></td><td>NRs 20.00</td></tr>
+                <tr class="total-row"><td><strong>FINAL PAYABLE (NRs)</strong></td><td id="totalPayable">0.00</td></tr>
+            </table>
+        </div>
     </div>
 </div>
 
@@ -471,19 +732,19 @@
     addCargo("TOBACCO - Tobacco Products", "सुर्तिजन्य बस्तु", 0.25, 0.15, 0.06);
 
     // DOM elements
-    const comboboxInput = document.getElementById('comboboxInput');
-    const comboboxList = document.getElementById('comboboxList');
+    const cargoSearch = document.getElementById('cargoSearch');
+    const cargoDropdown = document.getElementById('cargoDropdown');
     const previewEn = document.getElementById('previewEn');
     const previewNe = document.getElementById('previewNe');
-    const riskBtns = document.querySelectorAll('.risk-btn');
+    const riskOptions = document.querySelectorAll('.radio-option');
     const rateValueSpan = document.getElementById('rateValue');
     const srccCheckbox = document.getElementById('srccCheckbox');
+    const directDiscountCheck = document.getElementById('directDiscountCheck');
     const transitMode = document.getElementById('transitMode');
     const railSubOptions = document.getElementById('railSubOptions');
     const railType = document.getElementById('railType');
     const containerDiscountDiv = document.getElementById('containerDiscountDiv');
-    const containerDiscountCheck = document.getElementById('containerDiscount');
-    const directDiscountCheck = document.getElementById('directDiscountCheck');
+    const containerDiscount = document.getElementById('containerDiscount');
     const invoiceInput = document.getElementById('invoiceValue');
     const toleranceInput = document.getElementById('tolerancePercent');
     const incrementalInput = document.getElementById('incrementalPercent');
@@ -509,80 +770,59 @@
 
     let selectedCargoIndex = null;
     let selectedRisk = 'A';
-    let currentHighlight = -1;
 
-    // Combobox with keyboard support
-    function renderCombobox(filter = "") {
-        comboboxList.innerHTML = "";
+    // Combobox functions
+    function renderDropdown(filter = "") {
+        cargoDropdown.innerHTML = "";
         const lowerFilter = filter.toLowerCase();
-        const filtered = cargoRates.filter((item) => 
+        const filtered = cargoRates.filter(item => 
             lowerFilter === "" || item.en.toLowerCase().includes(lowerFilter) || item.ne.toLowerCase().includes(lowerFilter)
         );
         if (filtered.length === 0) {
             const div = document.createElement('div');
-            div.className = "combobox-item";
+            div.className = "datalist-option";
             div.textContent = "No matching cargo";
-            comboboxList.appendChild(div);
+            cargoDropdown.appendChild(div);
         } else {
-            filtered.forEach((item, idx) => {
+            filtered.forEach(item => {
                 const originalIdx = cargoRates.findIndex(c => c.en === item.en);
                 const div = document.createElement('div');
-                div.className = "combobox-item";
+                div.className = "datalist-option";
                 div.textContent = `${item.en.substring(0, 65)}${item.en.length > 65 ? '…' : ''}`;
-                div.setAttribute('data-index', originalIdx);
-                div.onclick = () => selectItem(originalIdx, item.en);
-                comboboxList.appendChild(div);
+                div.onclick = () => {
+                    selectedCargoIndex = originalIdx;
+                    cargoSearch.value = item.en;
+                    cargoDropdown.style.display = 'none';
+                    updatePreviewAndRate();
+                };
+                cargoDropdown.appendChild(div);
             });
         }
-        currentHighlight = -1;
+        cargoDropdown.style.display = 'block';
     }
 
-    function selectItem(idx, displayText) {
-        selectedCargoIndex = idx;
-        comboboxInput.value = displayText;
-        comboboxList.classList.remove('show');
-        updatePreviewAndRate();
-    }
-
-    comboboxInput.addEventListener('input', (e) => {
-        renderCombobox(e.target.value);
-        comboboxList.classList.add('show');
-    });
-    comboboxInput.addEventListener('focus', () => {
-        renderCombobox(comboboxInput.value);
-        comboboxList.classList.add('show');
-    });
-    comboboxInput.addEventListener('keydown', (e) => {
-        const items = document.querySelectorAll('.combobox-item');
-        if (items.length === 0) return;
-        if (e.key === 'ArrowDown') {
-            e.preventDefault();
-            currentHighlight = (currentHighlight + 1) % items.length;
-            updateHighlight(items);
-        } else if (e.key === 'ArrowUp') {
-            e.preventDefault();
-            currentHighlight = (currentHighlight - 1 + items.length) % items.length;
-            updateHighlight(items);
-        } else if (e.key === 'Enter' && currentHighlight >= 0) {
-            e.preventDefault();
-            const selected = items[currentHighlight];
-            const idx = parseInt(selected.getAttribute('data-index'));
-            if (!isNaN(idx)) selectItem(idx, selected.textContent);
-        }
-    });
-    function updateHighlight(items) {
-        items.forEach((item, i) => {
-            if (i === currentHighlight) item.classList.add('highlight');
-            else item.classList.remove('highlight');
-        });
-    }
+    cargoSearch.addEventListener('input', (e) => renderDropdown(e.target.value));
+    cargoSearch.addEventListener('focus', () => renderDropdown(cargoSearch.value));
     document.addEventListener('click', (e) => {
-        if (!comboboxInput.contains(e.target) && !comboboxList.contains(e.target)) {
-            comboboxList.classList.remove('show');
+        if (!cargoSearch.contains(e.target) && !cargoDropdown.contains(e.target)) {
+            cargoDropdown.style.display = 'none';
         }
     });
 
-    // Transit logic
+    // Risk selection
+    riskOptions.forEach(opt => {
+        opt.addEventListener('click', () => {
+            const risk = opt.getAttribute('data-risk');
+            selectedRisk = risk;
+            riskOptions.forEach(o => o.classList.remove('selected'));
+            opt.classList.add('selected');
+            updatePreviewAndRate();
+        });
+    });
+    // Set default selected risk
+    document.querySelector('.radio-option[data-risk="A"]').classList.add('selected');
+
+    // Transit UI
     function updateTransitUI() {
         const mode = transitMode.value;
         if (mode === 'rail') {
@@ -599,7 +839,7 @@
     }
     transitMode.addEventListener('change', updateTransitUI);
     railType.addEventListener('change', calculateAll);
-    containerDiscountCheck.addEventListener('change', calculateAll);
+    containerDiscount.addEventListener('change', calculateAll);
 
     function getTransitDiscountPercent() {
         const mode = transitMode.value;
@@ -615,7 +855,7 @@
     }
 
     function getBaseRateWithContainerDisc(baseRate) {
-        if (transitMode.value === 'sea' && containerDiscountCheck.checked) {
+        if (transitMode.value === 'sea' && containerDiscount.checked) {
             return baseRate * 0.90; // 10% off base rate
         }
         return baseRate;
@@ -624,12 +864,12 @@
     function getSrccRate() {
         const mode = transitMode.value;
         if (mode === 'sea') return 0.03;
-        return 0.02; // air or rail
+        return 0.02;
     }
 
     function computeInsurableValue() {
         let inv = parseFloat(invoiceInput.value) || 0;
-        let tol = parseFloat(toleranceInput.value) || 0;
+        let tol = parseFloat(tolerancePercent.value) || 0;
         let inc = parseFloat(incrementalPercent.value) || 0;
         let duty = parseFloat(dutyInput.value) || 0;
         let exRate = parseFloat(exchangeInput.value) || 1;
@@ -681,7 +921,6 @@
         if (srccEnabled) srccPremium = insurableValue * (getSrccRate() / 100);
         const subtotalSrcc = netAfterTransit + srccPremium;
 
-        // High-Value Discount (20% if invoice value > 500,000,000)
         let invoiceVal = parseFloat(invoiceInput.value) || 0;
         let highValueDiscount = 0;
         if (invoiceVal > 500000000) {
@@ -689,7 +928,6 @@
         }
         const afterHighValue = subtotalSrcc - highValueDiscount;
 
-        // Direct Discount 2.5% fixed if checked
         let directDiscAmt = 0;
         if (directDiscountCheck.checked) {
             directDiscAmt = afterHighValue * 0.025;
@@ -720,7 +958,7 @@
             previewEn.innerText = c.en;
             previewNe.innerText = c.ne;
             let rate = c.rates[selectedRisk];
-            if (transitMode.value === 'sea' && containerDiscountCheck.checked) rate = rate * 0.90;
+            if (transitMode.value === 'sea' && containerDiscount.checked) rate = rate * 0.90;
             rateValueSpan.innerHTML = `${rate.toFixed(2)}%`;
         } else {
             previewEn.innerText = "—";
@@ -730,16 +968,7 @@
         calculateAll();
     }
 
-    function setRisk(risk) {
-        selectedRisk = risk;
-        riskBtns.forEach(btn => {
-            if (btn.getAttribute('data-risk') === risk) btn.classList.add('active');
-            else btn.classList.remove('active');
-        });
-        updatePreviewAndRate();
-    }
-
-    riskBtns.forEach(btn => btn.addEventListener('click', () => setRisk(btn.getAttribute('data-risk'))));
+    // Event listeners
     srccCheckbox.addEventListener('change', calculateAll);
     directDiscountCheck.addEventListener('change', calculateAll);
     invoiceInput.addEventListener('input', calculateAll);
@@ -749,13 +978,10 @@
     exchangeInput.addEventListener('input', calculateAll);
     recalcBtn.addEventListener('click', calculateAll);
 
-    // Init
-    setRisk('A');
-    if (cargoRates.length > 0) {
-        selectedCargoIndex = 0;
-        comboboxInput.value = cargoRates[0].en;
-        updatePreviewAndRate();
-    }
+    // Initialize
+    selectedCargoIndex = 0;
+    cargoSearch.value = cargoRates[0].en;
+    updatePreviewAndRate();
     updateTransitUI();
     calculateAll();
 </script>
