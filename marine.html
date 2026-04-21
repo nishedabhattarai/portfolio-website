@@ -1,452 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Marine Cargo Insurance</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marine Insurance</title>
     <link rel="stylesheet" href="css/overlay.css">
+    <link rel="stylesheet" href="css/marine.css">
     <link rel="stylesheet" href="css/top-line.css">
     <link rel="icon" type="image/x-icon" href="favicon.png">
-    <style>
-        /* Provided CSS styles */
-        .form-group h3 {
-            margin-top: 0px;
-            margin-bottom: 8px;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #404040;
-            color: #333;
-            line-height: 1.0;
-            padding: 70px 20px 20px;
-            margin: 0;
-        }
-
-        .calculator-container {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .calculator, .results {
-            background-color: #D3D3D3;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        h1 {
-            text-align: center;
-            margin: 0 0 15px;
-            color: whitesmoke;
-            font-size: 1.5rem;
-        }
-
-        .form-group {
-            margin-bottom: 10px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-            font-size: 14px;
-        }
-
-        select, input {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            box-sizing: border-box;
-            font-size: 14px;
-        }
-
-        .radio-group {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 8px;
-            flex-wrap: wrap;
-        }
-
-        .radio-option {
-            display: flex;
-            align-items: center;
-            gap: 2px;
-            padding: 8px 12px;
-            border-radius: 6px;
-            border: 2px solid #002B5B;
-            background-color: #e6f0ff;
-            transition: all 0.3s;
-            cursor: pointer;
-        }
-
-        .radio-option.selected {
-            border-color: #002B5B;
-            background-color: #e6f0ff;
-            box-shadow: 0 0 0 2px rgba(0,43,91,0.2);
-        }
-
-        .row {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .checkbox-container {
-            display: flex;
-            justify-content: flex-start;
-            margin: 15px 0;
-        }
-
-        .checkbox-option {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            white-space: nowrap;
-            margin-left: 15px;
-            padding: 0;
-        }
-
-        .checkbox-option label {
-            margin-bottom: 0;
-        }
-
-        .checkbox-option input[type="checkbox"] {
-            width: 16px;
-            height: 16px;
-            margin: 0;
-        }
-
-        .datalist-input {
-            width: 100%;
-        }
-
-        .result-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-            font-size: 14px;
-        }
-
-        .result-table th, .result-table td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-
-        .result-table th {
-            background-color: #f2f2f2;
-        }
-
-        .total-row {
-            font-weight: bold;
-            background-color: #e9f7ef;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        .short-term-period {
-            margin-top: 5px;
-            width: 100%;
-        }
-
-        #homeInsuranceFields, #propertyInsuranceFields {
-            margin-bottom: 15px;
-        }
-
-        .datalist-input {
-            width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 14px;
-            background-color: white;
-            transition: border-color 0.3s;
-        }
-
-        .datalist-input-container {
-            position: relative;
-            width: 100%;
-        }
-
-        .datalist-input:focus {
-            border-color: #002B5B;
-            outline: none;
-            box-shadow: 0 0 0 2px rgba(0, 43, 91, 0.2);
-        }
-
-        .datalist-options {
-            position: absolute;
-            background-color: white;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            max-height: 200px;
-            overflow-y: auto;
-            width: calc(100% - 2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-            margin-top: 1px;
-            display: none;
-            scroll-behavior: smooth;
-        }
-
-        .datalist-option {
-            padding: 8px 12px;
-            font-size: 14px;
-            cursor: pointer;
-            color: #333;
-            transition: background-color 0.2s;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        .datalist-option:last-child {
-            border-bottom: none;
-        }
-
-        .datalist-option:hover, .datalist-option.active {
-            background-color: #002B5B;
-            color: white;
-        }
-
-        .print-buttons-container {
-            display: flex;
-            gap: 10px;
-            margin-top: 20px;
-            justify-content: center;
-        }
-
-        .print-btn, .download-btn {
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        .print-btn:hover {
-            background-color: #45a049;
-        }
-
-        .download-btn {
-            background-color: #2980b9;
-        }
-
-        .download-btn:hover {
-            background-color: #256fb0;
-        }
-
-        @media print {
-            body * {
-                visibility: hidden;
-            }
-            .print-preview, .print-preview * {
-                visibility: visible;
-            }
-            .print-preview {
-                position: absolute;
-                left: 0;
-                top: 0;
-                width: 100%;
-                background-color: white;
-                color: black;
-                font-size: 12px;
-                padding: 5mm;
-            }
-            .no-print {
-                display: none;
-            }
-            .print-parameters table {
-                width: 100%;
-                border-collapse: collapse;
-                page-break-inside: avoid;
-            }
-            .print-parameters th, .print-parameters td {
-                padding: 4px;
-                font-size: 11px;
-            }
-            .print-footer {
-                margin-top: 10px;
-                font-size: 10px;
-            }
-        }
-
-        .print-preview {
-            display: none;
-            padding: 5mm;
-            background: white;
-            color: black;
-            max-width: 800px;
-            margin: 0 auto;
-            font-size: 12px;
-            line-height: 1.0;
-        }
-
-        .print-header {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 5px;
-            text-align: center;
-            padding-bottom: 5px;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .print-header img {
-            height: 35px;
-            margin-bottom: 3px;
-        }
-
-        .print-title {
-            width: 100%;
-            text-align: center;
-        }
-
-        .print-meta {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            font-size: 11px;
-        }
-
-        .print-parameters {
-            margin: 10px 0;
-        }
-
-        .print-parameters table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 11px;
-        }
-
-        .print-parameters th, .print-parameters td {
-            border: 1px solid #ddd;
-            padding: 4px;
-            text-align: left;
-        }
-
-        .print-footer {
-            margin-top: 10px;
-            font-size: 10px;
-            text-align: center;
-            border-top: 1px solid #ddd;
-            padding-top: 5px;
-        }
-
-        @media (min-width: 480px) {
-            .calculator-container {
-                flex-direction: row;
-            }
-            .calculator {
-                flex: 2;
-            }
-            .results {
-                flex: 1;
-            }
-            .row {
-                flex-direction: row;
-            }
-            .checkbox-container {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 8px;
-            }
-            .short-term-period {
-                width: auto;
-                margin-left: 5px;
-                margin-top: 0;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .checkbox-container {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .checkbox-option {
-                margin-left: 0;
-                margin-top: 10px;
-            }
-            .calculation-fields-row {
-                flex-direction: column;
-                gap: 10px;
-            }
-            .calculation-fields-row .form-group {
-                width: 100%;
-            }
-        }
-
-        /* Additional custom styles for this page */
-        .inline-checkboxes {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        .inline-checkboxes .checkbox-option {
-            margin-left: 0;
-        }
-        .inline-row {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 12px;
-        }
-        .inline-row .field {
-            flex: 1;
-        }
-        .desc-preview {
-            background: #e8f0fe;
-            border-radius: 6px;
-            padding: 8px;
-            font-size: 0.75rem;
-            margin-top: 8px;
-            border-left: 3px solid #002B5B;
-        }
-        .small-note {
-            font-size: 0.7rem;
-            color: #555;
-            margin-top: 4px;
-        }
-        .discount-note {
-            background: #e8f0fe;
-            padding: 6px 10px;
-            border-radius: 6px;
-            font-size: 0.7rem;
-            margin-top: 8px;
-            color: #002B5B;
-        }
-        button {
-            background: #002B5B;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            padding: 10px 16px;
-            font-weight: 600;
-            cursor: pointer;
-            width: 100%;
-            font-size: 0.9rem;
-            margin-top: 10px;
-        }
-        button:hover {
-            background: #001f44;
-        }
-    </style>
 </head>
 <body>
 <div class="top-line">
@@ -454,8 +15,8 @@
         <div class="menu" onclick="toggleMenu()">☰ Menu</div>
         <div class="quick-links">
             <a href="https://nisheda.com.np">MOTOR</a>
-            <a href="/property" style="color: orange; text-decoration: none; font-weight: bold;">PROPERTY</a>
-            <a href="/deno">DENOMINATION</a>
+            <a href="/property">PROPERTY</a>
+            <a href="/marine" style="color: orange; text-decoration: none; font-weight: bold;">MARINE (NEW)</a>
         </div>
     </div>
     <div class="settings-btn" onclick="toggleSettings()">︙</div> <!-- '︙' as Settings Icon -->
@@ -466,7 +27,7 @@
     <div>
         <h4>Premium Calculator</h4>
         <ul>
-            <li><a href="/auto" style="color: #d6e4ff; text-decoration: none;">Motor</a></li>
+            <li><a href="https://nisheda.com.np" style="color: #d6e4ff; text-decoration: none;">Motor</a></li>
             <li><a href="/property" style="color: #d6e4ff; text-decoration: none;">Property</a></li>
             <li><a href="/marine" style="color: orange; text-decoration: none;">Marine (New)</a></li>
         </ul>
@@ -514,476 +75,127 @@
     <div class="about-content">
         <span class="close-btn" onclick="hideAbout()">&times;</span>
         <h2>Premium Calculator</h2>
-        <p class="update-date">Updated on: 27-Jan-2026 at 9:44 PM</p>
-        <p>This is a premium calculator for Motor Insurance, Property insurance and Cash Denomination. It calculates the premium based on various parameters such as vehicle type, value, cubic capacity, additional options for motor insurance, calculate property insurance premium based on property details and cash denomination facility as per bill and payment options with data save facility. I am trying to provide most of the usable tools that helps us to calculate insurance premium.</p><br>
+        <p class="update-date">Updated on: 21-Apr-2026 at 10:52 PM</p>
+        <p>This is a premium calculator for Motor Insurance, Property Insurance, Marine Insurance and Cash Denomination. It calculates the premium based on various parameters such as vehicle type, value, cubic capacity, additional options for motor insurance, calculate property insurance premium based on property details and cash denomination facility as per bill and payment options with data save facility. I am trying to provide most of the usable tools that helps us to calculate insurance premium.</p><br>
         <h4>Developed by Nisheda Bhattarai</h4>
-        <p>Narayangarh, Chitwan, Nepal. Email: nisheda@yahoo.com</p>
+        <p>Birgunj, Parsa, Nepal. Email: nisheda@yahoo.com</p>
     </div>
 </div>
 
-<h1>Marine Cargo Insurance Premium Calculator</h1>
 <div class="container">
+    <h1>Marine Cargo Insurance Premium Calculator</h1>
     <div class="calculator-container">
-        <!-- Left Column: Calculator -->
         <div class="calculator">
-            <!-- Cargo Selection -->
+            <!-- Search & Select Commodity -->
             <div class="form-group">
-                <h3>1. Search & Select Commodity</h3>
+                <label>🔍 Search & Select Commodity (English / नेपाली)</label>
                 <div class="datalist-input-container">
-                    <input type="text" id="cargoSearch" class="datalist-input" placeholder="Type to search... cement, automobile, तेल" autocomplete="off">
-                    <div id="cargoDropdown" class="datalist-options"></div>
-                </div>
-                <div class="desc-preview" id="descPreview">
-                    <strong>Selected:</strong> <span id="previewEn">—</span><br>
-                    <span id="previewNe" style="font-size:0.7rem;">—</span>
+                    <input type="text" id="commodityInput" class="datalist-input" placeholder="Click or type to search..." autocomplete="off">
+                    <div id="commodityDropdown" class="datalist-options" style="display: none;"></div>
                 </div>
             </div>
 
             <!-- Risk Coverage -->
             <div class="form-group">
-                <h3>2. Risk Coverage</h3>
+                <label>Risk Coverage</label>
                 <div class="radio-group" id="riskGroup">
                     <div class="radio-option" data-risk="A">
-                        <span>All Risk A (सम्पूर्ण जोखिम)</span>
+                        <input type="radio" name="riskCoverage" value="A" checked> <span>All Risk A</span>
                     </div>
                     <div class="radio-option" data-risk="B">
-                        <span>Basic Risk B (आधारभूत जोखिम)</span>
+                        <input type="radio" name="riskCoverage" value="B"> <span>Basic Risk B</span>
                     </div>
                     <div class="radio-option" data-risk="C">
-                        <span>Minimum Risk C (न्यूनतम जोखिम)</span>
+                        <input type="radio" name="riskCoverage" value="C"> <span>Minimum Risk C</span>
                     </div>
                 </div>
-                <div style="background:#e8f0fe; border-radius:6px; padding:8px; text-align:center; margin-top:8px;">
-                    <span style="font-size:0.75rem;">Insurance Rate</span>
-                    <div style="font-size:1.6rem; font-weight:700; color:#002B5B;" id="rateValue">0.00%</div>
+            </div>
+
+            <!-- SRCC and Direct Discount -->
+            <div class="checkbox-container">
+                <div class="checkbox-option">
+                    <input type="checkbox" id="srccCheckbox"> <label>TPND + SRCC (Strikes, Riots, and Civil Commotion)</label>
+                </div>
+                <div class="checkbox-option">
+                    <input type="checkbox" id="directDiscountCheck" checked> <label>Direct Discount (2.5%)</label>
                 </div>
             </div>
 
             <!-- Transit Mode -->
             <div class="form-group">
-                <h3>3. Transit Mode</h3>
+                <label>Mode of Transit</label>
                 <select id="transitMode">
                     <option value="sea">🌊 By Sea</option>
                     <option value="air">✈️ By Air</option>
                     <option value="rail">🚛 By Rail/Road</option>
                 </select>
-                <div id="railSubOptions" style="margin-top:8px; display:none;">
-                    <label>Rail/Road Transit Type</label>
-                    <select id="railType">
-                        <option value="limited">Inland Transit within Nepal (Limited Distance) - 30%</option>
-                        <option value="standard">Inland Transit within Nepal - 25%</option>
-                        <option value="discount">Inland Transit Discount - 20%</option>
-                    </select>
-                </div>
-                <div id="containerDiscountDiv" style="margin-top:8px; display:none;">
-                    <label class="checkbox-option" style="margin-left:0;">
-                        <input type="checkbox" id="containerDiscount"> 🧳 Container Discount (10% off Base Rate)
-                    </label>
-                </div>
             </div>
 
-            <!-- SRCC and Direct Discount inline -->
-            <div class="form-group">
-                <h3>4. Additional Cover & Discounts</h3>
-                <div class="inline-checkboxes">
-                    <label class="checkbox-option">
-                        <input type="checkbox" id="srccCheckbox"> + SRCC (Strikes, Riots)
-                    </label>
-                    <label class="checkbox-option">
-                        <input type="checkbox" id="directDiscountCheck" checked> Direct Discount (2.5%)
-                    </label>
-                </div>
-                <div class="small-note">SRCC: Sea 0.03% | Air/Rail 0.02% | Auto with All Risk A</div>
+            <!-- Transit Type (only for Rail/Road) -->
+            <div id="transitTypeGroup" class="transit-type-group hidden">
+                <label>Transit Type</label>
+                <select id="railType">
+                    <option value="discount">Inland Transit Discount - 20%</option>
+                    <option value="standard">Inland Transit (Nepal) - 25%</option>
+                    <option value="limited">Inland Transit (Limited Distance) - 30%</option>
+                </select>
+            </div>
+
+            <!-- Container Discount (default checked) -->
+            <div id="containerGroup" class="checkbox-option" style="margin: 10px 0; display: none;">
+                <input type="checkbox" id="containerDiscountCheck" checked> <label>Container Discount (10% off Base Rate)</label>
             </div>
 
             <!-- Value Fields -->
-            <div class="form-group">
-                <h3>5. Value, Duty & Exchange Rate</h3>
-                <div class="inline-row">
-                    <div class="field">
-                        <label>📄 Invoice (NRs)</label>
-                        <input type="number" id="invoiceValue" value="1000000" step="10000">
-                    </div>
-                    <div class="field">
-                        <label>➕ Tolerance (%)</label>
-                        <input type="number" id="tolerancePercent" value="0" step="0.5">
-                    </div>
+            <div class="inline-row">
+                <div class="field">
+                    <label>📄 Invoice Value (NRs)</label>
+                    <input type="number" id="invoiceValue" value="1000000" step="10000">
                 </div>
-                <div class="inline-row">
-                    <div class="field">
-                        <label>📈 Incremental (%)</label>
-                        <input type="number" id="incrementalPercent" value="0" step="0.5">
-                    </div>
-                    <div class="field">
-                        <label>🛃 Duty (%)</label>
-                        <input type="number" id="dutyPercent" value="0" step="0.5">
-                    </div>
-                    <div class="field">
-                        <label>💱 Exchange Rate</label>
-                        <input type="number" id="exchangeRate" value="1.00" step="0.01">
-                    </div>
-                </div>
-                <div class="small-note">Order: Invoice → +Tol% → +Inc% → +Duty% → × Rate = Insurable Value</div>
-                <div class="discount-note" id="highValueNote">
-                    💰 High-Value Discount: 20% off subtotal if Invoice Value > NRs 50,00,00,000 (50 Crore)
+                <div class="field">
+                    <label>➕ Tolerance (%)</label>
+                    <input type="number" id="tolerancePercent" value="0" step="0.5">
                 </div>
             </div>
-            <button id="recalcBtn">⟳ Recalculate Premium</button>
+
+            <div class="inline-row">
+                <div class="field">
+                    <label>📈 Incremental (%)</label>
+                    <input type="number" id="incrementalPercent" value="0" step="0.5">
+                </div>
+                <div class="field">
+                    <label>🛃 Duty (%)</label>
+                    <input type="number" id="dutyPercent" value="0" step="0.5">
+                </div>
+                <div class="field">
+                    <label>💱 Exchange Rate</label>
+                    <input type="number" id="exchangeRate" value="1.00" step="0.01">
+                </div>
+            </div>
+            <div class="small-note">Order: Invoice + Tol% + Inc% + Duty% → × Rate = Total Sum Insured</div>
         </div>
 
-        <!-- Right Column: Results -->
+        <!-- Results Column -->
         <div class="results">
-            <h3 style="margin-top:0;">Premium Breakdown</h3>
-            <table class="result-table" id="resultTable">
-                <tr><td><strong>Insurable Value (NRs)</strong></td><td id="finalInsurableValue">0.00</td></tr>
-                <tr><td><strong>Base Rate</strong></td><td id="ratePercentDisplay">0.0000%</td></tr>
-                <tr><td><strong>Gross Premium</strong></td><td id="grossPremium">0.00</td></tr>
-                <tr><td><strong>Transit Discount (<span id="discountPercentLabel">0%</span>)</strong></td><td id="discountAmount">- 0.00</td></tr>
-                <tr><td><strong>Net Premium (after transit)</strong></td><td id="netPremium">0.00</td></tr>
-                <tr><td><strong>SRCC Premium</strong></td><td id="srccAmount">0.00</td></tr>
-                <tr><td><strong>Subtotal (Net + SRCC)</strong></td><td id="subtotalAfterSrcc">0.00</td></tr>
-                <tr style="background:#eef2fa;"><td><strong>High-Value Discount (20% if >50Cr)</strong></td><td id="highValueDiscountAmt">- 0.00</td></tr>
-                <tr><td><strong>After High-Value</strong></td><td id="afterHighValue">0.00</td></tr>
-                <tr><td><strong>Direct Discount (2.5%)</strong></td><td id="directDiscountAmt">- 0.00</td></tr>
-                <tr><td><strong>Total after all discounts</strong></td><td id="totalAfterAllDisc">0.00</td></tr>
-                <tr><td><strong>VAT (13%)</strong></td><td id="vatAmount">0.00</td></tr>
-                <tr><td><strong>Service Fee</strong></td><td>NRs 20.00</td></tr>
-                <tr class="total-row"><td><strong>FINAL PAYABLE (NRs)</strong></td><td id="totalPayable">0.00</td></tr>
-            </table>
+            <div class="form-group">
+                <label>Premium Breakdown</label>
+                <table class="result-table">
+                    <thead>
+                        <tr><th>Description</th><th>Rate (%)</th><th>Amount (NRs)</th></tr>
+                    </thead>
+                    <tbody id="premiumBreakdownBody">
+                        <tr><td colspan="3">Select cargo and risk coverage</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <button id="recalcBtn" style="width:100%; padding:10px; background:#002B5B; color:white; border:none; border-radius:4px; cursor:pointer;">⟳ Recalculate</button>
         </div>
     </div>
 </div>
 
-<script>
-    // ========== CARGO DATASET ==========
-    const cargoRates = [];
-    function addCargo(en, ne, rateA, rateB, rateC) {
-        cargoRates.push({ en: en.trim(), ne: ne.trim(), rates: { A: parseFloat(rateA), B: parseFloat(rateB), C: parseFloat(rateC) } });
-    }
+    <script src="js/top-line.js"></script>
+    <script src="js/overlay.js"></script>
+    <script src="js/marine.js"></script>
 
-    addCargo("AUTOMOBILES (Other than driven on own power)", "स्वःचालित सवारी साधनहरु", 0.26, 0.14, 0.06);
-    addCargo("BAGGED CARGO - New Gunny/Jute Bags", "बोरामा रहेका सामान - नयाँ जुट/गनी", 0.25, 0.15, 0.06);
-    addCargo("BAGGED CARGO - Polythene/Double Bags", "बोरामा सामान - पोलिथिन/दोहोरो", 0.22, 0.13, 0.05);
-    addCargo("BETLENUTS", "सुपारी", 0.5, 0.3, 0.12);
-    addCargo("BEVERAGES & MINERAL WATER - Glass Bottles", "पेय पदार्थ - शीशाको बोतल", 0.4, 0.25, 0.1);
-    addCargo("BEVERAGES & MINERAL WATER - Other Packing", "पेय पदार्थ - अन्य प्याकिङ्ग", 0.3, 0.15, 0.06);
-    addCargo("CABLES AND WIRES", "सबै प्रकारका तारहरु", 0.15, 0.1, 0.04);
-    addCargo("CEMENT", "सिमेन्ट", 0.5, 0.15, 0.06);
-    addCargo("CHEMICALS - Non Hazardous", "रासायनिक - जोखिम रहित", 0.3, 0.18, 0.07);
-    addCargo("CHEMICALS - Hazardous", "रासायनिक - जोखिमपूर्ण", 0.4, 0.25, 0.1);
-    addCargo("CHEMICALS - Extra Hazardous", "रासायनिक - अति जोखिमपूर्ण", 0.5, 0.3, 0.12);
-    addCargo("COAL", "कोइला", 0.5, 0.4, 0.3);
-    addCargo("CARPETS, TEXTILES, GARMENT MATERIALS", "कार्पेट, कपडा, गार्मेन्ट कच्चा पदार्थ", 0.15, 0.1, 0.04);
-    addCargo("COTTON, YARN, THREAD", "कपास, धागो", 0.1, 0.08, 0.04);
-    addCargo("EDIBLE OIL & GHEE - Bulk/Tanks", "खाद्य तेल घ्यू - ट्याङ्कर", 0.35, 0.2, 0.08);
-    addCargo("EDIBLE OIL & GHEE - Drum/Jar", "खाद्य तेल घ्यू - ड्रम/जार", 0.22, 0.15, 0.06);
-    addCargo("EDIBLE ITEMS - Grains & Pulses", "खाद्य पदार्थ - अन्न, दाल", 0.25, 0.15, 0.06);
-    addCargo("EDIBLE ITEMS - Oil Seeds", "तेलहनहरु", 0.32, 0.17, 0.07);
-    addCargo("EDIBLE ITEMS - Others", "खाद्य पदार्थ - अन्य", 0.25, 0.15, 0.06);
-    addCargo("ELECTRIC & ELECTRONIC ITEMS", "बिद्युतीय तथा इलेक्ट्रोनिक सामान", 0.3, 0.2, 0.08);
-    addCargo("EMPTY GAS CYLINDER", "ग्याँसको खाली सिलिन्डर", 0.08, 0.05, 0.03);
-    addCargo("FRAGILE ARTICLES (China, Glass, Sanitary)", "सजिलै टुटफुट हुने सामान", 0.8, 0.5, 0.2);
-    addCargo("FERTILIZER - In Bulk", "कृषि मल - ठूलो परिमाण", 0.5, 0.23, 0.09);
-    addCargo("FERTILIZER - In Bags", "कृषि मल - बोरामा", 0.4, 0.2, 0.08);
-    addCargo("FOOT WEAR", "जुत्ताहरु", 0.2, 0.12, 0.05);
-    addCargo("FURNITURE - Metal & Plastics", "फर्निचर - धातु/प्लाष्टिक", 0.2, 0.12, 0.05);
-    addCargo("FURNITURE - Wooden & other", "फर्निचर - काठ तथा अन्य", 0.7, 0.4, 0.2);
-    addCargo("GOLD, SILVER, PRECIOUS STONES", "सुन, चाँदी, बहुमूल्य पत्थर", 0.5, 0.3, 0.12);
-    addCargo("HANDICRAFTS (Non Fragile)", "हस्तकला (नटुट्ने)", 0.3, 0.15, 0.06);
-    addCargo("LEATHER - Raw & Semi Finished", "छाला - काँचो तथा अर्ध तयारी", 0.25, 0.15, 0.06);
-    addCargo("LEATHER - Finished Goods", "छाला - तयारी सामान", 0.2, 0.12, 0.05);
-    addCargo("LIQUID CARGO - Non Hazardous (Tanker/Drums)", "तरल सामान - जोखिम रहित (ट्याङ्कर/ड्रम)", 0.4, 0.25, 0.1);
-    addCargo("LIQUID CARGO - Non Hazardous (Other Packing)", "तरल सामान - जोखिम रहित (अन्य)", 0.3, 0.18, 0.07);
-    addCargo("LIQUID CARGO - Hazardous (Tanker/Drums)", "तरल सामान - जोखिमपूर्ण (ट्याङ्कर/ड्रम)", 0.6, 0.35, 0.14);
-    addCargo("LIQUID CARGO - Hazardous (Other Packing)", "तरल सामान - जोखिमपूर्ण (अन्य)", 0.4, 0.25, 0.1);
-    addCargo("LIQUID CARGO - Extra Hazardous (Tanker/Drums)", "तरल सामान - अति जोखिमपूर्ण (ट्याङ्कर/ड्रम)", 0.8, 0.5, 0.2);
-    addCargo("LIQUID CARGO - Extra Hazardous (Other)", "तरल सामान - अति जोखिमपूर्ण (अन्य)", 0.4, 0.25, 0.1);
-    addCargo("LPG - In Tanker or Bullet", "एलपीजी - ट्याङ्कर वा बुलेट", 0.4, 0.25, 0.1);
-    addCargo("LPG - In Cylinders", "एलपीजी - सिलिण्डर", 0.2, 0.12, 0.05);
-    addCargo("MACHINERY - Hand Tools", "मेशिनरी - हाते औजार", 0.2, 0.1, 0.04);
-    addCargo("MACHINERY - Power Tools", "मेशिनरी - शक्ति औजार", 0.3, 0.2, 0.08);
-    addCargo("MARBLE AND GRANITE", "मार्बल तथा ग्रेनाइट", 0.5, 0.3, 0.12);
-    addCargo("METAL - BILLETS, INGOTS", "बिलेट, इनगट", 0.06, 0.04, 0.02);
-    addCargo("METAL HARDWARE & SHEETS", "धातुका निर्माण सामाग्री, पाता", 0.08, 0.05, 0.03);
-    addCargo("METAL SCRAP", "धातु रद्दी", 0.08, 0.05, 0.03);
-    addCargo("MATCHES & EXPLOSIVES", "सलाई तथा बिस्फोटक", 0.9, 0.55, 0.25);
-    addCargo("PAPER - News Prints, Cardboards", "कागज - न्यूज प्रिन्ट, कार्डबोर्ड", 0.3, 0.15, 0.06);
-    addCargo("PAPER - Books, Magazines", "किताब, पत्रपत्रिका", 0.25, 0.12, 0.05);
-    addCargo("PAPER - Others", "कागज अन्य", 0.3, 0.15, 0.06);
-    addCargo("PLYWOOD & PARTICLE BOARD", "प्लाइउड, पार्टिकल बोर्ड", 0.25, 0.15, 0.06);
-    addCargo("PERISHABLE - Non Refrigerated", "सजिलै बिग्रने - रेफ्रिजरेटेड नभएको", 0.4, 0.2, 0.08);
-    addCargo("PERISHABLE - Refrigerated", "सजिलै बिग्रने - रेफ्रिजरेटेड", 0.3, 0.16, 0.06);
-    addCargo("PERSONAL EFFECTS & HOUSEHOLD GOODS", "व्यक्तिगत तथा घरायसी सामान", 2.0, 0.5, 0.2);
-    addCargo("PETROLEUM FUEL - In Bulk", "पेट्रोलियम इन्धन - ठूलो परिमाण", 0.8, 0.5, 0.2);
-    addCargo("PETROLEUM FUEL - In Tanker", "पेट्रोलियम इन्धन - ट्याङ्कर", 0.4, 0.25, 0.1);
-    addCargo("PHARMACEUTICALS, MEDICINES", "औषधि, ट्वाइलेटरिज", 0.25, 0.15, 0.06);
-    addCargo("PLASTIC - Sheets", "प्लाष्टिक सीट", 0.18, 0.1, 0.04);
-    addCargo("PLASTIC - Granules", "प्लाष्टिक दाना", 0.25, 0.15, 0.06);
-    addCargo("PLASTIC - Other Goods", "प्लाष्टिक अन्य सामान", 0.2, 0.12, 0.05);
-    addCargo("SPARE PARTS - Electric/Electronic", "स्पेयर पार्ट्स - बिद्युतीय/इलेक्ट्रोनिक", 0.32, 0.22, 0.09);
-    addCargo("SPARE PARTS - Glass Items", "स्पेयर पार्ट्स - शीशा", 0.8, 0.5, 0.2);
-    addCargo("SPARE PARTS - Mechanical", "स्पेयर पार्ट्स - मेकानिकल", 0.25, 0.15, 0.06);
-    addCargo("SPARE PARTS - Rubber & Plastic (incl tires)", "स्पेयर पार्ट्स - रबर/प्लाष्टिक (टायर)", 0.2, 0.12, 0.05);
-    addCargo("STRAW, GRASS, JUTE, COMBUSTIBLE FIBRES", "पराल, घाँस, जुट, बल्ने रेशा", 0.7, 0.5, 0.2);
-    addCargo("SUGAR - In Bulk", "चिनी - ठूलो परिमाण", 0.6, 0.35, 0.14);
-    addCargo("SUGAR - Other Packing", "चिनी - अन्य प्याकिङ्ग", 0.35, 0.2, 0.08);
-    addCargo("TIMBER & WOOD", "चिरान काठ", 0.15, 0.1, 0.04);
-    addCargo("TOBACCO - Leaf Tobacco", "सुर्तीको पात", 0.3, 0.2, 0.1);
-    addCargo("TOBACCO - Tobacco Products", "सुर्तिजन्य बस्तु", 0.25, 0.15, 0.06);
-
-    // DOM elements
-    const cargoSearch = document.getElementById('cargoSearch');
-    const cargoDropdown = document.getElementById('cargoDropdown');
-    const previewEn = document.getElementById('previewEn');
-    const previewNe = document.getElementById('previewNe');
-    const riskOptions = document.querySelectorAll('.radio-option');
-    const rateValueSpan = document.getElementById('rateValue');
-    const srccCheckbox = document.getElementById('srccCheckbox');
-    const directDiscountCheck = document.getElementById('directDiscountCheck');
-    const transitMode = document.getElementById('transitMode');
-    const railSubOptions = document.getElementById('railSubOptions');
-    const railType = document.getElementById('railType');
-    const containerDiscountDiv = document.getElementById('containerDiscountDiv');
-    const containerDiscount = document.getElementById('containerDiscount');
-    const invoiceInput = document.getElementById('invoiceValue');
-    const toleranceInput = document.getElementById('tolerancePercent');
-    const incrementalInput = document.getElementById('incrementalPercent');
-    const dutyInput = document.getElementById('dutyPercent');
-    const exchangeInput = document.getElementById('exchangeRate');
-    const recalcBtn = document.getElementById('recalcBtn');
-
-    // Result spans
-    const finalInsurableSpan = document.getElementById('finalInsurableValue');
-    const ratePercentDisplay = document.getElementById('ratePercentDisplay');
-    const grossPremiumSpan = document.getElementById('grossPremium');
-    const discountPercentLabel = document.getElementById('discountPercentLabel');
-    const discountAmountSpan = document.getElementById('discountAmount');
-    const netPremiumSpan = document.getElementById('netPremium');
-    const srccAmountSpan = document.getElementById('srccAmount');
-    const subtotalAfterSrccSpan = document.getElementById('subtotalAfterSrcc');
-    const highValueDiscountAmtSpan = document.getElementById('highValueDiscountAmt');
-    const afterHighValueSpan = document.getElementById('afterHighValue');
-    const directDiscountAmtSpan = document.getElementById('directDiscountAmt');
-    const totalAfterAllDiscSpan = document.getElementById('totalAfterAllDisc');
-    const vatAmountSpan = document.getElementById('vatAmount');
-    const totalPayableSpan = document.getElementById('totalPayable');
-
-    let selectedCargoIndex = null;
-    let selectedRisk = 'A';
-
-    // Combobox functions
-    function renderDropdown(filter = "") {
-        cargoDropdown.innerHTML = "";
-        const lowerFilter = filter.toLowerCase();
-        const filtered = cargoRates.filter(item => 
-            lowerFilter === "" || item.en.toLowerCase().includes(lowerFilter) || item.ne.toLowerCase().includes(lowerFilter)
-        );
-        if (filtered.length === 0) {
-            const div = document.createElement('div');
-            div.className = "datalist-option";
-            div.textContent = "No matching cargo";
-            cargoDropdown.appendChild(div);
-        } else {
-            filtered.forEach(item => {
-                const originalIdx = cargoRates.findIndex(c => c.en === item.en);
-                const div = document.createElement('div');
-                div.className = "datalist-option";
-                div.textContent = `${item.en.substring(0, 65)}${item.en.length > 65 ? '…' : ''}`;
-                div.onclick = () => {
-                    selectedCargoIndex = originalIdx;
-                    cargoSearch.value = item.en;
-                    cargoDropdown.style.display = 'none';
-                    updatePreviewAndRate();
-                };
-                cargoDropdown.appendChild(div);
-            });
-        }
-        cargoDropdown.style.display = 'block';
-    }
-
-    cargoSearch.addEventListener('input', (e) => renderDropdown(e.target.value));
-    cargoSearch.addEventListener('focus', () => renderDropdown(cargoSearch.value));
-    document.addEventListener('click', (e) => {
-        if (!cargoSearch.contains(e.target) && !cargoDropdown.contains(e.target)) {
-            cargoDropdown.style.display = 'none';
-        }
-    });
-
-    // Risk selection
-    riskOptions.forEach(opt => {
-        opt.addEventListener('click', () => {
-            const risk = opt.getAttribute('data-risk');
-            selectedRisk = risk;
-            riskOptions.forEach(o => o.classList.remove('selected'));
-            opt.classList.add('selected');
-            updatePreviewAndRate();
-        });
-    });
-    // Set default selected risk
-    document.querySelector('.radio-option[data-risk="A"]').classList.add('selected');
-
-    // Transit UI
-    function updateTransitUI() {
-        const mode = transitMode.value;
-        if (mode === 'rail') {
-            railSubOptions.style.display = 'block';
-            containerDiscountDiv.style.display = 'none';
-        } else if (mode === 'sea') {
-            railSubOptions.style.display = 'none';
-            containerDiscountDiv.style.display = 'block';
-        } else {
-            railSubOptions.style.display = 'none';
-            containerDiscountDiv.style.display = 'none';
-        }
-        calculateAll();
-    }
-    transitMode.addEventListener('change', updateTransitUI);
-    railType.addEventListener('change', calculateAll);
-    containerDiscount.addEventListener('change', calculateAll);
-
-    function getTransitDiscountPercent() {
-        const mode = transitMode.value;
-        if (mode === 'air') return 20;
-        if (mode === 'sea') return 0;
-        if (mode === 'rail') {
-            const type = railType.value;
-            if (type === 'limited') return 30;
-            if (type === 'standard') return 25;
-            if (type === 'discount') return 20;
-        }
-        return 0;
-    }
-
-    function getBaseRateWithContainerDisc(baseRate) {
-        if (transitMode.value === 'sea' && containerDiscount.checked) {
-            return baseRate * 0.90; // 10% off base rate
-        }
-        return baseRate;
-    }
-
-    function getSrccRate() {
-        const mode = transitMode.value;
-        if (mode === 'sea') return 0.03;
-        return 0.02;
-    }
-
-    function computeInsurableValue() {
-        let inv = parseFloat(invoiceInput.value) || 0;
-        let tol = parseFloat(tolerancePercent.value) || 0;
-        let inc = parseFloat(incrementalPercent.value) || 0;
-        let duty = parseFloat(dutyInput.value) || 0;
-        let exRate = parseFloat(exchangeInput.value) || 1;
-        let afterTol = inv * (1 + tol / 100);
-        let afterInc = afterTol * (1 + inc / 100);
-        let afterDuty = afterInc * (1 + duty / 100);
-        return Math.max(0, afterDuty * exRate);
-    }
-
-    function calculateAll() {
-        if (selectedCargoIndex === null || !cargoRates[selectedCargoIndex]) {
-            finalInsurableSpan.innerText = '0.00';
-            ratePercentDisplay.innerText = '0.0000%';
-            grossPremiumSpan.innerText = '0.00';
-            discountPercentLabel.innerText = '0%';
-            discountAmountSpan.innerText = '- 0.00';
-            netPremiumSpan.innerText = '0.00';
-            srccAmountSpan.innerText = '0.00';
-            subtotalAfterSrccSpan.innerText = '0.00';
-            highValueDiscountAmtSpan.innerText = '- 0.00';
-            afterHighValueSpan.innerText = '0.00';
-            directDiscountAmtSpan.innerText = '- 0.00';
-            totalAfterAllDiscSpan.innerText = '0.00';
-            vatAmountSpan.innerText = '0.00';
-            totalPayableSpan.innerText = '0.00';
-            return;
-        }
-        const cargo = cargoRates[selectedCargoIndex];
-        let baseRate = cargo.rates[selectedRisk];
-        baseRate = getBaseRateWithContainerDisc(baseRate);
-        const insurableValue = computeInsurableValue();
-        finalInsurableSpan.innerText = insurableValue.toFixed(2);
-        ratePercentDisplay.innerText = baseRate.toFixed(4) + '%';
-
-        const grossPremium = insurableValue * (baseRate / 100);
-        const transitDiscPct = getTransitDiscountPercent();
-        const transitDiscAmt = grossPremium * (transitDiscPct / 100);
-        const netAfterTransit = grossPremium - transitDiscAmt;
-
-        let srccEnabled = srccCheckbox.checked;
-        if (selectedRisk === 'A') {
-            srccEnabled = true;
-            srccCheckbox.checked = true;
-            srccCheckbox.disabled = true;
-        } else {
-            srccCheckbox.disabled = false;
-        }
-        let srccPremium = 0;
-        if (srccEnabled) srccPremium = insurableValue * (getSrccRate() / 100);
-        const subtotalSrcc = netAfterTransit + srccPremium;
-
-        let invoiceVal = parseFloat(invoiceInput.value) || 0;
-        let highValueDiscount = 0;
-        if (invoiceVal > 500000000) {
-            highValueDiscount = subtotalSrcc * 0.20;
-        }
-        const afterHighValue = subtotalSrcc - highValueDiscount;
-
-        let directDiscAmt = 0;
-        if (directDiscountCheck.checked) {
-            directDiscAmt = afterHighValue * 0.025;
-        }
-        const totalAfterDirect = afterHighValue - directDiscAmt;
-
-        const vat = totalAfterDirect * 0.13;
-        const serviceFee = 20;
-        const finalTotal = totalAfterDirect + vat + serviceFee;
-
-        discountPercentLabel.innerText = `${transitDiscPct}%`;
-        grossPremiumSpan.innerText = grossPremium.toFixed(2);
-        discountAmountSpan.innerText = `- ${transitDiscAmt.toFixed(2)}`;
-        netPremiumSpan.innerText = netAfterTransit.toFixed(2);
-        srccAmountSpan.innerText = srccPremium.toFixed(2);
-        subtotalAfterSrccSpan.innerText = subtotalSrcc.toFixed(2);
-        highValueDiscountAmtSpan.innerText = `- ${highValueDiscount.toFixed(2)}`;
-        afterHighValueSpan.innerText = afterHighValue.toFixed(2);
-        directDiscountAmtSpan.innerText = `- ${directDiscAmt.toFixed(2)}`;
-        totalAfterAllDiscSpan.innerText = totalAfterDirect.toFixed(2);
-        vatAmountSpan.innerText = vat.toFixed(2);
-        totalPayableSpan.innerText = finalTotal.toFixed(2);
-    }
-
-    function updatePreviewAndRate() {
-        if (selectedCargoIndex !== null && cargoRates[selectedCargoIndex]) {
-            const c = cargoRates[selectedCargoIndex];
-            previewEn.innerText = c.en;
-            previewNe.innerText = c.ne;
-            let rate = c.rates[selectedRisk];
-            if (transitMode.value === 'sea' && containerDiscount.checked) rate = rate * 0.90;
-            rateValueSpan.innerHTML = `${rate.toFixed(2)}%`;
-        } else {
-            previewEn.innerText = "—";
-            previewNe.innerText = "—";
-            rateValueSpan.innerHTML = "0.00%";
-        }
-        calculateAll();
-    }
-
-    // Event listeners
-    srccCheckbox.addEventListener('change', calculateAll);
-    directDiscountCheck.addEventListener('change', calculateAll);
-    invoiceInput.addEventListener('input', calculateAll);
-    toleranceInput.addEventListener('input', calculateAll);
-    incrementalInput.addEventListener('input', calculateAll);
-    dutyInput.addEventListener('input', calculateAll);
-    exchangeInput.addEventListener('input', calculateAll);
-    recalcBtn.addEventListener('click', calculateAll);
-
-    // Initialize
-    selectedCargoIndex = 0;
-    cargoSearch.value = cargoRates[0].en;
-    updatePreviewAndRate();
-    updateTransitUI();
-    calculateAll();
-</script>
 </body>
 </html>
